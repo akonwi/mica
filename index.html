@@ -7,27 +7,28 @@
   <link rel="stylesheet" href="mica.css" />
   <style>
     /* Demo-only styles. Deliberately unlayered: user CSS always wins. */
-    /* typography, margins, rhythm now come from mica's preset */
-    body {
-      background: #fafafa;
-      color: #222;
-    }
+    /* typography, margins, rhythm, page colors all come from mica.
+       demo styles below use only semantic roles — so dark mode is free. */
     header, section { padding-block: var(--space-xl); }
     h1 { font-size: 2rem; }
     h2 { font-size: 1.25rem; }
-    code { background: #eee; padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.9em; }
+    code {
+      background: var(--color-surface-raised);
+      border: 1px solid var(--color-border);
+      padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.9em;
+    }
     .card {
-      background: #fff;
-      border: 1px solid #ddd;
+      background: var(--color-surface-raised);
+      border: 1px solid var(--color-border);
       border-radius: 8px;
     }
     .swatch {
-      background: #e8e4de;
+      background: color-mix(in oklch, var(--color-accent) 14%, var(--color-surface));
       border-radius: 6px;
       padding: var(--space-sm) var(--space-md);
     }
     .tall { min-block-size: 6rem; display: grid; place-items: center; }
-    footer { padding-block: var(--space-2xl); color: #777; }
+    footer { padding-block: var(--space-2xl); color: var(--color-text-muted); }
   </style>
 </head>
 <body>
@@ -76,7 +77,7 @@
       <m-vstack gap="md">
         <h2><code>&lt;m-zstack&gt;</code> — layering; paint order is DOM order</h2>
         <m-zstack style="min-block-size: 10rem">
-          <div style="background: linear-gradient(135deg, #d8d2c8, #b8b0a2); border-radius: 8px"></div>
+          <div style="background: linear-gradient(135deg, color-mix(in oklch, var(--color-accent) 25%, var(--color-surface)), var(--color-accent)); border-radius: 8px"></div>
           <p style="place-self: center">centered layer</p>
           <p class="swatch" style="place-self: start end; margin: var(--space-sm)">badge</p>
         </m-zstack>

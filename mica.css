@@ -30,7 +30,46 @@
 
     --focus-ring-width: 2px;
     --focus-ring-offset: 2px;
-    --focus-ring-color: currentColor;
+    --focus-ring-color: var(--color-accent);
+
+    /* -------------------------------------------------------------- *
+     * Color. Two knobs — change the theme by changing the knobs:
+     *   --hue: the accent hue (OKLCH degrees)
+     *   --chroma: accent intensity
+     * Neutrals are faintly tinted toward the accent hue.
+     * Components only ever use semantic roles, never raw values.
+     * -------------------------------------------------------------- */
+    color-scheme: light dark;
+
+    --hue: 250;
+    --chroma: 0.13;
+    --neutral-chroma: 0.008;
+
+    /* semantic roles */
+    --color-surface: light-dark(
+      oklch(99% var(--neutral-chroma) var(--hue)),
+      oklch(19% var(--neutral-chroma) var(--hue)));
+    --color-surface-raised: light-dark(
+      oklch(97% var(--neutral-chroma) var(--hue)),
+      oklch(24% var(--neutral-chroma) var(--hue)));
+    --color-text: light-dark(
+      oklch(22% var(--neutral-chroma) var(--hue)),
+      oklch(93% var(--neutral-chroma) var(--hue)));
+    --color-text-muted: light-dark(
+      oklch(50% var(--neutral-chroma) var(--hue)),
+      oklch(72% var(--neutral-chroma) var(--hue)));
+    --color-border: light-dark(
+      oklch(90% var(--neutral-chroma) var(--hue)),
+      oklch(33% var(--neutral-chroma) var(--hue)));
+    --color-border-strong: light-dark(
+      oklch(78% var(--neutral-chroma) var(--hue)),
+      oklch(45% var(--neutral-chroma) var(--hue)));
+    --color-accent: light-dark(
+      oklch(52% var(--chroma) var(--hue)),
+      oklch(72% var(--chroma) var(--hue)));
+    --color-on-accent: light-dark(
+      oklch(99% 0.01 var(--hue)),
+      oklch(18% 0.02 var(--hue)));
   }
 }
 
@@ -56,6 +95,8 @@
     min-block-size: 100svh;
     font-family: var(--font-body);
     line-height: var(--line-height);
+    background: var(--color-surface);
+    color: var(--color-text);
   }
 
   /* Vertical rhythm: flow content spaces itself; last child never
