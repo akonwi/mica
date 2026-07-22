@@ -7,17 +7,14 @@
   <link rel="stylesheet" href="mica.css" />
   <style>
     /* Demo-only styles. Deliberately unlayered: user CSS always wins. */
+    /* typography, margins, rhythm now come from mica's preset */
     body {
-      font-family: system-ui, sans-serif;
-      line-height: 1.5;
-      margin: 0;
       background: #fafafa;
       color: #222;
     }
     header, section { padding-block: var(--space-xl); }
-    h1 { font-size: 2rem; margin: 0; }
-    h2 { margin: 0; font-size: 1.25rem; }
-    p  { margin: 0; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.25rem; }
     code { background: #eee; padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.9em; }
     .card {
       background: #fff;
@@ -138,6 +135,18 @@
           <div class="card tall" style="inline-size: 14rem">slide 6</div>
         </m-reel>
       </m-vstack>
+    </section>
+
+    <section>
+      <h2>The preset — bare prose, no mica tags, no demo styles</h2>
+      <p>This section is plain HTML flow content. The spacing between these
+      paragraphs, the heading margins, and the line length wrapping come from
+      <code>@layer mica.preset</code> — constructive defaults, not a blank slate.</p>
+      <p>Tab to this <a href="#main">link</a> or this <button>button</button> to
+      see the tokenized focus ring. The button already inherits body typography.</p>
+      <h3>A following heading gets breathing room above</h3>
+      <p>Because it isn't a first child. Inside a stack, all of this rhythm
+      yields to <code>gap</code> — the stack owns spacing.</p>
     </section>
 
     <section>

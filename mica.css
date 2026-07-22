@@ -1,7 +1,7 @@
 /*! mica — custom elements, native behavior, nearly no JavaScript. */
 
-/* Layer order: tokens first, layout second. User's unlayered CSS always wins. */
-@layer mica.tokens, mica.layout;
+/* Layer order. User's unlayered CSS always wins over all of it. */
+@layer mica.tokens, mica.preset, mica.elements, mica.layout;
 
 /* ------------------------------------------------------------------ *
  * Tokens — mica's only opinion. Spacing and size scales.
@@ -23,6 +23,97 @@
     --size-xl: 40rem;
 
     --measure: 60ch;
+
+    --font-body: system-ui, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --line-height: 1.5;
+
+    --focus-ring-width: 2px;
+    --focus-ring-offset: 2px;
+    --focus-ring-color: currentColor;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Preset — constructive defaults, Kelp-school not Preflight-school:
+ * raw HTML should look finished, not like nothing. Zero-specificity
+ * (:where) inside a layer: doubly overridable.
+ * ------------------------------------------------------------------ */
+@layer mica.preset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+
+  :where(body) {
+    margin: 0;
+    min-block-size: 100svh;
+    font-family: var(--font-body);
+    line-height: var(--line-height);
+  }
+
+  /* Vertical rhythm: flow content spaces itself; last child never
+     pushes against its container. Stacks override all of this with gap. */
+  :where(p, ol, ul, dl, dd, blockquote, pre, table, figure, fieldset,
+         details, address, audio, video, iframe) {
+    margin-block: 0 var(--flow-space, var(--space-md));
+  }
+  :where(p, ol, ul, dl, dd, blockquote, pre, table, figure, fieldset,
+         details, address, audio, video, iframe):last-child {
+    margin-block-end: 0;
+  }
+
+  :where(h1, h2, h3, h4, h5, h6) {
+    margin-block: 0 var(--space-sm);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  /* Headings that follow content get breathing room above. */
+  :where(h2, h3, h4, h5, h6):where(:not(:first-child)) {
+    margin-block-start: var(--space-xl);
+  }
+
+  :where(p) {
+    text-wrap: pretty;
+  }
+
+  /* Media behaves like content, not like text. */
+  :where(img, svg, video, canvas, picture) {
+    display: block;
+    max-inline-size: 100%;
+    block-size: auto;
+  }
+
+  /* Form controls inherit typography instead of shipping 2009's. */
+  :where(button, input, select, textarea) {
+    font: inherit;
+  }
+
+  :where(pre, code, kbd, samp) {
+    font-family: var(--font-mono);
+  }
+
+  /* Tokenized focus ring — the theming story for focus, day one. */
+  :where(:focus-visible) {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -72,6 +163,9 @@
     flex-direction: column;
     align-items: var(--align, stretch);
     gap: var(--gap, var(--space-md));
+
+    /* the stack owns spacing; preset rhythm yields to gap */
+    & > * { margin-block: 0; }
   }
 
   /* --- m-hstack: one horizontal row; `wrap` to allow wrapping ------ */
@@ -82,6 +176,8 @@
     gap: var(--gap, var(--space-md));
 
     &[wrap] { flex-wrap: wrap; }
+
+    & > * { margin-block: 0; }
 
     &[justify="start"]   { --justify: flex-start; }
     &[justify="center"]  { --justify: center; }
