@@ -1,0 +1,192 @@
+/*! mica — custom elements, native behavior, nearly no JavaScript. */
+
+/* Layer order: tokens first, layout second. User's unlayered CSS always wins. */
+@layer mica.tokens, mica.layout;
+
+/* ------------------------------------------------------------------ *
+ * Tokens — mica's only opinion. Spacing and size scales.
+ * ------------------------------------------------------------------ */
+@layer mica.tokens {
+  :root {
+    --space-2xs: 0.25rem;
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2.5rem;
+    --space-2xl: 4rem;
+
+    --size-xs: 10rem;
+    --size-sm: 15rem;
+    --size-md: 20rem;
+    --size-lg: 30rem;
+    --size-xl: 40rem;
+
+    --measure: 60ch;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Layout primitives (Tier 0)
+ *
+ * Mechanism: attributes only set custom properties; rules read custom
+ * properties. `gap="lg"` and `style="--gap: 2.5rem"` are the same thing.
+ * ------------------------------------------------------------------ */
+@layer mica.layout {
+  /* Custom elements default to display:inline; give ours a sane base. */
+  m-stack,
+  m-cluster,
+  m-center,
+  m-box,
+  m-grid,
+  m-sidebar,
+  m-switcher,
+  m-reel {
+    display: block;
+    box-sizing: border-box;
+  }
+
+  /* Shared attribute vocabulary -> custom properties */
+  :is(m-stack, m-cluster, m-grid, m-sidebar, m-switcher, m-reel) {
+    &[gap="none"] { --gap: 0; }
+    &[gap="2xs"]  { --gap: var(--space-2xs); }
+    &[gap="xs"]   { --gap: var(--space-xs); }
+    &[gap="sm"]   { --gap: var(--space-sm); }
+    &[gap="md"]   { --gap: var(--space-md); }
+    &[gap="lg"]   { --gap: var(--space-lg); }
+    &[gap="xl"]   { --gap: var(--space-xl); }
+    &[gap="2xl"]  { --gap: var(--space-2xl); }
+  }
+
+  :is(m-stack, m-cluster) {
+    &[align="start"]   { --align: flex-start; }
+    &[align="center"]  { --align: center; }
+    &[align="end"]     { --align: flex-end; }
+    &[align="stretch"] { --align: stretch; }
+  }
+
+  /* --- m-stack: vertical flow with consistent gaps ----------------- */
+  m-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: var(--align, stretch);
+    gap: var(--gap, var(--space-md));
+  }
+
+  /* --- m-cluster: horizontal grouping that wraps ------------------- */
+  m-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: var(--align, center);
+    justify-content: var(--justify, flex-start);
+    gap: var(--gap, var(--space-md));
+
+    &[justify="start"]   { --justify: flex-start; }
+    &[justify="center"]  { --justify: center; }
+    &[justify="end"]     { --justify: flex-end; }
+    &[justify="between"] { --justify: space-between; }
+  }
+
+  /* --- m-center: intrinsic horizontal centering with a measure ----- */
+  m-center {
+    max-inline-size: var(--max, var(--measure));
+    margin-inline: auto;
+    padding-inline: var(--gutter, 0);
+
+    &[max="xs"] { --max: var(--size-xs); }
+    &[max="sm"] { --max: var(--size-sm); }
+    &[max="md"] { --max: var(--size-md); }
+    &[max="lg"] { --max: var(--size-lg); }
+    &[max="xl"] { --max: var(--size-xl); }
+
+    &[gutter="sm"] { --gutter: var(--space-sm); }
+    &[gutter="md"] { --gutter: var(--space-md); }
+    &[gutter="lg"] { --gutter: var(--space-lg); }
+  }
+
+  /* --- m-box: padding, an inside for content ----------------------- */
+  m-box {
+    padding: var(--pad, var(--space-md));
+
+    &[pad="none"] { --pad: 0; }
+    &[pad="xs"]   { --pad: var(--space-xs); }
+    &[pad="sm"]   { --pad: var(--space-sm); }
+    &[pad="md"]   { --pad: var(--space-md); }
+    &[pad="lg"]   { --pad: var(--space-lg); }
+    &[pad="xl"]   { --pad: var(--space-xl); }
+  }
+
+  /* --- m-grid: responsive grid, no media queries ------------------- */
+  m-grid {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(var(--min, var(--size-sm)), 100%), 1fr)
+    );
+    gap: var(--gap, var(--space-md));
+
+    &[min="xs"] { --min: var(--size-xs); }
+    &[min="sm"] { --min: var(--size-sm); }
+    &[min="md"] { --min: var(--size-md); }
+    &[min="lg"] { --min: var(--size-lg); }
+  }
+
+  /* --- m-sidebar: sidebar + content, stacks when narrow ------------ */
+  m-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap, var(--space-md));
+
+    /* sidebar is the first child by default; `side="end"` flips it */
+    & > :first-child {
+      flex-basis: var(--side-width, var(--size-xs));
+      flex-grow: 1;
+    }
+    & > :last-child {
+      flex-basis: 0;
+      flex-grow: 999;
+      min-inline-size: var(--content-min, 50%);
+    }
+
+    &[side="end"] > :first-child {
+      order: 1;
+    }
+
+    &[side-width="xs"] { --side-width: var(--size-xs); }
+    &[side-width="sm"] { --side-width: var(--size-sm); }
+    &[side-width="md"] { --side-width: var(--size-md); }
+  }
+
+  /* --- m-switcher: row that switches to a column below a threshold - */
+  m-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap, var(--space-md));
+
+    & > * {
+      flex-basis: calc((var(--threshold, var(--size-lg)) - 100%) * 999);
+      flex-grow: 1;
+    }
+
+    &[threshold="sm"] { --threshold: var(--size-sm); }
+    &[threshold="md"] { --threshold: var(--size-md); }
+    &[threshold="lg"] { --threshold: var(--size-lg); }
+    &[threshold="xl"] { --threshold: var(--size-xl); }
+  }
+
+  /* --- m-reel: horizontal scroll with snap ------------------------- */
+  m-reel {
+    display: flex;
+    gap: var(--gap, var(--space-md));
+    overflow-x: auto;
+    scroll-snap-type: inline proximity;
+
+    & > * {
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+
+    &[snap="none"]      { scroll-snap-type: none; }
+    &[snap="mandatory"] { scroll-snap-type: inline mandatory; }
+  }
+}

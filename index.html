@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>mica — layout primitives</title>
+  <link rel="stylesheet" href="mica.css" />
+  <style>
+    /* Demo-only styles. Deliberately unlayered: user CSS always wins. */
+    body {
+      font-family: system-ui, sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      background: #fafafa;
+      color: #222;
+    }
+    header, section { padding-block: var(--space-xl); }
+    h1 { font-size: 2rem; margin: 0; }
+    h2 { margin: 0; font-size: 1.25rem; }
+    p  { margin: 0; }
+    code { background: #eee; padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.9em; }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .swatch {
+      background: #e8e4de;
+      border-radius: 6px;
+      padding: var(--space-sm) var(--space-md);
+    }
+    .tall { min-block-size: 6rem; display: grid; place-items: center; }
+    footer { padding-block: var(--space-2xl); color: #777; }
+  </style>
+</head>
+<body>
+
+<m-center max="xl" gutter="md">
+
+  <header>
+    <m-stack gap="sm">
+      <h1>mica</h1>
+      <p>Custom elements. Native behavior. Nearly no JavaScript.</p>
+      <p>View source: there is nothing here but HTML and a stylesheet.</p>
+    </m-stack>
+  </header>
+
+  <m-stack gap="2xl">
+
+    <section>
+      <m-stack gap="md">
+        <h2><code>&lt;m-stack&gt;</code> — vertical flow</h2>
+        <m-stack gap="xs" class="card"><m-box>
+          <m-stack gap="xs">
+            <div class="swatch">one</div>
+            <div class="swatch">two</div>
+            <div class="swatch">three</div>
+          </m-stack>
+        </m-box></m-stack>
+      </m-stack>
+    </section>
+
+    <section>
+      <m-stack gap="md">
+        <h2><code>&lt;m-cluster&gt;</code> — horizontal grouping that wraps</h2>
+        <div class="card"><m-box>
+          <m-cluster gap="sm">
+            <div class="swatch">alpha</div>
+            <div class="swatch">beta</div>
+            <div class="swatch">gamma</div>
+            <div class="swatch">delta</div>
+            <div class="swatch">epsilon</div>
+          </m-cluster>
+        </m-box></div>
+      </m-stack>
+    </section>
+
+    <section>
+      <m-stack gap="md">
+        <h2><code>&lt;m-grid&gt;</code> — responsive, no media queries</h2>
+        <m-grid gap="md" min="xs">
+          <div class="card tall">1</div>
+          <div class="card tall">2</div>
+          <div class="card tall">3</div>
+          <div class="card tall">4</div>
+          <div class="card tall">5</div>
+          <div class="card tall">6</div>
+        </m-grid>
+      </m-stack>
+    </section>
+
+    <section>
+      <m-stack gap="md">
+        <h2><code>&lt;m-sidebar&gt;</code> — stacks when narrow</h2>
+        <m-sidebar gap="md">
+          <div class="card tall">sidebar</div>
+          <div class="card tall">content</div>
+        </m-sidebar>
+      </m-stack>
+    </section>
+
+    <section>
+      <m-stack gap="md">
+        <h2><code>&lt;m-switcher&gt;</code> — row ↔ column at a threshold</h2>
+        <m-switcher gap="md" threshold="lg">
+          <div class="card tall">a</div>
+          <div class="card tall">b</div>
+          <div class="card tall">c</div>
+        </m-switcher>
+      </m-stack>
+    </section>
+
+    <section>
+      <m-stack gap="md">
+        <h2><code>&lt;m-reel&gt;</code> — horizontal scroll with snap</h2>
+        <m-reel gap="md">
+          <div class="card tall" style="inline-size: 14rem">slide 1</div>
+          <div class="card tall" style="inline-size: 14rem">slide 2</div>
+          <div class="card tall" style="inline-size: 14rem">slide 3</div>
+          <div class="card tall" style="inline-size: 14rem">slide 4</div>
+          <div class="card tall" style="inline-size: 14rem">slide 5</div>
+          <div class="card tall" style="inline-size: 14rem">slide 6</div>
+        </m-reel>
+      </m-stack>
+    </section>
+
+    <section>
+      <m-stack gap="md">
+        <h2>Escape hatch — arbitrary values via custom properties</h2>
+        <p><code>&lt;m-stack style="--gap: 2.75rem"&gt;</code> — attributes and custom properties are the same mechanism.</p>
+        <m-stack style="--gap: 2.75rem" class="card"><m-box>
+          <m-stack style="--gap: 2.75rem">
+            <div class="swatch">one</div>
+            <div class="swatch">two</div>
+          </m-stack>
+        </m-box></m-stack>
+      </m-stack>
+    </section>
+
+  </m-stack>
+
+  <footer>
+    <p>mica — a soupçon of JavaScript. (This page contains none.)</p>
+  </footer>
+
+</m-center>
+
+</body>
+</html>
