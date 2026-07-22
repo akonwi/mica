@@ -36,6 +36,7 @@
   /* Custom elements default to display:inline; give ours a sane base. */
   m-vstack,
   m-hstack,
+  m-zstack,
   m-center,
   m-box,
   m-grid,
@@ -86,6 +87,29 @@
     &[justify="center"]  { --justify: center; }
     &[justify="end"]     { --justify: flex-end; }
     &[justify="between"] { --justify: space-between; }
+  }
+
+  /* --- m-zstack: layering; children occupy the same grid cell ------ */
+  m-zstack {
+    display: grid;
+    align-items: var(--align, stretch);
+    justify-items: var(--justify, stretch);
+
+    &[align="start"]   { --align: start; }
+    &[align="center"]  { --align: center; }
+    &[align="end"]     { --align: end; }
+    &[align="stretch"] { --align: stretch; }
+
+    &[justify="start"]   { --justify: start; }
+    &[justify="center"]  { --justify: center; }
+    &[justify="end"]     { --justify: end; }
+    &[justify="stretch"] { --justify: stretch; }
+
+    /* every layer shares one cell; paint order is DOM order.
+       per-layer placement is just user CSS: place-self on the child. */
+    & > * {
+      grid-area: 1 / 1;
+    }
   }
 
   /* --- m-center: intrinsic horizontal centering with a measure ----- */

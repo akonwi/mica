@@ -76,7 +76,7 @@ behind graceful fallbacks until they land everywhere.
 - Tag prefix: **`m-`** (`<m-vstack>`, `<m-hstack>`). Terse tags; the markup
   barely looks like a library is present.
 - Stacks are axis-named after SwiftUI: `m-vstack`, `m-hstack` (nowrap by
-  default, `wrap` opt-in), with `m-zstack` reserved for layering. Other
+  default, `wrap` opt-in) and `m-zstack` for layering. Other
   vocabulary aligns with kindred libraries where it fits (e.g. `m-sidecar`,
   after Kelp).
 - Infrastructure stays legible: `@layer mica.tokens, mica.layout;` and

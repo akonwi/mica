@@ -77,6 +77,18 @@
 
     <section>
       <m-vstack gap="md">
+        <h2><code>&lt;m-zstack&gt;</code> — layering; paint order is DOM order</h2>
+        <m-zstack style="min-block-size: 10rem">
+          <div style="background: linear-gradient(135deg, #d8d2c8, #b8b0a2); border-radius: 8px"></div>
+          <p style="place-self: center">centered layer</p>
+          <p class="swatch" style="place-self: start end; margin: var(--space-sm)">badge</p>
+        </m-zstack>
+        <p>Per-layer placement is just <code>place-self</code> on the child — light DOM means the platform is the escape hatch.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
         <h2><code>&lt;m-grid&gt;</code> — responsive, no media queries</h2>
         <m-grid gap="md" min="xs">
           <div class="card tall">1</div>
