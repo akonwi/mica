@@ -42,6 +42,8 @@ platform improves is a release highlight.
 Never fake behavior in CSS. If a pattern requires JS to be accessible
 (roving tabindex, ARIA wiring), it is Tier 2 or it doesn't ship.
 
+See [TIERS.md](TIERS.md) for the classification tests and component map.
+
 ## Principles
 
 1. **Light DOM, always.** Shadow DOM never guards anything a user might want
@@ -52,9 +54,13 @@ Never fake behavior in CSS. If a pattern requires JS to be accessible
 2. **User CSS always wins — by physics, not promise.** All mica styles ship
    inside `@layer mica.*`. Unlayered user CSS beats layered CSS by spec.
    No specificity wars, ever.
-3. **Neutral core.** No colors, no fonts, no look. Mica's only opinion is a
-   token vocabulary (spacing, sizes). Users — or kits built on mica — bring
-   the aesthetic.
+3. **Token-driven defaults.** Mica styles native elements directly —
+   `button`, inputs, headings get quietly good defaults so a plain HTML
+   page looks finished (Pico-style drop-in). But every design decision
+   routes through tokens: theming is swapping token values, never
+   overriding component CSS, and one theme reaches native elements and
+   mica elements alike. Because everything ships in `@layer`, the defaults
+   are opinions you can overrule, not decisions you inherit.
 4. **Framework-agnostic by absence.** No props, no events, no registration
    in Tier 0–1 means there is no interop surface at all. React, Svelte, a Go
    template, a Markdown SSG: identical usage.
@@ -93,8 +99,9 @@ behind graceful fallbacks until they land everywhere.
 1. **v1 — Tier 0.** ~8 layout primitives, one small CSS file, zero JS.
    Prove the model: same markup in every framework, view-source shows
    nothing but HTML and a stylesheet.
-2. **Tier 1.** Styled native controls and patterns: dialog, accordion,
-   popover menus, tooltips, forms.
+2. **Tier 1.** A preset (mica's take on Preflight — modern, minimal,
+   layered) plus styled native controls and patterns: buttons, forms,
+   dialog, accordion, popover menus, tooltips. Theming via token swaps.
 3. **Tier 2.** The short honest list of enhanced components.
 
 Tagline candidate: *"a soupçon of JavaScript."*
