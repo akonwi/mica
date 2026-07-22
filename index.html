@@ -38,45 +38,45 @@
 <m-center max="xl" gutter="md">
 
   <header>
-    <m-stack gap="sm">
+    <m-vstack gap="sm">
       <h1>mica</h1>
       <p>Custom elements. Native behavior. Nearly no JavaScript.</p>
       <p>View source: there is nothing here but HTML and a stylesheet.</p>
-    </m-stack>
+    </m-vstack>
   </header>
 
-  <m-stack gap="2xl">
+  <m-vstack gap="2xl">
 
     <section>
-      <m-stack gap="md">
-        <h2><code>&lt;m-stack&gt;</code> — vertical flow</h2>
-        <m-stack gap="xs" class="card"><m-box>
-          <m-stack gap="xs">
+      <m-vstack gap="md">
+        <h2><code>&lt;m-vstack&gt;</code> — vertical flow</h2>
+        <m-vstack gap="xs" class="card"><m-box>
+          <m-vstack gap="xs">
             <div class="swatch">one</div>
             <div class="swatch">two</div>
             <div class="swatch">three</div>
-          </m-stack>
-        </m-box></m-stack>
-      </m-stack>
+          </m-vstack>
+        </m-box></m-vstack>
+      </m-vstack>
     </section>
 
     <section>
-      <m-stack gap="md">
-        <h2><code>&lt;m-cluster&gt;</code> — horizontal grouping that wraps</h2>
+      <m-vstack gap="md">
+        <h2><code>&lt;m-hstack&gt;</code> — one row; add <code>wrap</code> to allow wrapping</h2>
         <div class="card"><m-box>
-          <m-cluster gap="sm">
+          <m-hstack gap="sm" wrap>
             <div class="swatch">alpha</div>
             <div class="swatch">beta</div>
             <div class="swatch">gamma</div>
             <div class="swatch">delta</div>
             <div class="swatch">epsilon</div>
-          </m-cluster>
+          </m-hstack>
         </m-box></div>
-      </m-stack>
+      </m-vstack>
     </section>
 
     <section>
-      <m-stack gap="md">
+      <m-vstack gap="md">
         <h2><code>&lt;m-grid&gt;</code> — responsive, no media queries</h2>
         <m-grid gap="md" min="xs">
           <div class="card tall">1</div>
@@ -86,32 +86,36 @@
           <div class="card tall">5</div>
           <div class="card tall">6</div>
         </m-grid>
-      </m-stack>
+      </m-vstack>
     </section>
 
     <section>
-      <m-stack gap="md">
-        <h2><code>&lt;m-sidebar&gt;</code> — stacks when narrow</h2>
-        <m-sidebar gap="md">
-          <div class="card tall">sidebar</div>
+      <m-vstack gap="md">
+        <h2><code>&lt;m-sidecar&gt;</code> — fixed + flexible pair, stacks when narrow</h2>
+        <m-sidecar gap="md">
+          <div class="card tall">sidecar</div>
           <div class="card tall">content</div>
-        </m-sidebar>
-      </m-stack>
+        </m-sidecar>
+        <m-sidecar gap="md" side="end">
+          <div class="card tall">content</div>
+          <div class="card tall">sidecar</div>
+        </m-sidecar>
+      </m-vstack>
     </section>
 
     <section>
-      <m-stack gap="md">
+      <m-vstack gap="md">
         <h2><code>&lt;m-switcher&gt;</code> — row ↔ column at a threshold</h2>
         <m-switcher gap="md" threshold="lg">
           <div class="card tall">a</div>
           <div class="card tall">b</div>
           <div class="card tall">c</div>
         </m-switcher>
-      </m-stack>
+      </m-vstack>
     </section>
 
     <section>
-      <m-stack gap="md">
+      <m-vstack gap="md">
         <h2><code>&lt;m-reel&gt;</code> — horizontal scroll with snap</h2>
         <m-reel gap="md">
           <div class="card tall" style="inline-size: 14rem">slide 1</div>
@@ -121,23 +125,23 @@
           <div class="card tall" style="inline-size: 14rem">slide 5</div>
           <div class="card tall" style="inline-size: 14rem">slide 6</div>
         </m-reel>
-      </m-stack>
+      </m-vstack>
     </section>
 
     <section>
-      <m-stack gap="md">
+      <m-vstack gap="md">
         <h2>Escape hatch — arbitrary values via custom properties</h2>
-        <p><code>&lt;m-stack style="--gap: 2.75rem"&gt;</code> — attributes and custom properties are the same mechanism.</p>
-        <m-stack style="--gap: 2.75rem" class="card"><m-box>
-          <m-stack style="--gap: 2.75rem">
+        <p><code>&lt;m-vstack style="--gap: 2.75rem"&gt;</code> — attributes and custom properties are the same mechanism.</p>
+        <m-vstack style="--gap: 2.75rem" class="card"><m-box>
+          <m-vstack style="--gap: 2.75rem">
             <div class="swatch">one</div>
             <div class="swatch">two</div>
-          </m-stack>
-        </m-box></m-stack>
-      </m-stack>
+          </m-vstack>
+        </m-box></m-vstack>
+      </m-vstack>
     </section>
 
-  </m-stack>
+  </m-vstack>
 
   <footer>
     <p>mica — a soupçon of JavaScript. (This page contains none.)</p>

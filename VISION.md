@@ -15,7 +15,7 @@ categories of "state JavaScript." Most component libraries still ship JS to
 reimplement things HTML and CSS now do natively.
 
 Mica's bet: an unregistered custom element is a valid, stylable element.
-`<m-stack>` needs zero JS to exist — it is a semantic styling hook. Behavior
+`<m-vstack>` needs zero JS to exist — it is a semantic styling hook. Behavior
 comes from the browser, not from a runtime.
 
 ## Positioning
@@ -29,8 +29,8 @@ can be layered over — copy the markup, restyle it, own it.
 Every component states its tier. Moving a component *down* a tier as the
 platform improves is a release highlight.
 
-- **Tier 0 — pure CSS, custom tags.** Layout primitives (`<m-stack>`,
-  `<m-cluster>`, `<m-grid>`…). No registration, no JS, SSR-trivial, works
+- **Tier 0 — pure CSS, custom tags.** Layout primitives (`<m-vstack>`,
+  `<m-hstack>`, `<m-grid>`…). No registration, no JS, SSR-trivial, works
   with JS disabled.
 - **Tier 1 — styled native elements.** Dialog, details/accordion, popover
   menus, tooltips, select. The behavior is the browser's; mica is CSS plus
@@ -59,7 +59,7 @@ Never fake behavior in CSS. If a pattern requires JS to be accessible
    in Tier 0–1 means there is no interop surface at all. React, Svelte, a Go
    template, a Markdown SSG: identical usage.
 5. **Attributes are the vocabulary, custom properties are the escape hatch.**
-   `<m-stack gap="lg">` for the enumerated token vocabulary;
+   `<m-vstack gap="lg">` for the enumerated token vocabulary;
    `style="--gap: 2.5rem"` for arbitrary values. Both converge on the same
    mechanism: attributes only set custom properties.
 
@@ -73,8 +73,12 @@ behind graceful fallbacks until they land everywhere.
 
 - Library: **mica** — a mineral that is thin, transparent, layered, and an
   insulator. Raw mica comes in "books" that cleave into "sheets."
-- Tag prefix: **`m-`** (`<m-stack>`, `<m-cluster>`). Terse tags; the markup
+- Tag prefix: **`m-`** (`<m-vstack>`, `<m-hstack>`). Terse tags; the markup
   barely looks like a library is present.
+- Stacks are axis-named after SwiftUI: `m-vstack`, `m-hstack` (nowrap by
+  default, `wrap` opt-in), with `m-zstack` reserved for layering. Other
+  vocabulary aligns with kindred libraries where it fits (e.g. `m-sidecar`,
+  after Kelp).
 - Infrastructure stays legible: `@layer mica.tokens, mica.layout;` and
   descriptive token names (`--space-lg`).
 

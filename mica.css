@@ -34,12 +34,12 @@
  * ------------------------------------------------------------------ */
 @layer mica.layout {
   /* Custom elements default to display:inline; give ours a sane base. */
-  m-stack,
-  m-cluster,
+  m-vstack,
+  m-hstack,
   m-center,
   m-box,
   m-grid,
-  m-sidebar,
+  m-sidecar,
   m-switcher,
   m-reel {
     display: block;
@@ -47,7 +47,7 @@
   }
 
   /* Shared attribute vocabulary -> custom properties */
-  :is(m-stack, m-cluster, m-grid, m-sidebar, m-switcher, m-reel) {
+  :is(m-vstack, m-hstack, m-grid, m-sidecar, m-switcher, m-reel) {
     &[gap="none"] { --gap: 0; }
     &[gap="2xs"]  { --gap: var(--space-2xs); }
     &[gap="xs"]   { --gap: var(--space-xs); }
@@ -58,28 +58,29 @@
     &[gap="2xl"]  { --gap: var(--space-2xl); }
   }
 
-  :is(m-stack, m-cluster) {
+  :is(m-vstack, m-hstack) {
     &[align="start"]   { --align: flex-start; }
     &[align="center"]  { --align: center; }
     &[align="end"]     { --align: flex-end; }
     &[align="stretch"] { --align: stretch; }
   }
 
-  /* --- m-stack: vertical flow with consistent gaps ----------------- */
-  m-stack {
+  /* --- m-vstack: vertical flow with consistent gaps ---------------- */
+  m-vstack {
     display: flex;
     flex-direction: column;
     align-items: var(--align, stretch);
     gap: var(--gap, var(--space-md));
   }
 
-  /* --- m-cluster: horizontal grouping that wraps ------------------- */
-  m-cluster {
+  /* --- m-hstack: one horizontal row; `wrap` to allow wrapping ------ */
+  m-hstack {
     display: flex;
-    flex-wrap: wrap;
     align-items: var(--align, center);
     justify-content: var(--justify, flex-start);
     gap: var(--gap, var(--space-md));
+
+    &[wrap] { flex-wrap: wrap; }
 
     &[justify="start"]   { --justify: flex-start; }
     &[justify="center"]  { --justify: center; }
@@ -131,13 +132,13 @@
     &[min="lg"] { --min: var(--size-lg); }
   }
 
-  /* --- m-sidebar: sidebar + content, stacks when narrow ------------ */
-  m-sidebar {
+  /* --- m-sidecar: fixed + flexible pair, stacks when narrow -------- */
+  m-sidecar {
     display: flex;
     flex-wrap: wrap;
     gap: var(--gap, var(--space-md));
 
-    /* sidebar is the first child by default; `side="end"` flips it */
+    /* the sidecar is the first child by default; `side="end"` flips it */
     & > :first-child {
       flex-basis: var(--side-width, var(--size-xs));
       flex-grow: 1;
@@ -148,8 +149,16 @@
       min-inline-size: var(--content-min, 50%);
     }
 
+    /* side="end": the *last* child is the sidecar (no visual reordering) */
     &[side="end"] > :first-child {
-      order: 1;
+      flex-basis: 0;
+      flex-grow: 999;
+      min-inline-size: var(--content-min, 50%);
+    }
+    &[side="end"] > :last-child {
+      flex-basis: var(--side-width, var(--size-xs));
+      flex-grow: 1;
+      min-inline-size: auto;
     }
 
     &[side-width="xs"] { --side-width: var(--size-xs); }
