@@ -63,7 +63,10 @@ Exit criterion: a plain HTML form page looks designed, zero classes.
       invoker commands + `form method=dialog`; enter/exit animations
       (`@starting-style` + allow-discrete) incl. backdrop fade; new
       `--color-surface-overlay` role for top-layer elevation in dark
-- [ ] Accordion — `<details name>` exclusive groups
+- [x] Accordion — `<details name>` exclusive groups, shadcn look
+      (border-per-item, rotating chevron, hover underline); height
+      animation via `::details-content` + `interpolate-size`, instant
+      where unsupported
 - [ ] Popover menus + tooltips — invoker commands, anchor positioning
       behind fallbacks (first real test of the baseline stance)
 - [ ] Toast display (queueing is Tier 2)

@@ -358,6 +358,19 @@ one-line fallback. <code>dialog.returnValue</code> carries the value of
 the submitting button.</p>
 """,
     ),
+    dict(
+        group="Patterns", slug="accordion", title="accordion", tier="1",
+        lead="details + summary. Exclusivity, keyboard, and semantics are the browser's — the shared name attribute does the grouping.",
+        body=f"""
+{specimen('<div style="inline-size: 100%"><details name="dacc" open><summary>Is it accessible?</summary><p>Yes. It is a native disclosure element; AT support comes with it.</p></details><details name="dacc"><summary>Is it styled?</summary><p>Border-per-item, rotating chevron, hover underline — the shadcn look.</p></details><details name="dacc"><summary>Is it animated?</summary><p>Height eases via interpolate-size where supported; instant elsewhere.</p></details></div>')}
+{code('<details name="faq">' + chr(10) + '  <summary>Is it accessible?</summary>' + chr(10) + '  <p>Yes.</p>' + chr(10) + '</details>' + chr(10) + '<details name="faq">' + chr(10) + '  <summary>Is it styled?</summary>' + chr(10) + '  <p>Also yes.</p>' + chr(10) + '</details>')}
+<h2>Notes</h2>
+<p>Omit <code>name</code> for independent disclosures. The open/close
+animation uses <code>::details-content</code> +
+<code>interpolate-size: allow-keywords</code> (set in the preset) —
+browsers without it open instantly. Zero JS either way.</p>
+""",
+    ),
 ]
 
 GROUPS = ["Start", "Layout", "Elements", "Forms", "Patterns"]

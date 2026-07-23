@@ -400,6 +400,29 @@
     </section>
 
     <section>
+      <m-vstack gap="md">
+        <h2>Accordion — details + summary, exclusive via name</h2>
+        <div style="max-inline-size: var(--size-lg)">
+          <details name="demo-faq" open>
+            <summary>Is it accessible?</summary>
+            <p>Yes. Keyboard, semantics, and exclusivity are the browser's — the
+            shared <code>name</code> makes the group exclusive.</p>
+          </details>
+          <details name="demo-faq">
+            <summary>Is it styled?</summary>
+            <p>Yes. Border-per-item, rotating chevron, animated height where the
+            platform supports it.</p>
+          </details>
+          <details name="demo-faq">
+            <summary>Is it animated?</summary>
+            <p>Where interpolate-size is supported the height eases; elsewhere it
+            opens instantly. Zero JS either way.</p>
+          </details>
+        </div>
+      </m-vstack>
+    </section>
+
+    <section>
       <h2>The preset — bare prose, no mica tags, no demo styles</h2>
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from
