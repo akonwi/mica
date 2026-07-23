@@ -88,7 +88,9 @@ works" is the demo.
       the trigger; JS ships one number, CSS anchors do the rest
 - [ ] Tabs (`mica/tabs.js`)
 - [ ] Combobox
-- [ ] Toast queue
+- [x] Toast queue (`toast.js`) — stacking via one offset number per
+      toast (CSS owns reflow motion), auto-dismiss w/ hover-pause,
+      `toast()` spawn helper with post-dismiss cleanup
 - [ ] Packaging: per-component JS imports, no shared runtime
 
 ## Ongoing — infrastructure

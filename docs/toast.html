@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>toast — mica</title>
   <link rel="stylesheet" href="../mica.css" />
-
+  <script type="module" src="../toast.js"></script>
   <style>
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); }
@@ -74,7 +74,7 @@
             <p class="lead">A corner-pinned manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are honest Tier-2 work, not shipped yet.</p>
           </m-vstack>
 
-<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><div id="dt-a" popover="manual" class="toast" role="status"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></div><div id="dt-b" popover="manual" class="toast success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></div></div>
+<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><div id="dt-a" popover="manual" class="toast" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></div><div id="dt-b" popover="manual" class="toast success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></div></div>
 <pre><code>&lt;div id=&quot;saved&quot; popover=&quot;manual&quot; class=&quot;toast success&quot; role=&quot;status&quot;&gt;
   &lt;button class=&quot;close&quot; popovertarget=&quot;saved&quot;
           popovertargetaction=&quot;hide&quot; aria-label=&quot;Dismiss&quot;&gt;&amp;#x2715;&lt;/button&gt;
@@ -87,9 +87,18 @@ document.getElementById(&amp;#39;saved&amp;#39;).showPopover()  // from your app
 <p><code>popover="manual"</code> keeps it up through light dismiss and other
 popovers; <code>role="status"</code> announces politely. Variants:
 <code>.success</code> / <code>.danger</code> / <code>.warn</code> status edges.
-Apps show toasts from code (<code>showPopover()</code>) — that one line is
-yours; stacking multiple toasts, queue order, and auto-dismiss timers are a
-future Tier-2 module.</p>
+Apps show toasts from code (<code>showPopover()</code>).</p>
+<h2>Module: toast.js (Tier 2)</h2>
+<p>Loaded on this page. Open toasts stack upward (JS ships one offset
+number per toast; CSS owns the geometry and reflow motion), auto-dismiss
+after <code>duration</code> ms (default 5000, <code>duration="0"</code> =
+sticky, paused while hovered), and <code>toast()</code> spawns the recipe
+markup from code and removes it after dismissal. Try both buttons above —
+the toasts stack.</p>
+<pre><code>import {{ toast }} from &#x27;mica/toast.js&#x27;
+
+toast(&#x27;Saved&#x27;, {{ description: &#x27;Your changes are safe.&#x27;,
+                variant: &#x27;success&#x27;, duration: 4000 }})</code></pre>
 
           <m-hstack justify="between" class="pager"><a href="popover.html">&larr; popover &amp; tooltip</a><span></span></m-hstack>
         </m-vstack>

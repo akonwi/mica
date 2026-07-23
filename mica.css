@@ -1132,7 +1132,8 @@
    * ------------------------------------------------------------------ */
   :where([popover].toast) {
     position-area: none; /* not anchored — pinned to the corner */
-    inset: auto var(--space-lg) var(--space-lg) auto;
+    /* --m-toast-offset comes from toast.js when stacking; 0 without it */
+    inset: auto var(--space-lg) calc(var(--space-lg) + var(--m-toast-offset, 0px)) auto;
     margin: 0;
     inline-size: min(22rem, calc(100vw - 2rem));
     max-inline-size: none;
@@ -1159,7 +1160,15 @@
       border-inline-start: 2px solid var(--color-warn);
     }
   }
-  /* arrives from below rather than zooming */
+  /* arrives from below rather than zooming; reflow (restacking) eases */
+  :where([popover].toast:popover-open) {
+    transition:
+      opacity 0.1s,
+      translate 0.1s,
+      inset-block-end 0.15s,
+      overlay 0.1s allow-discrete,
+      display 0.1s allow-discrete;
+  }
   @starting-style {
     :where([popover].toast:popover-open) {
       translate: 0 0.75rem;

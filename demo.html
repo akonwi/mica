@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="mica.css" />
   <script type="module" src="field.js"></script>
   <script type="module" src="select.js"></script>
+  <script type="module" src="toast.js"></script>
   <style>
     /* Demo-only styles. Deliberately unlayered: user CSS always wins. */
     /* typography, margins, rhythm, page colors all come from mica.
@@ -452,8 +453,22 @@
         <m-hstack gap="sm" wrap>
           <button popovertarget="demo-toast" popovertargetaction="show">Show toast</button>
           <button popovertarget="demo-toast-ok" popovertargetaction="show">Success toast</button>
+          <button id="spawn-toast">Spawn queued toasts</button>
         </m-hstack>
-        <div id="demo-toast" popover="manual" class="toast" role="status">
+        <p>With <code>toast.js</code>: open toasts stack upward, auto-dismiss
+        (hover to pause), and <code>toast()</code> spawns them from code.</p>
+        <script type="module">
+          import { toast } from "./toast.js";
+          let n = 0;
+          document.getElementById("spawn-toast").addEventListener("click", () => {
+            n += 1;
+            toast(`Toast #${n}`, {
+              description: "Auto-dismisses in 5s — hover to pause.",
+              variant: n % 3 === 0 ? "danger" : n % 2 === 0 ? "success" : "",
+            });
+          });
+        </script>
+        <div id="demo-toast" popover="manual" class="toast" role="status" duration="0">
           <button class="close" popovertarget="demo-toast" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>
           <b>Heads up</b>
           <span>popover="manual": survives light dismiss; dismissed by its X.</span>
@@ -494,9 +509,9 @@
   </m-vstack>
 
   <footer>
-    <p>mica — a soupçon of JavaScript. (This page loads two tiny modules:
-    <code>field.js</code> for validation errors, <code>select.js</code> for
-    picker alignment. Everything else is CSS.)</p>
+    <p>mica — a soupçon of JavaScript. (This page loads three tiny modules:
+    <code>field.js</code> (validation errors), <code>select.js</code> (picker
+    alignment), <code>toast.js</code> (toast queue). Everything else is CSS.)</p>
   </footer>
 
 </m-center>

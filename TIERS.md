@@ -79,8 +79,11 @@ The list must stay embarrassingly short:
   CSS-only radio hack looks like tabs and is a11y-broken; that is exactly
   the fake we refuse.
 - **Combobox/autocomplete** — filtering, active-descendant, announcements
-- **Toast queueing** — display is Tier 1 (popover); queue management,
-  timeouts, and announcements are script
+- **Toast queue** (`mica/toast.js`, shipped) — stacking (JS ships one
+  offset number per toast; CSS owns geometry/reflow), auto-dismiss with
+  hover-pause (`duration` attr), and a `toast()` spawn helper that
+  builds the Tier-1 recipe markup and removes it after dismissal.
+  Without JS: declared toasts still show/dismiss declaratively.
 - Maybe: carousel *controls* (the reel is Tier 0; prev/next buttons and
   indicators are script), listbox/multiselect until the platform catches up
 
