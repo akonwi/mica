@@ -1,5 +1,5 @@
 ---
-name: mica-mockups
+name: mockups
 description: Design-exploration workflow for mica — build mockup pages against the real mica.css, present concepts in a glimpse window, and collect the user's pick as JSON. Use when exploring component designs, presenting visual concepts or variants, or when the user asks for mockups of a mica element.
 ---
 
