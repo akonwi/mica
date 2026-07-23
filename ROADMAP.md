@@ -32,7 +32,9 @@ dialogs). Infrastructure interleaves — don't batch it.
       family with buttons; `:user-invalid` wired to danger roles
 - [x] Checkbox, radio, switch — drawn (`appearance: none`), one family
       with buttons/fields; switch is `class="switch"` on a checkbox
-- [ ] Select (`base-select` where available, graceful fallback)
+- [x] Select — `appearance: base-select` picker/options/checkmark/caret
+      styled with mica vocabulary (Chromium); native picker elsewhere;
+      UA positioning kept (fighting it clips)
 - [x] Fieldset, label, legend conventions — bordered group w/ legend in
       the gap; fieldset:disabled dims labels; disabled+checked controls
       desaturate (same color-mix recipe as disabled .primary)
