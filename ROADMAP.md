@@ -33,7 +33,9 @@ dialogs). Infrastructure interleaves — don't batch it.
 - [x] Checkbox, radio, switch — drawn (`appearance: none`), one family
       with buttons/fields; switch is `class="switch"` on a checkbox
 - [ ] Select (`base-select` where available, graceful fallback)
-- [ ] Fieldset, label, legend layout conventions
+- [x] Fieldset, label, legend conventions — bordered group w/ legend in
+      the gap; fieldset:disabled dims labels; disabled+checked controls
+      desaturate (same color-mix recipe as disabled .primary)
 - [ ] Progress, meter
 - [ ] Tables, lists, code
 

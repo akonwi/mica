@@ -361,6 +361,35 @@
     resize: vertical;
   }
 
+  /* --- form grouping: label, fieldset, legend ---------------------- *
+   * fieldset keeps its default display — anything else evicts the
+   * legend from the border. Space contents with m-vstack or rhythm.
+   * ------------------------------------------------------------------ */
+  :where(label) {
+    font-weight: 500;
+  }
+
+  :where(fieldset) {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-lg) var(--space-lg);
+  }
+
+  :where(legend) {
+    font-weight: 600;
+    padding-inline: var(--space-xs);
+  }
+
+  /* a disabled fieldset dims everything it silences */
+  :where(fieldset:disabled) {
+    color: var(--color-text-muted);
+
+    & :where(label) {
+      color: var(--color-text-muted);
+      cursor: not-allowed;
+    }
+  }
+
   /* --- checkbox, radio, switch: drawn, semantics stay native ------- */
   :where(input:is([type="checkbox"], [type="radio"])) {
     appearance: none;
@@ -443,6 +472,17 @@
         transparent
       );
     }
+  }
+
+  /* disabled + on: desaturate toward neutral, same recipe as disabled
+     .primary buttons — inert, not just faded (placed after the switch
+     block so it wins its background-color at equal specificity) */
+  :where(input:is([type="checkbox"], [type="radio"])):disabled:is(
+      :checked,
+      :indeterminate
+    ) {
+    border-color: transparent;
+    background-color: color-mix(in oklch, var(--color-accent) 40%, var(--neutral-6));
   }
 
   /* labels that wrap a check control become the click target */

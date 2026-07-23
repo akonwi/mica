@@ -231,6 +231,9 @@
         <h2>Fields — native inputs, zero classes</h2>
         <form>
           <m-vstack gap="md" style="max-inline-size: var(--size-lg)">
+            <fieldset>
+              <legend>Profile</legend>
+              <m-vstack gap="md">
             <m-field>
               <label for="f-name">Name (required — catch-all error, browser's own message)</label>
               <input id="f-name" type="text" required placeholder="Ada Lovelace" />
@@ -254,10 +257,18 @@
                 <option>Mathematician</option>
               </select>
             </m-vstack>
-            <m-vstack gap="2xs">
-              <label for="f-locked">Disabled</label>
-              <input id="f-locked" type="text" disabled value="Read only-ish" />
-            </m-vstack>
+              </m-vstack>
+            </fieldset>
+            <fieldset disabled>
+              <legend>Billing (disabled fieldset — everything inside silenced)</legend>
+              <m-vstack gap="md">
+                <m-vstack gap="2xs">
+                  <label for="f-locked">Card number</label>
+                  <input id="f-locked" type="text" value="4242 4242 4242 4242" />
+                </m-vstack>
+                <label><input type="checkbox" checked /> Save card</label>
+              </m-vstack>
+            </fieldset>
             <m-hstack gap="sm">
               <button type="submit" class="primary">Submit</button>
               <button type="reset" class="ghost">Reset</button>
