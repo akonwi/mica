@@ -423,6 +423,30 @@
     </section>
 
     <section>
+      <m-vstack gap="md">
+        <h2>Popover, menu &amp; tooltip — zero JS</h2>
+        <m-hstack gap="sm" wrap>
+          <button popovertarget="demo-menu">Menu</button>
+          <button popovertarget="demo-pop">Popover</button>
+          <button data-tip="Tooltips are CSS-only — pair with aria-label" aria-label="Tooltip demo">Hover me</button>
+        </m-hstack>
+        <div id="demo-menu" popover class="menu">
+          <button popovertarget="demo-menu" popovertargetaction="hide">Edit</button>
+          <button popovertarget="demo-menu" popovertargetaction="hide">Duplicate</button>
+          <hr />
+          <button class="danger" popovertarget="demo-menu" popovertargetaction="hide">Delete</button>
+        </div>
+        <div id="demo-pop" popover>
+          <m-vstack gap="2xs">
+            <b>Anchored panel</b>
+            <span>Light dismiss, Esc, and toggling are the browser's. Anchored to
+            its invoker where anchor positioning exists; centered elsewhere.</span>
+          </m-vstack>
+        </div>
+      </m-vstack>
+    </section>
+
+    <section>
       <h2>The preset — bare prose, no mica tags, no demo styles</h2>
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from

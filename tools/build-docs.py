@@ -371,6 +371,21 @@ animation uses <code>::details-content</code> +
 browsers without it open instantly. Zero JS either way.</p>
 """,
     ),
+    dict(
+        group="Patterns", slug="popover", title="popover & tooltip", tier="1",
+        lead="popover attribute + popovertarget invokers. Toggle, light dismiss, Esc, top layer — the browser's. Zero JS.",
+        body=f"""
+{specimen('<m-hstack gap="sm" wrap><button popovertarget="dp-menu">Menu</button><button popovertarget="dp-pop">Popover</button><button data-tip="Saved to your library" aria-label="Tooltip demo">Hover me</button></m-hstack><div id="dp-menu" popover class="menu"><button popovertarget="dp-menu" popovertargetaction="hide">Edit</button><button popovertarget="dp-menu" popovertargetaction="hide">Duplicate</button><hr /><button class="danger" popovertarget="dp-menu" popovertargetaction="hide">Delete</button></div><div id="dp-pop" popover><m-vstack gap="2xs"><b>Anchored panel</b><span>Light dismiss, Esc, toggling: all the browser. Anchored to the invoker where anchor positioning exists.</span></m-vstack></div>')}
+{code('<button popovertarget="menu">Menu</button>' + chr(10) + chr(10) + '<div id="menu" popover class="menu">' + chr(10) + '  <button popovertarget="menu" popovertargetaction="hide">Edit</button>' + chr(10) + '  <button popovertarget="menu" popovertargetaction="hide">Duplicate</button>' + chr(10) + '  <hr />' + chr(10) + '  <button class="danger" popovertarget="menu" popovertargetaction="hide">Delete</button>' + chr(10) + '</div>' + chr(10) + chr(10) + '<button data-tip="Saved" aria-label="Saved">Hover me</button>')}
+<h2>Notes</h2>
+<p>Menu items close the menu declaratively (<code>popovertargetaction="hide"</code>)
+— an item is a button doing its job plus one attribute. Tab/Esc/light-dismiss
+are native; arrow-key roving is a future Tier-2 module. Tooltips are CSS-only
+(<code>data-tip</code>) and visual — pair with <code>aria-label</code> or
+visible text. Where anchor positioning is missing, popovers fall back to the
+UA's centered position.</p>
+""",
+    ),
 ]
 
 GROUPS = ["Start", "Layout", "Elements", "Forms", "Patterns"]

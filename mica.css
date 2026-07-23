@@ -1021,6 +1021,146 @@
     block-size: auto;
   }
 
+  /* --- popover: panels + menus -------------------------------------- *
+   * toggle/light-dismiss/Esc are the browser's (popovertarget). anchored
+   * to the invoker where anchor positioning exists; elsewhere the UA's
+   * centered fallback applies. items close declaratively via
+   * popovertarget/command — zero JS throughout.
+   * ------------------------------------------------------------------ */
+  :where([popover]) {
+    border: 1px solid color-mix(in oklch, var(--color-text) 12%, transparent);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-overlay);
+    color: var(--color-text);
+    padding: var(--space-sm);
+    inline-size: max-content;
+    max-inline-size: min(18rem, calc(100vw - 2rem));
+    font-size: 0.75rem;
+    line-height: 1.6;
+    box-shadow: 0 8px 24px light-dark(oklch(0 0 0 / 0.15), oklch(0 0 0 / 0.5));
+    opacity: 1;
+    scale: 1;
+  }
+  /* enter animates; close is instant (house rule for transient layers) */
+  :where([popover]:popover-open) {
+    transition:
+      opacity 0.1s,
+      scale 0.1s,
+      overlay 0.1s allow-discrete,
+      display 0.1s allow-discrete;
+  }
+  @starting-style {
+    :where([popover]:popover-open) {
+      opacity: 0;
+      scale: 0.95;
+    }
+  }
+  /* anchor to the invoker where the platform can */
+  @supports (position-area: block-end) {
+    :where([popover]) {
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-block, flip-inline;
+      margin: var(--space-2xs);
+    }
+  }
+
+  /* menu: a popover of buttons/links; separators are plain hrs */
+  :where([popover].menu) {
+    padding: var(--space-2xs);
+    min-inline-size: 8rem;
+
+    & > :where(button, a) {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: var(--space-xs);
+      inline-size: 100%;
+      block-size: auto;
+      padding: var(--space-xs);
+      border: 0;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--color-text);
+      font-size: 0.75rem;
+      font-weight: 400;
+      text-align: start;
+      text-decoration: none;
+      cursor: default;
+
+      /* :not() guards mirror the base button states — an override of
+         state must match the state's specificity (house rule) */
+      &:hover:not(:disabled, [aria-disabled="true"]),
+      &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+        background: var(--color-accent);
+        color: var(--color-on-accent);
+        outline: none; /* the highlight is the focus indicator here */
+      }
+      &:active:not(:disabled, [aria-disabled="true"]) {
+        background: var(--color-accent);
+        color: var(--color-on-accent);
+      }
+
+      &.danger {
+        color: var(--color-danger-text);
+
+        &:hover:not(:disabled, [aria-disabled="true"]),
+        &:active:not(:disabled, [aria-disabled="true"]),
+        &:focus-visible:not(:disabled, [aria-disabled="true"]) {
+          background: var(--color-danger-surface);
+          color: var(--color-danger-text);
+        }
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        background: transparent;
+        color: var(--color-text);
+      }
+    }
+
+    & > :where(hr) {
+      margin-block: var(--space-2xs);
+      margin-inline: calc(-1 * var(--space-2xs));
+      border-block-start-color: var(--color-border);
+    }
+  }
+
+  /* --- tooltip: css-only, [data-tip] -------------------------------- *
+   * inverted chip (primary on on-primary), shows on hover/focus after a
+   * beat, hides instantly. data-tip is visual — pair it with aria-label
+   * or visible text for AT.
+   * ------------------------------------------------------------------ */
+  :where([data-tip]) {
+    position: relative;
+  }
+  :where([data-tip])::after {
+    content: attr(data-tip);
+    position: absolute;
+    inset-block-end: calc(100% + var(--space-xs));
+    inset-inline-start: 50%;
+    translate: -50% 2px;
+    inline-size: max-content;
+    max-inline-size: 18rem;
+    padding: 0.375rem var(--space-sm);
+    border-radius: var(--radius-sm);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.4;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.1s,
+      translate 0.1s;
+    z-index: 10;
+  }
+  :where([data-tip]:hover, [data-tip]:focus-visible)::after {
+    opacity: 1;
+    translate: -50% 0;
+    transition-delay: 0.3s;
+  }
+
   /* --- validation errors ------------------------------------------- *
    * Tier 1 (no JS): a generic <m-error> after a field shows when the
    * field is :user-invalid. Submit attempts fall back to native bubbles.

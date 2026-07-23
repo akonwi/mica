@@ -67,8 +67,11 @@ Exit criterion: a plain HTML form page looks designed, zero classes.
       (border-per-item, rotating chevron, hover underline); height
       animation via `::details-content` + `interpolate-size`, instant
       where unsupported
-- [ ] Popover menus + tooltips — invoker commands, anchor positioning
-      behind fallbacks (first real test of the baseline stance)
+- [x] Popover menus + tooltips — `popover` + `popovertarget`, anchored
+      to the invoker via position-area behind @supports (UA-centered
+      fallback); `.menu` popovers with accent-highlight items that close
+      declaratively (`popovertargetaction=hide`); CSS-only `[data-tip]`
+      tooltips (inverted chip, delayed show, instant hide)
 - [ ] Toast display (queueing is Tier 2)
 
 Each ships as markup recipe + CSS. "Delete the stylesheet and it still
