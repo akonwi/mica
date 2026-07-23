@@ -100,6 +100,9 @@
        of scale steps: knobs → scales → roles. */
     --color-surface: var(--neutral-1);
     --color-surface-raised: var(--neutral-2);
+    /* top-layer panels (dialog, menus, toasts): white in light like the
+       page; one step elevated in dark, where shadows can't carry lift */
+    --color-surface-overlay: light-dark(var(--neutral-1), var(--neutral-2));
     --color-text: var(--neutral-12);
     --color-text-muted: var(--neutral-11);
     --color-border: var(--neutral-6);
@@ -747,6 +750,76 @@
   }
   :where(meter):-moz-meter-sub-sub-optimum::-moz-meter-bar {
     background: var(--color-danger);
+  }
+
+  /* --- dialog: modal + drawer --------------------------------------- *
+   * The browser brings focus trapping, Esc, top layer, ::backdrop, and
+   * form[method=dialog] closing. Invoker commands (commandfor/command)
+   * make open/close zero-JS. Exit animations: transition-behavior
+   * allow-discrete + @starting-style.
+   * ------------------------------------------------------------------ */
+  :where(dialog) {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-overlay);
+    color: var(--color-text);
+    padding: var(--space-lg);
+    max-inline-size: min(calc(100vw - 2 * var(--space-lg)), var(--size-lg));
+    box-shadow: 0 16px 48px light-dark(oklch(0 0 0 / 0.2), oklch(0 0 0 / 0.6));
+    opacity: 0;
+    translate: 0 0.5rem;
+    transition:
+      opacity 0.15s,
+      translate 0.15s,
+      overlay 0.15s allow-discrete,
+      display 0.15s allow-discrete;
+  }
+  :where(dialog[open]) {
+    opacity: 1;
+    translate: 0 0;
+  }
+  @starting-style {
+    :where(dialog[open]) {
+      opacity: 0;
+      translate: 0 0.5rem;
+    }
+  }
+
+  :where(dialog)::backdrop {
+    background: transparent;
+    transition:
+      background-color 0.15s,
+      overlay 0.15s allow-discrete,
+      display 0.15s allow-discrete;
+  }
+  :where(dialog[open])::backdrop {
+    background: oklch(0 0 0 / 0.4);
+  }
+  @starting-style {
+    :where(dialog[open])::backdrop {
+      background: transparent;
+    }
+  }
+
+  /* drawer: slides in from the inline end, full height */
+  :where(dialog.drawer) {
+    margin-inline: auto 0;
+    margin-block: 0;
+    block-size: 100svh;
+    max-block-size: 100svh;
+    inline-size: 100%;
+    max-inline-size: min(90vw, var(--size-sm));
+    border: 0;
+    border-inline-start: 1px solid var(--color-border);
+    translate: 100% 0;
+  }
+  :where(dialog.drawer[open]) {
+    translate: 0 0;
+  }
+  @starting-style {
+    :where(dialog.drawer[open]) {
+      translate: 100% 0;
+    }
   }
 
   /* --- validation errors ------------------------------------------- *

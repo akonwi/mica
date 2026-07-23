@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>input &amp; textarea — mica</title>
+  <title>dialog — mica</title>
   <link rel="stylesheet" href="../mica.css" />
 
   <style>
@@ -52,7 +52,7 @@
       <a href="content.html">content</a>
       <a href="progress.html">progress &amp; meter</a>
       <h2>Forms</h2>
-      <a href="input.html" aria-current="page">input &amp; textarea</a>
+      <a href="input.html">input &amp; textarea</a>
       <a href="select.html">select</a>
       <a href="checkbox.html">checkbox</a>
       <a href="radio.html">radio</a>
@@ -60,25 +60,38 @@
       <a href="fieldset.html">fieldset</a>
       <a href="field.html">field validation</a>
       <h2>Patterns</h2>
-      <a href="dialog.html">dialog</a>
+      <a href="dialog.html" aria-current="page">dialog</a>
     </nav>
     <article id="main">
       <m-center style="--max: 48rem">
         <m-vstack gap="xl">
-          <span class="crumb">Forms / input &amp; textarea</span>
+          <span class="crumb">Patterns / dialog</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>input &amp; textarea</h1> <span class="badge">Tier 1</span></m-hstack>
-            <p class="lead">One control family with buttons: same radius, border, and height.</p>
+            <m-hstack gap="sm"><h1>dialog</h1> <span class="badge">Tier 1</span></m-hstack>
+            <p class="lead">Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands. Zero JS.</p>
           </m-vstack>
 
-<div class="specimen"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-vstack gap="2xs"><label for="di-name">Name</label><input id="di-name" type="text" placeholder="Ada Lovelace" /></m-vstack><m-vstack gap="2xs"><label for="di-bio">Bio (grows as you type — field-sizing, zero JS)</label><textarea id="di-bio" placeholder="A few lines…"></textarea></m-vstack><m-vstack gap="2xs"><label for="di-off">Disabled</label><input id="di-off" type="text" disabled value="Read only-ish" /></m-vstack></m-vstack></div>
-<pre><code>&lt;label for=&quot;bio&quot;&gt;Bio&lt;/label&gt;
-&lt;textarea id=&quot;bio&quot;&gt;&lt;/textarea&gt;  &lt;!-- field-sizing: content --&gt;</code></pre>
-<h2>Notes</h2>
-<p>Field text stays 16px — smaller triggers iOS auto-zoom. Fields fill their
-container; constrain with layout primitives.</p>
+<div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><m-vstack gap="md"><h2>Confirm</h2><p>Focus is trapped, Esc closes, the backdrop dims. The buttons close via <code>form method="dialog"</code>.</p><form method="dialog"><m-hstack gap="sm" justify="end"><button>Cancel</button><button class="primary" value="ok">Confirm</button></m-hstack></form></m-vstack></dialog><dialog id="dd-drawer" class="drawer"><m-vstack gap="lg"><m-hstack justify="between"><h2>Drawer</h2><button class="ghost" commandfor="dd-drawer" command="close">Close</button></m-hstack><p>The same native dialog dressed as a drawer: slides from the inline end, full height.</p></m-vstack></dialog></div>
+<pre><code>&lt;button commandfor=&quot;confirm&quot; command=&quot;show-modal&quot;&gt;Open&lt;/button&gt;
 
-          <m-hstack justify="between" class="pager"><a href="progress.html">&larr; progress &amp; meter</a><a href="select.html">select &rarr;</a></m-hstack>
+&lt;dialog id=&quot;confirm&quot;&gt;
+  &lt;p&gt;Are you sure?&lt;/p&gt;
+  &lt;form method=&quot;dialog&quot;&gt;
+    &lt;button&gt;Cancel&lt;/button&gt;
+    &lt;button class=&quot;primary&quot; value=&quot;ok&quot;&gt;Confirm&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;
+
+&lt;dialog class=&quot;drawer&quot;&gt;…&lt;/dialog&gt;  &lt;!-- slides from the inline end --&gt;</code></pre>
+<h2>Notes</h2>
+<p>Enter/exit animations use <code>@starting-style</code> +
+<code>transition-behavior: allow-discrete</code> — the backdrop fades too.
+Invoker commands (<code>commandfor</code>/<code>command</code>) are
+Baseline-new; where unsupported, <code>el.showModal()</code> is the
+one-line fallback. <code>dialog.returnValue</code> carries the value of
+the submitting button.</p>
+
+          <m-hstack justify="between" class="pager"><a href="field.html">&larr; field validation</a><span></span></m-hstack>
         </m-vstack>
       </m-center>
     </article>

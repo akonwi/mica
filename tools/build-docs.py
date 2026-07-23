@@ -339,9 +339,25 @@ keyboard behavior are untouched. Safari is prototyping a native
 Working markup, enhanced — never rendered.</p>
 """,
     ),
+    # ---- Patterns ----
+    dict(
+        group="Patterns", slug="dialog", title="dialog", tier="1",
+        lead="Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands. Zero JS.",
+        body=f"""
+{specimen('<m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><m-vstack gap="md"><h2>Confirm</h2><p>Focus is trapped, Esc closes, the backdrop dims. The buttons close via <code>form method="dialog"</code>.</p><form method="dialog"><m-hstack gap="sm" justify="end"><button>Cancel</button><button class="primary" value="ok">Confirm</button></m-hstack></form></m-vstack></dialog><dialog id="dd-drawer" class="drawer"><m-vstack gap="lg"><m-hstack justify="between"><h2>Drawer</h2><button class="ghost" commandfor="dd-drawer" command="close">Close</button></m-hstack><p>The same native dialog dressed as a drawer: slides from the inline end, full height.</p></m-vstack></dialog>')}
+{code('<button commandfor="confirm" command="show-modal">Open</button>' + chr(10) + chr(10) + '<dialog id="confirm">' + chr(10) + '  <p>Are you sure?</p>' + chr(10) + '  <form method="dialog">' + chr(10) + '    <button>Cancel</button>' + chr(10) + '    <button class="primary" value="ok">Confirm</button>' + chr(10) + '  </form>' + chr(10) + '</dialog>' + chr(10) + chr(10) + '<dialog class="drawer">…</dialog>  <!-- slides from the inline end -->')}
+<h2>Notes</h2>
+<p>Enter/exit animations use <code>@starting-style</code> +
+<code>transition-behavior: allow-discrete</code> — the backdrop fades too.
+Invoker commands (<code>commandfor</code>/<code>command</code>) are
+Baseline-new; where unsupported, <code>el.showModal()</code> is the
+one-line fallback. <code>dialog.returnValue</code> carries the value of
+the submitting button.</p>
+""",
+    ),
 ]
 
-GROUPS = ["Start", "Layout", "Elements", "Forms"]
+GROUPS = ["Start", "Layout", "Elements", "Forms", "Patterns"]
 
 
 def href_for(slug: str, from_root: bool) -> str:

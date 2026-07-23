@@ -59,7 +59,10 @@ Exit criterion: a plain HTML form page looks designed, zero classes.
 
 ## Phase 4 — Tier 1 patterns
 
-- [ ] `<dialog>` — modal + drawer, `@starting-style` exit animations
+- [x] `<dialog>` — modal + drawer (`class="drawer"`), zero JS via
+      invoker commands + `form method=dialog`; enter/exit animations
+      (`@starting-style` + allow-discrete) incl. backdrop fade; new
+      `--color-surface-overlay` role for top-layer elevation in dark
 - [ ] Accordion — `<details name>` exclusive groups
 - [ ] Popover menus + tooltips — invoker commands, anchor positioning
       behind fallbacks (first real test of the baseline stance)
