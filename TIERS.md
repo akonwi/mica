@@ -71,6 +71,10 @@ The list must stay embarrassingly short:
   wires `aria-invalid`/`aria-describedby`. Without JS: generic `<m-error>`
   still shows via `:user-invalid` (CSS-only), submits fall back to native
   bubbles. Working markup, enhanced — never rendered.
+- **Select picker alignment** (`mica/select.js`, shipped) — the
+  macOS-native "selected option overlays the trigger" behavior. JS
+  supplies one custom property (the selected index); all geometry is
+  CSS anchor positioning. Without JS: the anchored-below picker.
 - **Tabs** — roving tabindex, arrow keys, `aria-selected` wiring. The
   CSS-only radio hack looks like tabs and is a11y-broken; that is exactly
   the fake we refuse.

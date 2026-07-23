@@ -58,6 +58,8 @@ works" is the demo.
 
 - [x] Declarative field errors (`field.js`) — first Tier-2 module;
       Base-UI-style `<m-error match>`, no browser bubbles, CSS fallback
+- [x] Select picker alignment (`select.js`) — selected option overlays
+      the trigger; JS ships one number, CSS anchors do the rest
 - [ ] Tabs (`mica/tabs.js`)
 - [ ] Combobox
 - [ ] Toast queue

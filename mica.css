@@ -418,6 +418,27 @@
     :where(select):open::picker-icon {
       rotate: 180deg;
     }
+
+    /* opt-in via select.js: the picker overlays the trigger with the
+       selected option kept in place (macOS-native / Base UI behavior).
+       JS supplies only --m-sel-index; all geometry lives here.
+       offset = index × row (1lh + option padding) + picker padding/border;
+       max() keeps the top on-screen for selections deep in long lists. */
+    :where(select.picker-aligned)::picker(select) {
+      position-area: none;
+      margin-block: 0;
+      inset-inline-start: calc(anchor(left) - var(--space-2xs) - 1px);
+      min-inline-size: calc(anchor-size(width) + 2 * (var(--space-2xs) + 1px));
+      inset-block-start: max(
+        var(--space-2xs),
+        calc(
+          anchor(top) - var(--m-sel-index, 0) * (1lh + 2 * var(--space-xs)) -
+            var(--space-2xs) - 1px
+        )
+      );
+      /* unfold in place, don't slide */
+      translate: 0 0;
+    }
   }
 
   /* textarea grows with content — zero JS */
