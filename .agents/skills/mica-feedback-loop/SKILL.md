@@ -47,6 +47,23 @@ console.log(JSON.stringify(probe, null, 1));
 "
 ```
 
+**Parse-error canary (run after every mica.css edit):** a CSS syntax
+error (unbalanced comment/brace) silently kills every rule AFTER it —
+the section you just edited may probe fine while the rest of the file is
+dead. Always also probe one declaration from the file's LAST rule block,
+e.g.:
+
+```js
+// m-error { display: none } is near the end of mica.css
+const el = document.createElement('m-error');
+document.body.append(el);
+console.log(getComputedStyle(el).display); // 'none' = file parsed to the end
+el.remove();
+```
+
+(Cause célèbre: an edit once closed a comment early; the stray comment
+text invalidated everything after line 698, discovered pages later.)
+
 Probe patterns that matter for mica:
 
 - **Token resolution:** computed colors come back as `oklch(...)` — compare

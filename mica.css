@@ -695,7 +695,7 @@
     margin-block: var(--space-lg);
   }
 
-  /* --- progress & meter: thin bars (shadcn-school) ----------------- */
+  /* --- progress & meter: thin bars (shadcn-school) ------------------ *
    * vendor pseudos must stay in separate rules — an unknown selector
    * in a list invalidates the whole rule.
    * ------------------------------------------------------------------ */
