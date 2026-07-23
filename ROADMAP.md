@@ -40,9 +40,12 @@ dialogs). Infrastructure interleaves — don't batch it.
       desaturate (same color-mix recipe as disabled .primary)
 - [x] Progress, meter — thin square bars (shadcn-school): primary/20
       track + primary fill; meter grades through the status roles
-- [ ] Tables, lists, code
+- [x] Tables, lists, code (+ kbd, blockquote, hr) — shadcn-school
+      table (horizontal borders, muted header, hover rows), muted
+      markers, chip/pre/keycap code family
 
 Exit criterion: a plain HTML form page looks designed, zero classes.
+**Phase 3 complete.**
 
 ## Phase 4 — Tier 1 patterns
 

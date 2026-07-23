@@ -14,11 +14,6 @@
     header, section { padding-block: var(--space-xl); }
     h1 { font-size: 2rem; }
     h2 { font-size: 1.25rem; }
-    code {
-      background: var(--color-surface-raised);
-      border: 1px solid var(--color-border);
-      padding: 0.1em 0.35em; border-radius: var(--radius-sm); font-size: 0.9em;
-    }
     .card {
       background: var(--color-surface-raised);
       border: 1px solid var(--color-border);
@@ -315,6 +310,48 @@
           <label for="m3">Disk (critical)</label>
           <meter id="m3" min="0" max="100" low="60" high="85" optimum="30" value="93"></meter>
         </m-vstack>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2>Content — tables, lists, code. Zero classes.</h2>
+        <table>
+          <thead>
+            <tr><th>Element</th><th>Tier</th><th>JS</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>m-vstack</td><td>0</td><td>none</td></tr>
+            <tr><td>dialog</td><td>1</td><td>none</td></tr>
+            <tr><td>m-field</td><td>2</td><td>one module</td></tr>
+          </tbody>
+          <caption>Hover a row. Borders are horizontal only; numerals are tabular.</caption>
+        </table>
+        <m-hstack gap="lg" align="start" wrap>
+          <ul>
+            <li>unordered</li>
+            <li>list with</li>
+            <li>muted markers</li>
+          </ul>
+          <ol>
+            <li>ordered</li>
+            <li>works</li>
+            <li>too</li>
+          </ol>
+          <dl>
+            <dt>mica</dt>
+            <dd>a mineral that cleaves into thin sheets</dd>
+            <dt>book</dt>
+            <dd>what a raw chunk of mica is called</dd>
+          </dl>
+        </m-hstack>
+        <p>Inline <code>code</code> gets a chip; press <kbd>⌘</kbd><kbd>K</kbd> for nothing.</p>
+<pre><code>&lt;m-vstack gap="lg"&gt;
+  &lt;button class="primary"&gt;Submit&lt;/button&gt;
+&lt;/m-vstack&gt;</code></pre>
+        <blockquote>Delete the stylesheet and it still works — that is the demo.</blockquote>
+        <hr />
+        <p>An <code>hr</code> above; quiet, full-width.</p>
       </m-vstack>
     </section>
 
