@@ -367,30 +367,30 @@
         <p>Open, focus trap, Esc, backdrop, close — browser + invoker commands.
         No script anywhere in this section.</p>
         <dialog id="demo-dialog">
-          <m-vstack gap="md">
+          <header>
             <h2>Confirm</h2>
-            <p>Focus is trapped, Esc closes, the backdrop dims — all the browser's.
-            These buttons close via <code>form method="dialog"</code>.</p>
+            <p>Focus is trapped, Esc closes, the backdrop dims — all the browser's.</p>
+          </header>
+          <p>Body content sits between header and footer. The dialog owns the
+          vertical spacing, like a stack.</p>
+          <footer>
             <form method="dialog">
-              <m-hstack gap="sm" justify="end">
-                <button>Cancel</button>
-                <button class="primary" value="ok">Confirm</button>
-              </m-hstack>
+              <button>Cancel</button>
+              <button class="primary" value="ok">Confirm</button>
             </form>
-          </m-vstack>
+          </footer>
         </dialog>
         <dialog id="demo-drawer" class="drawer">
-          <m-vstack gap="lg">
+          <header>
             <m-hstack justify="between">
               <h2>Drawer</h2>
               <button class="ghost" commandfor="demo-drawer" command="close">Close</button>
             </m-hstack>
-            <p>Same native dialog, dressed as a drawer — slides from the inline
-            end, full height. Esc still closes it.</p>
-            <m-vstack gap="2xs">
-              <label for="dw-note">A field, to prove focus trapping</label>
-              <input id="dw-note" type="text" placeholder="Tab around…" />
-            </m-vstack>
+            <p>Same native dialog, dressed as a drawer. Esc still closes it.</p>
+          </header>
+          <m-vstack gap="2xs">
+            <label for="dw-note">A field, to prove focus trapping</label>
+            <input id="dw-note" type="text" placeholder="Tab around…" />
           </m-vstack>
         </dialog>
       </m-vstack>

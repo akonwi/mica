@@ -774,9 +774,56 @@
       overlay 0.15s allow-discrete,
       display 0.15s allow-discrete;
   }
+  /* composition: dialog > header (title + description) / body / footer.
+     layout lives on [open] — unconditional display would defeat the
+     UA's display:none on closed dialogs */
   :where(dialog[open]) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
     opacity: 1;
     translate: 0 0;
+
+    & > :where(*) {
+      margin-block: 0; /* the dialog owns spacing, like a stack */
+    }
+  }
+
+  :where(dialog) > :where(header) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+
+    & > :where(*) {
+      margin-block: 0;
+    }
+
+    & :where(h1, h2, h3, h4) {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    & :where(p) {
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+    }
+  }
+
+  :where(dialog) > :where(footer) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: flex-end;
+
+    & > :where(*) {
+      margin-block: 0;
+    }
+
+    /* a method=dialog form is the idiomatic close mechanism — let its
+       buttons participate in the footer's row directly */
+    & > :where(form[method="dialog" i]) {
+      display: contents;
+    }
   }
   @starting-style {
     :where(dialog[open]) {

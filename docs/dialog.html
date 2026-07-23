@@ -23,7 +23,7 @@
     .pager { border-block-start: 1px solid var(--color-border); padding-block-start: var(--space-md); }
     .pager a { text-decoration: none; color: var(--color-text-muted); }
     .pager a:hover { color: var(--color-text); }
-    article h2 { font-size: 1rem; }
+    article h2:not(dialog *) { font-size: 1rem; }
     .swatch { background: var(--neutral-3); padding: var(--space-sm) var(--space-md); }
     .card { background: var(--color-surface-raised); border: 1px solid var(--color-border); }
     .tall { min-block-size: 5rem; display: grid; place-items: center; }
@@ -71,18 +71,27 @@
             <p class="lead">Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands. Zero JS.</p>
           </m-vstack>
 
-<div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><m-vstack gap="md"><h2>Confirm</h2><p>Focus is trapped, Esc closes, the backdrop dims. The buttons close via <code>form method="dialog"</code>.</p><form method="dialog"><m-hstack gap="sm" justify="end"><button>Cancel</button><button class="primary" value="ok">Confirm</button></m-hstack></form></m-vstack></dialog><dialog id="dd-drawer" class="drawer"><m-vstack gap="lg"><m-hstack justify="between"><h2>Drawer</h2><button class="ghost" commandfor="dd-drawer" command="close">Close</button></m-hstack><p>The same native dialog dressed as a drawer: slides from the inline end, full height.</p></m-vstack></dialog></div>
-<pre><code>&lt;button commandfor=&quot;confirm&quot; command=&quot;show-modal&quot;&gt;Open&lt;/button&gt;
+<div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><header><h2>Confirm</h2><p>Focus is trapped, Esc closes, the backdrop dims — all the browser&#39;s.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button class="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" class="drawer"><header><m-hstack justify="between"><h2>Drawer</h2><button class="ghost" commandfor="dd-drawer" command="close">Close</button></m-hstack><p>The same native dialog dressed as a drawer.</p></header><p>Slides from the inline end, full height.</p></dialog></div>
+<h2>Composition</h2>
+<p>The shadcn structure, in native vocabulary — header (title +
+description), body, footer are real elements, not components:</p>
+<pre><code>&lt;button commandfor=&quot;confirm&quot; command=&quot;show-modal&quot;&gt;Open&lt;/button&gt;  &lt;!-- trigger --&gt;
 
-&lt;dialog id=&quot;confirm&quot;&gt;
-  &lt;p&gt;Are you sure?&lt;/p&gt;
-  &lt;form method=&quot;dialog&quot;&gt;
-    &lt;button&gt;Cancel&lt;/button&gt;
-    &lt;button class=&quot;primary&quot; value=&quot;ok&quot;&gt;Confirm&lt;/button&gt;
-  &lt;/form&gt;
-&lt;/dialog&gt;
+&lt;dialog id=&quot;confirm&quot;&gt;          &lt;!-- content --&gt;
+  &lt;header&gt;                     &lt;!-- header --&gt;
+    &lt;h2&gt;Are you sure?&lt;/h2&gt;     &lt;!-- title --&gt;
+    &lt;p&gt;This cannot be undone.&lt;/p&gt;  &lt;!-- description --&gt;
+  &lt;/header&gt;
 
-&lt;dialog class=&quot;drawer&quot;&gt;…&lt;/dialog&gt;  &lt;!-- slides from the inline end --&gt;</code></pre>
+  &lt;p&gt;Any body content.&lt;/p&gt;
+
+  &lt;footer&gt;                     &lt;!-- footer: right-aligned row --&gt;
+    &lt;form method=&quot;dialog&quot;&gt;
+      &lt;button&gt;Cancel&lt;/button&gt;
+      &lt;button class=&quot;primary&quot; value=&quot;ok&quot;&gt;Confirm&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/footer&gt;
+&lt;/dialog&gt;</code></pre>
 <h2>Notes</h2>
 <p>Enter/exit animations use <code>@starting-style</code> +
 <code>transition-behavior: allow-discrete</code> — the backdrop fades too.

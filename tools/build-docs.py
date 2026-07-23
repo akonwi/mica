@@ -26,7 +26,7 @@ SHELL_CSS = """
     .pager { border-block-start: 1px solid var(--color-border); padding-block-start: var(--space-md); }
     .pager a { text-decoration: none; color: var(--color-text-muted); }
     .pager a:hover { color: var(--color-text); }
-    article h2 { font-size: 1rem; }
+    article h2:not(dialog *) { font-size: 1rem; }
     .swatch { background: var(--neutral-3); padding: var(--space-sm) var(--space-md); }
     .card { background: var(--color-surface-raised); border: 1px solid var(--color-border); }
     .tall { min-block-size: 5rem; display: grid; place-items: center; }
@@ -344,8 +344,11 @@ Working markup, enhanced — never rendered.</p>
         group="Patterns", slug="dialog", title="dialog", tier="1",
         lead="Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands. Zero JS.",
         body=f"""
-{specimen('<m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><m-vstack gap="md"><h2>Confirm</h2><p>Focus is trapped, Esc closes, the backdrop dims. The buttons close via <code>form method="dialog"</code>.</p><form method="dialog"><m-hstack gap="sm" justify="end"><button>Cancel</button><button class="primary" value="ok">Confirm</button></m-hstack></form></m-vstack></dialog><dialog id="dd-drawer" class="drawer"><m-vstack gap="lg"><m-hstack justify="between"><h2>Drawer</h2><button class="ghost" commandfor="dd-drawer" command="close">Close</button></m-hstack><p>The same native dialog dressed as a drawer: slides from the inline end, full height.</p></m-vstack></dialog>')}
-{code('<button commandfor="confirm" command="show-modal">Open</button>' + chr(10) + chr(10) + '<dialog id="confirm">' + chr(10) + '  <p>Are you sure?</p>' + chr(10) + '  <form method="dialog">' + chr(10) + '    <button>Cancel</button>' + chr(10) + '    <button class="primary" value="ok">Confirm</button>' + chr(10) + '  </form>' + chr(10) + '</dialog>' + chr(10) + chr(10) + '<dialog class="drawer">…</dialog>  <!-- slides from the inline end -->')}
+{specimen('<m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><header><h2>Confirm</h2><p>Focus is trapped, Esc closes, the backdrop dims — all the browser&#39;s.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button class="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" class="drawer"><header><m-hstack justify="between"><h2>Drawer</h2><button class="ghost" commandfor="dd-drawer" command="close">Close</button></m-hstack><p>The same native dialog dressed as a drawer.</p></header><p>Slides from the inline end, full height.</p></dialog>')}
+<h2>Composition</h2>
+<p>The shadcn structure, in native vocabulary — header (title +
+description), body, footer are real elements, not components:</p>
+{code('<button commandfor="confirm" command="show-modal">Open</button>  <!-- trigger -->' + chr(10) + chr(10) + '<dialog id="confirm">          <!-- content -->' + chr(10) + '  <header>                     <!-- header -->' + chr(10) + '    <h2>Are you sure?</h2>     <!-- title -->' + chr(10) + '    <p>This cannot be undone.</p>  <!-- description -->' + chr(10) + '  </header>' + chr(10) + chr(10) + '  <p>Any body content.</p>' + chr(10) + chr(10) + '  <footer>                     <!-- footer: right-aligned row -->' + chr(10) + '    <form method="dialog">' + chr(10) + '      <button>Cancel</button>' + chr(10) + '      <button class="primary" value="ok">Confirm</button>' + chr(10) + '    </form>' + chr(10) + '  </footer>' + chr(10) + '</dialog>')}
 <h2>Notes</h2>
 <p>Enter/exit animations use <code>@starting-style</code> +
 <code>transition-behavior: allow-discrete</code> — the backdrop fades too.
