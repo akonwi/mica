@@ -230,6 +230,9 @@
       }
     }
 
+    /* deliberately zero rest affordance — a ghost is invisible until
+       hover/focus. use .ghost for toolbars and icon rows, not as the
+       lone action on a page. */
     &:where(.ghost) {
       background: transparent;
       border-color: transparent;
