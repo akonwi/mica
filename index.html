@@ -17,16 +17,16 @@
     code {
       background: var(--color-surface-raised);
       border: 1px solid var(--color-border);
-      padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.9em;
+      padding: 0.1em 0.35em; border-radius: var(--radius-sm); font-size: 0.9em;
     }
     .card {
       background: var(--color-surface-raised);
       border: 1px solid var(--color-border);
-      border-radius: 8px;
+      border-radius: var(--radius-md);
     }
     .swatch {
-      background: color-mix(in oklch, var(--color-accent) 14%, var(--color-surface));
-      border-radius: 6px;
+      background: var(--neutral-3);
+      border-radius: var(--radius-sm);
       padding: var(--space-sm) var(--space-md);
     }
     .tall { min-block-size: 6rem; display: grid; place-items: center; }
@@ -34,7 +34,7 @@
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       border: 1px solid var(--color-border);
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       overflow: hidden;
     }
     .scale div {
@@ -100,7 +100,7 @@
       <m-vstack gap="md">
         <h2><code>&lt;m-zstack&gt;</code> — layering; paint order is DOM order</h2>
         <m-zstack style="min-block-size: 10rem">
-          <div style="background: linear-gradient(135deg, color-mix(in oklch, var(--color-accent) 25%, var(--color-surface)), var(--color-accent)); border-radius: 8px"></div>
+          <div style="background: linear-gradient(135deg, var(--neutral-7), var(--neutral-9)); border-radius: var(--radius-md)"></div>
           <p style="place-self: center">centered layer</p>
           <p class="swatch" style="place-self: start end; margin: var(--space-sm)">badge</p>
         </m-zstack>

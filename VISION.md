@@ -61,6 +61,11 @@ See [TIERS.md](TIERS.md) for the classification tests and component map.
    overriding component CSS, and one theme reaches native elements and
    mica elements alike. Because everything ships in `@layer`, the defaults
    are opinions you can overrule, not decisions you inherit.
+
+   The default aesthetic is the author's design language: square
+   (radius 0), pure neutral grays, near-black primary, one blue accent
+   reserved for focus/selection, orange warning. Each of those is a
+   documented 1–2 line token override to change.
 4. **Framework-agnostic by absence.** No props, no events, no registration
    in Tier 0–1 means there is no interop surface at all. React, Svelte, a Go
    template, a Markdown SSG: identical usage.

@@ -28,9 +28,11 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     --line-height: 1.5;
 
-    --radius-sm: 0.25rem;
-    --radius-md: 0.375rem;
-    --radius-lg: 0.75rem;
+    /* square is the design language; rounding back on is a theme:
+       :root { --radius-sm: .25rem; --radius-md: .375rem; --radius-lg: .75rem } */
+    --radius-sm: 0px;
+    --radius-md: 0px;
+    --radius-lg: 0px;
     --radius-full: 9999px;
 
     --focus-ring-width: 2px;
@@ -38,7 +40,7 @@
     --focus-ring-color: var(--color-accent);
 
     /* checkmark glyph — SVG URIs can't read custom properties, so this
-       ships as a light-dark pair tracking on-accent (white / near-black) */
+       ships as a light-dark pair tracking on-primary (white / near-black) */
     --check-glyph: light-dark(
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E"),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23151922' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E"));
@@ -52,33 +54,33 @@
      * -------------------------------------------------------------- */
     color-scheme: light dark;
 
-    --hue: 250;
-    --chroma: 0.13;
-    --neutral-chroma: 0.008;
+    --hue: 263;
+    --chroma: 0.21;
+    --neutral-chroma: 0;
 
     /* status hues — knobs, same as the brand hue. statuses deliberately
        do NOT ride --chroma: danger must stay urgent in a muted theme. */
     --danger-hue: 25;
     --success-hue: 150;
-    --warn-hue: 75; /* amber — true yellow reads as mud at solid lightness */
-    --status-chroma: 0.14;
+    --warn-hue: 48; /* orange — amber reads as mud at solid lightness */
+    --status-chroma: 0.18;
 
     /* Numbered scales — theme-relative (Radix convention): a step means
        the same *thing* in both modes. 1 = app bg … 6–8 = borders …
        9 = solid … 12 = high-contrast text. light-dark() is baked into
        every step, so code written against steps gets dark mode free. */
-    --neutral-1:  light-dark(oklch(99%   var(--neutral-chroma) var(--hue)), oklch(19% var(--neutral-chroma) var(--hue)));
-    --neutral-2:  light-dark(oklch(97.5% var(--neutral-chroma) var(--hue)), oklch(23% var(--neutral-chroma) var(--hue)));
-    --neutral-3:  light-dark(oklch(95%   var(--neutral-chroma) var(--hue)), oklch(26% var(--neutral-chroma) var(--hue)));
-    --neutral-4:  light-dark(oklch(92.5% var(--neutral-chroma) var(--hue)), oklch(29% var(--neutral-chroma) var(--hue)));
-    --neutral-5:  light-dark(oklch(90%   var(--neutral-chroma) var(--hue)), oklch(32% var(--neutral-chroma) var(--hue)));
-    --neutral-6:  light-dark(oklch(87%   var(--neutral-chroma) var(--hue)), oklch(35% var(--neutral-chroma) var(--hue)));
-    --neutral-7:  light-dark(oklch(81%   var(--neutral-chroma) var(--hue)), oklch(42% var(--neutral-chroma) var(--hue)));
-    --neutral-8:  light-dark(oklch(73%   var(--neutral-chroma) var(--hue)), oklch(50% var(--neutral-chroma) var(--hue)));
-    --neutral-9:  light-dark(oklch(55%   var(--neutral-chroma) var(--hue)), oklch(60% var(--neutral-chroma) var(--hue)));
-    --neutral-10: light-dark(oklch(50%   var(--neutral-chroma) var(--hue)), oklch(65% var(--neutral-chroma) var(--hue)));
-    --neutral-11: light-dark(oklch(45%   var(--neutral-chroma) var(--hue)), oklch(75% var(--neutral-chroma) var(--hue)));
-    --neutral-12: light-dark(oklch(22%   var(--neutral-chroma) var(--hue)), oklch(93% var(--neutral-chroma) var(--hue)));
+    --neutral-1:  light-dark(oklch(100%  var(--neutral-chroma) var(--hue)), oklch(14% var(--neutral-chroma) var(--hue)));
+    --neutral-2:  light-dark(oklch(97.3% var(--neutral-chroma) var(--hue)), oklch(17% var(--neutral-chroma) var(--hue)));
+    --neutral-3:  light-dark(oklch(95.2% var(--neutral-chroma) var(--hue)), oklch(20% var(--neutral-chroma) var(--hue)));
+    --neutral-4:  light-dark(oklch(93%   var(--neutral-chroma) var(--hue)), oklch(23% var(--neutral-chroma) var(--hue)));
+    --neutral-5:  light-dark(oklch(91%   var(--neutral-chroma) var(--hue)), oklch(26% var(--neutral-chroma) var(--hue)));
+    --neutral-6:  light-dark(oklch(89%   var(--neutral-chroma) var(--hue)), oklch(30% var(--neutral-chroma) var(--hue)));
+    --neutral-7:  light-dark(oklch(82%   var(--neutral-chroma) var(--hue)), oklch(37% var(--neutral-chroma) var(--hue)));
+    --neutral-8:  light-dark(oklch(74%   var(--neutral-chroma) var(--hue)), oklch(46% var(--neutral-chroma) var(--hue)));
+    --neutral-9:  light-dark(oklch(55%   var(--neutral-chroma) var(--hue)), oklch(58% var(--neutral-chroma) var(--hue)));
+    --neutral-10: light-dark(oklch(50%   var(--neutral-chroma) var(--hue)), oklch(64% var(--neutral-chroma) var(--hue)));
+    --neutral-11: light-dark(oklch(44%   var(--neutral-chroma) var(--hue)), oklch(71% var(--neutral-chroma) var(--hue)));
+    --neutral-12: light-dark(oklch(18%   var(--neutral-chroma) var(--hue)), oklch(96% var(--neutral-chroma) var(--hue)));
 
     /* accent scale: chroma tapers at the extremes, peaks at the solid */
     --accent-1:  light-dark(oklch(99%   calc(var(--chroma) * 0.1) var(--hue)), oklch(19% calc(var(--chroma) * 0.15) var(--hue)));
@@ -89,9 +91,9 @@
     --accent-6:  light-dark(oklch(85%   calc(var(--chroma) * 0.55) var(--hue)), oklch(39% calc(var(--chroma) * 0.7) var(--hue)));
     --accent-7:  light-dark(oklch(79%   calc(var(--chroma) * 0.65) var(--hue)), oklch(46% calc(var(--chroma) * 0.8) var(--hue)));
     --accent-8:  light-dark(oklch(71%   calc(var(--chroma) * 0.8) var(--hue)), oklch(58% calc(var(--chroma) * 0.9) var(--hue)));
-    --accent-9:  light-dark(oklch(52%   var(--chroma) var(--hue)), oklch(70% var(--chroma) var(--hue)));
-    --accent-10: light-dark(oklch(47%   var(--chroma) var(--hue)), oklch(75% var(--chroma) var(--hue)));
-    --accent-11: light-dark(oklch(44%   calc(var(--chroma) * 0.9) var(--hue)), oklch(80% calc(var(--chroma) * 0.9) var(--hue)));
+    --accent-9:  light-dark(oklch(55%   var(--chroma) var(--hue)), oklch(70% var(--chroma) var(--hue)));
+    --accent-10: light-dark(oklch(50%   var(--chroma) var(--hue)), oklch(75% var(--chroma) var(--hue)));
+    --accent-11: light-dark(oklch(46%   calc(var(--chroma) * 0.9) var(--hue)), oklch(80% calc(var(--chroma) * 0.9) var(--hue)));
     --accent-12: light-dark(oklch(24%   calc(var(--chroma) * 0.5) var(--hue)), oklch(94% calc(var(--chroma) * 0.3) var(--hue)));
 
     /* Semantic roles — what components actually use. Defined in terms
@@ -106,6 +108,18 @@
     --color-on-accent: light-dark(
       oklch(99% 0.01 var(--hue)),
       oklch(18% 0.02 var(--hue)));
+
+    /* Primary — the action color, decoupled from accent (shadcn-school:
+       near-black light, near-white dark; the accent appears only where
+       attention is earned: focus, selection, checkmarks). Hover/active
+       are derived, so ANY value assigned to --color-primary gets correct
+       states free. Colorful primary is a two-line theme:
+       :root { --color-primary: var(--accent-9);
+               --color-on-primary: var(--color-on-accent); } */
+    --color-primary: var(--neutral-12);
+    --color-on-primary: var(--neutral-1);
+    --color-primary-hover: color-mix(in oklch, var(--color-primary) 90%, var(--color-surface));
+    --color-primary-active: color-mix(in oklch, var(--color-primary) 80%, var(--color-surface));
 
     /* Status roles — the step-3/7/9/11 analogs, no full scales.
        Off-role shades: raw oklch(L var(--status-chroma) var(--*-hue)). */
@@ -235,6 +249,7 @@
     border-radius: var(--radius-md);
     background: var(--neutral-2);
     color: var(--color-text);
+    line-height: var(--control-line-height, 1.375); /* 40px controls */
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
@@ -249,21 +264,20 @@
 
     /* variants */
     &:where(.primary) {
-      background: var(--accent-9);
+      background: var(--color-primary);
       border-color: transparent;
-      color: var(--color-on-accent);
+      color: var(--color-on-primary);
 
       &:hover:not(:disabled, [aria-disabled="true"]) {
-        background: var(--accent-10);
+        background: var(--color-primary-hover);
       }
       &:active:not(:disabled, [aria-disabled="true"]) {
-        background: var(--accent-11);
+        background: var(--color-primary-active);
       }
 
-      /* disabled reads as inert, not as a saturated button behind glass */
-      &:where(:disabled, [aria-disabled="true"]) {
-        background: color-mix(in oklch, var(--accent-9) 40%, var(--neutral-6));
-      }
+      /* disabled = same fill at the base rule's reduced opacity — a
+         color-mix toward gray was tried and reads as an enabled
+         secondary button when primary is near-black */
     }
 
     &:where(.danger) {
@@ -328,6 +342,7 @@
     border-radius: var(--radius-md);
     background: var(--color-surface);
     color: var(--color-text);
+    line-height: var(--control-line-height, 1.375); /* 40px controls */
 
     &::placeholder {
       color: var(--color-text-muted);
@@ -496,8 +511,8 @@
       background-position 0.15s;
 
     &:checked {
-      border-color: var(--color-accent);
-      background-color: var(--color-accent);
+      border-color: var(--color-primary);
+      background-color: var(--color-primary);
     }
 
     &:disabled {
@@ -513,11 +528,11 @@
 
     /* indeterminate dash — a gradient, no glyph needed */
     &:indeterminate {
-      border-color: var(--color-accent);
-      background-color: var(--color-accent);
+      border-color: var(--color-primary);
+      background-color: var(--color-primary);
       background-image: linear-gradient(
-        var(--color-on-accent),
-        var(--color-on-accent)
+        var(--color-on-primary),
+        var(--color-on-primary)
       );
       background-size: 55% 2px;
       background-position: center;
@@ -531,35 +546,31 @@
     &:checked {
       background-image: radial-gradient(
         circle closest-side,
-        var(--color-on-accent) 40%,
+        var(--color-on-primary) 40%,
         transparent 46%
       );
     }
   }
 
   /* switch: a checkbox wearing a track; the thumb is a positioned
-     radial-gradient (pseudo-elements don't render on inputs) */
+     gradient (pseudo-elements don't render on inputs). square, per the
+     design language — a solid linear-gradient block */
   :where(input[type="checkbox"].switch) {
     inline-size: 2.25rem;
     border-color: transparent;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-sm);
     background-color: var(--neutral-7);
-    background-image: radial-gradient(
-      circle closest-side,
-      white 95%,
-      transparent
-    );
-    background-size: 1rem 1rem;
+    background-image: linear-gradient(white, white);
+    background-size: 1rem calc(100% - 4px);
     background-position: 2px 50%;
     background-repeat: no-repeat;
 
     &:checked {
-      background-color: var(--color-accent);
+      background-color: var(--color-primary);
       background-position: calc(100% - 2px) 50%;
-      background-image: radial-gradient(
-        circle closest-side,
-        var(--color-on-accent) 95%,
-        transparent
+      background-image: linear-gradient(
+        var(--color-on-primary),
+        var(--color-on-primary)
       );
     }
   }
@@ -572,7 +583,7 @@
       :indeterminate
     ) {
     border-color: transparent;
-    background-color: color-mix(in oklch, var(--color-accent) 40%, var(--neutral-6));
+    background-color: color-mix(in oklch, var(--color-primary) 40%, var(--neutral-6));
   }
 
   /* labels that wrap a check control become the click target */
