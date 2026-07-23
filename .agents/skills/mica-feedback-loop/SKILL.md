@@ -55,8 +55,13 @@ entirely via `light-dark()`, force modes from CSS instead:
 
 ```js
 await p.evaluate(() => { document.documentElement.style.colorScheme = 'light'; });
+await sleep(250); // elements with CSS transitions report mid-flight values
 // probe... then 'dark', probe again. Always test BOTH modes.
 ```
+
+Gotcha: elements with `transition` (e.g. buttons) computed-style-probe as
+intermediate `oklab(...)` values right after a mode flip. Settle ~250ms
+before probing, or probe transition-free elements.
 
 ## Channel 2 — accessibility tree (structure claims)
 
