@@ -789,6 +789,28 @@
     }
   }
 
+  /* corner close button — <button class="close" commandfor="…"
+     command="close" aria-label="Close">✕</button> (or wrap it in a
+     method=dialog form). absolute is safe: the dialog is positioned. */
+  :where(dialog) > :where(button.close) {
+    position: absolute;
+    inset-block-start: var(--space-sm);
+    inset-inline-end: var(--space-sm);
+    padding: var(--space-2xs);
+    border: 0;
+    background: transparent;
+    color: var(--color-text-muted);
+    line-height: 1;
+
+    &:hover:not(:disabled, [aria-disabled="true"]) {
+      background: var(--neutral-3);
+      color: var(--color-text);
+    }
+    &:active:not(:disabled, [aria-disabled="true"]) {
+      background: var(--neutral-4);
+    }
+  }
+
   :where(dialog) > :where(header) {
     display: flex;
     flex-direction: column;
