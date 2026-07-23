@@ -28,6 +28,21 @@
       padding: var(--space-sm) var(--space-md);
     }
     .tall { min-block-size: 6rem; display: grid; place-items: center; }
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .scale div {
+      min-block-size: 3.5rem;
+      display: grid;
+      place-items: center;
+      font-size: 0.8rem;
+      color: var(--neutral-12);
+    }
+    .scale .inv { color: var(--neutral-1); }
     footer { padding-block: var(--space-2xl); color: var(--color-text-muted); }
   </style>
 </head>
@@ -135,6 +150,45 @@
           <div class="card tall" style="inline-size: 14rem">slide 5</div>
           <div class="card tall" style="inline-size: 14rem">slide 6</div>
         </m-reel>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2>The scales — for eyeballing the ramps (toggle OS dark mode)</h2>
+        <p>Each step should be distinguishable from its neighbors; 6–8 should
+        read as borders on 1–3; 11 should be readable text on 1–3.</p>
+        <div class="scale">
+          <div style="background: var(--neutral-1)">1</div>
+          <div style="background: var(--neutral-2)">2</div>
+          <div style="background: var(--neutral-3)">3</div>
+          <div style="background: var(--neutral-4)">4</div>
+          <div style="background: var(--neutral-5)">5</div>
+          <div style="background: var(--neutral-6)">6</div>
+          <div style="background: var(--neutral-7)">7</div>
+          <div style="background: var(--neutral-8)">8</div>
+          <div style="background: var(--neutral-9)" class="inv">9</div>
+          <div style="background: var(--neutral-10)" class="inv">10</div>
+          <div style="background: var(--neutral-11)" class="inv">11</div>
+          <div style="background: var(--neutral-12)" class="inv">12</div>
+        </div>
+        <div class="scale">
+          <div style="background: var(--accent-1)">1</div>
+          <div style="background: var(--accent-2)">2</div>
+          <div style="background: var(--accent-3)">3</div>
+          <div style="background: var(--accent-4)">4</div>
+          <div style="background: var(--accent-5)">5</div>
+          <div style="background: var(--accent-6)">6</div>
+          <div style="background: var(--accent-7)">7</div>
+          <div style="background: var(--accent-8)">8</div>
+          <div style="background: var(--accent-9)" class="inv">9</div>
+          <div style="background: var(--accent-10)" class="inv">10</div>
+          <div style="background: var(--accent-11)" class="inv">11</div>
+          <div style="background: var(--accent-12)" class="inv">12</div>
+        </div>
+        <p>Contrast spot-checks: <span style="background: var(--neutral-2); color: var(--neutral-11); padding: 0.2em 0.5em">muted text (11) on surface-raised (2)</span>
+        <span style="background: var(--accent-9); color: var(--color-on-accent); padding: 0.2em 0.5em">on-accent on accent-9</span>
+        <span style="border: 1px solid var(--neutral-6); padding: 0.2em 0.5em">border (6) on surface (1)</span></p>
       </m-vstack>
     </section>
 
