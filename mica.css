@@ -362,22 +362,25 @@
   }
 
   /* --- form grouping: label, fieldset, legend ---------------------- *
-   * fieldset keeps its default display — anything else evicts the
-   * legend from the border. Space contents with m-vstack or rhythm.
+   * Plain by default (shadcn-school): a fieldset is a titled group,
+   * not a bordered box. The legend reads as a small section heading.
+   * Space contents with m-vstack or rhythm.
    * ------------------------------------------------------------------ */
   :where(label) {
     font-weight: 500;
   }
 
   :where(fieldset) {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md) var(--space-lg) var(--space-lg);
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-inline-size: 0; /* fieldsets otherwise refuse to shrink */
   }
 
   :where(legend) {
     font-weight: 600;
-    padding-inline: var(--space-xs);
+    padding: 0;
+    margin-block-end: var(--space-md);
   }
 
   /* a disabled fieldset dims everything it silences */
