@@ -19,6 +19,12 @@ function sync(select) {
 if (CSS.supports("appearance", "base-select")) {
   for (const s of document.querySelectorAll(SELECTOR)) sync(s);
   document.addEventListener("change", (e) => {
-    if (e.target.matches?.(SELECTOR)) sync(e.target);
+    if (!e.target.matches?.(SELECTOR)) return;
+    const select = e.target;
+    // Defer re-alignment until the picker's exit transition (120ms in
+    // mica.css) has finished — updating the index while the closing
+    // picker is still rendered makes it visibly jump to the new value's
+    // position before fading. Fade out in place; re-align invisibly.
+    setTimeout(() => sync(select), 200);
   });
 }
