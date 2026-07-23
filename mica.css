@@ -149,6 +149,7 @@
     line-height: var(--line-height);
     background: var(--color-surface);
     color: var(--color-text);
+    accent-color: var(--color-accent);
   }
 
   /* Vertical rhythm: flow content spaces itself; last child never
@@ -304,6 +305,54 @@
       cursor: not-allowed;
       opacity: 0.55;
     }
+  }
+
+  /* --- fields: text inputs, textarea, select ----------------------- *
+   * One control family with buttons: same radius, same border weight.
+   * Focus ring comes from the preset; text fields match :focus-visible
+   * even on mouse focus, per spec.
+   * ------------------------------------------------------------------ */
+  :where(input, textarea, select):where(:not([type="checkbox"],
+         [type="radio"], [type="range"], [type="color"], [type="file"],
+         [type="button"], [type="submit"], [type="reset"],
+         [type="image"])) {
+    inline-size: 100%;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    &::placeholder {
+      color: var(--color-text-muted);
+      opacity: 1;
+    }
+
+    &:where(:disabled) {
+      cursor: not-allowed;
+      opacity: 0.55;
+      background: var(--neutral-2);
+    }
+
+    /* validation — only after the user has interacted (:user-invalid),
+       never on pristine fields. First consumer of the status roles. */
+    &:where(:user-invalid) {
+      border-color: var(--color-danger);
+      --focus-ring-color: var(--color-danger);
+    }
+  }
+
+  /* single-line select: match the field family's height exactly
+     (native selects size their content box differently) */
+  :where(select:not([multiple], [size])) {
+    block-size: calc(1lh + 2 * var(--space-xs) + 2px);
+  }
+
+  /* textarea grows with content — zero JS */
+  :where(textarea) {
+    field-sizing: content;
+    min-block-size: 3lh;
+    resize: vertical;
   }
 }
 

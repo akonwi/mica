@@ -226,6 +226,44 @@
     </section>
 
     <section>
+      <m-vstack gap="md">
+        <h2>Fields — native inputs, zero classes</h2>
+        <form>
+          <m-vstack gap="md" style="max-inline-size: var(--size-lg)">
+            <m-vstack gap="2xs">
+              <label for="f-name">Name</label>
+              <input id="f-name" type="text" placeholder="Ada Lovelace" />
+            </m-vstack>
+            <m-vstack gap="2xs">
+              <label for="f-email">Email (required — type then clear it to see :user-invalid)</label>
+              <input id="f-email" type="email" required placeholder="ada@example.com" />
+            </m-vstack>
+            <m-vstack gap="2xs">
+              <label for="f-bio">Bio (grows as you type — field-sizing, zero JS)</label>
+              <textarea id="f-bio" placeholder="A few lines about you…"></textarea>
+            </m-vstack>
+            <m-vstack gap="2xs">
+              <label for="f-role">Role</label>
+              <select id="f-role">
+                <option>Engineer</option>
+                <option>Designer</option>
+                <option>Mathematician</option>
+              </select>
+            </m-vstack>
+            <m-vstack gap="2xs">
+              <label for="f-locked">Disabled</label>
+              <input id="f-locked" type="text" disabled value="Read only-ish" />
+            </m-vstack>
+            <m-hstack gap="sm">
+              <button type="submit" class="primary">Submit</button>
+              <button type="reset" class="ghost">Reset</button>
+            </m-hstack>
+          </m-vstack>
+        </form>
+      </m-vstack>
+    </section>
+
+    <section>
       <h2>The preset — bare prose, no mica tags, no demo styles</h2>
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from
