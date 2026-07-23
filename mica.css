@@ -904,26 +904,45 @@
     }
   }
 
-  /* drawer: slides in from the inline end, full height (no scale) */
+  /* drawer (shadcn sheet anatomy): inline-end panel, fade + 2.5rem
+     nudge rather than a full slide; no section dividers; footer pinned
+     to the bottom with stacked actions */
   :where(dialog.drawer) {
     margin-inline: auto 0;
     margin-block: 0;
     block-size: 100svh;
     max-block-size: 100svh;
-    inline-size: 100%;
-    max-inline-size: min(90vw, var(--size-sm));
+    inline-size: 75vw;
+    max-inline-size: 24rem; /* sheet's max-w-sm */
     border: 0;
     border-inline-start: 1px solid var(--color-border);
+    font-size: 0.75rem;
+    line-height: 1.6;
     scale: 1;
-    translate: 100% 0;
+    translate: 2.5rem 0;
   }
   :where(dialog.drawer[open]) {
     translate: 0 0;
+
+    & > :where(:not(header, footer, button.close)) {
+      font-size: inherit; /* panel runs 12/relaxed throughout */
+    }
   }
   @starting-style {
     :where(dialog.drawer[open]) {
-      translate: 100% 0;
+      translate: 2.5rem 0;
     }
+  }
+
+  :where(dialog.drawer) > :where(header) {
+    border-block-end: 0;
+  }
+  :where(dialog.drawer) > :where(footer) {
+    margin-block-start: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-xs);
+    border-block-start: 0;
   }
 
   /* --- validation errors ------------------------------------------- *
