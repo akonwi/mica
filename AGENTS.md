@@ -16,7 +16,8 @@ nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
   `tools/build-docs.py`; edit the generator and rerun it, never the output.
 - `serve.py` — dev server on :8471 with caching disabled. Always use it;
   plain `python3 -m http.server` serves stale files to browsers and probes.
-- `mockups/` — committed design explorations (see the `mockups` skill).
+- `mockups/` — *live* design explorations only; emptied once a decision
+  is folded in (git history is the record). See the `mockups` skill.
 
 ## Non-negotiable working rules
 

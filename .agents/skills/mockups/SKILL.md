@@ -13,8 +13,8 @@ mica-specific workflow around it.
 
 ## 1. Build the mockup page
 
-- Location: `mockups/<topic>.html` (committed — they're the design
-  record; see `mockups/radio.html` for the shape).
+- Location: `mockups/<topic>.html`. The directory holds only *live*
+  explorations — undecided questions.
 - Link the real stylesheet: `<link rel="stylesheet" href="../mica.css">`.
   Never inline approximations — dark mode, tokens, and theming must be
   judged truthfully.
@@ -61,6 +61,7 @@ user to toggle OS dark mode, or flip it for them in page JS.
   tokens/roles (never hardcoded values), with the losing default
   documented as a theme snippet in a CSS comment if it was previously
   the default.
-- Keep the mockup file — it's the exploration record.
+- Delete the mockup files once the decision is folded in — git history
+  is the exploration record; `mockups/` stays empty between explorations.
 - Run the standard `mica-feedback-loop` verification sweep on the
   folded-in result before committing.
