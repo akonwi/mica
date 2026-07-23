@@ -540,14 +540,27 @@
     }
   }
 
+  /* radio: "square target" — a solid pip in every state. muted pip
+     unchecked, bright pip on the primary fill when checked. the round
+     radio is a theme:
+       input[type="radio"] {
+         border-radius: var(--radius-full);
+         background-image: radial-gradient(circle closest-side,
+           var(--color-on-primary) 40%, transparent 46%);
+       } */
   :where(input[type="radio"]) {
-    border-radius: var(--radius-full);
+    background-image: linear-gradient(
+      var(--color-border-strong),
+      var(--color-border-strong)
+    );
+    background-position: center;
+    background-size: 8px 8px;
+    background-repeat: no-repeat;
 
     &:checked {
-      background-image: radial-gradient(
-        circle closest-side,
-        var(--color-on-primary) 40%,
-        transparent 46%
+      background-image: linear-gradient(
+        var(--color-on-primary),
+        var(--color-on-primary)
       );
     }
   }

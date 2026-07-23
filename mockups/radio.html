@@ -21,20 +21,22 @@
     /* ---- concept 1: square target ------------------------------- */
     input.r1 {
       border-radius: 0;
-      background-image:
-        linear-gradient(var(--color-surface), var(--color-surface)),
-        linear-gradient(var(--color-border-strong), var(--color-border-strong));
+      background-image: linear-gradient(
+        var(--color-border-strong),
+        var(--color-border-strong)
+      );
       background-position: center;
-      background-size: 6px 6px, 10px 10px;
+      background-size: 8px 8px;
       background-repeat: no-repeat;
     }
     input.r1:checked {
       border-color: var(--color-primary);
       background-color: var(--color-primary);
-      background-image:
-        linear-gradient(var(--color-primary), var(--color-primary)),
-        linear-gradient(var(--color-on-primary), var(--color-on-primary));
-      background-size: 4px 4px, 10px 10px;
+      background-image: linear-gradient(
+        var(--color-on-primary),
+        var(--color-on-primary)
+      );
+      background-size: 8px 8px;
     }
 
     /* ---- concept 2: diamond socket ------------------------------- */
@@ -107,8 +109,8 @@
     <div class="panel">
       <m-vstack gap="md">
         <h2>1 — Square Target <span class="note">(designer's pick)</span></h2>
-        <p class="note">Concentric squares: hollow socket unchecked, filled tile
-        with a bright square ring when checked.</p>
+        <p class="note">Concentric squares, always solid: muted gray pip
+        unchecked, bright pip on the primary fill when checked.</p>
         <m-hstack gap="lg" wrap>
           <label><input type="radio" class="r1" name="c1" checked /> One</label>
           <label><input type="radio" class="r1" name="c1" /> Two</label>
