@@ -447,6 +447,26 @@
     </section>
 
     <section>
+      <m-vstack gap="md">
+        <h2>Toast — display only; queueing is Tier 2</h2>
+        <m-hstack gap="sm" wrap>
+          <button popovertarget="demo-toast" popovertargetaction="show">Show toast</button>
+          <button popovertarget="demo-toast-ok" popovertargetaction="show">Success toast</button>
+        </m-hstack>
+        <div id="demo-toast" popover="manual" class="toast" role="status">
+          <button class="close" popovertarget="demo-toast" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>
+          <b>Heads up</b>
+          <span>popover="manual": survives light dismiss; dismissed by its X.</span>
+        </div>
+        <div id="demo-toast-ok" popover="manual" class="toast success" role="status">
+          <button class="close" popovertarget="demo-toast-ok" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>
+          <b>Saved</b>
+          <span>Your changes are safe.</span>
+        </div>
+      </m-vstack>
+    </section>
+
+    <section>
       <h2>The preset — bare prose, no mica tags, no demo styles</h2>
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from

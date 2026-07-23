@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>vstack — mica</title>
+  <title>toast — mica</title>
   <link rel="stylesheet" href="../mica.css" />
 
   <style>
@@ -38,7 +38,7 @@
       <a href="tokens.html">Tokens &amp; theming</a>
       <a href="preset.html">Preset</a>
       <h2>Layout</h2>
-      <a href="vstack.html" aria-current="page">vstack</a>
+      <a href="vstack.html">vstack</a>
       <a href="hstack.html">hstack</a>
       <a href="zstack.html">zstack</a>
       <a href="center.html">center</a>
@@ -63,29 +63,35 @@
       <a href="dialog.html">dialog</a>
       <a href="accordion.html">accordion</a>
       <a href="popover.html">popover &amp; tooltip</a>
-      <a href="toast.html">toast</a>
+      <a href="toast.html" aria-current="page">toast</a>
     </nav>
     <article id="main">
       <m-center style="--max: 48rem">
         <m-vstack gap="xl">
-          <span class="crumb">Layout / vstack</span>
+          <span class="crumb">Patterns / toast</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>vstack</h1> <span class="badge">Tier 0</span></m-hstack>
-            <p class="lead">Vertical flow with consistent gaps. The workhorse.</p>
+            <m-hstack gap="sm"><h1>toast</h1> <span class="badge">Tier 1</span></m-hstack>
+            <p class="lead">A corner-pinned manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are honest Tier-2 work, not shipped yet.</p>
           </m-vstack>
 
-<div class="specimen"><m-vstack gap="sm"><div class="swatch">one</div><div class="swatch">two</div><div class="swatch">three</div></m-vstack></div>
-<pre><code>&lt;m-vstack gap=&quot;sm&quot;&gt;
-  &lt;div&gt;one&lt;/div&gt;
-  &lt;div&gt;two&lt;/div&gt;
-&lt;/m-vstack&gt;</code></pre>
-<h2>Attributes</h2>
-<p><code>gap</code>: none · 2xs · xs · sm · md (default) · lg · xl · 2xl.
-<code>align</code>: start · center · end · stretch (default).
-Arbitrary values via the escape hatch: <code>style="--gap: 2.75rem"</code> —
-attributes and custom properties are the same mechanism.</p>
+<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><div id="dt-a" popover="manual" class="toast" role="status"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></div><div id="dt-b" popover="manual" class="toast success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></div></div>
+<pre><code>&lt;div id=&quot;saved&quot; popover=&quot;manual&quot; class=&quot;toast success&quot; role=&quot;status&quot;&gt;
+  &lt;button class=&quot;close&quot; popovertarget=&quot;saved&quot;
+          popovertargetaction=&quot;hide&quot; aria-label=&quot;Dismiss&quot;&gt;&amp;#x2715;&lt;/button&gt;
+  &lt;b&gt;Saved&lt;/b&gt;
+  &lt;span&gt;Your changes are safe.&lt;/span&gt;
+&lt;/div&gt;
 
-          <m-hstack justify="between" class="pager"><a href="preset.html">&larr; Preset</a><a href="hstack.html">hstack &rarr;</a></m-hstack>
+document.getElementById(&amp;#39;saved&amp;#39;).showPopover()  // from your app code</code></pre>
+<h2>Notes</h2>
+<p><code>popover="manual"</code> keeps it up through light dismiss and other
+popovers; <code>role="status"</code> announces politely. Variants:
+<code>.success</code> / <code>.danger</code> / <code>.warn</code> status edges.
+Apps show toasts from code (<code>showPopover()</code>) — that one line is
+yours; stacking multiple toasts, queue order, and auto-dismiss timers are a
+future Tier-2 module.</p>
+
+          <m-hstack justify="between" class="pager"><a href="popover.html">&larr; popover &amp; tooltip</a><span></span></m-hstack>
         </m-vstack>
       </m-center>
     </article>

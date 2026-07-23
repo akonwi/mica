@@ -72,10 +72,13 @@ Exit criterion: a plain HTML form page looks designed, zero classes.
       fallback); `.menu` popovers with accent-highlight items that close
       declaratively (`popovertargetaction=hide`); CSS-only `[data-tip]`
       tooltips (inverted chip, delayed show, instant hide)
-- [ ] Toast display (queueing is Tier 2)
+- [x] Toast display — corner-pinned `popover="manual"` + role=status;
+      status-edge variants; slide-up enter, declarative dismiss via the
+      shared corner X (queueing/auto-dismiss remain Tier 2)
 
 Each ships as markup recipe + CSS. "Delete the stylesheet and it still
 works" is the demo.
+**Phase 4 complete.**
 
 ## Phase 5 — Tier 2, the honest appendix
 

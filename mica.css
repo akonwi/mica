@@ -831,8 +831,9 @@
 
   /* corner close button — <button class="close" commandfor="…"
      command="close" aria-label="Close">✕</button> (or wrap it in a
-     method=dialog form). absolute is safe: the dialog is positioned. */
-  :where(dialog) > :where(button.close) {
+     method=dialog form). absolute is safe: the dialog is positioned.
+     shared with toasts (popovertarget/popovertargetaction=hide there). */
+  :where(dialog, [popover].toast) > :where(button.close) {
     position: absolute;
     inset-block-start: var(--space-sm);
     inset-inline-end: var(--space-sm);
@@ -1122,6 +1123,46 @@
       margin-block: var(--space-2xs);
       margin-inline: calc(-1 * var(--space-2xs));
       border-block-start-color: var(--color-border);
+    }
+  }
+
+  /* --- toast: display only (queueing/auto-dismiss are Tier 2) ------- *
+   * <div popover="manual" class="toast" role="status"> — manual so it
+   * survives light dismiss and other popovers; role=status announces.
+   * ------------------------------------------------------------------ */
+  :where([popover].toast) {
+    position-area: none; /* not anchored — pinned to the corner */
+    inset: auto var(--space-lg) var(--space-lg) auto;
+    margin: 0;
+    inline-size: min(22rem, calc(100vw - 2rem));
+    max-inline-size: none;
+    padding: var(--space-md);
+    padding-inline-end: var(--space-2xl); /* room for the corner X */
+    translate: 0 0;
+
+    & :where(b) {
+      display: block;
+      font-weight: 500;
+    }
+    & :where(span, p) {
+      color: var(--color-text-muted);
+    }
+
+    /* status edge variants */
+    &:where(.success) {
+      border-inline-start: 2px solid var(--color-success);
+    }
+    &:where(.danger) {
+      border-inline-start: 2px solid var(--color-danger);
+    }
+    &:where(.warn) {
+      border-inline-start: 2px solid var(--color-warn);
+    }
+  }
+  /* arrives from below rather than zooming */
+  @starting-style {
+    :where([popover].toast:popover-open) {
+      translate: 0 0.75rem;
     }
   }
 
