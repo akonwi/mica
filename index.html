@@ -268,6 +268,29 @@
     </section>
 
     <section>
+      <m-vstack gap="md">
+        <h2>Checks — drawn controls, native semantics</h2>
+        <m-hstack gap="lg" wrap>
+          <label><input type="checkbox" checked /> Checked</label>
+          <label><input type="checkbox" /> Unchecked</label>
+          <label><input type="checkbox" disabled checked /> Disabled</label>
+        </m-hstack>
+        <m-hstack gap="lg" wrap>
+          <label><input type="radio" name="demo-r" checked /> One</label>
+          <label><input type="radio" name="demo-r" /> Two</label>
+          <label><input type="radio" name="demo-r" disabled /> Off-limits</label>
+        </m-hstack>
+        <m-hstack gap="lg" wrap>
+          <label><input type="checkbox" class="switch" checked /> Notifications</label>
+          <label><input type="checkbox" class="switch" /> Marketing email</label>
+          <label><input type="checkbox" class="switch" disabled /> Locked</label>
+        </m-hstack>
+        <p>All three are native <code>&lt;input&gt;</code>s — keyboard, forms, and
+        AT semantics untouched. The switch is <code>class="switch"</code> on a checkbox.</p>
+      </m-vstack>
+    </section>
+
+    <section>
       <h2>The preset — bare prose, no mica tags, no demo styles</h2>
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from

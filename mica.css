@@ -37,6 +37,12 @@
     --focus-ring-offset: 2px;
     --focus-ring-color: var(--color-accent);
 
+    /* checkmark glyph — SVG URIs can't read custom properties, so this
+       ships as a light-dark pair tracking on-accent (white / near-black) */
+    --check-glyph: light-dark(
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23151922' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E"));
+
     /* -------------------------------------------------------------- *
      * Color. Two knobs — change the theme by changing the knobs:
      *   --hue: the accent hue (OKLCH degrees)
@@ -353,6 +359,104 @@
     field-sizing: content;
     min-block-size: 3lh;
     resize: vertical;
+  }
+
+  /* --- checkbox, radio, switch: drawn, semantics stay native ------- */
+  :where(input:is([type="checkbox"], [type="radio"])) {
+    appearance: none;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    margin: 0;
+    flex-shrink: 0;
+    vertical-align: -0.25em;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface) center / contain no-repeat;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s,
+      background-position 0.15s;
+
+    &:checked {
+      border-color: var(--color-accent);
+      background-color: var(--color-accent);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+  }
+
+  :where(input[type="checkbox"]:not(.switch)) {
+    &:checked {
+      background-image: var(--check-glyph);
+    }
+
+    /* indeterminate dash — a gradient, no glyph needed */
+    &:indeterminate {
+      border-color: var(--color-accent);
+      background-color: var(--color-accent);
+      background-image: linear-gradient(
+        var(--color-on-accent),
+        var(--color-on-accent)
+      );
+      background-size: 55% 2px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  :where(input[type="radio"]) {
+    border-radius: var(--radius-full);
+
+    &:checked {
+      background-image: radial-gradient(
+        circle closest-side,
+        var(--color-on-accent) 40%,
+        transparent 46%
+      );
+    }
+  }
+
+  /* switch: a checkbox wearing a track; the thumb is a positioned
+     radial-gradient (pseudo-elements don't render on inputs) */
+  :where(input[type="checkbox"].switch) {
+    inline-size: 2.25rem;
+    border-color: transparent;
+    border-radius: var(--radius-full);
+    background-color: var(--neutral-7);
+    background-image: radial-gradient(
+      circle closest-side,
+      white 95%,
+      transparent
+    );
+    background-size: 1rem 1rem;
+    background-position: 2px 50%;
+    background-repeat: no-repeat;
+
+    &:checked {
+      background-color: var(--color-accent);
+      background-position: calc(100% - 2px) 50%;
+      background-image: radial-gradient(
+        circle closest-side,
+        var(--color-on-accent) 95%,
+        transparent
+      );
+    }
+  }
+
+  /* labels that wrap a check control become the click target */
+  :where(label:has(> input:is([type="checkbox"], [type="radio"]))) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    cursor: pointer;
+  }
+
+  /* a disabled control dims its whole label, not just itself */
+  :where(label:has(> input:disabled)) {
+    color: var(--color-text-muted);
+    cursor: not-allowed;
   }
 
   /* --- validation errors ------------------------------------------- *

@@ -30,7 +30,8 @@ dialogs). Infrastructure interleaves — don't batch it.
       TS/JSX-safe, validator-safe, `@layer` defuses collisions)
 - [x] Inputs, textarea (`field-sizing`), basic select — one control
       family with buttons; `:user-invalid` wired to danger roles
-- [ ] Checkbox, radio, switch
+- [x] Checkbox, radio, switch — drawn (`appearance: none`), one family
+      with buttons/fields; switch is `class="switch"` on a checkbox
 - [ ] Select (`base-select` where available, graceful fallback)
 - [ ] Fieldset, label, legend layout conventions
 - [ ] Progress, meter

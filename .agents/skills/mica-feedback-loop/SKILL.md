@@ -63,6 +63,19 @@ Gotcha: elements with `transition` (e.g. buttons) computed-style-probe as
 intermediate `oklab(...)` values right after a mode flip. Settle ~250ms
 before probing, or probe transition-free elements.
 
+Gotcha: aside tabs cache **both** the HTML and the stylesheet across
+invocations — probes can silently run against stale files (symptom:
+selectors find nothing, or new rules don't apply while old ones do).
+Bust both on every probe run:
+
+```js
+const p = await openTab('http://localhost:8471/index.html?f=' + Date.now());
+await p.evaluate(() => {
+  document.querySelector('link[rel=stylesheet]').href = 'mica.css?v=' + Date.now();
+});
+await sleep(400);
+```
+
 ## Channel 2 — accessibility tree (structure claims)
 
 `snapshot(page)` returns the a11y tree. Mica's core claim — custom elements
