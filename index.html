@@ -193,6 +193,27 @@
     </section>
 
     <section>
+      <m-vstack gap="md">
+        <h2>Buttons — native <code>&lt;button&gt;</code>, styled directly</h2>
+        <m-hstack gap="sm" wrap>
+          <button>Default</button>
+          <button class="primary">Primary</button>
+          <button class="ghost">Ghost</button>
+          <button disabled>Disabled</button>
+          <button class="primary" disabled>Disabled primary</button>
+        </m-hstack>
+        <m-hstack gap="sm" wrap>
+          <button class="small">Small</button>
+          <button>Medium</button>
+          <button class="large">Large</button>
+          <a class="btn" href="#main">A link dressed as a button</a>
+        </m-hstack>
+        <p>Variants are classes (<code>class="primary"</code>) — collisions with
+        app CSS resolve in the user's favor because mica lives in a layer.</p>
+      </m-vstack>
+    </section>
+
+    <section>
       <h2>The preset — bare prose, no mica tags, no demo styles</h2>
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from

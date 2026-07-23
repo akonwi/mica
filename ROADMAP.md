@@ -25,7 +25,8 @@ dialogs). Infrastructure interleaves — don't batch it.
 
 ## Phase 3 — `mica.elements`: buttons & forms
 
-- [ ] Button (decides variant syntax for everything: class vs data-attr)
+- [x] Button (variant syntax decided: **classes** — `class="primary"`;
+      TS/JSX-safe, validator-safe, `@layer` defuses collisions)
 - [ ] Inputs, textarea (`field-sizing`)
 - [ ] Checkbox, radio, switch
 - [ ] Select (`base-select` where available, graceful fallback)
