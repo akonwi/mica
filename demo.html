@@ -382,11 +382,9 @@
           </footer>
         </dialog>
         <dialog id="demo-drawer" class="drawer">
+          <button class="close" commandfor="demo-drawer" command="close" aria-label="Close">&#x2715;</button>
           <header>
-            <m-hstack justify="between">
-              <h2>Drawer</h2>
-              <button class="ghost" commandfor="demo-drawer" command="close">Close</button>
-            </m-hstack>
+            <h2>Drawer</h2>
             <p>Same native dialog, dressed as a drawer. Esc still closes it.</p>
           </header>
           <m-vstack gap="2xs">

@@ -763,13 +763,18 @@
     border-radius: var(--radius-lg);
     background: var(--color-surface-overlay);
     color: var(--color-text);
-    padding: var(--space-lg);
-    max-inline-size: min(calc(100vw - 2 * var(--space-lg)), var(--size-lg));
+    /* sections carry their own padding; the dialog is a bare frame */
+    padding: 0;
+    overflow: hidden;
+    inline-size: calc(100vw - 2rem);
+    max-inline-size: var(--size-lg);
+    max-block-size: calc(100svh - 2rem);
     box-shadow: 0 16px 48px light-dark(oklch(0 0 0 / 0.2), oklch(0 0 0 / 0.6));
     opacity: 0;
-    translate: 0 0.5rem;
+    scale: 0.95;
     transition:
       opacity 0.15s,
+      scale 0.15s,
       translate 0.15s,
       overlay 0.15s allow-discrete,
       display 0.15s allow-discrete;
@@ -780,12 +785,21 @@
   :where(dialog[open]) {
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
     opacity: 1;
-    translate: 0 0;
+    scale: 1;
 
     & > :where(*) {
       margin-block: 0; /* the dialog owns spacing, like a stack */
+    }
+
+    /* the body: whatever sits between header and footer. one wrapper
+       element; it pads itself and is the scrollable region */
+    & > :where(:not(header, footer, button.close)) {
+      padding: var(--space-md);
+      flex: 1;
+      min-block-size: 0;
+      overflow-y: auto;
+      font-size: 0.875rem; /* body must not outweigh the 14px title */
     }
   }
 
@@ -815,19 +829,27 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-2xs);
+    padding: var(--space-md);
+    border-block-end: 1px solid var(--color-border);
+
+    /* long titles must not run under the corner X */
+    :where(dialog:has(> button.close)) > & {
+      padding-inline-end: calc(var(--space-md) + var(--space-xl));
+    }
 
     & > :where(*) {
       margin-block: 0;
     }
 
     & :where(h1, h2, h3, h4) {
-      font-size: 1.125rem;
-      font-weight: 600;
+      font-size: 0.875rem;
+      font-weight: 500;
     }
 
     & :where(p) {
       color: var(--color-text-muted);
-      font-size: 0.875rem;
+      font-size: 0.75rem;
+      line-height: 1.6;
     }
   }
 
@@ -836,6 +858,8 @@
     flex-wrap: wrap;
     gap: var(--space-sm);
     justify-content: flex-end;
+    padding: var(--space-md);
+    border-block-start: 1px solid var(--color-border);
 
     & > :where(*) {
       margin-block: 0;
@@ -850,7 +874,7 @@
   @starting-style {
     :where(dialog[open]) {
       opacity: 0;
-      translate: 0 0.5rem;
+      scale: 0.95;
     }
   }
 
@@ -870,7 +894,7 @@
     }
   }
 
-  /* drawer: slides in from the inline end, full height */
+  /* drawer: slides in from the inline end, full height (no scale) */
   :where(dialog.drawer) {
     margin-inline: auto 0;
     margin-block: 0;
@@ -880,6 +904,7 @@
     max-inline-size: min(90vw, var(--size-sm));
     border: 0;
     border-inline-start: 1px solid var(--color-border);
+    scale: 1;
     translate: 100% 0;
   }
   :where(dialog.drawer[open]) {
