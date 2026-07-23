@@ -398,7 +398,7 @@ def page_html(p: dict) -> str:
       {nav_html(p["slug"], from_root)}
     </nav>
     <article id="main">
-      <m-center max="lg">
+      <m-center style="--max: 48rem">
         <m-vstack gap="xl">
           {crumb}
           <m-vstack gap="2xs">
