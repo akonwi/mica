@@ -35,9 +35,9 @@ dialogs). Infrastructure interleaves — don't batch it.
 - [x] Select — `appearance: base-select` picker/options/checkmark/caret
       styled with mica vocabulary (Chromium); native picker elsewhere;
       UA positioning kept (fighting it clips)
-- [x] Fieldset, label, legend conventions — bordered group w/ legend in
-      the gap; fieldset:disabled dims labels; disabled+checked controls
-      desaturate (same color-mix recipe as disabled .primary)
+- [x] Fieldset, label, legend conventions — plain (shadcn-school): a
+      titled group, not a bordered box; fieldset:disabled dims labels;
+      disabled+checked controls desaturate
 - [x] Progress, meter — thin square bars (shadcn-school): primary/20
       track + primary fill; meter grades through the status roles
 - [x] Tables, lists, code (+ kbd, blockquote, hr) — shadcn-school
@@ -46,6 +46,16 @@ dialogs). Infrastructure interleaves — don't batch it.
 
 Exit criterion: a plain HTML form page looks designed, zero classes.
 **Phase 3 complete.**
+
+## Phase 3.5 — design language adoption ✓
+
+- [x] Mica's default theme is the author's design language (square,
+      pure grays, near-black primary, one blue accent, orange warning) —
+      ported from the maestro/ranger projects onto knobs → scales → roles
+- [x] Primary role indirection (`--color-primary` + derived hover/active
+      via color-mix); accent reserved for focus/selection/checkmarks
+- [x] Square radio ("square target", mockup-selected); switch square incl.
+      thumb; escape hatches documented in css comments at point of change
 
 ## Phase 4 — Tier 1 patterns
 
@@ -73,7 +83,10 @@ works" is the demo.
 
 - [ ] npm publish + CDN (early — surface `@layer` surprises with 5 users,
       not 500)
-- [ ] Docs site built with mica itself (view-source is the marketing)
+- [x] Docs shell built with mica itself — paginated reference-rail docs
+      (`index.html` + `docs/*.html`, stamped by `tools/build-docs.py`);
+      kitchen-sink testbed lives on as `demo.html`
+- [ ] Publish the docs somewhere public
 - [ ] Markup-contract semver policy, written before first external user
 - [ ] Tier-0 stragglers: `m-frame`, `m-cover`
 - [ ] Browser-support checklist per feature

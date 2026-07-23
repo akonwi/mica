@@ -21,8 +21,9 @@ comes from the browser, not from a runtime.
 ## Positioning
 
 **The substrate you'd build a shadcn on.** Open markup you can see and
-restyle. No wrapper abstraction. A neutral core that a themed component kit
-can be layered over — copy the markup, restyle it, own it.
+restyle. No wrapper abstraction. The default theme is the author's own
+design language (see principle 3), but every opinion is a token override
+away — copy the markup, restyle it, own it.
 
 ## The three tiers
 
@@ -90,23 +91,19 @@ behind graceful fallbacks until they land everywhere.
   default, `wrap` opt-in) and `m-zstack` for layering. Other
   vocabulary aligns with kindred libraries where it fits (e.g. `m-sidecar`,
   after Kelp).
-- Infrastructure stays legible: `@layer mica.tokens, mica.layout;` and
+- Infrastructure stays legible:
+  `@layer mica.tokens, mica.preset, mica.elements, mica.layout;` and
   descriptive token names (`--space-lg`).
 
 ## Non-goals
 
 - Not a utility-class framework.
-- Not a themed design system (kits on top of mica can be).
+- Not a multi-theme design-system product — mica ships one opinionated
+  default; kits and themes on top of it can be anything.
 - Not a JS component runtime. JS is a last resort, opt-in, and per-component.
 
 ## Roadmap
 
-1. **v1 — Tier 0.** ~8 layout primitives, one small CSS file, zero JS.
-   Prove the model: same markup in every framework, view-source shows
-   nothing but HTML and a stylesheet.
-2. **Tier 1.** A preset (mica's take on Preflight — modern, minimal,
-   layered) plus styled native controls and patterns: buttons, forms,
-   dialog, accordion, popover menus, tooltips. Theming via token swaps.
-3. **Tier 2.** The short honest list of enhanced components.
+Lives in [ROADMAP.md](ROADMAP.md), with checkboxes.
 
-Tagline candidate: *"a soupçon of JavaScript."*
+Tagline: *"a soupçon of JavaScript."*
