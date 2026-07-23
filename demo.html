@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>mica — layout primitives</title>
+  <link rel="stylesheet" href="mica.css" />
+  <script type="module" src="field.js"></script>
+  <script type="module" src="select.js"></script>
+  <style>
+    /* Demo-only styles. Deliberately unlayered: user CSS always wins. */
+    /* typography, margins, rhythm, page colors all come from mica.
+       demo styles below use only semantic roles — so dark mode is free. */
+    header, section { padding-block: var(--space-xl); }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.25rem; }
+    .card {
+      background: var(--color-surface-raised);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+    .swatch {
+      background: var(--neutral-3);
+      border-radius: var(--radius-sm);
+      padding: var(--space-sm) var(--space-md);
+    }
+    .tall { min-block-size: 6rem; display: grid; place-items: center; }
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .scale div {
+      min-block-size: 3.5rem;
+      display: grid;
+      place-items: center;
+      font-size: 0.8rem;
+      color: var(--neutral-12);
+    }
+    .scale .inv { color: var(--neutral-1); }
+    .chip {
+      display: inline-block;
+      white-space: nowrap;
+      padding: 0.2em 0.5em;
+      border-radius: var(--radius-sm);
+    }
+    footer { padding-block: var(--space-2xl); color: var(--color-text-muted); }
+  </style>
+</head>
+<body>
+
+<m-center max="xl" gutter="md">
+
+  <header>
+    <m-vstack gap="sm">
+      <h1>mica</h1>
+      <p>Custom elements. Native behavior. Nearly no JavaScript.</p>
+      <p>View source: there is nothing here but HTML and a stylesheet.</p>
+    </m-vstack>
+  </header>
+
+  <m-vstack gap="2xl">
+
+    <section>
+      <m-vstack gap="md">
+        <h2><code>&lt;m-vstack&gt;</code> — vertical flow</h2>
+        <m-vstack gap="xs" class="card"><m-box>
+          <m-vstack gap="xs">
+            <div class="swatch">one</div>
+            <div class="swatch">two</div>
+            <div class="swatch">three</div>
+          </m-vstack>
+        </m-box></m-vstack>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2><code>&lt;m-hstack&gt;</code> — one row; add <code>wrap</code> to allow wrapping</h2>
+        <div class="card"><m-box>
+          <m-hstack gap="sm" wrap>
+            <div class="swatch">alpha</div>
+            <div class="swatch">beta</div>
+            <div class="swatch">gamma</div>
+            <div class="swatch">delta</div>
+            <div class="swatch">epsilon</div>
+          </m-hstack>
+        </m-box></div>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2><code>&lt;m-zstack&gt;</code> — layering; paint order is DOM order</h2>
+        <m-zstack style="min-block-size: 10rem">
+          <div style="background: linear-gradient(135deg, var(--neutral-7), var(--neutral-9)); border-radius: var(--radius-md)"></div>
+          <p style="place-self: center">centered layer</p>
+          <p class="swatch" style="place-self: start end; margin: var(--space-sm)">badge</p>
+        </m-zstack>
+        <p>Per-layer placement is just <code>place-self</code> on the child — light DOM means the platform is the escape hatch.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2><code>&lt;m-grid&gt;</code> — responsive, no media queries</h2>
+        <m-grid gap="md" min="xs">
+          <div class="card tall">1</div>
+          <div class="card tall">2</div>
+          <div class="card tall">3</div>
+          <div class="card tall">4</div>
+          <div class="card tall">5</div>
+          <div class="card tall">6</div>
+        </m-grid>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2><code>&lt;m-sidecar&gt;</code> — fixed + flexible pair, stacks when narrow</h2>
+        <m-sidecar gap="md">
+          <div class="card tall">sidecar</div>
+          <div class="card tall">content</div>
+        </m-sidecar>
+        <m-sidecar gap="md" side="end">
+          <div class="card tall">content</div>
+          <div class="card tall">sidecar</div>
+        </m-sidecar>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2><code>&lt;m-switcher&gt;</code> — row ↔ column at a threshold</h2>
+        <m-switcher gap="md" threshold="lg">
+          <div class="card tall">a</div>
+          <div class="card tall">b</div>
+          <div class="card tall">c</div>
+        </m-switcher>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2><code>&lt;m-reel&gt;</code> — horizontal scroll with snap</h2>
+        <m-reel gap="md">
+          <div class="card tall" style="inline-size: 14rem">slide 1</div>
+          <div class="card tall" style="inline-size: 14rem">slide 2</div>
+          <div class="card tall" style="inline-size: 14rem">slide 3</div>
+          <div class="card tall" style="inline-size: 14rem">slide 4</div>
+          <div class="card tall" style="inline-size: 14rem">slide 5</div>
+          <div class="card tall" style="inline-size: 14rem">slide 6</div>
+        </m-reel>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2>The scales — for eyeballing the ramps (toggle OS dark mode)</h2>
+        <p>Each step should be distinguishable from its neighbors; 6–8 should
+        read as borders on 1–3; 11 should be readable text on 1–3.</p>
+        <div class="scale">
+          <div style="background: var(--neutral-1)">1</div>
+          <div style="background: var(--neutral-2)">2</div>
+          <div style="background: var(--neutral-3)">3</div>
+          <div style="background: var(--neutral-4)">4</div>
+          <div style="background: var(--neutral-5)">5</div>
+          <div style="background: var(--neutral-6)">6</div>
+          <div style="background: var(--neutral-7)">7</div>
+          <div style="background: var(--neutral-8)">8</div>
+          <div style="background: var(--neutral-9)" class="inv">9</div>
+          <div style="background: var(--neutral-10)" class="inv">10</div>
+          <div style="background: var(--neutral-11)" class="inv">11</div>
+          <div style="background: var(--neutral-12)" class="inv">12</div>
+        </div>
+        <div class="scale">
+          <div style="background: var(--accent-1)">1</div>
+          <div style="background: var(--accent-2)">2</div>
+          <div style="background: var(--accent-3)">3</div>
+          <div style="background: var(--accent-4)">4</div>
+          <div style="background: var(--accent-5)">5</div>
+          <div style="background: var(--accent-6)">6</div>
+          <div style="background: var(--accent-7)">7</div>
+          <div style="background: var(--accent-8)">8</div>
+          <div style="background: var(--accent-9)" class="inv">9</div>
+          <div style="background: var(--accent-10)" class="inv">10</div>
+          <div style="background: var(--accent-11)" class="inv">11</div>
+          <div style="background: var(--accent-12)" class="inv">12</div>
+        </div>
+        <p>Contrast spot-checks: <span class="chip" style="background: var(--neutral-2); color: var(--neutral-11)">muted text (11) on surface-raised (2)</span>
+        <span class="chip" style="background: var(--accent-9); color: var(--color-on-accent)">on-accent on accent-9</span>
+        <span class="chip" style="border: 1px solid var(--neutral-6)">border (6) on surface (1)</span></p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2>Buttons — native <code>&lt;button&gt;</code>, styled directly</h2>
+        <m-hstack gap="sm" wrap>
+          <button>Default</button>
+          <button class="primary">Primary</button>
+          <button class="ghost">Ghost</button>
+          <button class="danger">Danger</button>
+          <button disabled>Disabled</button>
+          <button class="primary" disabled>Disabled primary</button>
+        </m-hstack>
+        <m-hstack gap="sm" wrap>
+          <button class="small">Small</button>
+          <button>Medium</button>
+          <button class="large">Large</button>
+          <a class="btn" href="#main">A link dressed as a button</a>
+        </m-hstack>
+        <p>Variants are classes (<code>class="primary"</code>) — collisions with
+        app CSS resolve in the user's favor because mica lives in a layer.</p>
+        <p>Status roles (hue knobs, no scales):
+        <span class="chip" style="background: var(--color-danger-surface); border: 1px solid var(--color-danger-border); color: var(--color-danger-text)">danger</span>
+        <span class="chip" style="background: var(--color-success-surface); border: 1px solid var(--color-success-border); color: var(--color-success-text)">success</span>
+        <span class="chip" style="background: var(--color-warn-surface); border: 1px solid var(--color-warn-border); color: var(--color-warn-text)">warn</span>
+        <span class="chip" style="background: var(--color-warn); color: var(--color-on-warn)">warn solid</span></p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2>Fields — native inputs, zero classes</h2>
+        <form>
+          <m-vstack gap="md" style="max-inline-size: var(--size-lg)">
+            <fieldset>
+              <legend>Profile</legend>
+              <m-vstack gap="md">
+            <m-field>
+              <label for="f-name">Name (required — catch-all error, browser's own message)</label>
+              <input id="f-name" type="text" required placeholder="Ada Lovelace" />
+              <m-error></m-error>
+            </m-field>
+            <m-field>
+              <label for="f-email">Email (required — per-cause errors, no browser bubbles)</label>
+              <input id="f-email" type="email" required placeholder="ada@example.com" />
+              <m-error match="value-missing">Email is required.</m-error>
+              <m-error match="type-mismatch">That doesn't look like an email address.</m-error>
+            </m-field>
+            <m-vstack gap="2xs">
+              <label for="f-bio">Bio (grows as you type — field-sizing, zero JS)</label>
+              <textarea id="f-bio" placeholder="A few lines about you…"></textarea>
+            </m-vstack>
+            <m-vstack gap="2xs">
+              <label for="f-role">Role</label>
+              <select id="f-role">
+                <option>Engineer</option>
+                <option>Designer</option>
+                <option>Mathematician</option>
+              </select>
+            </m-vstack>
+              </m-vstack>
+            </fieldset>
+            <fieldset disabled>
+              <legend>Billing (disabled fieldset — everything inside silenced)</legend>
+              <m-vstack gap="md">
+                <m-vstack gap="2xs">
+                  <label for="f-locked">Card number</label>
+                  <input id="f-locked" type="text" value="4242 4242 4242 4242" />
+                </m-vstack>
+                <label><input type="checkbox" checked /> Save card</label>
+              </m-vstack>
+            </fieldset>
+            <m-hstack gap="sm">
+              <button type="submit" class="primary">Submit</button>
+              <button type="reset" class="ghost">Reset</button>
+            </m-hstack>
+          </m-vstack>
+        </form>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2>Checks — drawn controls, native semantics</h2>
+        <m-hstack gap="lg" wrap>
+          <label><input type="checkbox" checked /> Checked</label>
+          <label><input type="checkbox" /> Unchecked</label>
+          <label><input type="checkbox" disabled checked /> Disabled</label>
+        </m-hstack>
+        <m-hstack gap="lg" wrap>
+          <label><input type="radio" name="demo-r" checked /> One</label>
+          <label><input type="radio" name="demo-r" /> Two</label>
+          <label><input type="radio" name="demo-r" disabled /> Off-limits</label>
+        </m-hstack>
+        <m-hstack gap="lg" wrap>
+          <label><input type="checkbox" class="switch" checked /> Notifications</label>
+          <label><input type="checkbox" class="switch" /> Marketing email</label>
+          <label><input type="checkbox" class="switch" disabled /> Locked</label>
+        </m-hstack>
+        <p>All three are native <code>&lt;input&gt;</code>s — keyboard, forms, and
+        AT semantics untouched. The switch is <code>class="switch"</code> on a checkbox.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2>Progress &amp; meter — thin bars, status-graded meter</h2>
+        <m-vstack gap="sm" style="max-inline-size: var(--size-lg)">
+          <progress max="100" value="33"></progress>
+          <progress max="100" value="80"></progress>
+          <label for="m1">Disk (fine)</label>
+          <meter id="m1" min="0" max="100" low="60" high="85" optimum="30" value="42"></meter>
+          <label for="m2">Disk (getting full)</label>
+          <meter id="m2" min="0" max="100" low="60" high="85" optimum="30" value="74"></meter>
+          <label for="m3">Disk (critical)</label>
+          <meter id="m3" min="0" max="100" low="60" high="85" optimum="30" value="93"></meter>
+        </m-vstack>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2>Content — tables, lists, code. Zero classes.</h2>
+        <table>
+          <thead>
+            <tr><th>Element</th><th>Tier</th><th>JS</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>m-vstack</td><td>0</td><td>none</td></tr>
+            <tr><td>dialog</td><td>1</td><td>none</td></tr>
+            <tr><td>m-field</td><td>2</td><td>one module</td></tr>
+          </tbody>
+          <caption>Hover a row. Borders are horizontal only; numerals are tabular.</caption>
+        </table>
+        <m-hstack gap="lg" align="start" wrap>
+          <ul>
+            <li>unordered</li>
+            <li>list with</li>
+            <li>muted markers</li>
+          </ul>
+          <ol>
+            <li>ordered</li>
+            <li>works</li>
+            <li>too</li>
+          </ol>
+          <dl>
+            <dt>mica</dt>
+            <dd>a mineral that cleaves into thin sheets</dd>
+            <dt>book</dt>
+            <dd>what a raw chunk of mica is called</dd>
+          </dl>
+        </m-hstack>
+        <p>Inline <code>code</code> gets a chip; press <kbd>⌘</kbd><kbd>K</kbd> for nothing.</p>
+<pre><code>&lt;m-vstack gap="lg"&gt;
+  &lt;button class="primary"&gt;Submit&lt;/button&gt;
+&lt;/m-vstack&gt;</code></pre>
+        <blockquote>Delete the stylesheet and it still works — that is the demo.</blockquote>
+        <hr />
+        <p>The <code>hr</code> above is a thematic break — Markdown emits one for
+        every <code>---</code>, so prose-heavy pages get them constantly. Mica
+        replaces the browser's beveled groove with a quiet rule.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <h2>The preset — bare prose, no mica tags, no demo styles</h2>
+      <p>This section is plain HTML flow content. The spacing between these
+      paragraphs, the heading margins, and the line length wrapping come from
+      <code>@layer mica.preset</code> — constructive defaults, not a blank slate.</p>
+      <p>Tab to this <a href="#main">link</a> to see the tokenized focus ring —
+      buttons (above) get the same ring from the same tokens.</p>
+      <h3>A following heading gets breathing room above</h3>
+      <p>Because it isn't a first child. Inside a stack, all of this rhythm
+      yields to <code>gap</code> — the stack owns spacing.</p>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2>Escape hatch — arbitrary values via custom properties</h2>
+        <p><code>&lt;m-vstack style="--gap: 2.75rem"&gt;</code> — attributes and custom properties are the same mechanism.</p>
+        <m-vstack style="--gap: 2.75rem" class="card"><m-box>
+          <m-vstack style="--gap: 2.75rem">
+            <div class="swatch">one</div>
+            <div class="swatch">two</div>
+          </m-vstack>
+        </m-box></m-vstack>
+      </m-vstack>
+    </section>
+
+  </m-vstack>
+
+  <footer>
+    <p>mica — a soupçon of JavaScript. (This page loads two tiny modules:
+    <code>field.js</code> for validation errors, <code>select.js</code> for
+    picker alignment. Everything else is CSS.)</p>
+  </footer>
+
+</m-center>
+
+</body>
+</html>

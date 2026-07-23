@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>mica</title>
-  <link rel="stylesheet" href="mica.css" />
+  <title>content — mica</title>
+  <link rel="stylesheet" href="../mica.css" />
 
   <style>
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
@@ -32,62 +32,50 @@
 <body>
   <m-sidecar side-width="xs">
     <nav class="rail">
-      <a class="brand" href="index.html">mica</a>
+      <a class="brand" href="../index.html">mica</a>
       <h2>Start</h2>
-      <a href="index.html" aria-current="page">Introduction</a>
-      <a href="docs/tokens.html">Tokens &amp; theming</a>
-      <a href="docs/preset.html">Preset</a>
+      <a href="../index.html">Introduction</a>
+      <a href="tokens.html">Tokens &amp; theming</a>
+      <a href="preset.html">Preset</a>
       <h2>Layout</h2>
-      <a href="docs/vstack.html">vstack</a>
-      <a href="docs/hstack.html">hstack</a>
-      <a href="docs/zstack.html">zstack</a>
-      <a href="docs/center.html">center</a>
-      <a href="docs/box.html">box</a>
-      <a href="docs/grid.html">grid</a>
-      <a href="docs/sidecar.html">sidecar</a>
-      <a href="docs/switcher.html">switcher</a>
-      <a href="docs/reel.html">reel</a>
+      <a href="vstack.html">vstack</a>
+      <a href="hstack.html">hstack</a>
+      <a href="zstack.html">zstack</a>
+      <a href="center.html">center</a>
+      <a href="box.html">box</a>
+      <a href="grid.html">grid</a>
+      <a href="sidecar.html">sidecar</a>
+      <a href="switcher.html">switcher</a>
+      <a href="reel.html">reel</a>
       <h2>Elements</h2>
-      <a href="docs/button.html">button</a>
-      <a href="docs/content.html">content</a>
-      <a href="docs/progress.html">progress &amp; meter</a>
+      <a href="button.html">button</a>
+      <a href="content.html" aria-current="page">content</a>
+      <a href="progress.html">progress &amp; meter</a>
       <h2>Forms</h2>
-      <a href="docs/input.html">input &amp; textarea</a>
-      <a href="docs/select.html">select</a>
-      <a href="docs/checkbox.html">checkbox</a>
-      <a href="docs/radio.html">radio</a>
-      <a href="docs/switch.html">switch</a>
-      <a href="docs/fieldset.html">fieldset</a>
-      <a href="docs/field.html">field validation</a>
+      <a href="input.html">input &amp; textarea</a>
+      <a href="select.html">select</a>
+      <a href="checkbox.html">checkbox</a>
+      <a href="radio.html">radio</a>
+      <a href="switch.html">switch</a>
+      <a href="fieldset.html">fieldset</a>
+      <a href="field.html">field validation</a>
     </nav>
     <article id="main">
       <m-center max="lg">
         <m-vstack gap="xl">
-          
+          <span class="crumb">Elements / content</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>Introduction</h1></m-hstack>
-            <p class="lead">Custom elements. Native behavior. Nearly no JavaScript.</p>
+            <m-hstack gap="sm"><h1>content</h1> <span class="badge">Tier 1</span></m-hstack>
+            <p class="lead">Tables, lists, code, quotes — prose-adjacent elements that just work.</p>
           </m-vstack>
 
-<p>Mica is a front-end library built from custom element tags, native HTML
-elements, and CSS. Behavior comes from the browser, not from a runtime:
-<code>&lt;dialog&gt;</code> traps focus, <code>popover</code> handles menus,
-<code>&lt;m-vstack&gt;</code> is a styling hook that needs no registration.
-View source on any page here — there is nothing but HTML and one stylesheet.</p>
-<h2>Install</h2>
-<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;mica.css&quot; /&gt;</code></pre>
-<h2>Use</h2>
-<pre><code>&lt;m-vstack gap=&quot;lg&quot;&gt;
-  &lt;h1&gt;Hello&lt;/h1&gt;
-  &lt;button class=&quot;primary&quot;&gt;Submit&lt;/button&gt;
-&lt;/m-vstack&gt;</code></pre>
-<h2>The three tiers</h2>
-<p>Every component states where its behavior comes from.
-<b>Tier 0</b>: pure CSS custom tags (layout). <b>Tier 1</b>: styled native
-elements (forms, dialog, tables). <b>Tier 2</b>: tiny opt-in modules where
-accessibility genuinely requires script — each one enhances working markup,
-never renders it.</p>
+<div class="specimen"><table><thead><tr><th>Element</th><th>Tier</th><th>JS</th></tr></thead><tbody><tr><td>m-vstack</td><td>0</td><td>none</td></tr><tr><td>dialog</td><td>1</td><td>none</td></tr><tr><td>m-field</td><td>2</td><td>one module</td></tr></tbody><caption>Horizontal borders only; hover a row; numerals are tabular.</caption></table></div>
+<div class="specimen"><p style="margin:0">Inline <code>code</code> gets a chip; press <kbd>⌘</kbd><kbd>K</kbd>. Below, a thematic break.</p><hr /><blockquote style="margin:0">Delete the stylesheet and it still works.</blockquote></div>
+<h2>Notes</h2>
+<p>Markdown output (tables, <code>---</code> → <code>hr</code>, lists, code
+fences) renders finished with zero classes.</p>
 
+          <m-hstack justify="between" class="pager"><a href="button.html">&larr; button</a><a href="progress.html">progress &amp; meter &rarr;</a></m-hstack>
         </m-vstack>
       </m-center>
     </article>
