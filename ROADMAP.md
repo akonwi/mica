@@ -38,7 +38,8 @@ dialogs). Infrastructure interleaves — don't batch it.
 - [x] Fieldset, label, legend conventions — bordered group w/ legend in
       the gap; fieldset:disabled dims labels; disabled+checked controls
       desaturate (same color-mix recipe as disabled .primary)
-- [ ] Progress, meter
+- [x] Progress, meter — thin square bars (shadcn-school): primary/20
+      track + primary fill; meter grades through the status roles
 - [ ] Tables, lists, code
 
 Exit criterion: a plain HTML form page looks designed, zero classes.

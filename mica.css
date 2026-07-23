@@ -613,6 +613,60 @@
     cursor: not-allowed;
   }
 
+  /* --- progress & meter: thin bars (shadcn-school) ----------------- *
+   * vendor pseudos must stay in separate rules — an unknown selector
+   * in a list invalidates the whole rule.
+   * ------------------------------------------------------------------ */
+  :where(progress, meter) {
+    appearance: none;
+    inline-size: 100%;
+    block-size: 0.5rem;
+    border: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  :where(progress) {
+    background: color-mix(in oklch, var(--color-primary) 20%, transparent);
+  }
+  :where(progress)::-webkit-progress-bar {
+    background: transparent;
+  }
+  :where(progress)::-webkit-progress-value {
+    background: var(--color-primary);
+  }
+  :where(progress)::-moz-progress-bar {
+    background: var(--color-primary);
+  }
+
+  /* meter grades through the status roles */
+  :where(meter) {
+    background: var(--neutral-4);
+  }
+  :where(meter)::-webkit-meter-bar {
+    background: transparent;
+    border: 0;
+    block-size: 0.5rem;
+  }
+  :where(meter)::-webkit-meter-optimum-value {
+    background: var(--color-success);
+  }
+  :where(meter)::-webkit-meter-suboptimum-value {
+    background: var(--color-warn);
+  }
+  :where(meter)::-webkit-meter-even-less-good-value {
+    background: var(--color-danger);
+  }
+  :where(meter):-moz-meter-optimum::-moz-meter-bar {
+    background: var(--color-success);
+  }
+  :where(meter):-moz-meter-sub-optimum::-moz-meter-bar {
+    background: var(--color-warn);
+  }
+  :where(meter):-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    background: var(--color-danger);
+  }
+
   /* --- validation errors ------------------------------------------- *
    * Tier 1 (no JS): a generic <m-error> after a field shows when the
    * field is :user-invalid. Submit attempts fall back to native bubbles.

@@ -303,6 +303,22 @@
     </section>
 
     <section>
+      <m-vstack gap="md">
+        <h2>Progress &amp; meter — thin bars, status-graded meter</h2>
+        <m-vstack gap="sm" style="max-inline-size: var(--size-lg)">
+          <progress max="100" value="33"></progress>
+          <progress max="100" value="80"></progress>
+          <label for="m1">Disk (fine)</label>
+          <meter id="m1" min="0" max="100" low="60" high="85" optimum="30" value="42"></meter>
+          <label for="m2">Disk (getting full)</label>
+          <meter id="m2" min="0" max="100" low="60" high="85" optimum="30" value="74"></meter>
+          <label for="m3">Disk (critical)</label>
+          <meter id="m3" min="0" max="100" low="60" high="85" optimum="30" value="93"></meter>
+        </m-vstack>
+      </m-vstack>
+    </section>
+
+    <section>
       <h2>The preset — bare prose, no mica tags, no demo styles</h2>
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from
