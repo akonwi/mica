@@ -354,6 +354,40 @@
     min-block-size: 3lh;
     resize: vertical;
   }
+
+  /* --- validation errors ------------------------------------------- *
+   * Tier 1 (no JS): a generic <m-error> after a field shows when the
+   * field is :user-invalid. Submit attempts fall back to native bubbles.
+   * Tier 2 (mica/field.js): <m-field> suppresses bubbles and activates
+   * per-cause <m-error match="..."> messages. Rules below are all
+   * zero-specificity; source order resolves them.
+   * ------------------------------------------------------------------ */
+  :where(m-field) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  /* every rule here is zero-specificity: source order alone resolves */
+  :where(m-error) {
+    display: none;
+    font-size: 0.875rem;
+    color: var(--color-danger-text);
+  }
+
+  /* Tier-1 fallback: generic (matchless) error after user interaction */
+  :where(input:user-invalid, textarea:user-invalid, select:user-invalid)
+    ~ :where(m-error:not([match])) {
+    display: block;
+  }
+
+  /* Tier 2: once m-field upgrades, the module owns visibility */
+  :where(m-field:defined) :where(m-error) {
+    display: none;
+  }
+  :where(m-error[active]) {
+    display: block;
+  }
 }
 
 /* ------------------------------------------------------------------ *

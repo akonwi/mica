@@ -51,6 +51,8 @@ works" is the demo.
 
 ## Phase 5 — Tier 2, the honest appendix
 
+- [x] Declarative field errors (`field.js`) — first Tier-2 module;
+      Base-UI-style `<m-error match>`, no browser bubbles, CSS fallback
 - [ ] Tabs (`mica/tabs.js`)
 - [ ] Combobox
 - [ ] Toast queue

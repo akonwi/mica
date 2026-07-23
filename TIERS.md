@@ -65,6 +65,12 @@ component is its own opt-in module. There is no shared runtime.
 
 The list must stay embarrassingly short:
 
+- **Field validation errors** (`mica/field.js`, shipped) — `<m-field>`
+  suppresses native bubbles (`invalid` + `preventDefault`, the only way),
+  activates per-cause `<m-error match="...">` messages from ValidityState,
+  wires `aria-invalid`/`aria-describedby`. Without JS: generic `<m-error>`
+  still shows via `:user-invalid` (CSS-only), submits fall back to native
+  bubbles. Working markup, enhanced — never rendered.
 - **Tabs** — roving tabindex, arrow keys, `aria-selected` wiring. The
   CSS-only radio hack looks like tabs and is a11y-broken; that is exactly
   the fake we refuse.
