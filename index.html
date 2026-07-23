@@ -205,6 +205,7 @@
           <button>Default</button>
           <button class="primary">Primary</button>
           <button class="ghost">Ghost</button>
+          <button class="danger">Danger</button>
           <button disabled>Disabled</button>
           <button class="primary" disabled>Disabled primary</button>
         </m-hstack>
@@ -216,6 +217,11 @@
         </m-hstack>
         <p>Variants are classes (<code>class="primary"</code>) — collisions with
         app CSS resolve in the user's favor because mica lives in a layer.</p>
+        <p>Status roles (hue knobs, no scales):
+        <span class="chip" style="background: var(--color-danger-surface); border: 1px solid var(--color-danger-border); color: var(--color-danger-text)">danger</span>
+        <span class="chip" style="background: var(--color-success-surface); border: 1px solid var(--color-success-border); color: var(--color-success-text)">success</span>
+        <span class="chip" style="background: var(--color-warn-surface); border: 1px solid var(--color-warn-border); color: var(--color-warn-text)">warn</span>
+        <span class="chip" style="background: var(--color-warn); color: var(--color-on-warn)">warn solid</span></p>
       </m-vstack>
     </section>
 

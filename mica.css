@@ -50,6 +50,13 @@
     --chroma: 0.13;
     --neutral-chroma: 0.008;
 
+    /* status hues — knobs, same as the brand hue. statuses deliberately
+       do NOT ride --chroma: danger must stay urgent in a muted theme. */
+    --danger-hue: 25;
+    --success-hue: 150;
+    --warn-hue: 75; /* amber — true yellow reads as mud at solid lightness */
+    --status-chroma: 0.14;
+
     /* Numbered scales — theme-relative (Radix convention): a step means
        the same *thing* in both modes. 1 = app bg … 6–8 = borders …
        9 = solid … 12 = high-contrast text. light-dark() is baked into
@@ -93,6 +100,28 @@
     --color-on-accent: light-dark(
       oklch(99% 0.01 var(--hue)),
       oklch(18% 0.02 var(--hue)));
+
+    /* Status roles — the step-3/7/9/11 analogs, no full scales.
+       Off-role shades: raw oklch(L var(--status-chroma) var(--*-hue)). */
+    --color-danger-surface: light-dark(oklch(95% calc(var(--status-chroma) * 0.25) var(--danger-hue)), oklch(27% calc(var(--status-chroma) * 0.35) var(--danger-hue)));
+    --color-danger-border:  light-dark(oklch(79% calc(var(--status-chroma) * 0.65) var(--danger-hue)), oklch(46% calc(var(--status-chroma) * 0.8) var(--danger-hue)));
+    --color-danger:         light-dark(oklch(52% var(--status-chroma) var(--danger-hue)), oklch(70% var(--status-chroma) var(--danger-hue)));
+    --color-on-danger:      light-dark(oklch(99% 0.01 var(--danger-hue)), oklch(18% 0.02 var(--danger-hue)));
+    --color-danger-text:    light-dark(oklch(44% calc(var(--status-chroma) * 0.9) var(--danger-hue)), oklch(80% calc(var(--status-chroma) * 0.9) var(--danger-hue)));
+
+    --color-success-surface: light-dark(oklch(95% calc(var(--status-chroma) * 0.25) var(--success-hue)), oklch(27% calc(var(--status-chroma) * 0.35) var(--success-hue)));
+    --color-success-border:  light-dark(oklch(79% calc(var(--status-chroma) * 0.65) var(--success-hue)), oklch(46% calc(var(--status-chroma) * 0.8) var(--success-hue)));
+    --color-success:         light-dark(oklch(52% var(--status-chroma) var(--success-hue)), oklch(70% var(--status-chroma) var(--success-hue)));
+    --color-on-success:      light-dark(oklch(99% 0.01 var(--success-hue)), oklch(18% 0.02 var(--success-hue)));
+    --color-success-text:    light-dark(oklch(44% calc(var(--status-chroma) * 0.9) var(--success-hue)), oklch(80% calc(var(--status-chroma) * 0.9) var(--success-hue)));
+
+    /* warn solid runs lighter than its siblings — amber needs the
+       lightness to read as warning, and takes dark text in both modes */
+    --color-warn-surface: light-dark(oklch(95% calc(var(--status-chroma) * 0.25) var(--warn-hue)), oklch(27% calc(var(--status-chroma) * 0.35) var(--warn-hue)));
+    --color-warn-border:  light-dark(oklch(79% calc(var(--status-chroma) * 0.65) var(--warn-hue)), oklch(46% calc(var(--status-chroma) * 0.8) var(--warn-hue)));
+    --color-warn:         light-dark(oklch(78% var(--status-chroma) var(--warn-hue)), oklch(76% var(--status-chroma) var(--warn-hue)));
+    --color-on-warn:      oklch(20% 0.03 var(--warn-hue));
+    --color-warn-text:    light-dark(oklch(42% calc(var(--status-chroma) * 0.9) var(--warn-hue)), oklch(80% calc(var(--status-chroma) * 0.9) var(--warn-hue)));
   }
 }
 
@@ -227,6 +256,22 @@
       /* disabled reads as inert, not as a saturated button behind glass */
       &:where(:disabled, [aria-disabled="true"]) {
         background: color-mix(in oklch, var(--accent-9) 40%, var(--neutral-6));
+      }
+    }
+
+    &:where(.danger) {
+      background: var(--color-danger);
+      border-color: transparent;
+      color: var(--color-on-danger);
+
+      &:hover:not(:disabled, [aria-disabled="true"]) {
+        background: color-mix(in oklch, var(--color-danger) 88%, var(--neutral-12));
+      }
+      &:active:not(:disabled, [aria-disabled="true"]) {
+        background: color-mix(in oklch, var(--color-danger) 76%, var(--neutral-12));
+      }
+      &:where(:disabled, [aria-disabled="true"]) {
+        background: color-mix(in oklch, var(--color-danger) 40%, var(--neutral-6));
       }
     }
 

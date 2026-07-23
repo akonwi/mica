@@ -21,7 +21,8 @@ dialogs). Infrastructure interleaves — don't batch it.
       `--color-accent`, `--color-on-accent`, …)
 - [x] Dark mode via `color-scheme` + `light-dark()` — no class toggling,
       native controls themed free
-- [ ] Decide: minimal palette vs status colors (danger/success/warn)
+- [x] Decide: status colors ship as **hue knobs + semantic roles**
+      (`--danger-hue` etc., own `--status-chroma`, no full scales)
 
 ## Phase 3 — `mica.elements`: buttons & forms
 
