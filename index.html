@@ -43,6 +43,12 @@
       color: var(--neutral-12);
     }
     .scale .inv { color: var(--neutral-1); }
+    .chip {
+      display: inline-block;
+      white-space: nowrap;
+      padding: 0.2em 0.5em;
+      border-radius: var(--radius-sm);
+    }
     footer { padding-block: var(--space-2xl); color: var(--color-text-muted); }
   </style>
 </head>
@@ -186,9 +192,9 @@
           <div style="background: var(--accent-11)" class="inv">11</div>
           <div style="background: var(--accent-12)" class="inv">12</div>
         </div>
-        <p>Contrast spot-checks: <span style="background: var(--neutral-2); color: var(--neutral-11); padding: 0.2em 0.5em">muted text (11) on surface-raised (2)</span>
-        <span style="background: var(--accent-9); color: var(--color-on-accent); padding: 0.2em 0.5em">on-accent on accent-9</span>
-        <span style="border: 1px solid var(--neutral-6); padding: 0.2em 0.5em">border (6) on surface (1)</span></p>
+        <p>Contrast spot-checks: <span class="chip" style="background: var(--neutral-2); color: var(--neutral-11)">muted text (11) on surface-raised (2)</span>
+        <span class="chip" style="background: var(--accent-9); color: var(--color-on-accent)">on-accent on accent-9</span>
+        <span class="chip" style="border: 1px solid var(--neutral-6)">border (6) on surface (1)</span></p>
       </m-vstack>
     </section>
 
@@ -218,8 +224,8 @@
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from
       <code>@layer mica.preset</code> — constructive defaults, not a blank slate.</p>
-      <p>Tab to this <a href="#main">link</a> or this <button>button</button> to
-      see the tokenized focus ring. The button already inherits body typography.</p>
+      <p>Tab to this <a href="#main">link</a> to see the tokenized focus ring —
+      buttons (above) get the same ring from the same tokens.</p>
       <h3>A following heading gets breathing room above</h3>
       <p>Because it isn't a first child. Inside a stack, all of this rhythm
       yields to <code>gap</code> — the stack owns spacing.</p>
