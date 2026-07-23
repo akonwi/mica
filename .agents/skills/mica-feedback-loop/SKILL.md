@@ -15,11 +15,14 @@ aside-browser skill for full API details).
 Aside cannot open `file://` URLs. Serve the project first:
 
 ```bash
-cd <mica-root> && (python3 -m http.server 8471 >/dev/null 2>&1 &) \
+cd <mica-root> && (python3 serve.py >/dev/null 2>&1 &) \
   && curl -s -o /dev/null -w "%{http_code}" http://localhost:8471/index.html
 ```
 
 Expect `200`. Reuse the server across checks; it costs nothing.
+`serve.py` is a no-store SimpleHTTPRequestHandler — always use it instead
+of `python3 -m http.server`, which lets browsers (and aside tabs, and the
+user's own browser) cache stale HTML/CSS.
 
 ## Channel 1 — deterministic probes (always, cheap)
 
@@ -66,7 +69,9 @@ before probing, or probe transition-free elements.
 Gotcha: aside tabs cache **both** the HTML and the stylesheet across
 invocations — probes can silently run against stale files (symptom:
 selectors find nothing, or new rules don't apply while old ones do).
-Bust both on every probe run:
+`serve.py` sends no-store which prevents this for fresh loads; if a tab
+still looks stale (or the server was started with plain http.server),
+bust both by hand:
 
 ```js
 const p = await openTab('http://localhost:8471/index.html?f=' + Date.now());
