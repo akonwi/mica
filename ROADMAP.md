@@ -28,10 +28,11 @@ dialogs). Infrastructure interleaves — don't batch it.
 
 - [x] Button (variant syntax decided: **classes** — `class="primary"`;
       TS/JSX-safe, validator-safe, `@layer` defuses collisions)
-- [ ] Inputs, textarea (`field-sizing`)
+- [x] Inputs, textarea (`field-sizing`), basic select — one control
+      family with buttons; `:user-invalid` wired to danger roles
 - [ ] Checkbox, radio, switch
 - [ ] Select (`base-select` where available, graceful fallback)
-- [ ] Fieldset, label, validation styling (`:user-invalid`)
+- [ ] Fieldset, label, legend layout conventions
 - [ ] Progress, meter
 - [ ] Tables, lists, code
 
