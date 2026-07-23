@@ -400,6 +400,12 @@
   }
 
   @supports (appearance: base-select) {
+    /* the trigger is a flex row; children default to stretch, which
+       top-aligns the value text inside the fixed control height */
+    :where(select) {
+      align-items: center;
+    }
+
     ::picker(select) {
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
