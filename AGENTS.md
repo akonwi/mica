@@ -19,7 +19,9 @@ nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
 - `tools/snapshot.ts` — snapshot tests (bun + Playwright, repo-side dev
   deps only; never shipped): computed styles + interactive states + axe
   pass + element-crop visual diffs (pixels ONLY where computed styles
-  lie: vendor pseudos, drawn glyphs). Baselines in `tools/snapshots/`
+  lie: vendor pseudos, drawn glyphs — cropped in BOTH Chromium and
+  WebKit; engines disagree about exactly that territory). Baselines in
+  `tools/snapshots/`
   (JSON + PNGs, macOS-blessed). `bun run snapshot:check` diffs;
   `bun run snapshot` re-blesses.
 - `mockups/` — *live* design explorations only; emptied once a decision

@@ -45,6 +45,6 @@
   "scripts": {
     "snapshot": "bun tools/snapshot.ts",
     "snapshot:check": "bun tools/snapshot.ts --check",
-    "snapshot:setup": "playwright install chromium"
+    "snapshot:setup": "playwright install chromium webkit"
   }
 }

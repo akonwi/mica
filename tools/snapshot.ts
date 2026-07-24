@@ -7,7 +7,7 @@
  * curated set of computed styles in BOTH color schemes, and writes
  * tools/snapshots/demo.json.
  *
- * First run: bun install && bunx playwright install chromium
+ * First run: bun install && bunx playwright install chromium webkit
  *
  *   bun tools/snapshot.ts           # (re)write the baseline ("bless")
  *   bun tools/snapshot.ts --check   # diff against baseline; exit 1 on drift
@@ -24,7 +24,7 @@
  *     baseline is blessed on macOS — regenerate rather than hand-edit.
  */
 
-import { chromium } from "playwright";
+import { chromium, webkit } from "playwright";
 import { join, dirname } from "node:path";
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
@@ -126,6 +126,11 @@ const HOVER_PROBES: [string, string, string[]][] = [
 // Pixels ONLY where computed styles lie (vendor pseudos, drawn glyphs).
 // Small element crops: reviewable diffs, few-KB baselines. Everything
 // else stays computed-style — see the Storybook assessment rationale.
+// Crops run in BOTH engines (chromium + webkit): engines disagree about
+// exactly this territory — the iOS check-glyph bug shipped because the
+// visual channel was Chromium-only. WebKit baselines carry a `.webkit`
+// suffix; the JSON probes stay Chromium-only (cross-engine computed-style
+// serialization is noise, not signal).
 const VISUAL_PROBES: [string, string][] = [
   ["progress", "progress"],
   ["meter", "meter"],
@@ -281,6 +286,44 @@ try {
       }
 
       result[scheme] = data;
+    } finally {
+      await ctx.close();
+    }
+  }
+
+  // ---- webkit pass: parse canary + visual crops only ----
+  await browser.close();
+  try {
+    browser = await webkit.launch();
+  } catch (e) {
+    console.error("webkit launch failed — first run? bunx playwright install webkit");
+    throw e;
+  }
+  for (const scheme of ["light", "dark"] as const) {
+    const ctx = await browser.newContext({
+      viewport: { width: 1280, height: 800 },
+      deviceScaleFactor: 2,
+      colorScheme: scheme,
+      reducedMotion: "reduce",
+    });
+    try {
+      const page = await ctx.newPage();
+      const resp = await page.goto(url, { waitUntil: "load" });
+      if (!resp?.ok()) throw new Error(`demo.html: HTTP ${resp?.status()} (webkit)`);
+      const canary = await page.evaluate(() => {
+        const c = document.createElement("m-error");
+        document.body.append(c);
+        const d = getComputedStyle(c).display;
+        c.remove();
+        return d;
+      });
+      if (canary !== "none")
+        throw new Error("PARSE CANARY FAILED in webkit: mica.css did not parse to the end");
+      for (const [name, sel] of VISUAL_PROBES) {
+        const shot = await page.locator(sel).first()
+          .screenshot({ animations: "disabled" });
+        visuals.set(`${name}.${scheme}.webkit`, shot);
+      }
     } finally {
       await ctx.close();
     }
