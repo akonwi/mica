@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>mockups — blog refresh</title>
+  <link rel="stylesheet" href="../mica.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ---- mockup chrome (not part of any concept) ---- */
+    body { padding-block-end: 6rem; }
+    .chrome { max-inline-size: 64rem; margin-inline: auto; padding: var(--space-lg); }
+    .chrome h1 { font-size: 1.25rem; }
+    .chrome h2 { font-size: 1rem; color: var(--color-text-muted); margin-block-start: var(--space-2xl); }
+    .frame {
+      border: 1px solid var(--color-border);
+      margin-block-start: var(--space-sm);
+      background: var(--color-surface);
+    }
+    .mock { padding: 1.5rem 2rem 2rem; }
+    .choicebar {
+      position: fixed; inset-block-end: 0; inset-inline: 0;
+      display: flex; gap: var(--space-sm); justify-content: center; align-items: center;
+      padding: var(--space-sm);
+      background: var(--color-surface-raised);
+      border-block-start: 1px solid var(--color-border);
+      z-index: 10;
+    }
+
+    /* ================= CONCEPT 0: current site (reference) ============ */
+    .cur { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; }
+    .cur .topbar {
+      display: flex; justify-content: space-between; align-items: stretch;
+      border: 2px solid var(--color-text); padding: 1rem; gap: 1rem;
+    }
+    .cur .wordmark { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+    .cur .tag { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); margin-block-start: 0.5rem; }
+    .cur nav { display: flex; border: 2px solid var(--color-text); align-self: center; }
+    .cur nav a {
+      padding: 0.6rem 0.9rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; text-decoration: none; color: var(--color-text);
+      border-inline-end: 2px solid var(--color-text);
+    }
+    .cur nav a:last-child { border-inline-end: 0; }
+    .cur nav a.active { background: var(--color-text); color: var(--color-surface); }
+    .cur .card { border: 2px solid var(--color-border); padding: 0.9rem; margin-block-start: 0.7rem; }
+    .cur .card h3 { margin: 0; font-size: 1.3rem; letter-spacing: -0.03em; }
+    .cur .date { color: var(--color-text-muted); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; margin-block-start: 0.35rem; }
+
+    /* ================= CONCEPT A: quiet =============================== */
+    .qt { font-family: "Geist", system-ui, sans-serif; }
+    .qt .hd {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding-block-end: 1rem; border-block-end: 1px solid var(--color-border);
+    }
+    .qt .wordmark { font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em; }
+    .qt nav { display: flex; gap: 1.25rem; }
+    .qt nav a { font-size: 0.85rem; color: var(--color-text-muted); text-decoration: none; }
+    .qt nav a.active { color: var(--color-text); }
+    .qt nav a:hover { color: var(--color-accent); }
+    .qt .row {
+      display: grid; grid-template-columns: 7.5rem 1fr; gap: 1rem; align-items: baseline;
+      padding-block: 0.85rem; border-block-end: 1px solid var(--color-border);
+      text-decoration: none;
+    }
+    .qt .row .d { font-family: "JetBrains Mono", monospace; font-size: 0.7rem; color: var(--color-text-muted); }
+    .qt .row .t { font-weight: 500; font-size: 1rem; color: var(--color-text); }
+    .qt .row:hover .t { color: var(--color-accent); }
+    .qt .post h3 { font-family: "Geist", sans-serif; font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; margin: 2rem 0 0.25rem; }
+    .qt .meta { font-family: "JetBrains Mono", monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); }
+    .qt .prose { font-size: 0.95rem; line-height: 1.65; max-inline-size: 42rem; }
+    .qt .prose blockquote {
+      margin: 1rem 0; padding: 0.25rem 0 0.25rem 1rem;
+      border-inline-start: 2px solid var(--color-accent);
+      color: var(--color-text-muted); font-style: normal;
+    }
+    .qt .prose pre {
+      font-family: "JetBrains Mono", monospace; font-size: 0.8rem;
+      background: var(--color-surface-raised); border: 1px solid var(--color-border);
+      padding: 0.85rem 1rem; overflow-x: auto;
+    }
+    .qt .ft { margin-block-start: 2rem; padding-block-start: 1rem; border-block-start: 1px solid var(--color-border);
+      font-family: "JetBrains Mono", monospace; font-size: 0.7rem; color: var(--color-text-muted); }
+
+    /* ================= CONCEPT B: framed ============================== */
+    .fr { font-family: "Geist", system-ui, sans-serif; }
+    .fr .topbar {
+      display: flex; justify-content: space-between; gap: 1rem;
+      border: 2px solid var(--color-text); padding: 1.1rem;
+    }
+    .fr .wordmark { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.045em; line-height: 1; }
+    .fr .tag { font-family: "JetBrains Mono", monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); margin-block-start: 0.5rem; }
+    .fr nav { display: flex; border: 2px solid var(--color-text); align-self: center; }
+    .fr nav a {
+      padding: 0.6rem 1rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; text-decoration: none; color: var(--color-text);
+      border-inline-end: 2px solid var(--color-text);
+    }
+    .fr nav a:last-child { border-inline-end: 0; }
+    .fr nav a.active { background: var(--color-text); color: var(--color-surface); }
+    .fr nav a:hover:not(.active) { background: var(--accent-3); }
+    .fr .card {
+      border: 1px solid var(--color-border); padding: 1rem 1.1rem; margin-block-start: 0.8rem;
+      transition: border-color 0.1s;
+    }
+    .fr .card:hover { border-color: var(--color-text); }
+    .fr .card h3 { margin: 0; font-size: 1.35rem; font-weight: 650; letter-spacing: -0.025em; }
+    .fr .date { font-family: "JetBrains Mono", monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--color-text-muted); margin-block-start: 0.4rem; }
+    .fr .excerpt { font-size: 0.9rem; color: var(--color-text); margin-block-start: 0.6rem; }
+    .fr .ft { margin-block-start: 1.2rem; border: 2px solid var(--color-text); padding: 0.9rem;
+      font-family: "JetBrains Mono", monospace; font-size: 0.7rem; color: var(--color-text-muted); }
+
+    /* ================= CONCEPT C: ledger ============================== */
+    .lg2 { font-family: "JetBrains Mono", monospace; font-size: 0.82rem; }
+    .lg2 .bar {
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--color-text); color: var(--color-surface); padding: 0.5rem 0.8rem;
+    }
+    .lg2 .bar .wordmark { font-weight: 700; }
+    .lg2 .bar nav { display: flex; gap: 0.9rem; }
+    .lg2 .bar a { color: var(--color-surface); text-decoration: none; opacity: 0.75; }
+    .lg2 .bar a.active, .lg2 .bar a:hover { opacity: 1; }
+    .lg2 .bar a.active::before { content: "["; } .lg2 .bar a.active::after { content: "]"; }
+    .lg2 .idx { margin-block-start: 1rem; }
+    .lg2 .lrow {
+      display: grid; grid-template-columns: 7rem 1fr auto; gap: 1rem;
+      padding: 0.55rem 0.8rem; border-block-end: 1px solid var(--color-border);
+      text-decoration: none; color: var(--color-text);
+    }
+    .lg2 .lrow:hover { background: var(--accent-3); }
+    .lg2 .lrow .d { color: var(--color-text-muted); }
+    .lg2 .lrow .arrow { color: var(--color-text-muted); }
+    .lg2 .lrow:hover .arrow { color: var(--color-accent); }
+    .lg2 .status { margin-block-start: 1.2rem; padding: 0.4rem 0.8rem;
+      border-block-start: 1px solid var(--color-border);
+      color: var(--color-text-muted); font-size: 0.7rem;
+      display: flex; justify-content: space-between; }
+  </style>
+</head>
+<body>
+<div class="chrome">
+  <h1>Blog refresh — three directions</h1>
+  <p style="color: var(--color-text-muted)">All concepts use mica tokens (flip dark mode with the button below — everything retints).</p>
+
+  <h2>Current site (reference — not a choice)</h2>
+  <div class="frame"><div class="mock cur">
+    <div class="topbar">
+      <div><div class="wordmark">akonwi</div><div class="tag">notes on software + life</div></div>
+      <nav><a class="active" href="#">Blog</a><a href="#">About</a><a href="#">Projects</a><a href="#">GitHub</a></nav>
+    </div>
+    <div class="card"><h3>Why I'm leaving Rails</h3><p class="date">Feb 18, 2014</p></div>
+    <div class="card"><h3>Put some Backbone into it</h3><p class="date">Oct 14, 2013</p></div>
+  </div></div>
+
+  <h2>A — Quiet (full Ranger: sans body, mono for data, hairlines)</h2>
+  <div class="frame"><div class="mock qt">
+    <div class="hd">
+      <span class="wordmark">akonwi</span>
+      <nav><a class="active" href="#">blog</a><a href="#">about</a><a href="#">projects</a><a href="#">github</a></nav>
+    </div>
+    <a class="row" href="#"><span class="d">2014-02-18</span><span class="t">Why I'm leaving Rails</span></a>
+    <a class="row" href="#"><span class="d">2013-10-14</span><span class="t">Put some Backbone into it</span></a>
+    <a class="row" href="#"><span class="d">2013-08-16</span><span class="t">Node.js</span></a>
+    <div class="post">
+      <h3>Why I'm leaving Rails</h3>
+      <p class="meta">Feb 18, 2014 · 6 min</p>
+      <div class="prose">
+        <p>After four years of building with Rails, I've decided to move on.
+        This isn't a "Rails is dying" post — it's about what changed in how
+        I think about the systems I want to build.</p>
+        <blockquote>Convention over configuration is a loan, and the interest
+        compounds.</blockquote>
+        <pre>class PostsController &lt; ApplicationController
+  def index
+    @posts = Post.published
+  end
+end</pre>
+      </div>
+    </div>
+    <div class="ft">© akonwi</div>
+  </div></div>
+
+  <h2>B — Framed (brutalist identity kept, rebased on mica)</h2>
+  <div class="frame"><div class="mock fr">
+    <div class="topbar">
+      <div><div class="wordmark">akonwi</div><div class="tag">notes on software + life</div></div>
+      <nav><a class="active" href="#">Blog</a><a href="#">About</a><a href="#">Projects</a><a href="#">GitHub</a></nav>
+    </div>
+    <div class="card">
+      <h3>Why I'm leaving Rails</h3>
+      <p class="date">Feb 18, 2014</p>
+      <p class="excerpt">After four years of building with Rails, I've decided to move on. This isn't a "Rails is dying" post.</p>
+    </div>
+    <div class="card">
+      <h3>Put some Backbone into it</h3>
+      <p class="date">Oct 14, 2013</p>
+      <p class="excerpt">Structuring front-end code before frameworks decided everything for us.</p>
+    </div>
+    <div class="ft">© akonwi · notes on software + life</div>
+  </div></div>
+
+  <h2>C — Ledger (mono everywhere, TUI density)</h2>
+  <div class="frame"><div class="mock lg2">
+    <div class="bar">
+      <span class="wordmark">akonwi</span>
+      <nav><a class="active" href="#">blog</a><a href="#">about</a><a href="#">projects</a><a href="#">github</a></nav>
+    </div>
+    <div class="idx">
+      <a class="lrow" href="#"><span class="d">2014-02-18</span><span>Why I'm leaving Rails</span><span class="arrow">→</span></a>
+      <a class="lrow" href="#"><span class="d">2013-10-14</span><span>Put some Backbone into it</span><span class="arrow">→</span></a>
+      <a class="lrow" href="#"><span class="d">2013-08-16</span><span>Node.js</span><span class="arrow">→</span></a>
+      <a class="lrow" href="#"><span class="d">2013-08-14</span><span>Rails...</span><span class="arrow">→</span></a>
+    </div>
+    <div class="status"><span>16 posts</span><span>© akonwi</span></div>
+  </div></div>
+</div>
+
+<div class="choicebar">
+  <button class="small" onclick="document.documentElement.style.colorScheme = document.documentElement.style.colorScheme === 'dark' ? 'light' : 'dark'">toggle dark</button>
+  <button class="small primary" onclick="pick('quiet')">Pick A — Quiet</button>
+  <button class="small primary" onclick="pick('framed')">Pick B — Framed</button>
+  <button class="small primary" onclick="pick('ledger')">Pick C — Ledger</button>
+  <button class="small ghost" onclick="pick('none')">None of these</button>
+</div>
+<script>
+  function pick(choice) {
+    // glimpse URL windows wrap the page in an iframe; the bridge lives in
+    // the wrapper, so relay through postMessage.
+    if (window.glimpse) window.glimpse.send({ choice });
+    else if (window.parent !== window) window.parent.postMessage({ type: "mockup.pick", choice }, "*");
+    else console.log("pick:", choice);
+  }
+</script>
+</body>
+</html>
