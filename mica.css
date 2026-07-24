@@ -1126,6 +1126,43 @@
     }
   }
 
+  /* --- combobox: m-combobox + combobox.js (Tier 2) ------------------ *
+   * without the module: a native datalist — functional autocomplete.
+   * with it: styled listbox, filtering, active-descendant keys.
+   * positioned within the wrapper (no top layer) so it works everywhere.
+   * ------------------------------------------------------------------ */
+  :where(m-combobox) {
+    display: block;
+    position: relative;
+  }
+
+  :where(m-combobox) > :where([role="listbox"]) {
+    position: absolute;
+    inset-block-start: calc(100% + var(--space-2xs));
+    inset-inline: 0;
+    z-index: 50;
+    max-block-size: 15rem;
+    overflow-y: auto;
+    padding: var(--space-2xs);
+    border: 1px solid color-mix(in oklch, var(--color-text) 12%, transparent);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-overlay);
+    box-shadow: 0 8px 24px light-dark(oklch(0 0 0 / 0.15), oklch(0 0 0 / 0.5));
+  }
+
+  :where(m-combobox) :where([role="option"]) {
+    padding: var(--space-xs);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    cursor: default;
+
+    &:hover,
+    &[aria-selected="true"] {
+      background: var(--color-accent);
+      color: var(--color-on-accent);
+    }
+  }
+
   /* --- tabs: m-tabs + tabs.js (Tier 2) ------------------------------ *
    * without the module: inert nav, all panels visible in order —
    * complete content. with it: tablist semantics + roving focus.

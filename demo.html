@@ -9,6 +9,7 @@
   <script type="module" src="select.js"></script>
   <script type="module" src="toast.js"></script>
   <script type="module" src="tabs.js"></script>
+  <script type="module" src="combobox.js"></script>
   <style>
     /* Demo-only styles. Deliberately unlayered: user CSS always wins. */
     /* typography, margins, rhythm, page colors all come from mica.
@@ -507,6 +508,27 @@
     </section>
 
     <section>
+      <m-vstack gap="md">
+        <h2>Combobox — m-combobox + combobox.js (Tier 2)</h2>
+        <m-combobox style="max-inline-size: var(--size-md)">
+          <input list="demo-langs" placeholder="Pick a language…" aria-label="Language" />
+          <datalist id="demo-langs">
+            <option>Ard</option>
+            <option>C</option>
+            <option>Go</option>
+            <option>JavaScript</option>
+            <option>Python</option>
+            <option>Rust</option>
+            <option>Swift</option>
+            <option>Zig</option>
+          </datalist>
+        </m-combobox>
+        <p>Type to filter; arrows + Enter to pick. Without the module this is a
+        native <code>datalist</code> — functional autocomplete, just unstylable.</p>
+      </m-vstack>
+    </section>
+
+    <section>
       <h2>The preset — bare prose, no mica tags, no demo styles</h2>
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from
@@ -534,9 +556,9 @@
   </m-vstack>
 
   <footer>
-    <p>mica — a soupçon of JavaScript. (This page loads four tiny modules:
+    <p>mica — a soupçon of JavaScript. (This page loads five tiny modules:
     <code>field.js</code>, <code>select.js</code>, <code>toast.js</code>,
-    <code>tabs.js</code>. Everything else is CSS.)</p>
+    <code>tabs.js</code>, <code>combobox.js</code>. Everything else is CSS.)</p>
   </footer>
 
 </m-center>

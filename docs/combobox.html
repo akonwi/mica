@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>content — mica</title>
+  <title>combobox — mica</title>
   <link rel="stylesheet" href="../mica.css" />
-
+  <script type="module" src="../combobox.js"></script>
   <style>
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); }
@@ -49,7 +49,7 @@
       <a href="reel.html">reel</a>
       <h2>Elements</h2>
       <a href="button.html">button</a>
-      <a href="content.html" aria-current="page">content</a>
+      <a href="content.html">content</a>
       <a href="progress.html">progress &amp; meter</a>
       <h2>Forms</h2>
       <a href="input.html">input &amp; textarea</a>
@@ -59,7 +59,7 @@
       <a href="switch.html">switch</a>
       <a href="fieldset.html">fieldset</a>
       <a href="field.html">field validation</a>
-      <a href="combobox.html">combobox</a>
+      <a href="combobox.html" aria-current="page">combobox</a>
       <h2>Patterns</h2>
       <a href="dialog.html">dialog</a>
       <a href="accordion.html">accordion</a>
@@ -70,19 +70,32 @@
     <article id="main">
       <m-center style="--max: 48rem">
         <m-vstack gap="xl">
-          <span class="crumb">Elements / content</span>
+          <span class="crumb">Forms / combobox</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>content</h1> <span class="badge">Tier 1</span></m-hstack>
-            <p class="lead">Tables, lists, code, quotes — prose-adjacent elements that just work.</p>
+            <m-hstack gap="sm"><h1>combobox</h1> <span class="badge">Tier 2</span></m-hstack>
+            <p class="lead">A native datalist, upgraded. Without the module: functional autocomplete. With it: styled listbox, filtering, active-descendant keys.</p>
           </m-vstack>
 
-<div class="specimen"><table><thead><tr><th>Element</th><th>Tier</th><th>JS</th></tr></thead><tbody><tr><td>m-vstack</td><td>0</td><td>none</td></tr><tr><td>dialog</td><td>1</td><td>none</td></tr><tr><td>m-field</td><td>2</td><td>one module</td></tr></tbody><caption>Horizontal borders only; hover a row; numerals are tabular.</caption></table></div>
-<div class="specimen"><p style="margin:0">Inline <code>code</code> gets a chip; press <kbd>⌘</kbd><kbd>K</kbd>. Below, a thematic break.</p><hr /><blockquote style="margin:0">Delete the stylesheet and it still works.</blockquote></div>
-<h2>Notes</h2>
-<p>Markdown output (tables, <code>---</code> → <code>hr</code>, lists, code
-fences) renders finished with zero classes.</p>
+<div class="specimen"><m-combobox style="max-inline-size: var(--size-md)"><input list="dcb-langs" placeholder="Pick a language&#8230;" aria-label="Language" /><datalist id="dcb-langs"><option>Ard</option><option>C</option><option>Go</option><option>JavaScript</option><option>Python</option><option>Rust</option><option>Swift</option><option>Zig</option></datalist></m-combobox></div>
+<pre><code>&lt;m-combobox&gt;
+  &lt;input list=&quot;langs&quot; placeholder=&quot;Language&amp;#8230;&quot; /&gt;
+  &lt;datalist id=&quot;langs&quot;&gt;
+    &lt;option&gt;Ard&lt;/option&gt;
+    &lt;option&gt;Go&lt;/option&gt;
+  &lt;/datalist&gt;
+&lt;/m-combobox&gt;
 
-          <m-hstack justify="between" class="pager"><a href="button.html">&larr; button</a><a href="progress.html">progress &amp; meter &rarr;</a></m-hstack>
+&lt;script type=&quot;module&quot; src=&quot;mica/combobox.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h2>Notes</h2>
+<p>The options are the author&#39;s <code>datalist</code> markup — the module
+presents them, it doesn&#39;t invent them. It wires the ARIA combobox
+pattern: <code>aria-expanded</code>, <code>aria-activedescendant</code>,
+substring filtering on input, Arrow/Enter/Esc keys, selection dispatches
+real <code>input</code>/<code>change</code> events. The listbox positions
+inside the wrapper (no top layer), so it works in every browser mica
+supports.</p>
+
+          <m-hstack justify="between" class="pager"><a href="tabs.html">&larr; tabs</a><span></span></m-hstack>
         </m-vstack>
       </m-center>
     </article>

@@ -80,7 +80,11 @@ The list must stay embarrassingly short:
   Arrow/Home/End with automatic activation. Without JS: inert nav, all
   panels visible in order — complete content. The CSS-only radio hack
   looks like tabs and is a11y-broken; that is exactly the fake we refuse.
-- **Combobox/autocomplete** — filtering, active-descendant, announcements
+- **Combobox** (`mica/combobox.js`, shipped) — `<m-combobox>` upgrades a
+  native `<datalist>` (the no-JS state is *functional autocomplete*, just
+  unstylable) into the ARIA combobox pattern: styled listbox, substring
+  filtering, `aria-activedescendant` keys, real input/change events on
+  selection. Options come from the author's markup, never invented.
 - **Toast queue** (`mica/toast.js`, shipped) — stacking (JS ships one
   offset number per toast; CSS owns geometry/reflow), auto-dismiss with
   hover-pause (`duration` attr), and a `toast()` spawn helper that

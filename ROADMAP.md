@@ -89,7 +89,8 @@ works" is the demo.
 - [x] Tabs (`tabs.js`) — m-tabs enhances nav+sections markup; full
       tablist semantics, roving tabindex, automatic activation;
       no-JS state is all panels visible in order
-- [ ] Combobox
+- [x] Combobox (`combobox.js`) — datalist upgraded to the ARIA pattern;
+      no-JS state is native autocomplete
 - [x] Toast queue (`toast.js`) — stacking via one offset number per
       toast (CSS owns reflow motion), auto-dismiss w/ hover-pause,
       `toast()` spawn helper with post-dismiss cleanup

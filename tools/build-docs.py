@@ -424,6 +424,23 @@ every panel renders in order — complete, readable content, never a
 CSS-only fake (that is the Tier-2 line).</p>
 """,
     ),
+    dict(
+        group="Forms", slug="combobox", title="combobox", tier="2",
+        scripts=["../combobox.js"],
+        lead="A native datalist, upgraded. Without the module: functional autocomplete. With it: styled listbox, filtering, active-descendant keys.",
+        body=f"""
+{specimen('<m-combobox style="max-inline-size: var(--size-md)"><input list="dcb-langs" placeholder="Pick a language&#8230;" aria-label="Language" /><datalist id="dcb-langs"><option>Ard</option><option>C</option><option>Go</option><option>JavaScript</option><option>Python</option><option>Rust</option><option>Swift</option><option>Zig</option></datalist></m-combobox>')}
+{code('<m-combobox>' + chr(10) + '  <input list="langs" placeholder="Language&#8230;" />' + chr(10) + '  <datalist id="langs">' + chr(10) + '    <option>Ard</option>' + chr(10) + '    <option>Go</option>' + chr(10) + '  </datalist>' + chr(10) + '</m-combobox>' + chr(10) + chr(10) + '<script type="module" src="mica/combobox.js"><' + '/script>')}
+<h2>Notes</h2>
+<p>The options are the author&#39;s <code>datalist</code> markup — the module
+presents them, it doesn&#39;t invent them. It wires the ARIA combobox
+pattern: <code>aria-expanded</code>, <code>aria-activedescendant</code>,
+substring filtering on input, Arrow/Enter/Esc keys, selection dispatches
+real <code>input</code>/<code>change</code> events. The listbox positions
+inside the wrapper (no top layer), so it works in every browser mica
+supports.</p>
+""",
+    ),
 ]
 
 GROUPS = ["Start", "Layout", "Elements", "Forms", "Patterns"]
