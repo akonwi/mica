@@ -94,7 +94,7 @@ works" is the demo.
 - [x] Toast queue (`toast.js`) — stacking via one offset number per
       toast (CSS owns reflow motion), auto-dismiss w/ hover-pause,
       `toast()` spawn helper with post-dismiss cleanup
-- [ ] Packaging: per-component JS imports, no shared runtime
+- [x] Packaging: per-component JS imports, no shared runtime (exports map in package.json, v0.1.0)
 
 ## Ongoing — infrastructure
 
