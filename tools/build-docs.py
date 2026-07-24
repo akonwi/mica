@@ -14,10 +14,35 @@ SHELL_CSS = """
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); }
     .brand { font-weight: 600; text-decoration: none; color: inherit; }
-    .rail h2 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-block: var(--space-lg) 0; }
-    .rail a { display: block; padding: var(--space-2xs) var(--space-xs); color: var(--color-text-muted); text-decoration: none; font-size: 0.875rem; border-inline-start: 1px solid transparent; }
-    .rail a:hover { color: var(--color-text); }
-    .rail a[aria-current="page"] { color: var(--color-text); font-weight: 500; border-inline-start: 2px solid var(--color-primary); background: var(--color-surface-raised); }
+    .docnav h2 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-block: var(--space-lg) 0; }
+    .docnav a { display: block; padding: var(--space-2xs) var(--space-xs); color: var(--color-text-muted); text-decoration: none; font-size: 0.875rem; border-inline-start: 1px solid transparent; }
+    .docnav a:hover { color: var(--color-text); }
+    .docnav a[aria-current="page"] { color: var(--color-text); font-weight: 500; border-inline-start: 2px solid var(--color-primary); background: var(--color-surface-raised); }
+
+    /* mobile shell: rail collapses into a sticky <details> menu bar.
+       zero JS — the disclosure *is* mica's accordion pattern. */
+    .topbar { display: none; }
+    @media (max-width: 52rem) {
+      .rail { display: none; }
+      .topbar {
+        display: block;
+        position: sticky;
+        inset-block-start: 0;
+        z-index: 5;
+        background: var(--color-surface);
+        border-block-end: 1px solid var(--color-border);
+        padding-inline: var(--space-md);
+      }
+      .topbar > details { border-block-end: none; }
+      .topbar summary { font-weight: 600; }
+      .topbar .docnav {
+        max-block-size: 70svh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+      .topbar .brand { display: none; } /* summary is the brand up here */
+      article { padding: var(--space-lg) var(--space-md) var(--space-xl); }
+    }
     article { padding: var(--space-xl) var(--space-lg) var(--space-2xl); min-inline-size: 0; }
     .crumb { color: var(--color-text-muted); font-size: 0.875rem; }
     .lead { color: var(--color-text-muted); }
@@ -526,8 +551,16 @@ def page_html(p: dict) -> str:
   <style>{SHELL_CSS}{extra_css}  </style>
 </head>
 <body>
+  <header class="topbar">
+    <details>
+      <summary>mica</summary>
+      <nav class="docnav" aria-label="docs">
+        {nav_html(p["slug"], from_root)}
+      </nav>
+    </details>
+  </header>
   <m-sidecar side-width="xs">
-    <nav class="rail">
+    <nav class="rail docnav" aria-label="docs">
       {nav_html(p["slug"], from_root)}
     </nav>
     <article id="main">

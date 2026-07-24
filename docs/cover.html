@@ -11,10 +11,35 @@
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); }
     .brand { font-weight: 600; text-decoration: none; color: inherit; }
-    .rail h2 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-block: var(--space-lg) 0; }
-    .rail a { display: block; padding: var(--space-2xs) var(--space-xs); color: var(--color-text-muted); text-decoration: none; font-size: 0.875rem; border-inline-start: 1px solid transparent; }
-    .rail a:hover { color: var(--color-text); }
-    .rail a[aria-current="page"] { color: var(--color-text); font-weight: 500; border-inline-start: 2px solid var(--color-primary); background: var(--color-surface-raised); }
+    .docnav h2 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-block: var(--space-lg) 0; }
+    .docnav a { display: block; padding: var(--space-2xs) var(--space-xs); color: var(--color-text-muted); text-decoration: none; font-size: 0.875rem; border-inline-start: 1px solid transparent; }
+    .docnav a:hover { color: var(--color-text); }
+    .docnav a[aria-current="page"] { color: var(--color-text); font-weight: 500; border-inline-start: 2px solid var(--color-primary); background: var(--color-surface-raised); }
+
+    /* mobile shell: rail collapses into a sticky <details> menu bar.
+       zero JS — the disclosure *is* mica's accordion pattern. */
+    .topbar { display: none; }
+    @media (max-width: 52rem) {
+      .rail { display: none; }
+      .topbar {
+        display: block;
+        position: sticky;
+        inset-block-start: 0;
+        z-index: 5;
+        background: var(--color-surface);
+        border-block-end: 1px solid var(--color-border);
+        padding-inline: var(--space-md);
+      }
+      .topbar > details { border-block-end: none; }
+      .topbar summary { font-weight: 600; }
+      .topbar .docnav {
+        max-block-size: 70svh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+      .topbar .brand { display: none; } /* summary is the brand up here */
+      article { padding: var(--space-lg) var(--space-md) var(--space-xl); }
+    }
     article { padding: var(--space-xl) var(--space-lg) var(--space-2xl); min-inline-size: 0; }
     .crumb { color: var(--color-text-muted); font-size: 0.875rem; }
     .lead { color: var(--color-text-muted); }
@@ -30,8 +55,51 @@
   </style>
 </head>
 <body>
+  <header class="topbar">
+    <details>
+      <summary>mica</summary>
+      <nav class="docnav" aria-label="docs">
+        <a class="brand" href="../index.html">mica</a>
+      <h2>Start</h2>
+      <a href="../index.html">Introduction</a>
+      <a href="tokens.html">Tokens &amp; theming</a>
+      <a href="preset.html">Preset</a>
+      <h2>Layout</h2>
+      <a href="vstack.html">vstack</a>
+      <a href="hstack.html">hstack</a>
+      <a href="zstack.html">zstack</a>
+      <a href="center.html">center</a>
+      <a href="box.html">box</a>
+      <a href="grid.html">grid</a>
+      <a href="sidecar.html">sidecar</a>
+      <a href="switcher.html">switcher</a>
+      <a href="reel.html">reel</a>
+      <a href="frame.html">frame</a>
+      <a href="cover.html" aria-current="page">cover</a>
+      <h2>Elements</h2>
+      <a href="button.html">button</a>
+      <a href="content.html">content</a>
+      <a href="progress.html">progress &amp; meter</a>
+      <h2>Forms</h2>
+      <a href="input.html">input &amp; textarea</a>
+      <a href="select.html">select</a>
+      <a href="checkbox.html">checkbox</a>
+      <a href="radio.html">radio</a>
+      <a href="switch.html">switch</a>
+      <a href="fieldset.html">fieldset</a>
+      <a href="field.html">field validation</a>
+      <a href="combobox.html">combobox</a>
+      <h2>Patterns</h2>
+      <a href="dialog.html">dialog</a>
+      <a href="accordion.html">accordion</a>
+      <a href="popover.html">popover &amp; tooltip</a>
+      <a href="toast.html">toast</a>
+      <a href="tabs.html">tabs</a>
+      </nav>
+    </details>
+  </header>
   <m-sidecar side-width="xs">
-    <nav class="rail">
+    <nav class="rail docnav" aria-label="docs">
       <a class="brand" href="../index.html">mica</a>
       <h2>Start</h2>
       <a href="../index.html">Introduction</a>
