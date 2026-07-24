@@ -16,9 +16,12 @@ nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
   `tools/build-docs.py`; edit the generator and rerun it, never the output.
 - `serve.py` — dev server on :8471 with caching disabled. Always use it;
   plain `python3 -m http.server` serves stale files to browsers and probes.
-- `tools/snapshot.ts` — computed-style snapshot tests (bun + Playwright,
-  repo-side dev dep only; never shipped). Baseline in `tools/snapshots/`.
-  `bun run snapshot:check` diffs; `bun run snapshot` re-blesses.
+- `tools/snapshot.ts` — snapshot tests (bun + Playwright, repo-side dev
+  deps only; never shipped): computed styles + interactive states + axe
+  pass + element-crop visual diffs (pixels ONLY where computed styles
+  lie: vendor pseudos, drawn glyphs). Baselines in `tools/snapshots/`
+  (JSON + PNGs, macOS-blessed). `bun run snapshot:check` diffs;
+  `bun run snapshot` re-blesses.
 - `mockups/` — *live* design explorations only; emptied once a decision
   is folded in (git history is the record). See the `mockups` skill.
 

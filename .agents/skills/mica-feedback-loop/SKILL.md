@@ -46,9 +46,14 @@ element returns the OLD value (mid-transition, oklab form). Probe with a
 fresh element per read.
 
 Channel 0 also drives interactive-state probes (hover, focus ring, open
-dialog + ::backdrop, open popover) and runs an axe-core pass per scheme
+dialog + ::backdrop, open popover), runs an axe-core pass per scheme
 (hard failure, not a snapshot — a11y violations are bugs; rule
-exclusions require an in-script justification comment).
+exclusions require an in-script justification comment), and diffs
+element-crop PNG baselines for vendor-pseudo territory (progress/meter
+fills, select trigger, drawn check/radio/switch glyphs) — the one place
+pixels beat computed styles, because getComputedStyle lies there. On
+visual drift, `*.current.png` and `*.diff.png` land next to the
+baselines for eyeballing; blessing cleans them up.
 
 Manual channels below remain for: values not in either manifest, states
 not yet driven (checked-via-interaction, drag), vendor-pseudo rendering

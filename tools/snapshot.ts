@@ -26,6 +26,8 @@
 
 import { chromium } from "playwright";
 import { join, dirname } from "node:path";
+import pixelmatch from "pixelmatch";
+import { PNG } from "pngjs";
 
 const ROOT = dirname(import.meta.dir);
 const BASELINE = join(import.meta.dir, "snapshots", "demo.json");
@@ -120,6 +122,22 @@ const HOVER_PROBES: [string, string, string[]][] = [
   ["button.danger.hover", "button.danger:not([disabled])", ["background-color"]],
 ];
 
+// -------------------------------------------------------- visual probes
+// Pixels ONLY where computed styles lie (vendor pseudos, drawn glyphs).
+// Small element crops: reviewable diffs, few-KB baselines. Everything
+// else stays computed-style — see the Storybook assessment rationale.
+const VISUAL_PROBES: [string, string][] = [
+  ["progress", "progress"],
+  ["meter", "meter"],
+  ["select", "select"],
+  ["checkbox.checked", 'input[type="checkbox"]:not(.switch):checked'],
+  ["checkbox.unchecked", 'input[type="checkbox"]:not(.switch):not(:checked):not([disabled])'],
+  ["radio.checked", 'input[type="radio"]:checked'],
+  ["switch.checked", "input.switch:checked"],
+  ["switch.unchecked", "input.switch:not(:checked):not([disabled])"],
+];
+const VISUAL_DIR = join(import.meta.dir, "snapshots", "visual");
+
 // runs in the browser
 function collectInPage([tokens, probes]: [Record<string, string>, [string, string, string[]][]]) {
   const out: any = { tokens: {}, elements: {} };
@@ -171,6 +189,7 @@ const server = Bun.serve({
 // --------------------------------------------------------------- collect
 const url = `http://127.0.0.1:${server.port}/demo.html`;
 const result: Record<string, unknown> = {};
+const visuals = new Map<string, Uint8Array>();
 let browser;
 try {
   try {
@@ -182,6 +201,7 @@ try {
   for (const scheme of ["light", "dark"] as const) {
     const ctx = await browser.newContext({
       viewport: { width: 1280, height: 800 },
+      deviceScaleFactor: 2, // glyph fidelity in visual crops; CSS px unaffected
       colorScheme: scheme,
       reducedMotion: "reduce",
     });
@@ -236,6 +256,13 @@ try {
 
       (data as any).states = states;
 
+      // ---- visual probes (element crops, PNG baselines) ----
+      for (const [name, sel] of VISUAL_PROBES) {
+        const shot = await page.locator(sel).first()
+          .screenshot({ animations: "disabled" });
+        visuals.set(`${name}.${scheme}`, shot);
+      }
+
       // ---- axe pass (hard assert, not a snapshot) ----
       await page.addScriptTag({ path: join(ROOT, "node_modules/axe-core/axe.min.js") });
       const axe = await page.evaluate(async () => {
@@ -275,6 +302,34 @@ const text = JSON.stringify(sortKeys(result), null, 1) + "\n";
 const count = Object.values(result as any)
   .reduce((n: number, v: any) => n + Object.keys(v.tokens).length + Object.keys(v.elements).length, 0);
 
+// visual compare: exact-size match required; pixelmatch reports diffs.
+// Baselines are same-machine artifacts (macOS-blessed, like the JSON).
+async function compareVisuals(): Promise<string[]> {
+  const failures: string[] = [];
+  for (const [key, buf] of visuals) {
+    const basePath = join(VISUAL_DIR, `${key}.png`);
+    const baseFile = Bun.file(basePath);
+    if (!(await baseFile.exists())) { failures.push(`${key}: no baseline`); continue; }
+    const a = PNG.sync.read(Buffer.from(await baseFile.arrayBuffer()));
+    const b = PNG.sync.read(Buffer.from(buf));
+    if (a.width !== b.width || a.height !== b.height) {
+      failures.push(`${key}: size ${a.width}x${a.height} -> ${b.width}x${b.height}`);
+      await Bun.write(join(VISUAL_DIR, `${key}.current.png`), buf);
+      continue;
+    }
+    const diffPng = new PNG({ width: a.width, height: a.height });
+    const n = pixelmatch(a.data, b.data, diffPng.data, a.width, a.height,
+      { threshold: 0.1 });
+    if (n > 0) {
+      failures.push(`${key}: ${n} pixel(s) differ`);
+      await Bun.write(join(VISUAL_DIR, `${key}.current.png`), buf);
+      await Bun.write(join(VISUAL_DIR, `${key}.diff.png`),
+        PNG.sync.write(diffPng));
+    }
+  }
+  return failures;
+}
+
 const check = process.argv.includes("--check");
 if (check) {
   const baseline = Bun.file(BASELINE);
@@ -282,18 +337,29 @@ if (check) {
     console.error("no baseline; run without --check first");
     process.exit(2);
   }
-  if ((await baseline.text()) === text) {
-    console.log(`ok: ${count} probes match baseline (both schemes)`);
+  const jsonOk = (await baseline.text()) === text;
+  const visualFailures = await compareVisuals();
+  if (jsonOk && visualFailures.length === 0) {
+    console.log(`ok: ${count} probes + ${visuals.size} visuals match baseline (both schemes)`);
     process.exit(0);
   }
-  const tmp = join(import.meta.dir, "snapshots", ".current.json");
-  await Bun.write(tmp, text);
-  const diff = Bun.spawnSync(
-    ["git", "diff", "--no-index", "--color", BASELINE, tmp], { stdout: "inherit" });
-  await Bun.file(tmp).delete();
+  if (!jsonOk) {
+    const tmp = join(import.meta.dir, "snapshots", ".current.json");
+    await Bun.write(tmp, text);
+    Bun.spawnSync(
+      ["git", "diff", "--no-index", "--color", BASELINE, tmp], { stdout: "inherit" });
+    await Bun.file(tmp).delete();
+  }
+  for (const f of visualFailures)
+    console.error(`VISUAL DRIFT ${f} (see tools/snapshots/visual/*.current.png|*.diff.png)`);
   console.error("\nSNAPSHOT DRIFT — intentional? re-bless: bun tools/snapshot.ts");
   process.exit(1);
 } else {
   await Bun.write(BASELINE, text);
-  console.log(`blessed: ${count} probes -> tools/snapshots/demo.json`);
+  for (const [key, buf] of visuals)
+    await Bun.write(join(VISUAL_DIR, `${key}.png`), buf);
+  // stale artifacts from previous failed checks
+  for (const f of new Bun.Glob("*.{current,diff}.png").scanSync(VISUAL_DIR))
+    await Bun.file(join(VISUAL_DIR, f)).delete();
+  console.log(`blessed: ${count} probes + ${visuals.size} visuals -> tools/snapshots/`);
 }
