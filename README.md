@@ -70,6 +70,13 @@ CSS by spec — overriding mica never requires specificity games. Theming is
 swapping token values (`--hue`, semantic color roles, spacing scale); dark
 mode is `light-dark()` — automatic, no classes.
 
+## Browser support
+
+Mica targets [Baseline](https://web.dev/baseline) widely-available.
+Newer features (anchor positioning, customizable select) are used behind
+graceful fallbacks — each component's docs page notes what degrades and
+how. Nothing breaks; some things get plainer.
+
 ## Docs
 
 **[akonwi.io/mica](https://akonwi.io/mica/)** — every component, built with
