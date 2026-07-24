@@ -1126,6 +1126,55 @@
     }
   }
 
+  /* --- tabs: m-tabs + tabs.js (Tier 2) ------------------------------ *
+   * without the module: inert nav, all panels visible in order —
+   * complete content. with it: tablist semantics + roving focus.
+   * shadcn segmented look: muted track, surface active tab.
+   * ------------------------------------------------------------------ */
+  :where(m-tabs) {
+    display: block;
+  }
+
+  :where(m-tabs) > :where(nav) {
+    display: inline-flex;
+    gap: var(--space-2xs);
+    padding: var(--space-2xs);
+    background: var(--neutral-3);
+    border-radius: var(--radius-md);
+
+    & > :where(button) {
+      block-size: var(--control-height-sm);
+      padding-inline: var(--space-sm);
+      border: 0;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--color-text-muted);
+
+      /* :not() guards mirror the base button states (house rule) */
+      &:hover:not(:disabled, [aria-disabled="true"]),
+      &:active:not(:disabled, [aria-disabled="true"]) {
+        background: transparent;
+        color: var(--color-text);
+      }
+
+      &[aria-selected="true"] {
+        background: var(--color-surface);
+        color: var(--color-text);
+        box-shadow: 0 1px 2px oklch(0 0 0 / 0.08);
+
+        &:hover:not(:disabled, [aria-disabled="true"]),
+        &:active:not(:disabled, [aria-disabled="true"]) {
+          background: var(--color-surface);
+          color: var(--color-text);
+        }
+      }
+    }
+  }
+
+  :where(m-tabs) > :where(section) {
+    padding-block: var(--space-md);
+  }
+
   /* --- toast: display only (queueing/auto-dismiss are Tier 2) ------- *
    * <div popover="manual" class="toast" role="status"> — manual so it
    * survives light dismiss and other popovers; role=status announces.

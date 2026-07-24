@@ -86,7 +86,9 @@ works" is the demo.
       Base-UI-style `<m-error match>`, no browser bubbles, CSS fallback
 - [x] Select picker alignment (`select.js`) — selected option overlays
       the trigger; JS ships one number, CSS anchors do the rest
-- [ ] Tabs (`mica/tabs.js`)
+- [x] Tabs (`tabs.js`) — m-tabs enhances nav+sections markup; full
+      tablist semantics, roving tabindex, automatic activation;
+      no-JS state is all panels visible in order
 - [ ] Combobox
 - [x] Toast queue (`toast.js`) — stacking via one offset number per
       toast (CSS owns reflow motion), auto-dismiss w/ hover-pause,

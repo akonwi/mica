@@ -75,9 +75,11 @@ The list must stay embarrassingly short:
   macOS-native "selected option overlays the trigger" behavior. JS
   supplies one custom property (the selected index); all geometry is
   CSS anchor positioning. Without JS: the anchored-below picker.
-- **Tabs** — roving tabindex, arrow keys, `aria-selected` wiring. The
-  CSS-only radio hack looks like tabs and is a11y-broken; that is exactly
-  the fake we refuse.
+- **Tabs** (`mica/tabs.js`, shipped) — `<m-tabs>` wires
+  tablist/tab/tabpanel roles, `aria-selected`, roving tabindex,
+  Arrow/Home/End with automatic activation. Without JS: inert nav, all
+  panels visible in order — complete content. The CSS-only radio hack
+  looks like tabs and is a11y-broken; that is exactly the fake we refuse.
 - **Combobox/autocomplete** — filtering, active-descendant, announcements
 - **Toast queue** (`mica/toast.js`, shipped) — stacking (JS ships one
   offset number per toast; CSS owns geometry/reflow), auto-dismiss with

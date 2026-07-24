@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>popover &amp; tooltip — mica</title>
+  <title>tabs — mica</title>
   <link rel="stylesheet" href="../mica.css" />
-
+  <script type="module" src="../tabs.js"></script>
   <style>
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); }
@@ -62,39 +62,39 @@
       <h2>Patterns</h2>
       <a href="dialog.html">dialog</a>
       <a href="accordion.html">accordion</a>
-      <a href="popover.html" aria-current="page">popover &amp; tooltip</a>
+      <a href="popover.html">popover &amp; tooltip</a>
       <a href="toast.html">toast</a>
-      <a href="tabs.html">tabs</a>
+      <a href="tabs.html" aria-current="page">tabs</a>
     </nav>
     <article id="main">
       <m-center style="--max: 48rem">
         <m-vstack gap="xl">
-          <span class="crumb">Patterns / popover &amp; tooltip</span>
+          <span class="crumb">Patterns / tabs</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>popover &amp; tooltip</h1> <span class="badge">Tier 1</span></m-hstack>
-            <p class="lead">popover attribute + popovertarget invokers. Toggle, light dismiss, Esc, top layer — the browser's. Zero JS.</p>
+            <m-hstack gap="sm"><h1>tabs</h1> <span class="badge">Tier 2</span></m-hstack>
+            <p class="lead">The one pattern the platform still can't do accessibly without script. m-tabs enhances working markup — it never renders it.</p>
           </m-vstack>
 
-<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dp-menu">Menu</button><button popovertarget="dp-pop">Popover</button><button data-tip="Saved to your library" aria-label="Tooltip demo">Hover me</button></m-hstack><div id="dp-menu" popover class="menu"><button popovertarget="dp-menu" popovertargetaction="hide">Edit</button><button popovertarget="dp-menu" popovertargetaction="hide">Duplicate</button><hr /><button class="danger" popovertarget="dp-menu" popovertargetaction="hide">Delete</button></div><div id="dp-pop" popover><m-vstack gap="2xs"><b>Anchored panel</b><span>Light dismiss, Esc, toggling: all the browser. Anchored to the invoker where anchor positioning exists.</span></m-vstack></div></div>
-<pre><code>&lt;button popovertarget=&quot;menu&quot;&gt;Menu&lt;/button&gt;
+<div class="specimen"><m-tabs><nav><button>Account</button><button>Password</button><button>Team</button></nav><section><p>Account settings panel.</p></section><section><p>Password panel. Try the arrow keys — roving tabindex, automatic activation.</p></section><section><p>Team panel.</p></section></m-tabs></div>
+<pre><code>&lt;m-tabs&gt;
+  &lt;nav&gt;
+    &lt;button&gt;Account&lt;/button&gt;
+    &lt;button selected&gt;Password&lt;/button&gt;  &lt;!-- optional initial --&gt;
+  &lt;/nav&gt;
+  &lt;section&gt;&amp;#8230;account panel&amp;#8230;&lt;/section&gt;
+  &lt;section&gt;&amp;#8230;password panel&amp;#8230;&lt;/section&gt;
+&lt;/m-tabs&gt;
 
-&lt;div id=&quot;menu&quot; popover class=&quot;menu&quot;&gt;
-  &lt;button popovertarget=&quot;menu&quot; popovertargetaction=&quot;hide&quot;&gt;Edit&lt;/button&gt;
-  &lt;button popovertarget=&quot;menu&quot; popovertargetaction=&quot;hide&quot;&gt;Duplicate&lt;/button&gt;
-  &lt;hr /&gt;
-  &lt;button class=&quot;danger&quot; popovertarget=&quot;menu&quot; popovertargetaction=&quot;hide&quot;&gt;Delete&lt;/button&gt;
-&lt;/div&gt;
-
-&lt;button data-tip=&quot;Saved&quot; aria-label=&quot;Saved&quot;&gt;Hover me&lt;/button&gt;</code></pre>
+&lt;script type=&quot;module&quot; src=&quot;mica/tabs.js&quot;&gt;&lt;/script&gt;</code></pre>
 <h2>Notes</h2>
-<p>Menu items close the menu declaratively (<code>popovertargetaction="hide"</code>)
-— an item is a button doing its job plus one attribute. Tab/Esc/light-dismiss
-are native; arrow-key roving is a future Tier-2 module. Tooltips are CSS-only
-(<code>data-tip</code>) and visual — pair with <code>aria-label</code> or
-visible text. Where anchor positioning is missing, popovers fall back to the
-UA's centered position.</p>
+<p>Buttons pair with panels positionally, or explicitly via
+<code>aria-controls="panel-id"</code>. The module wires
+tablist/tab/tabpanel roles, <code>aria-selected</code>, roving tabindex,
+and Arrow/Home/End keys. <b>Without the module</b> the nav is inert and
+every panel renders in order — complete, readable content, never a
+CSS-only fake (that is the Tier-2 line).</p>
 
-          <m-hstack justify="between" class="pager"><a href="accordion.html">&larr; accordion</a><a href="toast.html">toast &rarr;</a></m-hstack>
+          <m-hstack justify="between" class="pager"><a href="toast.html">&larr; toast</a><span></span></m-hstack>
         </m-vstack>
       </m-center>
     </article>

@@ -408,6 +408,22 @@ the toasts stack.</p>
 {code("import {{ toast }} from 'mica/toast.js'" + chr(10) + chr(10) + "toast('Saved', {{ description: 'Your changes are safe.'," + chr(10) + "                variant: 'success', duration: 4000 }})")}
 """,
     ),
+    dict(
+        group="Patterns", slug="tabs", title="tabs", tier="2",
+        scripts=["../tabs.js"],
+        lead="The one pattern the platform still can't do accessibly without script. m-tabs enhances working markup — it never renders it.",
+        body=f"""
+{specimen('<m-tabs><nav><button>Account</button><button>Password</button><button>Team</button></nav><section><p>Account settings panel.</p></section><section><p>Password panel. Try the arrow keys — roving tabindex, automatic activation.</p></section><section><p>Team panel.</p></section></m-tabs>')}
+{code('<m-tabs>' + chr(10) + '  <nav>' + chr(10) + '    <button>Account</button>' + chr(10) + '    <button selected>Password</button>  <!-- optional initial -->' + chr(10) + '  </nav>' + chr(10) + '  <section>&#8230;account panel&#8230;</section>' + chr(10) + '  <section>&#8230;password panel&#8230;</section>' + chr(10) + '</m-tabs>' + chr(10) + chr(10) + '<script type="module" src="mica/tabs.js"><' + '/script>')}
+<h2>Notes</h2>
+<p>Buttons pair with panels positionally, or explicitly via
+<code>aria-controls="panel-id"</code>. The module wires
+tablist/tab/tabpanel roles, <code>aria-selected</code>, roving tabindex,
+and Arrow/Home/End keys. <b>Without the module</b> the nav is inert and
+every panel renders in order — complete, readable content, never a
+CSS-only fake (that is the Tier-2 line).</p>
+""",
+    ),
 ]
 
 GROUPS = ["Start", "Layout", "Elements", "Forms", "Patterns"]

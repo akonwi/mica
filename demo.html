@@ -8,6 +8,7 @@
   <script type="module" src="field.js"></script>
   <script type="module" src="select.js"></script>
   <script type="module" src="toast.js"></script>
+  <script type="module" src="tabs.js"></script>
   <style>
     /* Demo-only styles. Deliberately unlayered: user CSS always wins. */
     /* typography, margins, rhythm, page colors all come from mica.
@@ -482,6 +483,30 @@
     </section>
 
     <section>
+      <m-vstack gap="md">
+        <h2>Tabs — m-tabs + tabs.js (Tier 2)</h2>
+        <m-tabs>
+          <nav>
+            <button>Account</button>
+            <button>Password</button>
+            <button>Team</button>
+          </nav>
+          <section>
+            <p>Account settings panel. Without <code>tabs.js</code>, all three
+            panels are visible in order — complete content, honestly degraded.</p>
+          </section>
+          <section>
+            <p>Password panel. Arrow keys move between tabs (roving tabindex,
+            automatic activation).</p>
+          </section>
+          <section>
+            <p>Team panel.</p>
+          </section>
+        </m-tabs>
+      </m-vstack>
+    </section>
+
+    <section>
       <h2>The preset — bare prose, no mica tags, no demo styles</h2>
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from
@@ -509,9 +534,9 @@
   </m-vstack>
 
   <footer>
-    <p>mica — a soupçon of JavaScript. (This page loads three tiny modules:
-    <code>field.js</code> (validation errors), <code>select.js</code> (picker
-    alignment), <code>toast.js</code> (toast queue). Everything else is CSS.)</p>
+    <p>mica — a soupçon of JavaScript. (This page loads four tiny modules:
+    <code>field.js</code>, <code>select.js</code>, <code>toast.js</code>,
+    <code>tabs.js</code>. Everything else is CSS.)</p>
   </footer>
 
 </m-center>
