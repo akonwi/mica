@@ -54,6 +54,46 @@ nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
   displaces an alternative (round radio, colorful primary, un-square), the
   alternative lives as a theme snippet in a CSS comment right there.
 
+## API surface & semver (internal policy)
+
+Light DOM means markup is API. This is the line between "users may depend
+on it" and "we may change it." The `mica-release` skill applies this at
+release time; this is the reference.
+
+**API surface — changing any of these is a breaking change** (pre-1.0:
+allowed in a *minor* bump, but must be called out in release notes with a
+migration line; post-1.0: major):
+
+- Element names and their attribute vocabularies, including each
+  enumerated value (`gap="sm|md|…"`) and boolean attributes (`wrap`)
+- Positional child contracts (`m-sidecar` first/last-child roles)
+- Variant and size class names on native elements (`.primary`, `.small`)
+- Token *names* and *semantics*: role meanings, scale-step meanings
+  (step 6 = default border), knob names (`--hue`, `--status-chroma`)
+- Layer names and order (`mica.tokens, mica.preset, mica.elements,
+  mica.layout`) — consumers order their own layers against these
+- Documented markup anatomy in `docs/` recipes (dialog structure,
+  `m-field`/`m-error match`, tabs markup) — if a docs page shows it,
+  it's frozen
+- Tier-2 module contracts: attributes read, events fired, enhancement
+  behavior when JS is absent
+- Browser-support floor (dropping a fallback is breaking)
+
+**Not API — changeable in any release:**
+
+- Exact color values behind a step/role — step *semantics* are frozen,
+  the OKLCH numbers are tunable (visible repaints still deserve a
+  release-note line)
+- Selector implementation, specificity strategy, internal custom
+  properties not shown in docs (`--m-sel-index` and friends)
+- Preset opinions' exact values (rhythm sizes, focus-ring width) — same
+  repaint courtesy applies
+- docs/demo/tools, file layout beyond the published `exports` entries
+
+**Gray zone rule:** if unsure whether something is depended-upon, it's
+API. When a change is desirable but breaking, prefer additive (new value,
+new attribute) + deprecation note over mutation.
+
 ## Design language (the default theme)
 
 Square (radius tokens = 0), pure neutral grays, near-black `--color-primary`
