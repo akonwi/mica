@@ -51,6 +51,10 @@ class MCombobox extends HTMLElement {
         e.preventDefault();
         this.#choose(d);
       });
+      // hover moves the highlight (cmdk behavior)
+      d.addEventListener("pointerenter", () => {
+        this.#setActive(this.#visible().indexOf(d));
+      });
       this.#list.append(d);
       return d;
     });
@@ -78,9 +82,10 @@ class MCombobox extends HTMLElement {
       o.hidden = q !== "" && !o.textContent.toLowerCase().includes(q);
       if (!o.hidden) any = true;
     }
-    this.#setActive(-1);
     this.#list.hidden = !any;
     this.#input.setAttribute("aria-expanded", String(any));
+    // first match is pre-highlighted so Enter always has a target
+    this.#setActive(any ? 0 : -1);
   }
 
   #close() {
