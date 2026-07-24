@@ -123,5 +123,11 @@ switch = fill + block. Field text never drops below 16px (iOS zoom).
   but cache-bust probe URLs anyway.
 - `getComputedStyle` lies about vendor pseudos (returns element styles) —
   verify progress/meter/picker visually.
+- `light-dark()` accepts **colors only**. Feeding it `url()`s is invalid:
+  Chromium computes it to `none` yet paints a *degraded* glyph, iOS Safari
+  drops it entirely. Image-valued tokens swap schemes via the
+  `prefers-color-scheme` media query in the tokens layer instead — which
+  also means the `colorScheme`-style forcing trick does NOT flip them;
+  use `emulateMedia`/OS scheme when probing them.
 - glimpse URL windows wrap pages in an iframe; the bridge lives in the
   wrapper (see the global `glimpse-visuals` skill).

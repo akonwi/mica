@@ -44,11 +44,17 @@
     --focus-ring-offset: 2px;
     --focus-ring-color: var(--color-accent);
 
-    /* checkmark glyph — SVG URIs can't read custom properties, so this
-       ships as a light-dark pair tracking on-primary (white / near-black) */
-    --check-glyph: light-dark(
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E"),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23151922' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E"));
+    /* checkmark glyph — SVG URIs can't read custom properties, and
+       light-dark() only accepts <color>s: feeding it url()s is invalid
+       (Chromium computes it to none; iOS Safari drops the glyph at
+       paint). So: light glyph by default, dark swapped in by the media
+       query after this block. The pair tracks on-primary (white /
+       near-black, since primary inverts in dark).
+       Forcing a scheme against the OS? Also pin the glyph:
+         :root { color-scheme: dark; --check-glyph: var(--check-glyph-dark); } */
+    --check-glyph-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E");
+    --check-glyph-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23151922' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E");
+    --check-glyph: var(--check-glyph-light);
 
     /* -------------------------------------------------------------- *
      * Color. Two knobs — change the theme by changing the knobs:
@@ -150,6 +156,14 @@
     --color-warn:         light-dark(oklch(78% var(--status-chroma) var(--warn-hue)), oklch(76% var(--status-chroma) var(--warn-hue)));
     --color-on-warn:      oklch(20% 0.03 var(--warn-hue));
     --color-warn-text:    light-dark(oklch(42% calc(var(--status-chroma) * 0.9) var(--warn-hue)), oklch(80% calc(var(--status-chroma) * 0.9) var(--warn-hue)));
+  }
+
+  /* scheme swap for image-valued tokens — the one place light-dark()
+     can't help (colors only). See --check-glyph above. */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --check-glyph: var(--check-glyph-dark);
+    }
   }
 }
 

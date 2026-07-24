@@ -123,6 +123,12 @@ Gotcha: elements with `transition` (e.g. buttons) computed-style-probe as
 intermediate `oklab(...)` values right after a mode flip. Settle ~250ms
 before probing, or probe transition-free elements.
 
+Gotcha: the `colorScheme` trick only flips `light-dark()` values. Tokens
+that swap via the `prefers-color-scheme` media query instead (image-valued
+tokens like `--check-glyph` — `light-dark()` is colors-only) will NOT
+flip. Probing those needs real scheme emulation: the repo's Playwright
+rig (`emulateMedia`) or an OS-level toggle.
+
 Gotcha: aside tabs cache **both** the HTML and the stylesheet across
 invocations — probes can silently run against stale files (symptom:
 selectors find nothing, or new rules don't apply while old ones do).
