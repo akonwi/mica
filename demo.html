@@ -161,6 +161,34 @@
 
     <section>
       <m-vstack gap="md">
+        <h2><code>&lt;m-frame&gt;</code> — hold a ratio, crop media to fit</h2>
+        <m-grid gap="md" min="xs">
+          <m-frame ratio="16:9" class="card"><p>16:9 (default)</p></m-frame>
+          <m-frame ratio="square" class="card"><p>square</p></m-frame>
+          <m-frame ratio="4:3" class="card"><p>4:3</p></m-frame>
+          <m-frame style="--ratio: 21 / 9" class="card"><p>--ratio: 21/9</p></m-frame>
+        </m-grid>
+        <m-frame ratio="2:1" class="card">
+          <img src="https://picsum.photos/seed/mica/1200/500" alt="random photo cropped to 2:1" />
+        </m-frame>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2><code>&lt;m-cover&gt;</code> — center the principal, pin the edges</h2>
+        <m-cover class="card" style="--min-height: 20rem">
+          <p>pinned top</p>
+          <h1 style="font-size: 1.5rem">the principal element (h1 by default)</h1>
+          <p>pinned bottom ↓</p>
+        </m-cover>
+        <p>Defaults to <code>min-block-size: 100svh</code>; scaled down here via
+        <code>--min-height</code>. Mark a non-h1 child with <code>class="principal"</code>.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
         <h2>The scales — for eyeballing the ramps (toggle OS dark mode)</h2>
         <p>Each step should be distinguishable from its neighbors; 6–8 should
         read as borders on 1–3; 11 should be readable text on 1–3.</p>

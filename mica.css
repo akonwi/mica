@@ -1348,13 +1348,15 @@
   m-grid,
   m-sidecar,
   m-switcher,
-  m-reel {
+  m-reel,
+  m-frame,
+  m-cover {
     display: block;
     box-sizing: border-box;
   }
 
   /* Shared attribute vocabulary -> custom properties */
-  :is(m-vstack, m-hstack, m-grid, m-sidecar, m-switcher, m-reel) {
+  :is(m-vstack, m-hstack, m-grid, m-sidecar, m-switcher, m-reel, m-cover) {
     &[gap="none"] { --gap: 0; }
     &[gap="2xs"]  { --gap: var(--space-2xs); }
     &[gap="xs"]   { --gap: var(--space-xs); }
@@ -1532,5 +1534,54 @@
 
     &[snap="none"]      { scroll-snap-type: none; }
     &[snap="mandatory"] { scroll-snap-type: inline mandatory; }
+  }
+
+  /* --- m-frame: hold an aspect ratio, crop media to fit ------------ */
+  m-frame {
+    aspect-ratio: var(--ratio, 16 / 9);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &[ratio="square"] { --ratio: 1; }
+    &[ratio="16:9"]   { --ratio: 16 / 9; }
+    &[ratio="4:3"]    { --ratio: 4 / 3; }
+    &[ratio="3:2"]    { --ratio: 3 / 2; }
+    &[ratio="2:1"]    { --ratio: 2 / 1; }
+    &[ratio="9:16"]   { --ratio: 9 / 16; }
+
+    /* media fills and crops; anything else just gets centered */
+    & > :is(img, video),
+    & > picture > img {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+    }
+  }
+
+  /* --- m-cover: fill the viewport, center the principal element ---- *
+   * The principal element (h1 by default, or mark one child with
+   * .principal) is vertically centered; children before it pin to the
+   * top, children after it pin to the bottom.                         */
+  m-cover {
+    display: flex;
+    flex-direction: column;
+    min-block-size: var(--min-height, 100svh);
+    gap: var(--gap, var(--space-md));
+    padding: var(--pad, var(--space-md));
+
+    &[pad="none"] { --pad: 0; }
+    &[pad="sm"]   { --pad: var(--space-sm); }
+    &[pad="md"]   { --pad: var(--space-md); }
+    &[pad="lg"]   { --pad: var(--space-lg); }
+    &[pad="xl"]   { --pad: var(--space-xl); }
+
+    & > * { margin-block: 0; }
+
+    & > :is(h1, .principal) { margin-block: auto; }
+
+    /* an explicit .principal wins over the h1 default */
+    &:has(> .principal) > h1:not(.principal) { margin-block: 0; }
   }
 }

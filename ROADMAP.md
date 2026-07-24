@@ -107,5 +107,5 @@ works" is the demo.
 - [x] Docs published at https://akonwi.io/mica/ (GitHub Pages; the repo
       root is the site — no build artifact, the checkout deploys as-is)
 - [x] Markup-contract semver policy u2014 internal, in AGENTS.md (API surface & semver)
-- [ ] Tier-0 stragglers: `m-frame`, `m-cover`
+- [x] Tier-0 stragglers: `m-frame`, `m-cover`
 - [ ] Browser-support checklist per feature

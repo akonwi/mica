@@ -225,6 +225,32 @@ it switch.</p>
 <p><code>gap</code>; <code>snap</code>: none · mandatory (default proximity).</p>
 """,
     ),
+    dict(
+        group="Layout", slug="frame", title="frame", tier="0",
+        lead="Hold an aspect ratio; crop media to fit. Uniform thumbnails from chaotic images.",
+        body=f"""
+{specimen('<m-grid gap="md" min="xs"><m-frame ratio="16:9" class="card"><p>16:9 (default)</p></m-frame><m-frame ratio="square" class="card"><p>square</p></m-frame><m-frame ratio="4:3" class="card"><p>4:3</p></m-frame><m-frame style="--ratio: 21 / 9" class="card"><p>--ratio: 21/9</p></m-frame></m-grid>')}
+{code('<m-frame ratio="square">' + chr(10) + '  <img src="photo.jpg" alt="…">' + chr(10) + '</m-frame>')}
+<h2>Attributes</h2>
+<p><code>ratio</code>: square · 16:9 · 4:3 · 3:2 · 2:1 · 9:16 — or any
+fraction via <code>--ratio</code>. Direct <code>img</code>/<code>video</code>
+children (and <code>picture &gt; img</code>) fill and crop with
+<code>object-fit: cover</code>; anything else is centered in the shape.</p>
+""",
+    ),
+    dict(
+        group="Layout", slug="cover", title="cover", tier="0",
+        lead="Fill the viewport; center the principal element; pin the rest to the edges.",
+        body=f"""
+{specimen('<m-cover class="card" style="--min-height: 18rem"><p>pinned top</p><h1 style="font-size: 1.5rem">the principal element</h1><p>pinned bottom ↓</p></m-cover>')}
+{code('<m-cover>' + chr(10) + '  <nav>…</nav>' + chr(10) + '  <h1>Big headline</h1>' + chr(10) + '  <p>scroll ↓</p>' + chr(10) + '</m-cover>')}
+<h2>Attributes</h2>
+<p><code>gap</code>; <code>pad</code>: none · sm · md · lg · xl. Height
+defaults to <code>100svh</code>; override with <code>--min-height</code>.
+The principal element is the <code>h1</code> by default — mark any child
+with <code>class="principal"</code> instead (it wins over the h1).</p>
+""",
+    ),
     # ---- Elements ----
     dict(
         group="Elements", slug="button", title="button", tier="1",

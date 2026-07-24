@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>zstack — mica</title>
+  <title>cover — mica</title>
   <link rel="stylesheet" href="../mica.css" />
 
   <style>
@@ -40,7 +40,7 @@
       <h2>Layout</h2>
       <a href="vstack.html">vstack</a>
       <a href="hstack.html">hstack</a>
-      <a href="zstack.html" aria-current="page">zstack</a>
+      <a href="zstack.html">zstack</a>
       <a href="center.html">center</a>
       <a href="box.html">box</a>
       <a href="grid.html">grid</a>
@@ -48,7 +48,7 @@
       <a href="switcher.html">switcher</a>
       <a href="reel.html">reel</a>
       <a href="frame.html">frame</a>
-      <a href="cover.html">cover</a>
+      <a href="cover.html" aria-current="page">cover</a>
       <h2>Elements</h2>
       <a href="button.html">button</a>
       <a href="content.html">content</a>
@@ -72,23 +72,25 @@
     <article id="main">
       <m-center style="--max: 48rem">
         <m-vstack gap="xl">
-          <span class="crumb">Layout / zstack</span>
+          <span class="crumb">Layout / cover</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>zstack</h1> <span class="badge">Tier 0</span></m-hstack>
-            <p class="lead">Layering: children share one grid cell. Paint order is DOM order.</p>
+            <m-hstack gap="sm"><h1>cover</h1> <span class="badge">Tier 0</span></m-hstack>
+            <p class="lead">Fill the viewport; center the principal element; pin the rest to the edges.</p>
           </m-vstack>
 
-<div class="specimen"><m-zstack style="min-block-size: 8rem"><div style="background: linear-gradient(135deg, var(--neutral-7), var(--neutral-9))"></div><p style="place-self: center; margin: 0">centered layer</p><p class="swatch" style="place-self: start end; margin: var(--space-sm)">badge</p></m-zstack></div>
-<pre><code>&lt;m-zstack&gt;
-  &lt;img src=&quot;cover.jpg&quot; alt=&quot;&quot; /&gt;
-  &lt;p style=&quot;place-self: center&quot;&gt;Title&lt;/p&gt;
-&lt;/m-zstack&gt;</code></pre>
-<h2>Notes</h2>
-<p>Defaults to stretch (fill layers are the web's common case; SwiftUI centers).
-Per-layer placement is plain <code>place-self</code> on the child — light DOM
-means the platform is the escape hatch.</p>
+<div class="specimen"><m-cover class="card" style="--min-height: 18rem"><p>pinned top</p><h1 style="font-size: 1.5rem">the principal element</h1><p>pinned bottom ↓</p></m-cover></div>
+<pre><code>&lt;m-cover&gt;
+  &lt;nav&gt;…&lt;/nav&gt;
+  &lt;h1&gt;Big headline&lt;/h1&gt;
+  &lt;p&gt;scroll ↓&lt;/p&gt;
+&lt;/m-cover&gt;</code></pre>
+<h2>Attributes</h2>
+<p><code>gap</code>; <code>pad</code>: none · sm · md · lg · xl. Height
+defaults to <code>100svh</code>; override with <code>--min-height</code>.
+The principal element is the <code>h1</code> by default — mark any child
+with <code>class="principal"</code> instead (it wins over the h1).</p>
 
-          <m-hstack justify="between" class="pager"><a href="hstack.html">&larr; hstack</a><a href="center.html">center &rarr;</a></m-hstack>
+          <m-hstack justify="between" class="pager"><a href="frame.html">&larr; frame</a><a href="button.html">button &rarr;</a></m-hstack>
         </m-vstack>
       </m-center>
     </article>

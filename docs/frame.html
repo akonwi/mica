@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>zstack — mica</title>
+  <title>frame — mica</title>
   <link rel="stylesheet" href="../mica.css" />
 
   <style>
@@ -40,14 +40,14 @@
       <h2>Layout</h2>
       <a href="vstack.html">vstack</a>
       <a href="hstack.html">hstack</a>
-      <a href="zstack.html" aria-current="page">zstack</a>
+      <a href="zstack.html">zstack</a>
       <a href="center.html">center</a>
       <a href="box.html">box</a>
       <a href="grid.html">grid</a>
       <a href="sidecar.html">sidecar</a>
       <a href="switcher.html">switcher</a>
       <a href="reel.html">reel</a>
-      <a href="frame.html">frame</a>
+      <a href="frame.html" aria-current="page">frame</a>
       <a href="cover.html">cover</a>
       <h2>Elements</h2>
       <a href="button.html">button</a>
@@ -72,23 +72,23 @@
     <article id="main">
       <m-center style="--max: 48rem">
         <m-vstack gap="xl">
-          <span class="crumb">Layout / zstack</span>
+          <span class="crumb">Layout / frame</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>zstack</h1> <span class="badge">Tier 0</span></m-hstack>
-            <p class="lead">Layering: children share one grid cell. Paint order is DOM order.</p>
+            <m-hstack gap="sm"><h1>frame</h1> <span class="badge">Tier 0</span></m-hstack>
+            <p class="lead">Hold an aspect ratio; crop media to fit. Uniform thumbnails from chaotic images.</p>
           </m-vstack>
 
-<div class="specimen"><m-zstack style="min-block-size: 8rem"><div style="background: linear-gradient(135deg, var(--neutral-7), var(--neutral-9))"></div><p style="place-self: center; margin: 0">centered layer</p><p class="swatch" style="place-self: start end; margin: var(--space-sm)">badge</p></m-zstack></div>
-<pre><code>&lt;m-zstack&gt;
-  &lt;img src=&quot;cover.jpg&quot; alt=&quot;&quot; /&gt;
-  &lt;p style=&quot;place-self: center&quot;&gt;Title&lt;/p&gt;
-&lt;/m-zstack&gt;</code></pre>
-<h2>Notes</h2>
-<p>Defaults to stretch (fill layers are the web's common case; SwiftUI centers).
-Per-layer placement is plain <code>place-self</code> on the child — light DOM
-means the platform is the escape hatch.</p>
+<div class="specimen"><m-grid gap="md" min="xs"><m-frame ratio="16:9" class="card"><p>16:9 (default)</p></m-frame><m-frame ratio="square" class="card"><p>square</p></m-frame><m-frame ratio="4:3" class="card"><p>4:3</p></m-frame><m-frame style="--ratio: 21 / 9" class="card"><p>--ratio: 21/9</p></m-frame></m-grid></div>
+<pre><code>&lt;m-frame ratio=&quot;square&quot;&gt;
+  &lt;img src=&quot;photo.jpg&quot; alt=&quot;…&quot;&gt;
+&lt;/m-frame&gt;</code></pre>
+<h2>Attributes</h2>
+<p><code>ratio</code>: square · 16:9 · 4:3 · 3:2 · 2:1 · 9:16 — or any
+fraction via <code>--ratio</code>. Direct <code>img</code>/<code>video</code>
+children (and <code>picture &gt; img</code>) fill and crop with
+<code>object-fit: cover</code>; anything else is centered in the shape.</p>
 
-          <m-hstack justify="between" class="pager"><a href="hstack.html">&larr; hstack</a><a href="center.html">center &rarr;</a></m-hstack>
+          <m-hstack justify="between" class="pager"><a href="reel.html">&larr; reel</a><a href="cover.html">cover &rarr;</a></m-hstack>
         </m-vstack>
       </m-center>
     </article>
