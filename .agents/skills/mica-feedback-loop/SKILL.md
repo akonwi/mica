@@ -31,13 +31,13 @@ user's own browser) cache stale HTML/CSS.
 
 ## Channel 0 — snapshot check (automated, run first)
 
-Channel 1 is largely automated: `python3 tools/snapshot.py --check` runs
+Channel 1 is largely automated: `bun run snapshot:check` runs
 256 computed-style probes (all tokens resolved + curated element styles)
 in both color schemes via headless Playwright, asserts the parse canary,
 and diffs against the committed baseline in `tools/snapshots/demo.json`.
 Run it FIRST after any mica.css/demo.html change — it catches most
 regressions before manual probing starts. Intentional changes: re-bless
-(no flag) and commit the baseline diff with the change.
+(`bun run snapshot`) and commit the baseline diff with the change.
 
 Gotcha encoded in the script: under the preset's reduced-motion rule every
 element carries an `all 0.01ms` transition — restyle-then-read on a reused

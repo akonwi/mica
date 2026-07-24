@@ -16,9 +16,9 @@ nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
   `tools/build-docs.py`; edit the generator and rerun it, never the output.
 - `serve.py` — dev server on :8471 with caching disabled. Always use it;
   plain `python3 -m http.server` serves stale files to browsers and probes.
-- `tools/snapshot.py` — computed-style snapshot tests (headless Chromium
-  via Playwright, repo-side dev dep only). Baseline in `tools/snapshots/`.
-  `--check` diffs; no flag re-blesses.
+- `tools/snapshot.ts` — computed-style snapshot tests (bun + Playwright,
+  repo-side dev dep only; never shipped). Baseline in `tools/snapshots/`.
+  `bun run snapshot:check` diffs; `bun run snapshot` re-blesses.
 - `mockups/` — *live* design explorations only; emptied once a decision
   is folded in (git history is the record). See the `mockups` skill.
 
@@ -31,9 +31,9 @@ nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
    and a delegated visual review when visuals changed. Evidence goes in
    the commit message.
 2. **Snapshot check before every commit touching `mica.css` or
-   `demo.html`:** `python3 tools/snapshot.py --check` (256 computed-style
+   `demo.html`:** `bun run snapshot:check` (256 computed-style
    probes, both schemes, canary asserted). Unexpected diff = regression:
-   fix it. Intentional diff = re-bless (`python3 tools/snapshot.py`) and
+   fix it. Intentional diff = re-bless (`bun run snapshot`) and
    commit the baseline change WITH the CSS change — the baseline diff is
    the reviewable impact analysis. New components get probe manifest
    entries in the same commit.
