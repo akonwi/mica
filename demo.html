@@ -64,6 +64,7 @@
     </m-vstack>
   </header>
 
+  <main>
   <m-vstack gap="2xl">
 
     <section>
@@ -148,7 +149,7 @@
     <section>
       <m-vstack gap="md">
         <h2><code>&lt;m-reel&gt;</code> — horizontal scroll with snap</h2>
-        <m-reel gap="md">
+        <m-reel gap="md" tabindex="0" role="region" aria-label="example slides">
           <div class="card tall" style="inline-size: 14rem">slide 1</div>
           <div class="card tall" style="inline-size: 14rem">slide 2</div>
           <div class="card tall" style="inline-size: 14rem">slide 3</div>
@@ -582,6 +583,7 @@
     </section>
 
   </m-vstack>
+  </main>
 
   <footer>
     <p>mica — a soupçon of JavaScript. (This page loads five tiny modules:

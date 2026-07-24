@@ -41,6 +41,10 @@
     "border-top-color": "rgba(0, 0, 0, 0)",
     "inline-size": "20px"
    },
+   "checkbox.checked": {
+    "background-color": "oklch(0.564 0 263)",
+    "border-top-color": "rgba(0, 0, 0, 0)"
+   },
    "code": {
     "background-color": "oklch(0.17 0 263)",
     "font-family": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
@@ -106,6 +110,9 @@
     "border-radius": "0px",
     "inline-size": "20px"
    },
+   "radio.checked": {
+    "background-color": "oklch(0.96 0 263)"
+   },
    "reel": {
     "display": "flex",
     "overflow-x": "auto",
@@ -125,6 +132,9 @@
     "block-size": "20px",
     "border-radius": "0px",
     "inline-size": "36px"
+   },
+   "switch.checked": {
+    "background-color": "oklch(0.96 0 263)"
    },
    "switcher": {
     "column-gap": "16px",
@@ -147,6 +157,35 @@
     "align-items": "stretch",
     "display": "grid",
     "justify-items": "stretch"
+   }
+  },
+  "states": {
+   "button.danger.hover": {
+    "background-color": "oklch(0.7312 0.1584 10.36)"
+   },
+   "button.hover": {
+    "background-color": "oklch(0.2 0 263)"
+   },
+   "button.primary.hover": {
+    "background-color": "oklch(0.878 0 263)"
+   },
+   "dialog.backdrop": {
+    "background-color": "oklch(0 0 0 / 0.4)"
+   },
+   "dialog.open": {
+    "background-color": "oklch(0.17 0 263)",
+    "border-top-color": "oklch(0.3 0 263)",
+    "box-shadow": "oklch(0 0 0 / 0.6) 0px 16px 48px 0px"
+   },
+   "input.focus-ring": {
+    "outline-color": "oklch(0.7 0.21 263)",
+    "outline-offset": "2px",
+    "outline-style": "solid",
+    "outline-width": "2px"
+   },
+   "popover.open": {
+    "background-color": "oklch(0.17 0 263)",
+    "border-top-color": "oklch(0.96 0 263 / 0.12)"
    }
   },
   "tokens": {
@@ -280,6 +319,10 @@
     "border-top-color": "rgba(0, 0, 0, 0)",
     "inline-size": "20px"
    },
+   "checkbox.checked": {
+    "background-color": "oklch(0.606 0 263)",
+    "border-top-color": "rgba(0, 0, 0, 0)"
+   },
    "code": {
     "background-color": "oklch(0.973 0 263)",
     "font-family": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
@@ -345,6 +388,9 @@
     "border-radius": "0px",
     "inline-size": "20px"
    },
+   "radio.checked": {
+    "background-color": "oklch(0.18 0 263)"
+   },
    "reel": {
     "display": "flex",
     "overflow-x": "auto",
@@ -364,6 +410,9 @@
     "block-size": "20px",
     "border-radius": "0px",
     "inline-size": "36px"
+   },
+   "switch.checked": {
+    "background-color": "oklch(0.18 0 263)"
    },
    "switcher": {
     "column-gap": "16px",
@@ -386,6 +435,35 @@
     "align-items": "stretch",
     "display": "grid",
     "justify-items": "stretch"
+   }
+  },
+  "states": {
+   "button.danger.hover": {
+    "background-color": "oklch(0.4792 0.1584 10.36)"
+   },
+   "button.hover": {
+    "background-color": "oklch(0.952 0 263)"
+   },
+   "button.primary.hover": {
+    "background-color": "oklch(0.262 0 263)"
+   },
+   "dialog.backdrop": {
+    "background-color": "oklch(0 0 0 / 0.4)"
+   },
+   "dialog.open": {
+    "background-color": "oklch(1 0 263)",
+    "border-top-color": "oklch(0.89 0 263)",
+    "box-shadow": "oklch(0 0 0 / 0.2) 0px 16px 48px 0px"
+   },
+   "input.focus-ring": {
+    "outline-color": "oklch(0.55 0.21 263)",
+    "outline-offset": "2px",
+    "outline-style": "solid",
+    "outline-width": "2px"
+   },
+   "popover.open": {
+    "background-color": "oklch(1 0 263)",
+    "border-top-color": "oklch(0.18 0 263 / 0.12)"
    }
   },
   "tokens": {

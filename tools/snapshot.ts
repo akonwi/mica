@@ -103,6 +103,21 @@ const PROBES: [string, string, string[]][] = [
   ["code", "code", ["font-family", "background-color"]],
   ["h1", "h1", ["margin-block-start", "margin-block-end", "line-height"]],
   ["table", "table", ["border-collapse"]],
+  // checked-state grammar (static — demo has checked + unchecked instances)
+  ["checkbox.checked", 'input[type="checkbox"]:not(.switch):checked',
+    ["background-color", "border-top-color"]],
+  ["radio.checked", 'input[type="radio"]:checked', ["background-color"]],
+  ["switch.checked", "input.switch:checked", ["background-color"]],
+];
+
+// -------------------------------------------------------- state probes
+// Interactive states the static manifest can't see: hover, focus ring,
+// open dialog (+ ::backdrop), open popover. Driven with real Playwright
+// interactions per scheme; results land under `states` in the baseline.
+const HOVER_PROBES: [string, string, string[]][] = [
+  ["button.hover", "button:not([class]):not([disabled])", ["background-color"]],
+  ["button.primary.hover", "button.primary:not([disabled])", ["background-color"]],
+  ["button.danger.hover", "button.danger:not([disabled])", ["background-color"]],
 ];
 
 // runs in the browser
@@ -178,6 +193,66 @@ try {
       if (data.canary !== "none")
         throw new Error("PARSE CANARY FAILED: mica.css did not parse to the end");
       delete data.canary;
+
+      // ---- state probes (real interactions) ----
+      const states: Record<string, unknown> = {};
+      const probe = (sel: string, props: string[], pseudo?: string) =>
+        page.evaluate(([s, ps, pe]: [string, string[], string?]) => {
+          const el = document.querySelector(s);
+          if (!el) return "MISSING";
+          const cs = getComputedStyle(el, pe || undefined);
+          return Object.fromEntries(ps.map((p) => [p, cs.getPropertyValue(p)]));
+        }, [sel, props, pseudo] as any);
+
+      for (const [name, sel, props] of HOVER_PROBES) {
+        await page.hover(sel);
+        await page.waitForTimeout(50); // let the 0.01ms reduced-motion transition finish
+        states[name] = await probe(sel, props);
+      }
+      await page.mouse.move(0, 0);
+
+      await page.evaluate(() =>
+        (document.querySelector('input[type="text"]') as HTMLElement)?.focus());
+      await page.waitForTimeout(50);
+      states["input.focus-ring"] = await probe('input[type="text"]',
+        ["outline-color", "outline-width", "outline-offset", "outline-style"]);
+      await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
+
+      await page.evaluate(() => document.querySelector("dialog")?.showModal());
+      await page.waitForTimeout(50);
+      states["dialog.open"] = await probe("dialog[open]",
+        ["background-color", "border-top-color", "box-shadow"]);
+      states["dialog.backdrop"] = await probe("dialog[open]",
+        ["background-color"], "::backdrop");
+      await page.evaluate(() => document.querySelector("dialog[open]")?.close());
+
+      await page.evaluate(() =>
+        (document.querySelector("[popover]") as any)?.showPopover());
+      await page.waitForTimeout(50);
+      states["popover.open"] = await probe("[popover]:popover-open",
+        ["background-color", "border-top-color"]);
+      await page.evaluate(() =>
+        (document.querySelector("[popover]:popover-open") as any)?.hidePopover());
+
+      (data as any).states = states;
+
+      // ---- axe pass (hard assert, not a snapshot) ----
+      await page.addScriptTag({ path: join(ROOT, "node_modules/axe-core/axe.min.js") });
+      const axe = await page.evaluate(async () => {
+        const res = await (window as any).axe.run(document, {
+          // no disabled rules yet; add here WITH justification if needed
+        });
+        return res.violations.map((v: any) => ({
+          id: v.id, impact: v.impact,
+          nodes: v.nodes.slice(0, 5).map((n: any) => n.target.join(" ")),
+        }));
+      });
+      if (axe.length) {
+        console.error(`AXE VIOLATIONS (${scheme}):`);
+        console.error(JSON.stringify(axe, null, 1));
+        throw new Error(`axe found ${axe.length} violation(s) in ${scheme} mode`);
+      }
+
       result[scheme] = data;
     } finally {
       await ctx.close();

@@ -219,10 +219,15 @@ it switch.</p>
         group="Layout", slug="reel", title="reel", tier="0",
         lead="Horizontal scroll with snap. Scrolling is the browser's; snap is CSS.",
         body=f"""
-{specimen('<m-reel gap="md">' + ''.join(f'<div class="card tall" style="inline-size: 10rem">slide {i}</div>' for i in range(1, 7)) + '</m-reel>')}
-{code('<m-reel gap="md" snap="mandatory">…</m-reel>')}
+{specimen('<m-reel gap="md" tabindex="0" role="region" aria-label="example slides">' + ''.join(f'<div class="card tall" style="inline-size: 10rem">slide {i}</div>' for i in range(1, 7)) + '</m-reel>')}
+{code('<m-reel gap="md" snap="mandatory" tabindex="0" role="region" aria-label="screenshots">…</m-reel>')}
 <h2>Attributes</h2>
 <p><code>gap</code>; <code>snap</code>: none · mandatory (default proximity).</p>
+<h2>Markup contract</h2>
+<p>A scrollable region must be keyboard-reachable — CSS cannot confer
+focusability, so the recipe carries it: <code>tabindex="0"</code> plus an
+accessible name (<code>role="region" aria-label="…"</code>). Without it,
+keyboard users cannot scroll the reel in some browsers.</p>
 """,
     ),
     dict(

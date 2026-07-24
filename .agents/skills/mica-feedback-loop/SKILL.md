@@ -45,8 +45,19 @@ element carries an `all 0.01ms` transition — restyle-then-read on a reused
 element returns the OLD value (mid-transition, oklab form). Probe with a
 fresh element per read.
 
-Manual channels below remain for: values not in the manifest, interactive
-states (hover/open/checked), and anything needing judgment.
+Channel 0 also drives interactive-state probes (hover, focus ring, open
+dialog + ::backdrop, open popover) and runs an axe-core pass per scheme
+(hard failure, not a snapshot — a11y violations are bugs; rule
+exclusions require an in-script justification comment).
+
+Manual channels below remain for: values not in either manifest, states
+not yet driven (checked-via-interaction, drag), vendor-pseudo rendering
+(pixels lie territory), and anything needing judgment.
+
+Gotcha: `*` never matches pseudo-elements — the preset's reduced-motion
+rule needs (and has) a separate `*::backdrop` block. Symptom that found
+it: backdrop alpha jittering at the 4th decimal between snapshot runs
+(sampled mid-fade).
 
 ## Channel 1 — deterministic probes (targeted, cheap)
 
