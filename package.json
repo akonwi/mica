@@ -1,0 +1,32 @@
+{
+  "name": "@akonwi/mica",
+  "version": "0.1.0",
+  "description": "Custom elements. Native behavior. Nearly no JavaScript.",
+  "keywords": ["css", "custom-elements", "web-components", "layout", "no-build", "html-first"],
+  "homepage": "https://github.com/akonwi/mica",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akonwi/mica.git"
+  },
+  "license": "MIT",
+  "author": "Akonwi Ngoh",
+  "type": "module",
+  "exports": {
+    ".": "./mica.css",
+    "./mica.css": "./mica.css",
+    "./field.js": "./field.js",
+    "./select.js": "./select.js",
+    "./tabs.js": "./tabs.js",
+    "./toast.js": "./toast.js",
+    "./combobox.js": "./combobox.js"
+  },
+  "files": [
+    "mica.css",
+    "field.js",
+    "select.js",
+    "tabs.js",
+    "toast.js",
+    "combobox.js"
+  ],
+  "sideEffects": true
+}
