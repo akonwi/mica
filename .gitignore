@@ -1,0 +1,4 @@
+node_modules/
+tools/snapshots/.current.json
+*.current.png
+*.diff.png

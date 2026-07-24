@@ -29,7 +29,42 @@ Expect `200`. Reuse the server across checks; it costs nothing.
 of `python3 -m http.server`, which lets browsers (and aside tabs, and the
 user's own browser) cache stale HTML/CSS.
 
-## Channel 1 — deterministic probes (always, cheap)
+## Channel 0 — snapshot check (automated, run first)
+
+The deterministic probes are automated: `bun run snapshot:check` resolves
+every design token and a curated set of element computed styles in both
+color schemes via headless Playwright (bun; first run `bun run
+snapshot:setup`), asserts the parse canary, and diffs against the
+committed baseline in `tools/snapshots/demo.json`. Run it FIRST after any
+mica.css/demo.html change — it catches most regressions before manual
+probing starts. Intentional changes: re-bless (`bun run snapshot`) and
+commit the baseline diff with the change.
+
+Gotcha encoded in the script: under the preset's reduced-motion rule every
+element carries an `all 0.01ms` transition — restyle-then-read on a reused
+element returns the OLD value (mid-transition, oklab form). Probe with a
+fresh element per read.
+
+Channel 0 also drives interactive-state probes (hover, focus ring, open
+dialog + ::backdrop, open popover), runs an axe-core pass per scheme
+(hard failure, not a snapshot — a11y violations are bugs; rule
+exclusions require an in-script justification comment), and diffs
+element-crop PNG baselines for vendor-pseudo territory (progress/meter
+fills, select trigger, drawn check/radio/switch glyphs) — the one place
+pixels beat computed styles, because getComputedStyle lies there. On
+visual drift, `*.current.png` and `*.diff.png` land next to the
+baselines for eyeballing; blessing cleans them up.
+
+Manual channels below remain for: values not in either manifest, states
+not yet driven (checked-via-interaction, drag), vendor-pseudo rendering
+(pixels lie territory), and anything needing judgment.
+
+Gotcha: `*` never matches pseudo-elements — the preset's reduced-motion
+rule needs (and has) a separate `*::backdrop` block. Symptom that found
+it: backdrop alpha jittering at the 4th decimal between snapshot runs
+(sampled mid-fade).
+
+## Channel 1 — deterministic probes (targeted, cheap)
 
 Use `aside repl` + `page.evaluate` with `getComputedStyle` to assert exact
 rendered values: token resolution, OKLCH outputs, flex/grid/gap values,
@@ -148,9 +183,13 @@ Rules of thumb:
 
 ## Standard pre-commit sweep
 
-For any change touching mica.css:
+For any change touching mica.css or demo.html:
 
-1. Probe the changed values in **both** color schemes (channel 1).
+0. `bun run snapshot:check` (channel 0) — clean, or re-blessed with the
+   baseline diff reviewed and committed alongside the change.
+1. Probe the changed values in **both** color schemes (channel 1) — for
+   anything the snapshot manifest doesn't cover (interactive states,
+   new selectors not yet in the manifest).
 2. If markup contracts changed: snapshot the a11y tree (channel 2).
 3. If visuals changed: one `aside exec` review with a rubric (channel 3).
 4. Fix, re-run the failing channel, then commit.

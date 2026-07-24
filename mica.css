@@ -241,6 +241,14 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+    /* `*` never matches pseudo-elements — ::backdrop needs its own rule
+       (and per convention gets its own block: an unrecognized selector
+       in the list above would kill the whole kill-switch). Found via
+       snapshot flakiness: the backdrop fade survived reduced-motion. */
+    *::backdrop {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
