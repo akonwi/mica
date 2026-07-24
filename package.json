@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Custom elements. Native behavior. Nearly no JavaScript.",
   "keywords": ["css", "custom-elements", "web-components", "layout", "no-build", "html-first"],
-  "homepage": "https://github.com/akonwi/mica",
+  "homepage": "https://akonwi.io/mica/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/akonwi/mica.git"

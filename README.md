@@ -72,9 +72,12 @@ mode is `light-dark()` — automatic, no classes.
 
 ## Docs
 
-Read [VISION.md](VISION.md) for the philosophy, [TIERS.md](TIERS.md) for
-the tier system, and the `docs/` pages for every component. Or open
-`demo.html` — the whole library on one page.
+**[akonwi.io/mica](https://akonwi.io/mica/)** — every component, built with
+mica itself (view source). The [demo](https://akonwi.io/mica/demo.html) is
+the whole library on one page.
+
+Read [VISION.md](VISION.md) for the philosophy and [TIERS.md](TIERS.md)
+for the tier system.
 
 ## License
 

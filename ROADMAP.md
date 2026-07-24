@@ -104,7 +104,8 @@ works" is the demo.
 - [x] Docs shell built with mica itself — paginated reference-rail docs
       (`index.html` + `docs/*.html`, stamped by `tools/build-docs.py`);
       kitchen-sink testbed lives on as `demo.html`
-- [ ] Publish the docs somewhere public
+- [x] Docs published at https://akonwi.io/mica/ (GitHub Pages; the repo
+      root is the site — no build artifact, the checkout deploys as-is)
 - [ ] Markup-contract semver policy, written before first external user
 - [ ] Tier-0 stragglers: `m-frame`, `m-cover`
 - [ ] Browser-support checklist per feature
