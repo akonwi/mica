@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>dialog — mica</title>
   <link rel="stylesheet" href="../mica.css" />
-
+  <script type="module" src="../invoker.js"></script>
   <style>
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); }
@@ -143,7 +143,7 @@
           <span class="crumb">Patterns / dialog</span>
           <m-vstack gap="2xs">
             <m-hstack gap="sm"><h1>dialog</h1> <span class="badge">Tier 1</span></m-hstack>
-            <p class="lead">Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands. Zero JS.</p>
+            <p class="lead">Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands (shimmed while support spreads).</p>
           </m-vstack>
 
 <div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>Focus is trapped, Esc closes, the backdrop dims — all the browser&#39;s.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button class="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" class="drawer"><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button class="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog></div>
@@ -171,10 +171,15 @@ description), body, footer are real elements, not components:</p>
 <h2>Notes</h2>
 <p>Enter/exit animations use <code>@starting-style</code> +
 <code>transition-behavior: allow-discrete</code> — the backdrop fades too.
-Invoker commands (<code>commandfor</code>/<code>command</code>) are
-Baseline-new; where unsupported, <code>el.showModal()</code> is the
-one-line fallback. <code>dialog.returnValue</code> carries the value of
-the submitting button.</p>
+<code>dialog.returnValue</code> carries the value of the submitting
+button.</p>
+<h2>Browser support</h2>
+<p>Invoker commands (<code>commandfor</code>/<code>command</code>) are
+Baseline newly-available (Chrome 135+, Firefox 144+, Safari 26.2+).
+Until they're widely available, include the shim — it installs nothing
+where the browser handles commands natively, and its removal is a
+one-line diff later:</p>
+<pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/invoker.js&quot;&gt;&lt;/script&gt;</code></pre>
 
           <m-hstack justify="between" class="pager"><a href="field.html">&larr; field validation</a><a href="accordion.html">accordion &rarr;</a></m-hstack>
         </m-vstack>

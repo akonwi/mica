@@ -398,7 +398,8 @@ Working markup, enhanced — never rendered.</p>
     # ---- Patterns ----
     dict(
         group="Patterns", slug="dialog", title="dialog", tier="1",
-        lead="Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands. Zero JS.",
+        lead="Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands (shimmed while support spreads).",
+        scripts=["../invoker.js"],
         body=f"""
 {specimen('<m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>Focus is trapped, Esc closes, the backdrop dims — all the browser&#39;s.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button class="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" class="drawer"><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button class="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog>')}
 <h2>Composition</h2>
@@ -408,10 +409,15 @@ description), body, footer are real elements, not components:</p>
 <h2>Notes</h2>
 <p>Enter/exit animations use <code>@starting-style</code> +
 <code>transition-behavior: allow-discrete</code> — the backdrop fades too.
-Invoker commands (<code>commandfor</code>/<code>command</code>) are
-Baseline-new; where unsupported, <code>el.showModal()</code> is the
-one-line fallback. <code>dialog.returnValue</code> carries the value of
-the submitting button.</p>
+<code>dialog.returnValue</code> carries the value of the submitting
+button.</p>
+<h2>Browser support</h2>
+<p>Invoker commands (<code>commandfor</code>/<code>command</code>) are
+Baseline newly-available (Chrome 135+, Firefox 144+, Safari 26.2+).
+Until they're widely available, include the shim — it installs nothing
+where the browser handles commands natively, and its removal is a
+one-line diff later:</p>
+{code('<script type="module" src="mica/invoker.js"><' + '/script>')}
 """,
     ),
     dict(

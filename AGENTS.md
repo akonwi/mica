@@ -133,3 +133,9 @@ switch = fill + block. Field text never drops below 16px (iOS zoom).
   use `emulateMedia`/OS scheme when probing them.
 - glimpse URL windows wrap pages in an iframe; the bridge lives in the
   wrapper (see the global `glimpse-visuals` skill).
+- **Both test engines (Playwright Chromium AND WebKit) run ahead of
+  shipped Safari.** Invoker commands worked in every local test while
+  iOS 26.0 had no support (landed 26.2) — the rig cannot catch
+  not-yet-shipped platform features. Before using anything Baseline
+  *newly*-available in a recipe, check `web-features` data and either
+  provide a fallback/shim (see `invoker.js`) or don't use it.

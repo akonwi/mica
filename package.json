@@ -21,6 +21,7 @@
   "exports": {
     ".": "./mica.css",
     "./mica.css": "./mica.css",
+    "./invoker.js": "./invoker.js",
     "./field.js": "./field.js",
     "./select.js": "./select.js",
     "./tabs.js": "./tabs.js",
@@ -29,6 +30,7 @@
   },
   "files": [
     "mica.css",
+    "invoker.js",
     "field.js",
     "select.js",
     "tabs.js",
