@@ -16,6 +16,9 @@ nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
   `tools/build-docs.py`; edit the generator and rerun it, never the output.
 - `serve.py` — dev server on :8471 with caching disabled. Always use it;
   plain `python3 -m http.server` serves stale files to browsers and probes.
+- `tools/snapshot.py` — computed-style snapshot tests (headless Chromium
+  via Playwright, repo-side dev dep only). Baseline in `tools/snapshots/`.
+  `--check` diffs; no flag re-blesses.
 - `mockups/` — *live* design explorations only; emptied once a decision
   is folded in (git history is the record). See the `mockups` skill.
 
@@ -27,13 +30,20 @@ nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
    last rule block — a syntax error silently kills everything after it),
    and a delegated visual review when visuals changed. Evidence goes in
    the commit message.
-2. **Consumers get no build step.** Artifacts are plain HTML + CSS + ES
+2. **Snapshot check before every commit touching `mica.css` or
+   `demo.html`:** `python3 tools/snapshot.py --check` (256 computed-style
+   probes, both schemes, canary asserted). Unexpected diff = regression:
+   fix it. Intentional diff = re-bless (`python3 tools/snapshot.py`) and
+   commit the baseline change WITH the CSS change — the baseline diff is
+   the reviewable impact analysis. New components get probe manifest
+   entries in the same commit.
+3. **Consumers get no build step.** Artifacts are plain HTML + CSS + ES
    modules; view-source is part of the product. Repo-side generators are
    fine; runtimes, bundles, and preprocessors are not.
-3. **Tier discipline** (TIERS.md): never fake interactive behavior in CSS.
+4. **Tier discipline** (TIERS.md): never fake interactive behavior in CSS.
    If accessibility requires JS, it's an opt-in Tier-2 module that
    *enhances working markup, never renders it*.
-4. **Design explorations go through the `mockups` skill**: real pages in
+5. **Design explorations go through the `mockups` skill**: real pages in
    `mockups/` against the real `mica.css`, presented via glimpse, decision
    before implementation.
 

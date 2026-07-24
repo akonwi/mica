@@ -29,7 +29,25 @@ Expect `200`. Reuse the server across checks; it costs nothing.
 of `python3 -m http.server`, which lets browsers (and aside tabs, and the
 user's own browser) cache stale HTML/CSS.
 
-## Channel 1 — deterministic probes (always, cheap)
+## Channel 0 — snapshot check (automated, run first)
+
+Channel 1 is largely automated: `python3 tools/snapshot.py --check` runs
+256 computed-style probes (all tokens resolved + curated element styles)
+in both color schemes via headless Playwright, asserts the parse canary,
+and diffs against the committed baseline in `tools/snapshots/demo.json`.
+Run it FIRST after any mica.css/demo.html change — it catches most
+regressions before manual probing starts. Intentional changes: re-bless
+(no flag) and commit the baseline diff with the change.
+
+Gotcha encoded in the script: under the preset's reduced-motion rule every
+element carries an `all 0.01ms` transition — restyle-then-read on a reused
+element returns the OLD value (mid-transition, oklab form). Probe with a
+fresh element per read.
+
+Manual channels below remain for: values not in the manifest, interactive
+states (hover/open/checked), and anything needing judgment.
+
+## Channel 1 — deterministic probes (targeted, cheap)
 
 Use `aside repl` + `page.evaluate` with `getComputedStyle` to assert exact
 rendered values: token resolution, OKLCH outputs, flex/grid/gap values,
