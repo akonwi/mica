@@ -100,7 +100,7 @@ works" is the demo.
 
 - [x] v0.1.0 tagged; CDN live via jsDelivr (`gh/akonwi/mica@v0.1.0`);
       first production consumer: akonwi.io (quiet theme retrofit)
-- [ ] npm publish (`npm publish --access public` — needs auth)
+- [x] npm: `@akonwi/mica@0.1.0` published; jsDelivr + unpkg npm URLs live
 - [x] Docs shell built with mica itself — paginated reference-rail docs
       (`index.html` + `docs/*.html`, stamped by `tools/build-docs.py`);
       kitchen-sink testbed lives on as `demo.html`
