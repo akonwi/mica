@@ -31,13 +31,14 @@ user's own browser) cache stale HTML/CSS.
 
 ## Channel 0 — snapshot check (automated, run first)
 
-Channel 1 is largely automated: `bun run snapshot:check` runs
-256 computed-style probes (all tokens resolved + curated element styles)
-in both color schemes via headless Playwright, asserts the parse canary,
-and diffs against the committed baseline in `tools/snapshots/demo.json`.
-Run it FIRST after any mica.css/demo.html change — it catches most
-regressions before manual probing starts. Intentional changes: re-bless
-(`bun run snapshot`) and commit the baseline diff with the change.
+The deterministic probes are automated: `bun run snapshot:check` resolves
+every design token and a curated set of element computed styles in both
+color schemes via headless Playwright (bun; first run `bun run
+snapshot:setup`), asserts the parse canary, and diffs against the
+committed baseline in `tools/snapshots/demo.json`. Run it FIRST after any
+mica.css/demo.html change — it catches most regressions before manual
+probing starts. Intentional changes: re-bless (`bun run snapshot`) and
+commit the baseline diff with the change.
 
 Gotcha encoded in the script: under the preset's reduced-motion rule every
 element carries an `all 0.01ms` transition — restyle-then-read on a reused
@@ -166,9 +167,13 @@ Rules of thumb:
 
 ## Standard pre-commit sweep
 
-For any change touching mica.css:
+For any change touching mica.css or demo.html:
 
-1. Probe the changed values in **both** color schemes (channel 1).
+0. `bun run snapshot:check` (channel 0) — clean, or re-blessed with the
+   baseline diff reviewed and committed alongside the change.
+1. Probe the changed values in **both** color schemes (channel 1) — for
+   anything the snapshot manifest doesn't cover (interactive states,
+   new selectors not yet in the manifest).
 2. If markup contracts changed: snapshot the a11y tree (channel 2).
 3. If visuals changed: one `aside exec` review with a rubric (channel 3).
 4. Fix, re-run the failing channel, then commit.

@@ -2,9 +2,12 @@
 /**
  * Computed-style snapshot tests for mica.
  *
- * The automated version of feedback-loop Channel 1: loads demo.html in
- * headless Chromium, resolves every token and a curated set of computed
- * styles in BOTH color schemes, and writes tools/snapshots/demo.json.
+ * Feedback-loop Channel 0 (the automated deterministic probes): loads
+ * demo.html in headless Chromium, resolves every design token and a
+ * curated set of computed styles in BOTH color schemes, and writes
+ * tools/snapshots/demo.json.
+ *
+ * First run: bun install && bunx playwright install chromium
  *
  *   bun tools/snapshot.ts           # (re)write the baseline ("bless")
  *   bun tools/snapshot.ts --check   # diff against baseline; exit 1 on drift
@@ -28,18 +31,31 @@ const ROOT = dirname(import.meta.dir);
 const BASELINE = join(import.meta.dir, "snapshots", "demo.json");
 
 // ---------------------------------------------------------------- tokens
+// Only declarations inside `@layer mica.tokens` are design tokens; custom
+// properties elsewhere are scoped attribute-transport (--gap, --align…)
+// that resolve to nothing on :root and are covered by element probes.
 const css = await Bun.file(join(ROOT, "mica.css")).text();
-const names = [...new Set(css.match(/--[a-z][a-z0-9-]*(?=\s*:)/g) ?? [])]
-  .filter((n) => !n.startsWith("--m-")) // internal per-component props
-  .sort();
+function tokensLayer(source: string): string {
+  const at = source.indexOf("@layer mica.tokens {");
+  if (at < 0) throw new Error("mica.tokens layer not found");
+  let depth = 0;
+  for (let i = source.indexOf("{", at); i < source.length; i++) {
+    if (source[i] === "{") depth++;
+    else if (source[i] === "}" && --depth === 0) return source.slice(at, i);
+  }
+  throw new Error("unbalanced braces in mica.tokens layer");
+}
+const names = [...new Set(tokensLayer(css).match(/--[a-z][a-z0-9-]*(?=\s*:)/g) ?? [])].sort();
 
 function kindOf(name: string): "raw" | "color" | "length" {
   if (name.endsWith("-hue") || name.endsWith("-chroma")) return "raw";
   if (name === "--hue" || name === "--chroma") return "raw";
+  // --measure is 60ch: font-dependent when resolved to px — keep as text
+  if (name === "--measure" || name === "--check-glyph") return "raw";
+  if (name === "--focus-ring-color") return "color";
   if (/^--(color|neutral|accent|danger|success|warn)-/.test(name)) return "color";
   if (/^--(space|size|radius|control)-/.test(name)) return "length";
-  if (name === "--measure" || name === "--focus-ring-width" || name === "--focus-ring-offset")
-    return "length";
+  if (name === "--focus-ring-width" || name === "--focus-ring-offset") return "length";
   return "raw";
 }
 
@@ -127,6 +143,7 @@ function collectInPage([tokens, probes]: [Record<string, string>, [string, strin
 
 // --------------------------------------------------------------- server
 const server = Bun.serve({
+  hostname: "127.0.0.1",
   port: 0,
   async fetch(req) {
     const path = new URL(req.url).pathname;
@@ -139,24 +156,37 @@ const server = Bun.serve({
 // --------------------------------------------------------------- collect
 const url = `http://127.0.0.1:${server.port}/demo.html`;
 const result: Record<string, unknown> = {};
-const browser = await chromium.launch();
-for (const scheme of ["light", "dark"] as const) {
-  const ctx = await browser.newContext({
-    viewport: { width: 1280, height: 800 },
-    colorScheme: scheme,
-    reducedMotion: "reduce",
-  });
-  const page = await ctx.newPage();
-  await page.goto(url, { waitUntil: "load" });
-  const data = await page.evaluate(collectInPage, [TOKENS, PROBES] as any);
-  if (data.canary !== "none")
-    throw new Error("PARSE CANARY FAILED: mica.css did not parse to the end");
-  delete data.canary;
-  result[scheme] = data;
-  await ctx.close();
+let browser;
+try {
+  try {
+    browser = await chromium.launch();
+  } catch (e) {
+    console.error("chromium launch failed — first run? bunx playwright install chromium");
+    throw e;
+  }
+  for (const scheme of ["light", "dark"] as const) {
+    const ctx = await browser.newContext({
+      viewport: { width: 1280, height: 800 },
+      colorScheme: scheme,
+      reducedMotion: "reduce",
+    });
+    try {
+      const page = await ctx.newPage();
+      const resp = await page.goto(url, { waitUntil: "load" });
+      if (!resp?.ok()) throw new Error(`demo.html: HTTP ${resp?.status()}`);
+      const data = await page.evaluate(collectInPage, [TOKENS, PROBES] as any);
+      if (data.canary !== "none")
+        throw new Error("PARSE CANARY FAILED: mica.css did not parse to the end");
+      delete data.canary;
+      result[scheme] = data;
+    } finally {
+      await ctx.close();
+    }
+  }
+} finally {
+  await browser?.close();
+  server.stop();
 }
-await browser.close();
-server.stop();
 
 // ---------------------------------------------------------------- output
 function sortKeys(v: unknown): unknown {

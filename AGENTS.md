@@ -31,8 +31,9 @@ nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
    and a delegated visual review when visuals changed. Evidence goes in
    the commit message.
 2. **Snapshot check before every commit touching `mica.css` or
-   `demo.html`:** `bun run snapshot:check` (256 computed-style
-   probes, both schemes, canary asserted). Unexpected diff = regression:
+   `demo.html`:** `bun run snapshot:check` (every design token + curated
+   element styles, both schemes, canary asserted; first run:
+   `bun run snapshot:setup`). Unexpected diff = regression:
    fix it. Intentional diff = re-bless (`bun run snapshot`) and
    commit the baseline change WITH the CSS change — the baseline diff is
    the reviewable impact analysis. New components get probe manifest
