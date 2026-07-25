@@ -830,11 +830,16 @@
   /* composition: dialog > header (title + description) / body / footer.
      layout lives on [open] — unconditional display would defeat the
      UA's display:none on closed dialogs */
-  :where(dialog[open]) {
-    display: flex;
+  /* Composition is UNCONDITIONAL so it survives the exit: the dialog
+     stays rendered (display transitions via allow-discrete) for 0.15s
+     after [open] is removed. Structure gated on [open] snaps back to
+     defaults the instant [open] goes — flex-direction reverts to row,
+     children lose their sizing — and the content visibly deforms while
+     fading out. Only `display` stays conditional (unconditional flex
+     would defeat the UA's display:none on a closed dialog); opacity and
+     scale are the open visual state that transitions on exit. */
+  :where(dialog) {
     flex-direction: column;
-    opacity: 1;
-    scale: 1;
 
     & > :where(*) {
       margin-block: 0; /* the dialog owns spacing, like a stack */
@@ -851,6 +856,10 @@
       flex: 1 1 auto;
       min-block-size: 0;
       overflow-y: auto;
+      /* break the scroll chain: at the region's scroll limit iOS
+         otherwise hands the gesture to the page behind the modal —
+         the root's overflow:hidden can't stop a chained scroll. */
+      overscroll-behavior: contain;
       font-size: 0.875rem; /* body must not outweigh the 14px title */
     }
 
@@ -858,6 +867,12 @@
     & > :where(header, footer) {
       flex-shrink: 0;
     }
+  }
+
+  :where(dialog[open]) {
+    display: flex;
+    opacity: 1;
+    scale: 1;
   }
 
   /* corner close button — <button class="close" commandfor="…"
@@ -937,7 +952,18 @@
   }
 
   :where(dialog)::backdrop {
-    background: transparent;
+    /* explicit oklch alpha, not the `transparent` keyword: iOS won't
+       interpolate oklch()→transparent and cuts the scrim instantly,
+       desyncing it from the sheet. same-space endpoints animate. */
+    background: oklch(0 0 0 / 0);
+    /* size to the LARGE viewport, don't trust inset: shipped iOS sizes
+       the top layer to the small viewport, so an inset-based backdrop
+       ends above the real bottom edge when the toolbar collapses —
+       page content peeked through the strip. (Radix/vaul overlays are
+       ordinary fixed divs and don't have this problem; ::backdrop
+       lives in the top layer, so we overpaint instead.) */
+    inline-size: 100lvw;
+    block-size: 100lvh;
     transition:
       background-color 0.15s,
       overlay 0.15s allow-discrete,
@@ -948,7 +974,7 @@
   }
   @starting-style {
     :where(dialog[open])::backdrop {
-      background: transparent;
+      background: oklch(0 0 0 / 0);
     }
   }
 
@@ -958,8 +984,14 @@
   :where(dialog.drawer) {
     margin-inline: auto 0;
     margin-block: 0;
-    block-size: 100svh;
-    max-block-size: 100svh;
+    /* full height WITHOUT an explicit block-size: the UA gives
+       dialog:modal `position: fixed; inset-block: 0` — leaving height
+       auto stretches between both edges, and on iOS that bottom edge
+       tracks toolbar collapse like any bottom-fixed bar. Explicit
+       100svh left a gap behind the collapsed toolbar; 100dvh lagged
+       in the top layer on shipped iOS. Don't reintroduce either. */
+    block-size: auto;
+    max-block-size: none;
     inline-size: 75vw;
     max-inline-size: 24rem; /* sheet's max-w-sm */
     border: 0;
@@ -971,10 +1003,10 @@
   }
   :where(dialog.drawer[open]) {
     translate: 0 0;
-
-    & > :where(:not(header, footer, button.close)) {
-      font-size: inherit; /* panel runs 12/relaxed throughout */
-    }
+  }
+  /* unconditional (survives the exit, like the rest of composition) */
+  :where(dialog.drawer) > :where(:not(header, footer, button.close)) {
+    font-size: inherit; /* panel runs 12/relaxed throughout */
   }
   @starting-style {
     :where(dialog.drawer[open]) {
@@ -991,6 +1023,90 @@
     align-items: stretch;
     gap: var(--space-xs);
     border-block-start: 0;
+  }
+
+  /* small screens: the drawer becomes a bottom sheet — shadcn's own
+     mobile drawer (vaul/radix) is exactly this. Anchored to the bottom
+     edge via auto top margin: bottom attachment is the one thing iOS
+     tracks reliably through toolbar collapse (same mechanism as bottom
+     nav bars). Explicit 100svh gapped behind the collapsed toolbar and
+     100dvh lagged in the top layer — don't reintroduce heights here. */
+  @media (max-width: 40rem) {
+    :where(dialog.drawer) {
+      inset-block: auto 0;       /* release the UA's top anchor… */
+      margin-block: 0;           /* …so height resolves from content */
+      block-size: auto;          /* content height, like vaul */
+      max-block-size: calc(100dvh - 3rem);
+      inline-size: 100vw;
+      max-inline-size: none;
+      border-inline-start: 0;
+      border-block-start: 1px solid var(--color-border);
+      /* Two box-shadows, both painted by the SHEET element so they
+         persist through the exit (display:allow-discrete keeps the box
+         rendered) — unlike ::backdrop, which iOS drops from the top
+         layer the instant you close, cutting the scrim. So the dim
+         rides the sheet here and stays in sync with the slide:
+           1) bleed slab below the edge (vaul's trick) — fills any strip
+              iOS exposes under the top layer when the toolbar collapses;
+           2) full-screen scrim via 100vmax spread — the visible dim,
+              its alpha animating with the sheet. 100vmax keeps coverage
+              even as the shadow rides the sliding sheet down. */
+      box-shadow:
+        0 4rem 0 0 var(--color-surface-overlay),
+        0 0 0 100vmax oklch(0 0 0 / 0);
+      transition:
+        box-shadow 0.15s, translate 0.15s,
+        overlay 0.15s allow-discrete, display 0.15s allow-discrete;
+      /* the sheet SLIDES fully off the bottom and stays opaque — only
+         the scrim fades. A small nudge + opacity fade read as a
+         dissolve-in-place, wrong for a bottom sheet. */
+      translate: 0 100%;
+      opacity: 1;
+    }
+    :where(dialog.drawer[open]) {
+      translate: 0 0;
+      box-shadow:
+        0 4rem 0 0 var(--color-surface-overlay),
+        0 0 0 100vmax oklch(0 0 0 / 0.4);
+    }
+    @starting-style {
+      :where(dialog.drawer[open]) {
+        translate: 0 100%;
+        box-shadow:
+          0 4rem 0 0 var(--color-surface-overlay),
+          0 0 0 100vmax oklch(0 0 0 / 0);
+      }
+    }
+    /* the box-shadow scrim replaces ::backdrop here; keep the native
+       backdrop clear so they don't double up or flash on the iOS cut. */
+    :where(dialog.drawer[open])::backdrop {
+      background: oklch(0 0 0 / 0);
+    }
+
+    /* grab handle — only when drawer.js is loaded (an affordance
+       without its behavior would fake interactivity; TIERS.md).
+       the handle is the first flex item of the open sheet. */
+    :where(:root[data-drawer-gestures]) :where(dialog.drawer[open])::before {
+      content: "";
+      align-self: center;
+      flex-shrink: 0;
+      inline-size: 2.5rem;
+      block-size: 0.25rem;
+      margin-block-start: var(--space-sm);
+      background: var(--color-border-strong);
+      border-radius: var(--radius-full);
+    }
+    :where(:root[data-drawer-gestures]) :where(dialog.drawer) > :where(header) {
+      touch-action: none; /* the drag surface must own its touches */
+    }
+  }
+
+  /* scroll lock: the page must not scroll behind any modal dialog.
+     CSS-only best effort (→ no JS tier violation); iOS honors
+     overflow:hidden on the root for modern versions. */
+  :where(html):has(:where(dialog:modal)) {
+    overflow: hidden;
+    overscroll-behavior: none;
   }
 
   /* --- accordion / disclosure: details + summary -------------------- *

@@ -399,7 +399,8 @@ Working markup, enhanced — never rendered.</p>
     dict(
         group="Patterns", slug="dialog", title="dialog", tier="1",
         lead="Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands (shimmed while support spreads).",
-        scripts=["../invoker.js"],
+        scripts=["../invoker.js", "../drawer.js"],
+        extra_css="\n    @media (max-width: 40rem) { .drawer > button.close { display: none; } }\n",
         body=f"""
 {specimen('<m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button class="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" class="drawer"><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button class="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog>')}
 <h2>Composition</h2>
@@ -411,6 +412,20 @@ description), body, footer are real elements, not components:</p>
 <code>transition-behavior: allow-discrete</code> — the backdrop fades too.
 <code>dialog.returnValue</code> carries the value of the submitting
 button.</p>
+<h2>Bottom sheet + gestures</h2>
+<p>Below 40rem the drawer becomes a full-width bottom sheet (content
+height, anchored to the bottom edge — the same pattern as shadcn's
+mobile drawer). The optional <code>drawer.js</code> module (Tier 2) adds
+a grab handle and swipe-to-dismiss: the sheet follows a downward drag,
+resists upward, and closes past a third of its height or on a flick.
+Without the module the markup still works — the handle only appears
+when the behavior exists.</p>
+{code('<script type="module" src="mica/drawer.js"><' + '/script>')}
+<p>On the sheet the handle is the dismiss affordance, so the corner
+<code>×</code> is redundant there while it stays the only one on the
+desktop side-sheet. Hide it below the breakpoint in your own CSS — this
+page does exactly that:</p>
+{code('@media (max-width: 40rem) {' + chr(10) + '  dialog.drawer > button.close { display: none; }' + chr(10) + '}')}
 <h2>Browser support</h2>
 <p>Invoker commands (<code>commandfor</code>/<code>command</code>) are
 Baseline newly-available (Chrome 135+, Firefox 144+, Safari 26.2+).

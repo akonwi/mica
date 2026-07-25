@@ -109,3 +109,32 @@ works" is the demo.
 - [x] Markup-contract semver policy u2014 internal, in AGENTS.md (API surface & semver)
 - [x] Tier-0 stragglers: `m-frame`, `m-cover`
 - [x] Browser support: stance stated in README; degradation documented per component (decided against a central matrix — second copy would drift)
+
+## Backlog — Tier 3 (heavier JS, feel-polish)
+
+A proposed tier *beyond* the current taxonomy. Tier 2 spends JS only
+where accessibility requires it and keeps modules tiny; Tier 3 would
+spend JS for premium *feel* — the vaul/framer-tier polish — as an
+explicit, opt-in trade against the near-zero-JS ethos. Each still
+enhances working Tier-0/1/2 markup; without it you get the CSS-only
+experience already shipped.
+
+Surfaced while polishing the mobile drawer (the CSS-only version is
+shipped and accepted; these are the "more" it can't cheaply reach):
+
+- [ ] **Managed overlay scrim.** Replace the box-shadow/`::backdrop`
+      scrim with a JS-controlled overlay element, so the dim can be
+      coupled to a drag in real time (lightens as you pull) and fade
+      cleanly on every engine — including the iOS modal, whose native
+      `::backdrop` can't fade on exit (iOS drops the top layer before
+      the `overlay` transition runs).
+- [ ] **Drag-anywhere dismissal** on the sheet (not just the handle),
+      with the scroll-vs-drag heuristics that requires (vaul's hardest
+      code, deliberately skipped in `drawer.js` v1).
+- [ ] **Spring / inertia** on release instead of a fixed-duration
+      transition; velocity-aware settle.
+- [ ] **Snap points** (peek / half / full) for the bottom sheet.
+
+Discipline to keep if this tier happens: still degrade to the shipped
+CSS experience with no module; still per-component, no shared runtime;
+name the trade honestly (this is where mica stops being "nearly no JS").

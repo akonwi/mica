@@ -7,6 +7,7 @@
   <title>dialog — mica</title>
   <link rel="stylesheet" href="../mica.css" />
   <script type="module" src="../invoker.js"></script>
+  <script type="module" src="../drawer.js"></script>
   <style>
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); }
@@ -52,6 +53,8 @@
     .swatch { background: var(--neutral-3); padding: var(--space-sm) var(--space-md); }
     .card { background: var(--color-surface-raised); border: 1px solid var(--color-border); }
     .tall { min-block-size: 5rem; display: grid; place-items: center; }
+
+    @media (max-width: 40rem) { .drawer > button.close { display: none; } }
   </style>
 </head>
 <body>
@@ -173,6 +176,22 @@ description), body, footer are real elements, not components:</p>
 <code>transition-behavior: allow-discrete</code> — the backdrop fades too.
 <code>dialog.returnValue</code> carries the value of the submitting
 button.</p>
+<h2>Bottom sheet + gestures</h2>
+<p>Below 40rem the drawer becomes a full-width bottom sheet (content
+height, anchored to the bottom edge — the same pattern as shadcn's
+mobile drawer). The optional <code>drawer.js</code> module (Tier 2) adds
+a grab handle and swipe-to-dismiss: the sheet follows a downward drag,
+resists upward, and closes past a third of its height or on a flick.
+Without the module the markup still works — the handle only appears
+when the behavior exists.</p>
+<pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/drawer.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>On the sheet the handle is the dismiss affordance, so the corner
+<code>×</code> is redundant there while it stays the only one on the
+desktop side-sheet. Hide it below the breakpoint in your own CSS — this
+page does exactly that:</p>
+<pre><code>@media (max-width: 40rem) {
+  dialog.drawer &gt; button.close { display: none; }
+}</code></pre>
 <h2>Browser support</h2>
 <p>Invoker commands (<code>commandfor</code>/<code>command</code>) are
 Baseline newly-available (Chrome 135+, Firefox 144+, Safari 26.2+).
