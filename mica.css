@@ -1189,18 +1189,27 @@
     opacity: 1;
     scale: 1;
   }
-  /* enter animates; close is instant (house rule for transient layers) */
-  :where([popover]:popover-open) {
-    transition:
-      opacity 0.1s,
-      scale 0.1s,
-      overlay 0.1s allow-discrete,
-      display 0.1s allow-discrete;
-  }
-  @starting-style {
+  /* enter animates; close is instant (house rule for transient layers).
+     Gated on `overlay` support: iOS lacks it, and its top-layer
+     transitions are broken — a popover with an @starting-style entry
+     freezes at the start (opacity:0 = invisible) with no reflow to kick
+     it, and there's no CSS way to force one. Where overlay is
+     unsupported, skip the entrance so popovers render at their resting
+     opacity:1 instead of vanishing. (This is why toasts "didn't work"
+     on iOS.) */
+  @supports (overlay: auto) {
     :where([popover]:popover-open) {
-      opacity: 0;
-      scale: 0.95;
+      transition:
+        opacity 0.1s,
+        scale 0.1s,
+        overlay 0.1s allow-discrete,
+        display 0.1s allow-discrete;
+    }
+    @starting-style {
+      :where([popover]:popover-open) {
+        opacity: 0;
+        scale: 0.95;
+      }
     }
   }
   /* anchor to the invoker where the platform can */
@@ -1393,18 +1402,24 @@
       border-inline-start: 2px solid var(--color-warn);
     }
   }
-  /* arrives from below rather than zooming; reflow (restacking) eases */
+  /* restacking motion always (inset-block-end); the entrance slide/fade
+     only where overlay transitions work — see the base popover note. */
   :where([popover].toast:popover-open) {
-    transition:
-      opacity 0.1s,
-      translate 0.1s,
-      inset-block-end 0.15s,
-      overlay 0.1s allow-discrete,
-      display 0.1s allow-discrete;
+    transition: inset-block-end 0.15s;
   }
-  @starting-style {
+  @supports (overlay: auto) {
     :where([popover].toast:popover-open) {
-      translate: 0 0.75rem;
+      transition:
+        opacity 0.1s,
+        translate 0.1s,
+        inset-block-end 0.15s,
+        overlay 0.1s allow-discrete,
+        display 0.1s allow-discrete;
+    }
+    @starting-style {
+      :where([popover].toast:popover-open) {
+        translate: 0 0.75rem;
+      }
     }
   }
 

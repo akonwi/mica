@@ -145,3 +145,14 @@ switch = fill + block. Field text never drops below 16px (iOS zoom).
   flex-basis: `flex: 1` (basis 0%) collapses the body to a scroll
   strip. Use `flex: 1 1 auto` in top-layer composition (see the
   comment at the dialog body rule).
+- **iOS lacks the `overlay` property and its top-layer transitions are
+  broken.** Two consequences, both bit: (1) a popover/dialog with an
+  `@starting-style` entrance *freezes at the start styles* on iOS
+  (`opacity:0` = invisible) with no reflow to kick it — this is why
+  toasts "didn't work". Gate top-layer entrance animations behind
+  `@supports (overlay: auto)` so iOS renders at the resting state
+  instead of vanishing. (2) `overlay` won't transition on *exit*, so
+  `::backdrop` is dropped from the top layer instantly on close — can't
+  be faded; the mobile drawer paints its scrim from the sheet element
+  (100vmax box-shadow) instead. `@supports (overlay: auto)` is the
+  reliable iOS-vs-not discriminator for these.
