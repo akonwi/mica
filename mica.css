@@ -841,13 +841,22 @@
     }
 
     /* the body: whatever sits between header and footer. one wrapper
-       element; it pads itself and is the scrollable region */
+       element; it pads itself and is the scrollable region.
+       flex-basis must stay `auto` (not `flex: 1`'s 0%): iOS Safari sizes
+       the dialog's fit-content height from the basis, so 0% collapses
+       the body to a one-line scroll strip (iOS 26.0; Chromium and newer
+       WebKit use the content contribution either way). */
     & > :where(:not(header, footer, button.close)) {
       padding: var(--space-md);
-      flex: 1;
+      flex: 1 1 auto;
       min-block-size: 0;
       overflow-y: auto;
       font-size: 0.875rem; /* body must not outweigh the 14px title */
+    }
+
+    /* when the dialog hits its max height, only the body compresses */
+    & > :where(header, footer) {
+      flex-shrink: 0;
     }
   }
 
