@@ -138,4 +138,10 @@ switch = fill + block. Field text never drops below 16px (iOS zoom).
   iOS 26.0 had no support (landed 26.2) — the rig cannot catch
   not-yet-shipped platform features. Before using anything Baseline
   *newly*-available in a recipe, check `web-features` data and either
-  provide a fallback/shim (see `invoker.js`) or don't use it.
+  provide a fallback/shim (see `invoker.js`) or don't use it. For
+  rendering divergence on shipped iOS, use the feedback-loop skill's
+  channel 4 (iOS Simulator + self-measuring scratch page).
+- Shipped iOS sizes a dialog's fit-content height from children's
+  flex-basis: `flex: 1` (basis 0%) collapses the body to a scroll
+  strip. Use `flex: 1 1 auto` in top-layer composition (see the
+  comment at the dialog body rule).
