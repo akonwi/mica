@@ -12,7 +12,7 @@ import html as html_mod
 # ---------------------------------------------------------------- shell css
 SHELL_CSS = """
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
-    .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); }
+    .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); position: sticky; inset-block-start: 0; align-self: flex-start; block-size: 100svh; overflow-y: auto; overscroll-behavior: contain; }
     .brand { font-weight: 600; text-decoration: none; color: inherit; }
     .docnav h2 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-block: var(--space-lg) 0; }
     .docnav a { display: block; padding: var(--space-2xs) var(--space-xs); color: var(--color-text-muted); text-decoration: none; font-size: 0.875rem; border-inline-start: 1px solid transparent; }
