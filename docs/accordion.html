@@ -16,9 +16,23 @@
     .docnav a:hover { color: var(--color-text); }
     .docnav a[aria-current="page"] { color: var(--color-text); font-weight: 500; border-inline-start: 2px solid var(--color-primary); background: var(--color-surface-raised); }
 
-    /* mobile shell: rail collapses into a sticky <details> menu bar.
-       zero JS — the disclosure *is* mica's accordion pattern. */
     .topbar { display: none; }
+    article { padding: var(--space-xl) var(--space-lg) var(--space-2xl); min-inline-size: 0; }
+    .crumb { color: var(--color-text-muted); font-size: 0.875rem; }
+    .lead { color: var(--color-text-muted); }
+    .badge { font-size: 0.7rem; border: 1px solid var(--color-border); padding: 0.1em var(--space-xs); color: var(--color-text-muted); align-self: center; white-space: nowrap; }
+    .specimen { border: 1px solid var(--color-border); padding: var(--space-xl); }
+    .pager { border-block-start: 1px solid var(--color-border); padding-block-start: var(--space-md); }
+    .pager a { text-decoration: none; color: var(--color-text-muted); }
+    .pager a:hover { color: var(--color-text); }
+    article h2:not(dialog *) { font-size: 1rem; }
+    .swatch { background: var(--neutral-3); padding: var(--space-sm) var(--space-md); }
+    .card { background: var(--color-surface-raised); border: 1px solid var(--color-border); }
+    .tall { min-block-size: 5rem; display: grid; place-items: center; }
+
+    /* mobile shell: rail collapses into a sticky <details> menu bar.
+       zero JS — the disclosure *is* mica's accordion pattern.
+       (declared last so equal-specificity selectors win over the base rules.) */
     @media (max-width: 52rem) {
       .rail { display: none; }
       .topbar {
@@ -39,19 +53,8 @@
       }
       .topbar .brand { display: none; } /* summary is the brand up here */
       article { padding: var(--space-lg) var(--space-md) var(--space-xl); }
+      .specimen { padding: var(--space-lg); }
     }
-    article { padding: var(--space-xl) var(--space-lg) var(--space-2xl); min-inline-size: 0; }
-    .crumb { color: var(--color-text-muted); font-size: 0.875rem; }
-    .lead { color: var(--color-text-muted); }
-    .badge { font-size: 0.7rem; border: 1px solid var(--color-border); padding: 0.1em var(--space-xs); color: var(--color-text-muted); align-self: center; white-space: nowrap; }
-    .specimen { border: 1px solid var(--color-border); padding: var(--space-xl); }
-    .pager { border-block-start: 1px solid var(--color-border); padding-block-start: var(--space-md); }
-    .pager a { text-decoration: none; color: var(--color-text-muted); }
-    .pager a:hover { color: var(--color-text); }
-    article h2:not(dialog *) { font-size: 1rem; }
-    .swatch { background: var(--neutral-3); padding: var(--space-sm) var(--space-md); }
-    .card { background: var(--color-surface-raised); border: 1px solid var(--color-border); }
-    .tall { min-block-size: 5rem; display: grid; place-items: center; }
   </style>
 </head>
 <body>
