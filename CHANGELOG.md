@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.2.2 — 2026-08-01
+
+### Added
+
+- **React JSX typings** (`types/react.d.ts`, exported as
+  `@akonwi/mica/types/react`): teaches TypeScript every `m-*` element
+  and its styling attributes. React 19 renders custom elements natively;
+  this is types only. Vendoring consumers can copy the file alongside
+  `mica.css`.
+
 ## v0.2.1 — 2026-08-01
 
 ### Fixes

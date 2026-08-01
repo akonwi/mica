@@ -1,6 +1,6 @@
 {
   "name": "@akonwi/mica",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Custom elements. Native behavior. Nearly no JavaScript.",
   "keywords": [
     "css",
@@ -27,7 +27,10 @@
     "./select.js": "./select.js",
     "./tabs.js": "./tabs.js",
     "./toast.js": "./toast.js",
-    "./combobox.js": "./combobox.js"
+    "./combobox.js": "./combobox.js",
+    "./types/react": {
+      "types": "./types/react.d.ts"
+    }
   },
   "files": [
     "mica.css",
@@ -37,7 +40,8 @@
     "select.js",
     "tabs.js",
     "toast.js",
-    "combobox.js"
+    "combobox.js",
+    "types/react.d.ts"
   ],
   "sideEffects": true,
   "devDependencies": {
