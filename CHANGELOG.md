@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2.1 — 2026-08-01
+
+### Fixes
+
+- **Tabs**: the rail now collapses gracefully when narrower than its tabs.
+  Labels never wrap (`white-space: nowrap`, `flex-shrink: 0`); the nav caps at
+  its container's inline size and scrolls horizontally on overflow, with
+  overscroll contained and a thin scrollbar where the platform shows one.
+
+### Docs
+
+- Tabs page gains an Overflow section with a constrained-rail example; the demo
+  exercises the same case.
+
 ## v0.2.0 — 2026-08-01
 
 ### Added

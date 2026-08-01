@@ -529,6 +529,12 @@ tablist/tab/tabpanel roles, <code>aria-selected</code>, roving tabindex,
 and Arrow/Home/End keys. <b>Without the module</b> the nav is inert and
 every panel renders in order — complete, readable content, never a
 CSS-only fake (that is the Tier-2 line).</p>
+<h2>Overflow</h2>
+<p>Labels never wrap inside a tab. When the rail is narrower than its
+tabs, the nav scrolls horizontally — overscroll contained, a thin
+scrollbar where the platform shows one, and the clipped tab peeking at
+the edge as the affordance.</p>
+{specimen('<m-tabs style="max-inline-size: 16rem"><nav aria-label="Overflow demo"><button>Overview</button><button>Head-to-head record</button><button>Recent team form</button></nav><section><p>The rail is constrained to 16rem; tabs keep intrinsic width and the overflow scrolls.</p></section><section><p>Head-to-head panel.</p></section><section><p>Form panel.</p></section></m-tabs>')}
 """,
     ),
     dict(

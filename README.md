@@ -28,7 +28,7 @@ form validation) comes from the browser, not from a runtime.
 first-class distribution channel, not a workaround:
 
 ```sh
-curl -O https://raw.githubusercontent.com/akonwi/mica/v0.2.0/mica.css
+curl -O https://raw.githubusercontent.com/akonwi/mica/v0.2.1/mica.css
 ```
 
 **npm** — for toolchains:
