@@ -96,6 +96,18 @@ const PROBES: [string, string, string[]][] = [
     ["appearance", "inline-size", "block-size", "border-top-color", "border-radius"]],
   ["radio", 'input[type="radio"]', ["border-radius", "inline-size"]],
   ["switch", "input.switch", ["inline-size", "block-size", "border-radius"]],
+  ["segmented", "m-segmented", ["display", "border-top-color", "border-radius"]],
+  ["segmented.checked", "m-segmented label:has(input:checked)",
+    ["background-color", "color", "font-weight"]],
+  ["segmented.disabled", "m-segmented label:has(input:disabled)",
+    ["color", "cursor", "opacity"]],
+  ["badge", "m-badge:not([variant]):not([count])",
+    ["display", "border-top-color", "color", "font-size", "border-radius"]],
+  ["badge.primary", 'm-badge[variant="primary"]', ["background-color", "color", "border-top-color"]],
+  ["badge.success", 'm-badge[variant="success"]', ["background-color", "color", "border-top-color"]],
+  ["badge.warning", 'm-badge[variant="warning"]', ["background-color", "color", "border-top-color"]],
+  ["badge.danger", 'm-badge[variant="danger"]', ["background-color", "color", "border-top-color"]],
+  ["badge.count", "m-badge[count]", ["min-inline-size", "font-family"]],
   ["select", "select", ["appearance", "background-color", "border-top-color"]],
   ["progress", "progress", ["block-size", "inline-size"]],
   ["dialog", "dialog", ["background-color", "border-top-color", "border-radius"]],
@@ -240,6 +252,12 @@ try {
         (document.querySelector('input[type="text"]') as HTMLElement)?.focus());
       await page.waitForTimeout(50);
       states["input.focus-ring"] = await probe('input[type="text"]',
+        ["outline-color", "outline-width", "outline-offset", "outline-style"]);
+      await page.evaluate(() =>
+        (document.querySelector("m-segmented input:checked") as HTMLElement)?.focus());
+      await page.waitForTimeout(50);
+      states["segmented.focus-ring"] = await probe(
+        "m-segmented label:has(input:focus-visible)",
         ["outline-color", "outline-width", "outline-offset", "outline-style"]);
       await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
 

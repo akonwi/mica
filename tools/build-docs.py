@@ -297,6 +297,19 @@ the lone action on a page. Disabled is the same fill at reduced opacity.</p>
 """,
     ),
     dict(
+        group="Elements", slug="badge", title="badge", tier="0",
+        lead="Quiet metadata in a styled box. Informational, never a fake control.",
+        body=f"""
+{specimen('<m-hstack gap="xs" wrap><m-badge>Default</m-badge><m-badge variant="primary">Primary</m-badge><m-badge variant="success">Success</m-badge><m-badge variant="warning">Warning</m-badge><m-badge variant="danger">Danger</m-badge><m-badge count>8</m-badge></m-hstack>')}
+{code('<m-badge>Starter</m-badge>' + chr(10) + '<m-badge variant="warning">Delayed</m-badge>' + chr(10) + '<m-badge count>8</m-badge>')}
+<h2>Attributes</h2>
+<p><code>variant</code> accepts <code>primary</code>, <code>success</code>,
+<code>warning</code>, or <code>danger</code>. The boolean <code>count</code>
+attribute makes a compact, tabular-numeric badge. Badges are informational; use a real
+<code>&lt;button&gt;</code> for an interactive chip.</p>
+""",
+    ),
+    dict(
         group="Elements", slug="content", title="content", tier="1",
         lead="Tables, lists, code, quotes — prose-adjacent elements that just work.",
         body=f"""
@@ -363,6 +376,20 @@ wrapping the control becomes the click target and dims when disabled.</p>
 <p>Muted pip unchecked, bright pip on primary fill checked. The checked-state
 grammar across the family: checkbox = fill + glyph, radio = fill + pip,
 switch = fill + block. The round radio is a two-line theme (see mica.css).</p>
+""",
+    ),
+    dict(
+        group="Forms", slug="segmented", title="segmented control", tier="1",
+        lead="A native radio group fused into one compact control. No script, no reconstructed ARIA.",
+        body=f"""
+{specimen('<fieldset><legend>Leaderboard period</legend><m-segmented><label><input type="radio" name="period" value="week" checked /> Week</label><label><input type="radio" name="period" value="month" /> Month</label><label><input type="radio" name="period" value="season" /> Season</label><label><input type="radio" name="period" value="career" disabled /> Career</label></m-segmented></fieldset>')}
+{code('<fieldset>' + chr(10) + '  <legend>View</legend>' + chr(10) + '  <m-segmented>' + chr(10) + '    <label><input type="radio" name="view" value="list" checked /> List</label>' + chr(10) + '    <label><input type="radio" name="view" value="grid" /> Grid</label>' + chr(10) + '  </m-segmented>' + chr(10) + '</fieldset>')}
+<h2>Contract</h2>
+<p>Direct children are labels wrapping native radios that share a
+<code>name</code> and have distinct <code>value</code>s. Wrap the control in a
+<code>fieldset</code> with a <code>legend</code> to name the choice set. The browser
+supplies keyboard navigation, focus, form values, and assistive-technology
+semantics. Mica only fuses their presentation.</p>
 """,
     ),
     dict(

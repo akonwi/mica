@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>field validation — mica</title>
+  <title>segmented control — mica</title>
   <link rel="stylesheet" href="../mica.css" />
-  <script type="module" src="../field.js"></script>
+
   <style>
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); position: sticky; inset-block-start: 0; align-self: flex-start; block-size: 100svh; overflow-y: auto; overscroll-behavior: contain; }
@@ -89,10 +89,10 @@
       <a href="select.html">select</a>
       <a href="checkbox.html">checkbox</a>
       <a href="radio.html">radio</a>
-      <a href="segmented.html">segmented control</a>
+      <a href="segmented.html" aria-current="page">segmented control</a>
       <a href="switch.html">switch</a>
       <a href="fieldset.html">fieldset</a>
-      <a href="field.html" aria-current="page">field validation</a>
+      <a href="field.html">field validation</a>
       <a href="combobox.html">combobox</a>
       <h2>Patterns</h2>
       <a href="dialog.html">dialog</a>
@@ -132,10 +132,10 @@
       <a href="select.html">select</a>
       <a href="checkbox.html">checkbox</a>
       <a href="radio.html">radio</a>
-      <a href="segmented.html">segmented control</a>
+      <a href="segmented.html" aria-current="page">segmented control</a>
       <a href="switch.html">switch</a>
       <a href="fieldset.html">fieldset</a>
-      <a href="field.html" aria-current="page">field validation</a>
+      <a href="field.html">field validation</a>
       <a href="combobox.html">combobox</a>
       <h2>Patterns</h2>
       <a href="dialog.html">dialog</a>
@@ -147,28 +147,28 @@
     <article id="main">
       <m-center style="--max: 48rem">
         <m-vstack gap="xl">
-          <span class="crumb">Forms / field validation</span>
+          <span class="crumb">Forms / segmented control</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>field validation</h1> <span class="badge">Tier 2</span></m-hstack>
-            <p class="lead">Declarative per-cause errors below the field. No browser bubbles.</p>
+            <m-hstack gap="sm"><h1>segmented control</h1> <span class="badge">Tier 1</span></m-hstack>
+            <p class="lead">A native radio group fused into one compact control. No script, no reconstructed ARIA.</p>
           </m-vstack>
 
-<div class="specimen"><form onsubmit="event.preventDefault()"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-field><label for="dv-email">Email (submit empty, then type)</label><input id="dv-email" type="email" required placeholder="ada@example.com" /><m-error match="value-missing">Email is required.</m-error><m-error match="type-mismatch">That doesn&#39;t look like an email address.</m-error></m-field><m-hstack gap="sm"><button class="primary" type="submit">Submit</button></m-hstack></m-vstack></form></div>
-<pre><code>&lt;m-field&gt;
-  &lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;
-  &lt;input id=&quot;email&quot; type=&quot;email&quot; required /&gt;
-  &lt;m-error match=&quot;value-missing&quot;&gt;Email is required.&lt;/m-error&gt;
-  &lt;m-error match=&quot;type-mismatch&quot;&gt;Not a valid email.&lt;/m-error&gt;
-  &lt;m-error&gt;&lt;/m-error&gt;  &lt;!-- catch-all: browser&amp;#39;s own message --&gt;
-&lt;/m-field&gt;
+<div class="specimen"><fieldset><legend>Leaderboard period</legend><m-segmented><label><input type="radio" name="period" value="week" checked /> Week</label><label><input type="radio" name="period" value="month" /> Month</label><label><input type="radio" name="period" value="season" /> Season</label><label><input type="radio" name="period" value="career" disabled /> Career</label></m-segmented></fieldset></div>
+<pre><code>&lt;fieldset&gt;
+  &lt;legend&gt;View&lt;/legend&gt;
+  &lt;m-segmented&gt;
+    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;view&quot; value=&quot;list&quot; checked /&gt; List&lt;/label&gt;
+    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;view&quot; value=&quot;grid&quot; /&gt; Grid&lt;/label&gt;
+  &lt;/m-segmented&gt;
+&lt;/fieldset&gt;</code></pre>
+<h2>Contract</h2>
+<p>Direct children are labels wrapping native radios that share a
+<code>name</code> and have distinct <code>value</code>s. Wrap the control in a
+<code>fieldset</code> with a <code>legend</code> to name the choice set. The browser
+supplies keyboard navigation, focus, form values, and assistive-technology
+semantics. Mica only fuses their presentation.</p>
 
-&lt;script type=&quot;module&quot; src=&quot;mica/field.js&quot;&gt;&lt;/script&gt;</code></pre>
-<h2>Without the module</h2>
-<p>Matchless <code>&lt;m-error&gt;</code>s still show via
-<code>:user-invalid</code> (pure CSS); submits fall back to native bubbles.
-Working markup, enhanced — never rendered.</p>
-
-          <m-hstack justify="between" class="pager"><a href="fieldset.html">&larr; fieldset</a><a href="dialog.html">dialog &rarr;</a></m-hstack>
+          <m-hstack justify="between" class="pager"><a href="radio.html">&larr; radio</a><a href="switch.html">switch &rarr;</a></m-hstack>
         </m-vstack>
       </m-center>
     </article>

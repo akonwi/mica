@@ -108,6 +108,7 @@ works" is the demo.
       root is the site — no build artifact, the checkout deploys as-is)
 - [x] Markup-contract semver policy u2014 internal, in AGENTS.md (API surface & semver)
 - [x] Tier-0 stragglers: `m-frame`, `m-cover`
+- [x] Badge (`m-badge`, Tier 0) + segmented radio group (`m-segmented`, Tier 1)
 - [x] Browser support: stance stated in README; degradation documented per component (decided against a central matrix — second copy would drift)
 
 ## Backlog — Tier 3 (heavier JS, feel-polish)

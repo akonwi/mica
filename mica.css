@@ -616,6 +616,63 @@
     }
   }
 
+  /* segmented control: native radios fused into one control. The input
+     remains the form/keyboard/AT primitive; the label carries the visual
+     state because inputs cannot safely own pseudo-elements. */
+  :where(m-segmented) {
+    display: inline-flex;
+    inline-size: fit-content;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+  }
+
+  :where(m-segmented) > :where(label) {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-block-size: var(--control-height);
+    padding-inline: var(--space-sm);
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  :where(m-segmented) > :where(label + label) {
+    border-inline-start: 1px solid var(--color-border-strong);
+  }
+
+  :where(m-segmented) > :where(label) > :where(input[type="radio"]) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  :where(m-segmented) > :where(label):has(> input:checked) {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-weight: 600;
+  }
+
+  :where(m-segmented) > :where(label):has(> input:focus-visible) {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+    z-index: 1;
+  }
+
+  :where(m-segmented) > :where(label):has(> input:disabled) {
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
   /* switch: a checkbox wearing a track; the thumb is a positioned
      gradient (pseudo-elements don't render on inputs). square, per the
      design language — a solid linear-gradient block */
@@ -662,6 +719,57 @@
   :where(label:has(> input:disabled)) {
     color: var(--color-text-muted);
     cursor: not-allowed;
+  }
+
+  /* --- badge: quiet metadata, not a control ------------------------ */
+  :where(m-badge) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: var(--m-badge-min-width, auto);
+    min-block-size: 1.5rem;
+    padding-inline: var(--m-badge-padding, var(--space-xs));
+    border: 1px solid var(--m-badge-border, var(--color-border));
+    border-radius: var(--radius-sm);
+    background: var(--m-badge-background, transparent);
+    color: var(--m-badge-color, var(--color-text-muted));
+    font-family: var(--m-badge-font, inherit);
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-variant-numeric: var(--m-badge-numerals, normal);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  :where(m-badge[variant="primary"]) {
+    --m-badge-border: var(--color-primary);
+    --m-badge-background: var(--color-primary);
+    --m-badge-color: var(--color-on-primary);
+  }
+
+  :where(m-badge[variant="success"]) {
+    --m-badge-border: var(--color-success-border);
+    --m-badge-background: var(--color-success-surface);
+    --m-badge-color: var(--color-success-text);
+  }
+
+  :where(m-badge[variant="warning"]) {
+    --m-badge-border: var(--color-warn-border);
+    --m-badge-background: var(--color-warn-surface);
+    --m-badge-color: var(--color-warn-text);
+  }
+
+  :where(m-badge[variant="danger"]) {
+    --m-badge-border: var(--color-danger-border);
+    --m-badge-background: var(--color-danger-surface);
+    --m-badge-color: var(--color-danger-text);
+  }
+
+  :where(m-badge[count]) {
+    --m-badge-min-width: 1.5rem;
+    --m-badge-padding: var(--space-2xs);
+    --m-badge-font: var(--font-mono);
+    --m-badge-numerals: tabular-nums;
   }
 
   /* --- content: tables, lists, code, quotes ------------------------ */

@@ -333,6 +333,39 @@
 
     <section>
       <m-vstack gap="md">
+        <h2>Segmented control — native radio group</h2>
+        <fieldset>
+          <legend>Leaderboard period</legend>
+          <m-segmented>
+            <label><input type="radio" name="demo-period" value="week" checked /> Week</label>
+            <label><input type="radio" name="demo-period" value="month" /> Month</label>
+            <label><input type="radio" name="demo-period" value="season" /> Season</label>
+            <label><input type="radio" name="demo-period" value="career" disabled /> Career</label>
+          </m-segmented>
+        </fieldset>
+        <p>Fused labels around native radios: arrows, keyboard, forms, and AT
+        semantics come from the browser. No script and no ARIA reconstruction.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
+        <h2>Badge — quiet metadata</h2>
+        <m-hstack gap="xs" wrap>
+          <m-badge>Default</m-badge>
+          <m-badge variant="primary">Primary</m-badge>
+          <m-badge variant="success">Success</m-badge>
+          <m-badge variant="warning">Warning</m-badge>
+          <m-badge variant="danger">Danger</m-badge>
+          <m-badge count>8</m-badge>
+        </m-hstack>
+        <p>Informational only. For an interactive chip, compose a real button
+        rather than making a badge pretend to be a control.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
         <h2>Progress &amp; meter — thin bars, status-graded meter</h2>
         <m-vstack gap="sm" style="max-inline-size: var(--size-lg)">
           <progress max="100" value="33"></progress>

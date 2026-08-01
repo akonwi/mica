@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>field validation — mica</title>
+  <title>badge — mica</title>
   <link rel="stylesheet" href="../mica.css" />
-  <script type="module" src="../field.js"></script>
+
   <style>
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); position: sticky; inset-block-start: 0; align-self: flex-start; block-size: 100svh; overflow-y: auto; overscroll-behavior: contain; }
@@ -81,7 +81,7 @@
       <a href="cover.html">cover</a>
       <h2>Elements</h2>
       <a href="button.html">button</a>
-      <a href="badge.html">badge</a>
+      <a href="badge.html" aria-current="page">badge</a>
       <a href="content.html">content</a>
       <a href="progress.html">progress &amp; meter</a>
       <h2>Forms</h2>
@@ -92,7 +92,7 @@
       <a href="segmented.html">segmented control</a>
       <a href="switch.html">switch</a>
       <a href="fieldset.html">fieldset</a>
-      <a href="field.html" aria-current="page">field validation</a>
+      <a href="field.html">field validation</a>
       <a href="combobox.html">combobox</a>
       <h2>Patterns</h2>
       <a href="dialog.html">dialog</a>
@@ -124,7 +124,7 @@
       <a href="cover.html">cover</a>
       <h2>Elements</h2>
       <a href="button.html">button</a>
-      <a href="badge.html">badge</a>
+      <a href="badge.html" aria-current="page">badge</a>
       <a href="content.html">content</a>
       <a href="progress.html">progress &amp; meter</a>
       <h2>Forms</h2>
@@ -135,7 +135,7 @@
       <a href="segmented.html">segmented control</a>
       <a href="switch.html">switch</a>
       <a href="fieldset.html">fieldset</a>
-      <a href="field.html" aria-current="page">field validation</a>
+      <a href="field.html">field validation</a>
       <a href="combobox.html">combobox</a>
       <h2>Patterns</h2>
       <a href="dialog.html">dialog</a>
@@ -147,28 +147,23 @@
     <article id="main">
       <m-center style="--max: 48rem">
         <m-vstack gap="xl">
-          <span class="crumb">Forms / field validation</span>
+          <span class="crumb">Elements / badge</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>field validation</h1> <span class="badge">Tier 2</span></m-hstack>
-            <p class="lead">Declarative per-cause errors below the field. No browser bubbles.</p>
+            <m-hstack gap="sm"><h1>badge</h1> <span class="badge">Tier 0</span></m-hstack>
+            <p class="lead">Quiet metadata in a styled box. Informational, never a fake control.</p>
           </m-vstack>
 
-<div class="specimen"><form onsubmit="event.preventDefault()"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-field><label for="dv-email">Email (submit empty, then type)</label><input id="dv-email" type="email" required placeholder="ada@example.com" /><m-error match="value-missing">Email is required.</m-error><m-error match="type-mismatch">That doesn&#39;t look like an email address.</m-error></m-field><m-hstack gap="sm"><button class="primary" type="submit">Submit</button></m-hstack></m-vstack></form></div>
-<pre><code>&lt;m-field&gt;
-  &lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;
-  &lt;input id=&quot;email&quot; type=&quot;email&quot; required /&gt;
-  &lt;m-error match=&quot;value-missing&quot;&gt;Email is required.&lt;/m-error&gt;
-  &lt;m-error match=&quot;type-mismatch&quot;&gt;Not a valid email.&lt;/m-error&gt;
-  &lt;m-error&gt;&lt;/m-error&gt;  &lt;!-- catch-all: browser&amp;#39;s own message --&gt;
-&lt;/m-field&gt;
+<div class="specimen"><m-hstack gap="xs" wrap><m-badge>Default</m-badge><m-badge variant="primary">Primary</m-badge><m-badge variant="success">Success</m-badge><m-badge variant="warning">Warning</m-badge><m-badge variant="danger">Danger</m-badge><m-badge count>8</m-badge></m-hstack></div>
+<pre><code>&lt;m-badge&gt;Starter&lt;/m-badge&gt;
+&lt;m-badge variant=&quot;warning&quot;&gt;Delayed&lt;/m-badge&gt;
+&lt;m-badge count&gt;8&lt;/m-badge&gt;</code></pre>
+<h2>Attributes</h2>
+<p><code>variant</code> accepts <code>primary</code>, <code>success</code>,
+<code>warning</code>, or <code>danger</code>. The boolean <code>count</code>
+attribute makes a compact, tabular-numeric badge. Badges are informational; use a real
+<code>&lt;button&gt;</code> for an interactive chip.</p>
 
-&lt;script type=&quot;module&quot; src=&quot;mica/field.js&quot;&gt;&lt;/script&gt;</code></pre>
-<h2>Without the module</h2>
-<p>Matchless <code>&lt;m-error&gt;</code>s still show via
-<code>:user-invalid</code> (pure CSS); submits fall back to native bubbles.
-Working markup, enhanced — never rendered.</p>
-
-          <m-hstack justify="between" class="pager"><a href="fieldset.html">&larr; fieldset</a><a href="dialog.html">dialog &rarr;</a></m-hstack>
+          <m-hstack justify="between" class="pager"><a href="button.html">&larr; button</a><a href="content.html">content &rarr;</a></m-hstack>
         </m-vstack>
       </m-center>
     </article>
