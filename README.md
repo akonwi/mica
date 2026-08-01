@@ -28,7 +28,7 @@ form validation) comes from the browser, not from a runtime.
 first-class distribution channel, not a workaround:
 
 ```sh
-curl -O https://raw.githubusercontent.com/akonwi/mica/v0.1.0/mica.css
+curl -O https://raw.githubusercontent.com/akonwi/mica/v0.2.0/mica.css
 ```
 
 **npm** — for toolchains:
@@ -44,7 +44,7 @@ import "@akonwi/mica/mica.css";
 **CDN** — for trying it out:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@akonwi/mica@0.1/mica.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@akonwi/mica@0.2/mica.css">
 ```
 
 ## The three tiers

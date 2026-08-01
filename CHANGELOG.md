@@ -1,5 +1,28 @@
 # Changelog
 
+## v0.2.0 — 2026-08-01
+
+### Added
+
+- **Badge**: new Tier-0 `<m-badge>` element for quiet metadata. Attribute API:
+  `variant="primary|success|warning|danger"` and boolean `count` for compact,
+  tabular-numeric badges.
+- **Segmented control**: new Tier-1 `<m-segmented>` recipe built from native labeled
+  radios. The browser retains keyboard navigation, form values, focus, disabled
+  behavior, and assistive-technology semantics; mica only fuses the presentation.
+
+### Docs
+
+- Added dedicated badge and segmented-control reference pages, kitchen-sink examples,
+  native `<fieldset>`/`<legend>` group-labeling guidance, and distinct radio-value
+  examples.
+
+### Infrastructure
+
+- Snapshot coverage now includes every badge variant plus segmented checked,
+  disabled, and focus-visible states: 264 computed-style probes and 32 Chromium /
+  WebKit visual snapshots across light and dark schemes.
+
 ## v0.1.1 — 2026-07-23
 
 ### Fixes
