@@ -1443,7 +1443,18 @@
     background: var(--neutral-3);
     border-radius: var(--radius-md);
 
+    /* Graceful collapse: labels never wrap inside a tab — when the rail
+       is narrower than its tabs it scrolls horizontally instead. The
+       thin scrollbar is the overflow affordance on platforms that show
+       one; scroll chaining stays contained. */
+    max-inline-size: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+
     & > :where(button) {
+      flex-shrink: 0;
+      white-space: nowrap;
       block-size: var(--control-height-sm);
       padding-inline: var(--space-sm);
       border: 0;

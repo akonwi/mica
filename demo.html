@@ -568,6 +568,26 @@
             <p>Team panel.</p>
           </section>
         </m-tabs>
+
+        <p>Long labels in a narrow rail never wrap — the nav scrolls
+        horizontally instead (thin scrollbar as the affordance):</p>
+        <m-tabs style="max-inline-size: 16rem">
+          <nav aria-label="Overflow demo">
+            <button>Overview</button>
+            <button>Head-to-head record</button>
+            <button>Recent team form</button>
+          </nav>
+          <section>
+            <p>The rail is constrained to 16rem; tabs keep their intrinsic
+            width and the overflow scrolls.</p>
+          </section>
+          <section>
+            <p>Head-to-head panel.</p>
+          </section>
+          <section>
+            <p>Form panel.</p>
+          </section>
+        </m-tabs>
       </m-vstack>
     </section>
 
