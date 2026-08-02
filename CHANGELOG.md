@@ -1,5 +1,36 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **`[data-visually-hidden]`** — content that assistive tech reaches and
+  sighted users do not: a caption the layout already implies, a heading
+  that structures the document without repeating a visible title.
+  `display: none` and `inline-size: 0` both drop content from the
+  accessibility tree; this clips a 1px box instead. The `focusable`
+  variant (`data-visually-hidden="focusable"`) hides only while
+  unfocused — the skip-link primitive. On focus the rule simply stops
+  matching, so the element keeps whatever styling you gave it and there
+  is no undo rule to fight.
+
+  An attribute rather than a class: `class` stays the app's, `data-*` is
+  valid HTML and needs no `HTMLAttributes` augmentation in React or
+  TypeScript, and `.visually-hidden`/`.sr-only` are the most
+  copy-pasted names in accessibility — a project arriving with its own
+  copy is the likely case, not the edge case.
+
+  `m-segmented` now shares this rule instead of carrying its own copy of
+  the same declarations; its computed styles are unchanged.
+
+### Docs
+
+- New **Accessibility** page (Start group): the tier boundary as an
+  accessibility question, why mica never fakes behavior in CSS, the two
+  hiding primitives, and what a stylesheet cannot do for you.
+- The docs shell now has a skip link of its own, using the new
+  primitive — ~35 rail links precede the article on every page.
+
 ## v0.2.2 — 2026-08-01
 
 ### Added

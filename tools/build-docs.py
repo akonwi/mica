@@ -11,6 +11,9 @@ import html as html_mod
 
 # ---------------------------------------------------------------- shell css
 SHELL_CSS = """
+    /* Mica's primitive only reveals on focus; where the revealed link sits
+       is the site's call. Pinned so it never shifts the rail's layout. */
+    .skip:focus { position: fixed; inset-block-start: var(--space-sm); inset-inline-start: var(--space-sm); z-index: 10; padding: var(--space-2xs) var(--space-xs); background: var(--color-surface-raised); border: 1px solid var(--color-border-strong); color: var(--color-text); text-decoration: none; }
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); position: sticky; inset-block-start: 0; align-self: flex-start; block-size: 100svh; overflow-y: auto; overscroll-behavior: contain; }
     .brand { font-weight: 600; text-decoration: none; color: inherit; }
@@ -149,6 +152,60 @@ from <code>@layer mica.preset</code> — zero-specificity, trivially overridable
 <p>Because it isn't a first child. Inside a stack, rhythm yields to
 <code>gap</code> — the stack owns spacing. Tab to this
 <a href="#main">link</a> or any control to see the tokenized focus ring.</p>
+""",
+    ),
+    dict(
+        group="Start", slug="accessibility", title="Accessibility", tier=None,
+        lead="Native semantics first; script only where access requires it.",
+        body=f"""
+<p>Mica's accessibility position is mostly a consequence of its other
+choices. Styling native elements means their semantics, keyboard behavior,
+and assistive-tech mapping arrive intact — a <code>&lt;button&gt;</code> is
+announced as a button because it is one. The tokenized focus ring in
+<code>mica.preset</code> is visible on every control by default rather than
+something you remember to add, and dark mode is <code>color-scheme</code>,
+so native controls follow the theme without a parallel palette.</p>
+
+<h2>Never fake behavior in CSS</h2>
+<p>The checkbox-hack school of CSS-only components produces things that look
+like tabs and are unusable with a keyboard. Mica refuses that trade: if the
+<em>accessible</em> version of a pattern needs script, the script is the
+honest cost and ships as an opt-in Tier-2 module. That is the whole Tier 1/2
+boundary — <em>does accessibility require JS?</em> — and it is why
+<code>m-tabs</code> and <code>m-combobox</code> have modules while dialogs,
+accordions, and menus do not.</p>
+<p>Tier-2 modules enhance working markup; they never render it. With the
+module absent you get a degraded but usable page — all tab panels visible in
+order, a native autocomplete — not an empty container.</p>
+
+<h2>Visually hidden</h2>
+<p>Content some users must reach and others must not see: a table caption
+the layout already implies, a heading that structures the document without
+repeating a visible title, a description for an icon-only control.
+<code>display: none</code> and <code>inline-size: 0</code> both remove it
+from the accessibility tree, which is the opposite of the goal.</p>
+{specimen('<p>There is a hidden sentence here.<span data-visually-hidden> Off-screen, still announced.</span> Nothing renders between the period and this word.</p>')}
+{code('<caption data-visually-hidden>Standings by conference</caption>')}
+<p>It is an attribute, not a class. <code>class</code> stays the app's;
+<code>data-*</code> is valid HTML and needs no <code>HTMLAttributes</code>
+augmentation in React or TypeScript; and <code>.visually-hidden</code> /
+<code>.sr-only</code> are the most copy-pasted names in accessibility, so a
+project arriving with its own copy is the likely case rather than the edge
+case. Nothing to collide with.</p>
+
+<h3><code>focusable</code> — the skip link</h3>
+<p>A skip link must be hidden until someone tabs to it, then visible. The
+variant hides only while unfocused; on focus the rule stops matching and the
+element keeps whatever styling you gave it — there is no undo rule fighting
+your CSS.</p>
+{code('<a href="#main" data-visually-hidden="focusable">Skip to content</a>')}
+<p>Tab into this page from the address bar to see mica's own skip link.</p>
+
+<h2>What mica does not do for you</h2>
+<p>A stylesheet cannot supply an accessible name, a heading order, or a
+sensible tab sequence. Mica keeps the platform's semantics available and
+declines to break them; labelling controls, structuring headings, and
+testing with a screen reader remain yours.</p>
 """,
     ),
     # ---- Layout ----
@@ -608,6 +665,7 @@ def page_html(p: dict) -> str:
   <style>{SHELL_CSS}{extra_css}  </style>
 </head>
 <body>
+  <a class="skip" href="#main" data-visually-hidden="focusable">Skip to content</a>
   <header class="topbar">
     <details>
       <summary>mica</summary>

@@ -644,16 +644,9 @@
     border-inline-start: 1px solid var(--color-border-strong);
   }
 
-  :where(m-segmented) > :where(label) > :where(input[type="radio"]) {
-    position: absolute;
-    inline-size: 1px;
-    block-size: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
+  /* The radio itself is hidden but focusable and announced — the label
+     is the visible control. Shares the one hiding rule at the end of
+     this layer (see "visually hidden"). */
 
   :where(m-segmented) > :where(label):has(> input:checked) {
     background: var(--color-primary);
@@ -1610,6 +1603,41 @@
   }
   :where(m-error[active]) {
     display: block;
+  }
+
+  /* --- visually hidden: off-screen, still announced ------------------ *
+   *
+   * The one utility mica ships, and an accessibility primitive rather
+   * than a style: content that assistive tech must reach but sighted
+   * users must not see. `display: none` and `inline-size: 0` would drop
+   * it from the accessibility tree; this keeps a 1px box in flow-ish
+   * and clips it away.
+   *
+   * An attribute, not a class: `class` stays the app's, `data-*` is
+   * valid HTML and needs no React `HTMLAttributes` augmentation, and
+   * `.visually-hidden`/`.sr-only` are the most copy-pasted names in
+   * accessibility — a consumer arriving with their own copy is the
+   * likely case. Lives at the end of this layer, not a new one, because
+   * the layer list is a published contract; being last lets it beat the
+   * element rules it is applied to (`caption`, `legend`, headings).
+   *
+   *   <caption data-visually-hidden>Standings</caption>
+   *   <a href="#main" data-visually-hidden="focusable">Skip to content</a>
+   *
+   * The `focusable` variant is the skip-link primitive: hidden until it
+   * takes focus, then it simply stops being hidden — no undo rule, so
+   * the element keeps whatever styling the app gave it. */
+  [data-visually-hidden]:not([data-visually-hidden="focusable"]),
+  [data-visually-hidden="focusable"]:not(:focus, :focus-within),
+  :where(m-segmented) > :where(label) > :where(input[type="radio"]) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 

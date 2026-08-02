@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="../mica.css" />
   <script type="module" src="../toast.js"></script>
   <style>
+    /* Mica's primitive only reveals on focus; where the revealed link sits
+       is the site's call. Pinned so it never shifts the rail's layout. */
+    .skip:focus { position: fixed; inset-block-start: var(--space-sm); inset-inline-start: var(--space-sm); z-index: 10; padding: var(--space-2xs) var(--space-xs); background: var(--color-surface-raised); border: 1px solid var(--color-border-strong); color: var(--color-text); text-decoration: none; }
     body > m-sidecar { min-block-size: 100svh; --gap: 0; }
     .rail { border-inline-end: 1px solid var(--color-border); padding: var(--space-lg); position: sticky; inset-block-start: 0; align-self: flex-start; block-size: 100svh; overflow-y: auto; overscroll-behavior: contain; }
     .brand { font-weight: 600; text-decoration: none; color: inherit; }
@@ -58,6 +61,7 @@
   </style>
 </head>
 <body>
+  <a class="skip" href="#main" data-visually-hidden="focusable">Skip to content</a>
   <header class="topbar">
     <details>
       <summary>mica</summary>
@@ -67,6 +71,7 @@
       <a href="../index.html">Introduction</a>
       <a href="tokens.html">Tokens &amp; theming</a>
       <a href="preset.html">Preset</a>
+      <a href="accessibility.html">Accessibility</a>
       <h2>Layout</h2>
       <a href="vstack.html">vstack</a>
       <a href="hstack.html">hstack</a>
@@ -110,6 +115,7 @@
       <a href="../index.html">Introduction</a>
       <a href="tokens.html">Tokens &amp; theming</a>
       <a href="preset.html">Preset</a>
+      <a href="accessibility.html">Accessibility</a>
       <h2>Layout</h2>
       <a href="vstack.html">vstack</a>
       <a href="hstack.html">hstack</a>

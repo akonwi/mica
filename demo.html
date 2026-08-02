@@ -350,6 +350,21 @@
 
     <section>
       <m-vstack gap="md">
+        <h2>Visually hidden — announced, not seen</h2>
+        <p>There is a hidden sentence at the end of this paragraph.
+        <span data-visually-hidden>This text is off-screen but present in the
+        accessibility tree.</span> Sighted readers see nothing; a screen
+        reader reads it in place.</p>
+        <p><a href="#top" data-visually-hidden="focusable">Skip to content</a>
+        — the skip link before this dash is hidden until it takes focus.
+        Tab to it, or press Tab from the address bar, and it appears.</p>
+        <p>The same rule hides the radios inside <code>m-segmented</code>,
+        where the label is the visible control.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
         <h2>Badge — quiet metadata</h2>
         <m-hstack gap="xs" wrap>
           <m-badge>Default</m-badge>

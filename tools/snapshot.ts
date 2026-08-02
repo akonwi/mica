@@ -108,6 +108,12 @@ const PROBES: [string, string, string[]][] = [
   ["badge.warning", 'm-badge[variant="warning"]', ["background-color", "color", "border-top-color"]],
   ["badge.danger", 'm-badge[variant="danger"]', ["background-color", "color", "border-top-color"]],
   ["badge.count", "m-badge[count]", ["min-inline-size", "font-family"]],
+  // a11y primitives. These also stand in for the parse canary's blind
+  // spot: they are the last rule block in mica.elements, after m-error.
+  ["visually-hidden", "[data-visually-hidden]:not([data-visually-hidden=\"focusable\"])",
+    ["position", "inline-size", "block-size", "overflow", "clip-path", "white-space"]],
+  ["visually-hidden.focusable", '[data-visually-hidden="focusable"]',
+    ["position", "inline-size", "clip-path"]],
   ["select", "select", ["appearance", "background-color", "border-top-color"]],
   ["progress", "progress", ["block-size", "inline-size"]],
   ["dialog", "dialog", ["background-color", "border-top-color", "border-radius"]],
@@ -259,6 +265,13 @@ try {
       states["segmented.focus-ring"] = await probe(
         "m-segmented label:has(input:focus-visible)",
         ["outline-color", "outline-width", "outline-offset", "outline-style"]);
+      await page.evaluate(() =>
+        (document.querySelector('[data-visually-hidden="focusable"]') as HTMLElement)?.focus());
+      await page.waitForTimeout(50);
+      // Focused: the hiding rule stops matching, so the element returns to
+      // its own styling rather than being un-hidden by an undo rule.
+      states["visually-hidden.focused"] = await probe('[data-visually-hidden="focusable"]',
+        ["position", "inline-size", "clip-path", "white-space"]);
       await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
 
       await page.evaluate(() => document.querySelector("dialog")?.showModal());
