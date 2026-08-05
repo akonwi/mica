@@ -156,12 +156,16 @@
           <span class="crumb">Elements / button</span>
           <m-vstack gap="2xs">
             <m-hstack gap="sm"><h1>button</h1> <span class="badge">Tier 1</span></m-hstack>
-            <p class="lead">The native element, styled directly. Variants are classes; @layer means collisions resolve in your favor.</p>
+            <p class="lead">The native element, styled directly. Variants and sizes are attributes; behavior remains native.</p>
           </m-vstack>
 
-<div class="specimen"><m-vstack gap="md"><m-hstack gap="sm" wrap><button>Default</button><button class="primary">Primary</button><button class="ghost">Ghost</button><button class="danger">Danger</button></m-hstack><m-hstack gap="sm" wrap><button class="small">Small</button><button class="large">Large</button><button disabled>Disabled</button><button class="primary" disabled>Disabled primary</button><a class="btn" href="#">Link as button</a></m-hstack></m-vstack></div>
-<pre><code>&lt;button class=&quot;primary&quot;&gt;Submit&lt;/button&gt;
+<div class="specimen"><m-vstack gap="md"><m-hstack gap="sm" wrap><button>Default</button><button variant="primary">Primary</button><button variant="ghost">Ghost</button><button variant="danger">Danger</button></m-hstack><m-hstack gap="sm" wrap><button size="small">Small</button><button size="large">Large</button><button disabled>Disabled</button><button variant="primary" disabled>Disabled primary</button><a class="btn" href="#">Link as button</a></m-hstack></m-vstack></div>
+<pre><code>&lt;button variant=&quot;primary&quot;&gt;Submit&lt;/button&gt;
 &lt;a class=&quot;btn&quot; href=&quot;/docs&quot;&gt;A link dressed as a button&lt;/a&gt;</code></pre>
+<h2>Attributes</h2>
+<p><code>variant</code> accepts <code>primary</code>, <code>ghost</code>, or
+<code>danger</code>. <code>size</code> accepts <code>small</code> or
+<code>large</code>. The former class names remain compatibility aliases.</p>
 <h2>Notes</h2>
 <p>Ghost has deliberately zero rest affordance — toolbars and icon rows, not
 the lone action on a page. Disabled is the same fill at reduced opacity.</p>

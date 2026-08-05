@@ -234,20 +234,21 @@
         <h2>Buttons — native <code>&lt;button&gt;</code>, styled directly</h2>
         <m-hstack gap="sm" wrap>
           <button>Default</button>
-          <button class="primary">Primary</button>
-          <button class="ghost">Ghost</button>
-          <button class="danger">Danger</button>
+          <button variant="primary">Primary</button>
+          <button variant="ghost">Ghost</button>
+          <button variant="danger">Danger</button>
           <button disabled>Disabled</button>
-          <button class="primary" disabled>Disabled primary</button>
+          <button variant="primary" disabled>Disabled primary</button>
         </m-hstack>
         <m-hstack gap="sm" wrap>
-          <button class="small">Small</button>
+          <button size="small">Small</button>
           <button>Medium</button>
-          <button class="large">Large</button>
+          <button size="large">Large</button>
           <a class="btn" href="#main">A link dressed as a button</a>
         </m-hstack>
-        <p>Variants are classes (<code>class="primary"</code>) — collisions with
-        app CSS resolve in the user's favor because mica lives in a layer.</p>
+        <p><code>variant</code> accepts <code>primary</code>, <code>ghost</code>, or
+        <code>danger</code>; <code>size</code> accepts <code>small</code> or
+        <code>large</code>. The former class names remain compatibility aliases.</p>
         <p>Status roles (hue knobs, no scales):
         <span class="chip" style="background: var(--color-danger-surface); border: 1px solid var(--color-danger-border); color: var(--color-danger-text)">danger</span>
         <span class="chip" style="background: var(--color-success-surface); border: 1px solid var(--color-success-border); color: var(--color-success-text)">success</span>
@@ -300,8 +301,8 @@
               </m-vstack>
             </fieldset>
             <m-hstack gap="sm">
-              <button type="submit" class="primary">Submit</button>
-              <button type="reset" class="ghost">Reset</button>
+              <button type="submit" variant="primary">Submit</button>
+              <button type="reset" variant="ghost">Reset</button>
             </m-hstack>
           </m-vstack>
         </form>
@@ -429,7 +430,7 @@
         </m-hstack>
         <p>Inline <code>code</code> gets a chip; press <kbd>⌘</kbd><kbd>K</kbd> for nothing.</p>
 <pre><code>&lt;m-vstack gap="lg"&gt;
-  &lt;button class="primary"&gt;Submit&lt;/button&gt;
+  &lt;button variant="primary"&gt;Submit&lt;/button&gt;
 &lt;/m-vstack&gt;</code></pre>
         <blockquote>Delete the stylesheet and it still works — that is the demo.</blockquote>
         <hr />
@@ -459,7 +460,7 @@
           <footer>
             <form method="dialog">
               <button>Cancel</button>
-              <button class="primary" value="ok">Confirm</button>
+              <button variant="primary" value="ok">Confirm</button>
             </form>
           </footer>
         </dialog>
@@ -474,7 +475,7 @@
             <input id="dw-note" type="text" placeholder="Tab around…" />
           </m-vstack>
           <footer>
-            <button class="primary" commandfor="demo-drawer" command="close">Save changes</button>
+            <button variant="primary" commandfor="demo-drawer" command="close">Save changes</button>
             <button commandfor="demo-drawer" command="close">Cancel</button>
           </footer>
         </dialog>
@@ -516,7 +517,7 @@
           <button popovertarget="demo-menu" popovertargetaction="hide">Edit</button>
           <button popovertarget="demo-menu" popovertargetaction="hide">Duplicate</button>
           <hr />
-          <button class="danger" popovertarget="demo-menu" popovertargetaction="hide">Delete</button>
+          <button variant="danger" popovertarget="demo-menu" popovertargetaction="hide">Delete</button>
         </div>
         <div id="demo-pop" popover>
           <m-vstack gap="2xs">

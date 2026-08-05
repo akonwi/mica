@@ -12,8 +12,8 @@ there's nothing there but HTML and a stylesheet.
 <m-vstack gap="lg">
   <h1>That's it</h1>
   <m-hstack gap="sm">
-    <button class="primary">Save</button>
-    <button class="ghost">Cancel</button>
+    <button variant="primary">Save</button>
+    <button variant="ghost">Cancel</button>
   </m-hstack>
 </m-vstack>
 ```

@@ -26,8 +26,8 @@ dialogs). Infrastructure interleaves — don't batch it.
 
 ## Phase 3 — `mica.elements`: buttons & forms
 
-- [x] Button (variant syntax decided: **classes** — `class="primary"`;
-      TS/JSX-safe, validator-safe, `@layer` defuses collisions)
+- [x] Button (`variant="primary|ghost|danger"` and
+      `size="small|large"`; former class names remain compatibility aliases)
 - [x] Inputs, textarea (`field-sizing`), basic select — one control
       family with buttons; `:user-invalid` wired to danger roles
 - [x] Checkbox, radio, switch — drawn (`appearance: none`), one family

@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **Button attribute API**: native buttons use
+  `variant="primary|ghost|danger"` and `size="small|large"`. The same
+  attributes can compose with `.btn` links. The former variant and size
+  class names remain compatibility aliases.
+
 ## v0.3.0 — 2026-08-02
 
 ### Added

@@ -109,7 +109,7 @@ View source on any page here — there is nothing but HTML and one stylesheet.</
 <h2>Install</h2>
 {code('<link rel="stylesheet" href="mica.css" />')}
 <h2>Use</h2>
-{code('<m-vstack gap="lg">' + chr(10) + '  <h1>Hello</h1>' + chr(10) + '  <button class="primary">Submit</button>' + chr(10) + '</m-vstack>')}
+{code('<m-vstack gap="lg">' + chr(10) + '  <h1>Hello</h1>' + chr(10) + '  <button variant="primary">Submit</button>' + chr(10) + '</m-vstack>')}
 <h2>The three tiers</h2>
 <p>Every component states where its behavior comes from.
 <b>Tier 0</b>: pure CSS custom tags (layout). <b>Tier 1</b>: styled native
@@ -344,10 +344,14 @@ with <code>class="principal"</code> instead (it wins over the h1).</p>
     # ---- Elements ----
     dict(
         group="Elements", slug="button", title="button", tier="1",
-        lead="The native element, styled directly. Variants are classes; @layer means collisions resolve in your favor.",
+        lead="The native element, styled directly. Variants and sizes are attributes; behavior remains native.",
         body=f"""
-{specimen('<m-vstack gap="md"><m-hstack gap="sm" wrap><button>Default</button><button class="primary">Primary</button><button class="ghost">Ghost</button><button class="danger">Danger</button></m-hstack><m-hstack gap="sm" wrap><button class="small">Small</button><button class="large">Large</button><button disabled>Disabled</button><button class="primary" disabled>Disabled primary</button><a class="btn" href="#">Link as button</a></m-hstack></m-vstack>')}
-{code('<button class="primary">Submit</button>' + chr(10) + '<a class="btn" href="/docs">A link dressed as a button</a>')}
+{specimen('<m-vstack gap="md"><m-hstack gap="sm" wrap><button>Default</button><button variant="primary">Primary</button><button variant="ghost">Ghost</button><button variant="danger">Danger</button></m-hstack><m-hstack gap="sm" wrap><button size="small">Small</button><button size="large">Large</button><button disabled>Disabled</button><button variant="primary" disabled>Disabled primary</button><a class="btn" href="#">Link as button</a></m-hstack></m-vstack>')}
+{code('<button variant="primary">Submit</button>' + chr(10) + '<a class="btn" href="/docs">A link dressed as a button</a>')}
+<h2>Attributes</h2>
+<p><code>variant</code> accepts <code>primary</code>, <code>ghost</code>, or
+<code>danger</code>. <code>size</code> accepts <code>small</code> or
+<code>large</code>. The former class names remain compatibility aliases.</p>
 <h2>Notes</h2>
 <p>Ghost has deliberately zero rest affordance — toolbars and icon rows, not
 the lone action on a page. Disabled is the same fill at reduced opacity.</p>
@@ -474,7 +478,7 @@ keyboard behavior are untouched. Safari is prototyping a native
         lead="Declarative per-cause errors below the field. No browser bubbles.",
         scripts=["../field.js"],
         body=f"""
-{specimen('<form onsubmit="event.preventDefault()"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-field><label for="dv-email">Email (submit empty, then type)</label><input id="dv-email" type="email" required placeholder="ada@example.com" /><m-error match="value-missing">Email is required.</m-error><m-error match="type-mismatch">That doesn&#39;t look like an email address.</m-error></m-field><m-hstack gap="sm"><button class="primary" type="submit">Submit</button></m-hstack></m-vstack></form>')}
+{specimen('<form onsubmit="event.preventDefault()"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-field><label for="dv-email">Email (submit empty, then type)</label><input id="dv-email" type="email" required placeholder="ada@example.com" /><m-error match="value-missing">Email is required.</m-error><m-error match="type-mismatch">That doesn&#39;t look like an email address.</m-error></m-field><m-hstack gap="sm"><button variant="primary" type="submit">Submit</button></m-hstack></m-vstack></form>')}
 {code('<m-field>' + chr(10) + '  <label for="email">Email</label>' + chr(10) + '  <input id="email" type="email" required />' + chr(10) + '  <m-error match="value-missing">Email is required.</m-error>' + chr(10) + '  <m-error match="type-mismatch">Not a valid email.</m-error>' + chr(10) + '  <m-error></m-error>  <!-- catch-all: browser&#39;s own message -->' + chr(10) + '</m-field>' + chr(10) + chr(10) + '<script type="module" src="mica/field.js"><' + '/script>')}
 <h2>Without the module</h2>
 <p>Matchless <code>&lt;m-error&gt;</code>s still show via
@@ -489,11 +493,11 @@ Working markup, enhanced — never rendered.</p>
         scripts=["../invoker.js", "../drawer.js"],
         extra_css="\n    @media (max-width: 40rem) { .drawer > button.close { display: none; } }\n",
         body=f"""
-{specimen('<m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button class="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" class="drawer"><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button class="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog>')}
+{specimen('<m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button variant="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" class="drawer"><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button variant="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog>')}
 <h2>Composition</h2>
 <p>The shadcn structure, in native vocabulary — header (title +
 description), body, footer are real elements, not components:</p>
-{code('<button commandfor="confirm" command="show-modal">Open</button>  <!-- trigger -->' + chr(10) + chr(10) + '<dialog id="confirm">          <!-- content -->' + chr(10) + '  <button class="close" commandfor="confirm" command="close" aria-label="Close">&#x2715;</button>' + chr(10) + '  <header>                     <!-- header -->' + chr(10) + '    <h2>Are you sure?</h2>     <!-- title -->' + chr(10) + '    <p>This cannot be undone.</p>  <!-- description -->' + chr(10) + '  </header>' + chr(10) + chr(10) + '  <p>Any body content.</p>' + chr(10) + chr(10) + '  <footer>                     <!-- footer: right-aligned row -->' + chr(10) + '    <form method="dialog">' + chr(10) + '      <button>Cancel</button>' + chr(10) + '      <button class="primary" value="ok">Confirm</button>' + chr(10) + '    </form>' + chr(10) + '  </footer>' + chr(10) + '</dialog>')}
+{code('<button commandfor="confirm" command="show-modal">Open</button>  <!-- trigger -->' + chr(10) + chr(10) + '<dialog id="confirm">          <!-- content -->' + chr(10) + '  <button class="close" commandfor="confirm" command="close" aria-label="Close">&#x2715;</button>' + chr(10) + '  <header>                     <!-- header -->' + chr(10) + '    <h2>Are you sure?</h2>     <!-- title -->' + chr(10) + '    <p>This cannot be undone.</p>  <!-- description -->' + chr(10) + '  </header>' + chr(10) + chr(10) + '  <p>Any body content.</p>' + chr(10) + chr(10) + '  <footer>                     <!-- footer: right-aligned row -->' + chr(10) + '    <form method="dialog">' + chr(10) + '      <button>Cancel</button>' + chr(10) + '      <button variant="primary" value="ok">Confirm</button>' + chr(10) + '    </form>' + chr(10) + '  </footer>' + chr(10) + '</dialog>')}
 <h2>Notes</h2>
 <p>Enter/exit animations use <code>@starting-style</code> +
 <code>transition-behavior: allow-discrete</code> — the backdrop fades too.
@@ -539,8 +543,8 @@ browsers without it open instantly. Zero JS either way.</p>
         group="Patterns", slug="popover", title="popover & tooltip", tier="1",
         lead="popover attribute + popovertarget invokers. Toggle, light dismiss, Esc, top layer — the browser's. Zero JS.",
         body=f"""
-{specimen('<m-hstack gap="sm" wrap><button popovertarget="dp-menu">Menu</button><button popovertarget="dp-pop">Popover</button><button data-tip="Saved to your library" aria-label="Tooltip demo">Hover me</button></m-hstack><div id="dp-menu" popover class="menu"><button popovertarget="dp-menu" popovertargetaction="hide">Edit</button><button popovertarget="dp-menu" popovertargetaction="hide">Duplicate</button><hr /><button class="danger" popovertarget="dp-menu" popovertargetaction="hide">Delete</button></div><div id="dp-pop" popover><m-vstack gap="2xs"><b>Anchored panel</b><span>Light dismiss, Esc, toggling: all the browser. Anchored to the invoker where anchor positioning exists.</span></m-vstack></div>')}
-{code('<button popovertarget="menu">Menu</button>' + chr(10) + chr(10) + '<div id="menu" popover class="menu">' + chr(10) + '  <button popovertarget="menu" popovertargetaction="hide">Edit</button>' + chr(10) + '  <button popovertarget="menu" popovertargetaction="hide">Duplicate</button>' + chr(10) + '  <hr />' + chr(10) + '  <button class="danger" popovertarget="menu" popovertargetaction="hide">Delete</button>' + chr(10) + '</div>' + chr(10) + chr(10) + '<button data-tip="Saved" aria-label="Saved">Hover me</button>')}
+{specimen('<m-hstack gap="sm" wrap><button popovertarget="dp-menu">Menu</button><button popovertarget="dp-pop">Popover</button><button data-tip="Saved to your library" aria-label="Tooltip demo">Hover me</button></m-hstack><div id="dp-menu" popover class="menu"><button popovertarget="dp-menu" popovertargetaction="hide">Edit</button><button popovertarget="dp-menu" popovertargetaction="hide">Duplicate</button><hr /><button variant="danger" popovertarget="dp-menu" popovertargetaction="hide">Delete</button></div><div id="dp-pop" popover><m-vstack gap="2xs"><b>Anchored panel</b><span>Light dismiss, Esc, toggling: all the browser. Anchored to the invoker where anchor positioning exists.</span></m-vstack></div>')}
+{code('<button popovertarget="menu">Menu</button>' + chr(10) + chr(10) + '<div id="menu" popover class="menu">' + chr(10) + '  <button popovertarget="menu" popovertargetaction="hide">Edit</button>' + chr(10) + '  <button popovertarget="menu" popovertargetaction="hide">Duplicate</button>' + chr(10) + '  <hr />' + chr(10) + '  <button variant="danger" popovertarget="menu" popovertargetaction="hide">Delete</button>' + chr(10) + '</div>' + chr(10) + chr(10) + '<button data-tip="Saved" aria-label="Saved">Hover me</button>')}
 <h2>Notes</h2>
 <p>Menu items close the menu declaratively (<code>popovertargetaction="hide"</code>)
 — an item is a button doing its job plus one attribute. Tab/Esc/light-dismiss

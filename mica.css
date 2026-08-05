@@ -268,8 +268,8 @@
 
 /* ------------------------------------------------------------------ *
  * Elements — Tier 1. Native elements styled directly; behavior is the
- * browser's. Variants are classes: any collision with app CSS resolves
- * in the user's favor because these live in a layer.
+ * browser's. Presentation APIs are attributes; user CSS still wins
+ * because these rules live in a layer.
  * ------------------------------------------------------------------ */
 @layer mica.elements {
   /* --- button (and things dressed as buttons) ---------------------- */
@@ -298,8 +298,8 @@
       background: var(--neutral-4);
     }
 
-    /* variants */
-    &:where(.primary) {
+    /* Class selectors remain aliases for the former class-based API. */
+    &:where([variant="primary"], .primary) {
       background: var(--color-primary);
       border-color: transparent;
       color: var(--color-on-primary);
@@ -316,7 +316,7 @@
          secondary button when primary is near-black */
     }
 
-    &:where(.danger) {
+    &:where([variant="danger"], .danger) {
       background: var(--color-danger);
       border-color: transparent;
       color: var(--color-on-danger);
@@ -333,9 +333,9 @@
     }
 
     /* deliberately zero rest affordance — a ghost is invisible until
-       hover/focus. use .ghost for toolbars and icon rows, not as the
-       lone action on a page. */
-    &:where(.ghost) {
+       hover/focus. use variant="ghost" for toolbars and icon rows, not
+       as the lone action on a page. */
+    &:where([variant="ghost"], .ghost) {
       background: transparent;
       border-color: transparent;
 
@@ -348,11 +348,11 @@
     }
 
     /* sizes (shadcn: h-8 px-3 / h-10 px-6, text-sm throughout) */
-    &:where(.small) {
+    &:where([size="small"], .small) {
       block-size: var(--control-height-sm);
       padding-inline: var(--space-sm);
     }
-    &:where(.large) {
+    &:where([size="large"], .large) {
       block-size: var(--control-height-lg);
       padding-inline: var(--space-lg);
     }
@@ -1358,7 +1358,7 @@
         color: var(--color-on-accent);
       }
 
-      &.danger {
+      &:is([variant="danger"], .danger) {
         color: var(--color-danger-text);
 
         &:hover:not(:disabled, [aria-disabled="true"]),

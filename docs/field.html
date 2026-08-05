@@ -159,7 +159,7 @@
             <p class="lead">Declarative per-cause errors below the field. No browser bubbles.</p>
           </m-vstack>
 
-<div class="specimen"><form onsubmit="event.preventDefault()"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-field><label for="dv-email">Email (submit empty, then type)</label><input id="dv-email" type="email" required placeholder="ada@example.com" /><m-error match="value-missing">Email is required.</m-error><m-error match="type-mismatch">That doesn&#39;t look like an email address.</m-error></m-field><m-hstack gap="sm"><button class="primary" type="submit">Submit</button></m-hstack></m-vstack></form></div>
+<div class="specimen"><form onsubmit="event.preventDefault()"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-field><label for="dv-email">Email (submit empty, then type)</label><input id="dv-email" type="email" required placeholder="ada@example.com" /><m-error match="value-missing">Email is required.</m-error><m-error match="type-mismatch">That doesn&#39;t look like an email address.</m-error></m-field><m-hstack gap="sm"><button variant="primary" type="submit">Submit</button></m-hstack></m-vstack></form></div>
 <pre><code>&lt;m-field&gt;
   &lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;
   &lt;input id=&quot;email&quot; type=&quot;email&quot; required /&gt;

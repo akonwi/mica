@@ -159,14 +159,14 @@
             <p class="lead">popover attribute + popovertarget invokers. Toggle, light dismiss, Esc, top layer — the browser's. Zero JS.</p>
           </m-vstack>
 
-<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dp-menu">Menu</button><button popovertarget="dp-pop">Popover</button><button data-tip="Saved to your library" aria-label="Tooltip demo">Hover me</button></m-hstack><div id="dp-menu" popover class="menu"><button popovertarget="dp-menu" popovertargetaction="hide">Edit</button><button popovertarget="dp-menu" popovertargetaction="hide">Duplicate</button><hr /><button class="danger" popovertarget="dp-menu" popovertargetaction="hide">Delete</button></div><div id="dp-pop" popover><m-vstack gap="2xs"><b>Anchored panel</b><span>Light dismiss, Esc, toggling: all the browser. Anchored to the invoker where anchor positioning exists.</span></m-vstack></div></div>
+<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dp-menu">Menu</button><button popovertarget="dp-pop">Popover</button><button data-tip="Saved to your library" aria-label="Tooltip demo">Hover me</button></m-hstack><div id="dp-menu" popover class="menu"><button popovertarget="dp-menu" popovertargetaction="hide">Edit</button><button popovertarget="dp-menu" popovertargetaction="hide">Duplicate</button><hr /><button variant="danger" popovertarget="dp-menu" popovertargetaction="hide">Delete</button></div><div id="dp-pop" popover><m-vstack gap="2xs"><b>Anchored panel</b><span>Light dismiss, Esc, toggling: all the browser. Anchored to the invoker where anchor positioning exists.</span></m-vstack></div></div>
 <pre><code>&lt;button popovertarget=&quot;menu&quot;&gt;Menu&lt;/button&gt;
 
 &lt;div id=&quot;menu&quot; popover class=&quot;menu&quot;&gt;
   &lt;button popovertarget=&quot;menu&quot; popovertargetaction=&quot;hide&quot;&gt;Edit&lt;/button&gt;
   &lt;button popovertarget=&quot;menu&quot; popovertargetaction=&quot;hide&quot;&gt;Duplicate&lt;/button&gt;
   &lt;hr /&gt;
-  &lt;button class=&quot;danger&quot; popovertarget=&quot;menu&quot; popovertargetaction=&quot;hide&quot;&gt;Delete&lt;/button&gt;
+  &lt;button variant=&quot;danger&quot; popovertarget=&quot;menu&quot; popovertargetaction=&quot;hide&quot;&gt;Delete&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;button data-tip=&quot;Saved&quot; aria-label=&quot;Saved&quot;&gt;Hover me&lt;/button&gt;</code></pre>
