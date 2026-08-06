@@ -193,6 +193,16 @@
     "background-color": "oklch(0.14 0 263)",
     "field-sizing": "content"
    },
+   "toast": {
+    "inline-size": "352px",
+    "max-inline-size": "none",
+    "padding-right": "64px",
+    "padding-top": "16px"
+   },
+   "toast.success": {
+    "border-inline-start-color": "oklch(0.7 0.18 150)",
+    "border-inline-start-width": "2px"
+   },
    "visually-hidden": {
     "block-size": "1px",
     "clip-path": "inset(50%)",
@@ -543,6 +553,16 @@
    "textarea": {
     "background-color": "oklch(1 0 263)",
     "field-sizing": "content"
+   },
+   "toast": {
+    "inline-size": "352px",
+    "max-inline-size": "none",
+    "padding-right": "64px",
+    "padding-top": "16px"
+   },
+   "toast.success": {
+    "border-inline-start-color": "oklch(0.52 0.18 150)",
+    "border-inline-start-width": "2px"
    },
    "visually-hidden": {
     "block-size": "1px",

@@ -1,12 +1,12 @@
 /* mica/toast.js — toast stacking, auto-dismiss, and a spawn helper.
  * Tier 2.
  *
- * Enhances the Tier-1 toast recipe (corner-pinned manual popovers).
+ * Enhances the Tier-1 <m-toast> recipe (corner-pinned manual popovers).
  * Declared toasts keep working without this module — it adds:
  *
  * - stacking: open toasts stack upward; JS ships one number per toast
  *   (--m-toast-offset), CSS owns the geometry and the reflow motion
- * - auto-dismiss: `data-duration` attribute in ms (default 5000,
+ * - auto-dismiss: `duration` attribute in ms (default 5000,
  *   "0" = sticky), paused while hovered
  * - toast(title, { description, variant, duration }): spawns the same
  *   recipe markup (`variant`: success, warning, or danger), shows it,
@@ -20,7 +20,7 @@ const open = [];
 const timers = new WeakMap();
 
 const isToast = (el) =>
-  el instanceof HTMLElement && el.matches("[popover].toast");
+  el instanceof HTMLElement && el.matches("m-toast[popover]");
 
 function restack() {
   let offset = 0;
@@ -31,8 +31,7 @@ function restack() {
 }
 
 function startTimer(el) {
-  const duration =
-    el.getAttribute("data-duration") ?? el.getAttribute("duration");
+  const duration = el.getAttribute("duration");
   const ms = duration !== null
     ? Number(duration)
     : DEFAULT_DURATION;
@@ -75,13 +74,12 @@ document.addEventListener(
 );
 
 export function toast(title, { description = "", variant = "", duration } = {}) {
-  const el = document.createElement("div");
+  const el = document.createElement("m-toast");
   el.popover = "manual";
-  el.className = "toast";
-  if (variant) el.setAttribute("data-variant", variant);
+  if (variant) el.setAttribute("variant", variant);
   el.setAttribute("role", "status");
   el.dataset.ephemeral = "";
-  if (duration !== undefined) el.setAttribute("data-duration", String(duration));
+  if (duration !== undefined) el.setAttribute("duration", String(duration));
 
   const x = document.createElement("button");
   x.className = "close";

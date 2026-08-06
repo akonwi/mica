@@ -56,6 +56,11 @@ declare module 'react' {
         variant?: 'primary' | 'success' | 'warning' | 'danger'
         count?: boolean
       }>
+      'm-toast': MicaElement<{
+        popover?: 'manual'
+        variant?: 'success' | 'warning' | 'danger'
+        duration?: string | number
+      }>
       'm-field': MicaElement
       'm-error': MicaElement<{ active?: boolean }>
       'm-combobox': MicaElement

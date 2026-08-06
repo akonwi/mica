@@ -533,7 +533,7 @@
 
     <section>
       <m-vstack gap="md">
-        <h2>Toast — display only; queueing is Tier 2</h2>
+        <h2><code>&lt;m-toast&gt;</code> — display only; queueing is Tier 2</h2>
         <m-hstack gap="sm" wrap>
           <button popovertarget="demo-toast" popovertargetaction="show">Show toast</button>
           <button popovertarget="demo-toast-ok" popovertargetaction="show">Success toast</button>
@@ -552,16 +552,16 @@
             });
           });
         </script>
-        <div id="demo-toast" popover="manual" class="toast" role="status" data-duration="0">
+        <m-toast id="demo-toast" popover="manual" role="status" duration="0">
           <button class="close" popovertarget="demo-toast" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>
           <b>Heads up</b>
           <span>popover="manual": survives light dismiss; dismissed by its X.</span>
-        </div>
-        <div id="demo-toast-ok" popover="manual" class="toast" data-variant="success" role="status">
+        </m-toast>
+        <m-toast id="demo-toast-ok" popover="manual" variant="success" role="status">
           <button class="close" popovertarget="demo-toast-ok" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>
           <b>Saved</b>
           <span>Your changes are safe.</span>
-        </div>
+        </m-toast>
       </m-vstack>
     </section>
 

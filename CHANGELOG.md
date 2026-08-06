@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- **Toast is now `<m-toast>`** rather than a styled `<div>`. Migrate
+  `<div class="toast" popover="manual" data-variant="…" data-duration="…">`
+  to `<m-toast popover="manual" variant="…" duration="…">`. The native
+  popover and `role="status"` contracts are unchanged; `toast()` now creates
+  and returns the custom element.
+
 ## v0.5.0 — 2026-08-06
 
 ### Removed

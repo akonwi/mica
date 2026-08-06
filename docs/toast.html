@@ -156,32 +156,32 @@
           <span class="crumb">Patterns / toast</span>
           <m-vstack gap="2xs">
             <m-hstack gap="sm"><h1>toast</h1> <span class="badge">Tier 1</span></m-hstack>
-            <p class="lead">A corner-pinned manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in Tier-2 enhancement.</p>
+            <p class="lead">A custom element around a native manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in Tier-2 enhancement.</p>
           </m-vstack>
 
-<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><div id="dt-a" popover="manual" class="toast" role="status" data-duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></div><div id="dt-b" popover="manual" class="toast" data-variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></div></div>
-<pre><code>&lt;div id=&quot;saved&quot; popover=&quot;manual&quot; class=&quot;toast&quot; data-variant=&quot;success&quot; role=&quot;status&quot;&gt;
+<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><m-toast id="dt-a" popover="manual" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></m-toast><m-toast id="dt-b" popover="manual" variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></m-toast></div>
+<pre><code>&lt;m-toast id=&quot;saved&quot; popover=&quot;manual&quot; variant=&quot;success&quot; role=&quot;status&quot;&gt;
   &lt;button class=&quot;close&quot; popovertarget=&quot;saved&quot;
           popovertargetaction=&quot;hide&quot; aria-label=&quot;Dismiss&quot;&gt;&amp;#x2715;&lt;/button&gt;
   &lt;b&gt;Saved&lt;/b&gt;
   &lt;span&gt;Your changes are safe.&lt;/span&gt;
-&lt;/div&gt;
+&lt;/m-toast&gt;
 
 document.getElementById(&amp;#39;saved&amp;#39;).showPopover()  // from your app code</code></pre>
 <h2>Notes</h2>
-<p><code>popover="manual"</code> keeps it up through light dismiss and other
-popovers; <code>role="status"</code> announces politely. Variants:
-<code>data-variant="success"</code>, <code>data-variant="warning"</code>, or
-<code>data-variant="danger"</code> adds a status edge. Apps show toasts from
-code (<code>showPopover()</code>).</p>
+<p><code>&lt;m-toast&gt;</code> is an inert styling wrapper around the native
+popover behavior. <code>popover="manual"</code> keeps it up through light dismiss
+and other popovers; <code>role="status"</code> announces politely. The
+<code>variant</code> attribute accepts <code>success</code>, <code>warning</code>,
+or <code>danger</code> for a status edge. Apps show toasts from code
+(<code>showPopover()</code>).</p>
 <h2>Module: toast.js (Tier 2)</h2>
 <p>Loaded on this page. Open toasts stack upward (JS ships one offset
 number per toast; CSS owns the geometry and reflow motion), auto-dismiss
-after <code>data-duration</code> ms (default 5000,
-<code>data-duration="0"</code> = sticky, paused while hovered), and
-<code>toast()</code> spawns the recipe markup from code and removes it after
-dismissal. The former <code>duration</code> attribute remains a compatibility
-alias. Try both buttons above — the toasts stack.</p>
+after <code>duration</code> ms (default 5000, <code>duration="0"</code> = sticky,
+paused while hovered), and <code>toast()</code> spawns an <code>&lt;m-toast&gt;</code>
+from code and removes it after dismissal. Try both buttons above — the toasts
+stack.</p>
 <pre><code>import {{ toast }} from &#x27;mica/toast.js&#x27;
 
 toast(&#x27;Saved&#x27;, {{ description: &#x27;Your changes are safe.&#x27;,

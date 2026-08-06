@@ -979,7 +979,7 @@
      command="close" aria-label="Close">✕</button> (or wrap it in a
      method=dialog form). absolute is safe: the dialog is positioned.
      shared with toasts (popovertarget/popovertargetaction=hide there). */
-  :where(dialog, [popover].toast) > :where(button.close) {
+  :where(dialog, m-toast[popover]) > :where(button.close) {
     position: absolute;
     inset-block-start: var(--space-sm);
     inset-inline-end: var(--space-sm);
@@ -1482,10 +1482,10 @@
   }
 
   /* --- toast: display only (queueing/auto-dismiss are Tier 2) ------- *
-   * <div popover="manual" class="toast" role="status"> — manual so it
-   * survives light dismiss and other popovers; role=status announces.
+   * <m-toast popover="manual" role="status"> — manual so it survives
+   * light dismiss and other popovers; role=status announces.
    * ------------------------------------------------------------------ */
-  :where([popover].toast) {
+  :where(m-toast[popover]) {
     position-area: none; /* not anchored — pinned to the corner */
     /* --m-toast-offset comes from toast.js when stacking; 0 without it */
     inset: auto var(--space-lg) calc(var(--space-lg) + var(--m-toast-offset, 0px)) auto;
@@ -1504,23 +1504,23 @@
       color: var(--color-text-muted);
     }
 
-    &:where([data-variant="success"]) {
+    &:where([variant="success"]) {
       border-inline-start: 2px solid var(--color-success);
     }
-    &:where([data-variant="danger"]) {
+    &:where([variant="danger"]) {
       border-inline-start: 2px solid var(--color-danger);
     }
-    &:where([data-variant="warning"]) {
+    &:where([variant="warning"]) {
       border-inline-start: 2px solid var(--color-warn);
     }
   }
   /* restacking motion always (inset-block-end); the entrance slide/fade
      only where overlay transitions work — see the base popover note. */
-  :where([popover].toast:popover-open) {
+  :where(m-toast[popover]:popover-open) {
     transition: inset-block-end 0.15s;
   }
   @supports (overlay: auto) {
-    :where([popover].toast:popover-open) {
+    :where(m-toast[popover]:popover-open) {
       transition:
         opacity 0.1s,
         translate 0.1s,
@@ -1529,7 +1529,7 @@
         display 0.1s allow-discrete;
     }
     @starting-style {
-      :where([popover].toast:popover-open) {
+      :where(m-toast[popover]:popover-open) {
         translate: 0 0.75rem;
       }
     }

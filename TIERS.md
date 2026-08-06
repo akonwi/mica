@@ -39,8 +39,9 @@ Lives here:
 
 - **Dialog/modal** — `<dialog>`: focus trap, Esc, `::backdrop`, top layer
 - **Accordion/disclosure** — `<details>`/`<summary>`, exclusive via `name`
-- **Menus, tooltips, toast display** — `popover` + invoker commands,
-  anchor positioning behind fallbacks
+- **Menus, tooltips, toast display** — `popover` + invoker commands;
+  `<m-toast>` is an inert styling wrapper, with anchor positioning behind
+  fallbacks
 - **All form controls** — button, input, textarea (`field-sizing`),
   checkbox, radio, switch (`role="switch"` checkbox), range, progress, meter
 - **Select** — `appearance: base-select` where available, graceful native
@@ -87,7 +88,7 @@ The list must stay embarrassingly short:
   selection. Options come from the author's markup, never invented.
 - **Toast queue** (`mica/toast.js`, shipped) — stacking (JS ships one
   offset number per toast; CSS owns geometry/reflow), auto-dismiss with
-  hover-pause (`data-duration` attr), and a `toast()` spawn helper that
+  hover-pause (`duration` attr), and a `toast()` spawn helper that
   builds the Tier-1 recipe markup and removes it after dismissal.
   Without JS: declared toasts still show/dismiss declaratively.
 - Maybe: carousel *controls* (the reel is Tier 0; prev/next buttons and
