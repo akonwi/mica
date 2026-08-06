@@ -332,13 +332,14 @@ children (and <code>picture &gt; img</code>) fill and crop with
         group="Layout", slug="cover", title="cover", tier="0",
         lead="Fill the viewport; center the principal element; pin the rest to the edges.",
         body=f"""
-{specimen('<m-cover class="card" style="--min-height: 18rem"><p>pinned top</p><h1 style="font-size: 1.5rem">the principal element</h1><p>pinned bottom ↓</p></m-cover>')}
-{code('<m-cover>' + chr(10) + '  <nav>…</nav>' + chr(10) + '  <h1>Big headline</h1>' + chr(10) + '  <p>scroll ↓</p>' + chr(10) + '</m-cover>')}
+{specimen('<m-cover class="card" style="--min-height: 18rem"><p>pinned top</p><p data-principal style="font-size: 1.5rem; font-weight: 600">the explicit principal element</p><p>pinned bottom ↓</p></m-cover>')}
+{code('<m-cover>' + chr(10) + '  <nav>…</nav>' + chr(10) + '  <h1>Page title</h1>' + chr(10) + '  <p data-principal>Big campaign message</p>' + chr(10) + '  <p>scroll ↓</p>' + chr(10) + '</m-cover>')}
 <h2>Attributes</h2>
 <p><code>gap</code>; <code>pad</code>: none · sm · md · lg · xl. Height
 defaults to <code>100svh</code>; override with <code>--min-height</code>.
 The principal element is the <code>h1</code> by default — mark any child
-with <code>class="principal"</code> instead (it wins over the h1).</p>
+with boolean <code>data-principal</code> instead (it wins over the h1).
+The former <code>.principal</code> class remains a compatibility alias.</p>
 """,
     ),
     # ---- Elements ----

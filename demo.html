@@ -182,11 +182,12 @@
         <h2><code>&lt;m-cover&gt;</code> — center the principal, pin the edges</h2>
         <m-cover class="card" style="--min-height: 20rem">
           <p>pinned top</p>
-          <h1 style="font-size: 1.5rem">the principal element (h1 by default)</h1>
+          <p data-principal style="font-size: 1.5rem; font-weight: 600">the explicit principal element</p>
           <p>pinned bottom ↓</p>
         </m-cover>
         <p>Defaults to <code>min-block-size: 100svh</code>; scaled down here via
-        <code>--min-height</code>. Mark a non-h1 child with <code>class="principal"</code>.</p>
+        <code>--min-height</code>. An <code>h1</code> is principal by default;
+        mark another child with <code>data-principal</code> to override it.</p>
       </m-vstack>
     </section>
 

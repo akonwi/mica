@@ -1876,8 +1876,8 @@
 
   /* --- m-cover: fill the viewport, center the principal element ---- *
    * The principal element (h1 by default, or mark one child with
-   * .principal) is vertically centered; children before it pin to the
-   * top, children after it pin to the bottom.                         */
+   * data-principal) is vertically centered; children before it pin to
+   * the top, children after it pin to the bottom.                     */
   m-cover {
     display: flex;
     flex-direction: column;
@@ -1893,9 +1893,11 @@
 
     & > * { margin-block: 0; }
 
-    & > :is(h1, .principal) { margin-block: auto; }
+    & > :is(h1, [data-principal], .principal) { margin-block: auto; }
 
-    /* an explicit .principal wins over the h1 default */
-    &:has(> .principal) > h1:not(.principal) { margin-block: 0; }
+    /* An explicit marker wins over the h1 default. .principal remains
+       an alias for the former class-based API. */
+    &:has(> :is([data-principal], .principal))
+      > h1:not([data-principal], .principal) { margin-block: 0; }
   }
 }

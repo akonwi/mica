@@ -24,6 +24,9 @@
   checked state, labels, keyboard behavior, and form participation remain the
   source of truth; no `aria-checked` duplication or JavaScript is needed. The
   former `.switch` class remains a styling alias.
+- **Cover principal marker**: `data-principal` marks the child that
+  `<m-cover>` centers between its pinned edges, overriding the default `h1`.
+  The former `.principal` class remains a compatibility alias.
 
 ## v0.3.0 — 2026-08-02
 
