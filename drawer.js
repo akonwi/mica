@@ -16,7 +16,7 @@
 const SHEET = matchMedia("(max-width: 40rem)");
 const CLOSE_DISTANCE = 1 / 3; // of sheet height
 const CLOSE_VELOCITY = 0.6; // px/ms, downward flick
-const DRAWER = "dialog:is([data-drawer], .drawer)";
+const DRAWER = "dialog[data-drawer]";
 
 document.documentElement.setAttribute("data-drawer-gestures", "");
 

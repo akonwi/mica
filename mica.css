@@ -298,8 +298,7 @@
       background: var(--neutral-4);
     }
 
-    /* Class selectors remain aliases for the former class-based API. */
-    &:where([data-variant="primary"], .primary) {
+    &:where([data-variant="primary"]) {
       background: var(--color-primary);
       border-color: transparent;
       color: var(--color-on-primary);
@@ -316,7 +315,7 @@
          secondary button when primary is near-black */
     }
 
-    &:where([data-variant="danger"], .danger) {
+    &:where([data-variant="danger"]) {
       background: var(--color-danger);
       border-color: transparent;
       color: var(--color-on-danger);
@@ -335,7 +334,7 @@
     /* deliberately zero rest affordance — a ghost is invisible until
        hover/focus. use data-variant="ghost" for toolbars and icon rows,
        not as the lone action on a page. */
-    &:where([data-variant="ghost"], .ghost) {
+    &:where([data-variant="ghost"]) {
       background: transparent;
       border-color: transparent;
 
@@ -348,11 +347,11 @@
     }
 
     /* sizes (shadcn: h-8 px-3 / h-10 px-6, text-sm throughout) */
-    &:where([data-size="small"], .small) {
+    &:where([data-size="small"]) {
       block-size: var(--control-height-sm);
       padding-inline: var(--space-sm);
     }
-    &:where([data-size="large"], .large) {
+    &:where([data-size="large"]) {
       block-size: var(--control-height-lg);
       padding-inline: var(--space-lg);
     }
@@ -572,7 +571,7 @@
     }
   }
 
-  :where(input[type="checkbox"]:not(.switch, [role="switch"])) {
+  :where(input[type="checkbox"]:not([role="switch"])) {
     &:checked {
       background-image: var(--check-glyph);
     }
@@ -668,9 +667,8 @@
 
   /* switch: a checkbox wearing a track; the thumb is a positioned
      gradient (pseudo-elements don't render on inputs). square, per the
-     design language — a solid linear-gradient block. .switch remains
-     an alias for the former class-based API. */
-  :where(input[type="checkbox"]:is([role="switch"], .switch)) {
+     design language — a solid linear-gradient block. */
+  :where(input[type="checkbox"][role="switch"]) {
     inline-size: 2.25rem;
     border-color: transparent;
     border-radius: var(--radius-sm);
@@ -691,8 +689,8 @@
   }
 
   /* disabled + on: desaturate toward neutral, same recipe as disabled
-     .primary buttons — inert, not just faded (placed after the switch
-     block so it wins its background-color at equal specificity) */
+     data-variant="primary" buttons — inert, not just faded (placed after
+     the switch block so it wins its background-color at equal specificity) */
   :where(input:is([type="checkbox"], [type="radio"])):disabled:is(
       :checked,
       :indeterminate
@@ -1082,9 +1080,8 @@
 
   /* drawer (shadcn sheet anatomy): inline-end panel, fade + 2.5rem
      nudge rather than a full slide; no section dividers; footer pinned
-     to the bottom with stacked actions. .drawer remains an alias for
-     the former class-based API. */
-  :where(dialog[data-drawer], dialog.drawer) {
+     to the bottom with stacked actions. */
+  :where(dialog[data-drawer]) {
     margin-inline: auto 0;
     margin-block: 0;
     /* full height WITHOUT an explicit block-size: the UA gives
@@ -1104,24 +1101,23 @@
     scale: 1;
     translate: 2.5rem 0;
   }
-  :where(dialog[data-drawer][open], dialog.drawer[open]) {
+  :where(dialog[data-drawer][open]) {
     translate: 0 0;
   }
   /* unconditional (survives the exit, like the rest of composition) */
-  :where(dialog[data-drawer], dialog.drawer)
-    > :where(:not(header, footer, button.close)) {
+  :where(dialog[data-drawer]) > :where(:not(header, footer, button.close)) {
     font-size: inherit; /* panel runs 12/relaxed throughout */
   }
   @starting-style {
-    :where(dialog[data-drawer][open], dialog.drawer[open]) {
+    :where(dialog[data-drawer][open]) {
       translate: 2.5rem 0;
     }
   }
 
-  :where(dialog[data-drawer], dialog.drawer) > :where(header) {
+  :where(dialog[data-drawer]) > :where(header) {
     border-block-end: 0;
   }
-  :where(dialog[data-drawer], dialog.drawer) > :where(footer) {
+  :where(dialog[data-drawer]) > :where(footer) {
     margin-block-start: auto;
     flex-direction: column;
     align-items: stretch;
@@ -1136,7 +1132,7 @@
      nav bars). Explicit 100svh gapped behind the collapsed toolbar and
      100dvh lagged in the top layer — don't reintroduce heights here. */
   @media (max-width: 40rem) {
-    :where(dialog[data-drawer], dialog.drawer) {
+    :where(dialog[data-drawer]) {
       inset-block: auto 0;       /* release the UA's top anchor… */
       margin-block: 0;           /* …so height resolves from content */
       block-size: auto;          /* content height, like vaul */
@@ -1167,14 +1163,14 @@
       translate: 0 100%;
       opacity: 1;
     }
-    :where(dialog[data-drawer][open], dialog.drawer[open]) {
+    :where(dialog[data-drawer][open]) {
       translate: 0 0;
       box-shadow:
         0 4rem 0 0 var(--color-surface-overlay),
         0 0 0 100vmax oklch(0 0 0 / 0.4);
     }
     @starting-style {
-      :where(dialog[data-drawer][open], dialog.drawer[open]) {
+      :where(dialog[data-drawer][open]) {
         translate: 0 100%;
         box-shadow:
           0 4rem 0 0 var(--color-surface-overlay),
@@ -1183,7 +1179,7 @@
     }
     /* the box-shadow scrim replaces ::backdrop here; keep the native
        backdrop clear so they don't double up or flash on the iOS cut. */
-    :where(dialog[data-drawer][open], dialog.drawer[open])::backdrop {
+    :where(dialog[data-drawer][open])::backdrop {
       background: oklch(0 0 0 / 0);
     }
 
@@ -1191,7 +1187,7 @@
        without its behavior would fake interactivity; TIERS.md).
        the handle is the first flex item of the open sheet. */
     :where(:root[data-drawer-gestures])
-      :where(dialog[data-drawer][open], dialog.drawer[open])::before {
+      :where(dialog[data-drawer][open])::before {
       content: "";
       align-self: center;
       flex-shrink: 0;
@@ -1202,7 +1198,7 @@
       border-radius: var(--radius-full);
     }
     :where(:root[data-drawer-gestures])
-      :where(dialog[data-drawer], dialog.drawer) > :where(header) {
+      :where(dialog[data-drawer]) > :where(header) {
       touch-action: none; /* the drag surface must own its touches */
     }
   }
@@ -1363,7 +1359,7 @@
         color: var(--color-on-accent);
       }
 
-      &:is([data-variant="danger"], .danger) {
+      &:is([data-variant="danger"]) {
         color: var(--color-danger-text);
 
         &:hover:not(:disabled, [aria-disabled="true"]),
@@ -1508,14 +1504,13 @@
       color: var(--color-text-muted);
     }
 
-    /* Status classes remain aliases for the former class-based API. */
-    &:where([data-variant="success"], .success) {
+    &:where([data-variant="success"]) {
       border-inline-start: 2px solid var(--color-success);
     }
-    &:where([data-variant="danger"], .danger) {
+    &:where([data-variant="danger"]) {
       border-inline-start: 2px solid var(--color-danger);
     }
-    &:where([data-variant="warning"], .warn) {
+    &:where([data-variant="warning"]) {
       border-inline-start: 2px solid var(--color-warn);
     }
   }
@@ -1893,11 +1888,9 @@
 
     & > * { margin-block: 0; }
 
-    & > :is(h1, [data-principal], .principal) { margin-block: auto; }
+    & > :is(h1, [data-principal]) { margin-block: auto; }
 
-    /* An explicit marker wins over the h1 default. .principal remains
-       an alias for the former class-based API. */
-    &:has(> :is([data-principal], .principal))
-      > h1:not([data-principal], .principal) { margin-block: 0; }
+    /* An explicit marker wins over the h1 default. */
+    &:has(> [data-principal]) > h1:not([data-principal]) { margin-block: 0; }
   }
 }

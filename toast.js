@@ -77,12 +77,8 @@ document.addEventListener(
 export function toast(title, { description = "", variant = "", duration } = {}) {
   const el = document.createElement("div");
   el.popover = "manual";
-  // Keep the generated class for consumers of the former API while
-  // emitting the attribute vocabulary used by declared toasts.
-  el.className = `toast${variant ? ` ${variant}` : ""}`;
-  if (variant) {
-    el.setAttribute("data-variant", variant === "warn" ? "warning" : variant);
-  }
+  el.className = "toast";
+  if (variant) el.setAttribute("data-variant", variant);
   el.setAttribute("role", "status");
   el.dataset.ephemeral = "";
   if (duration !== undefined) el.setAttribute("data-duration", String(duration));

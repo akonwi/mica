@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+### Removed
+
+- **Legacy presentation classes** retained by v0.4.0 are no longer styling
+  aliases. Migrate button and menu variants to `data-variant`, button sizes to
+  `data-size`, toast statuses to `data-variant`, drawers to `data-drawer`,
+  checkbox switches to `role="switch"`, and cover principals to
+  `data-principal`.
+- **Generated toast status classes** are no longer emitted by `toast()`.
+  Read or target `data-variant` instead; pass `variant: "warning"` rather than
+  the former `"warn"` class vocabulary. The structural `.toast` class remains.
+
 ## v0.4.0 — 2026-08-06
 
 ### Added

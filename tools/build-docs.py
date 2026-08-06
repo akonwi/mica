@@ -338,8 +338,7 @@ children (and <code>picture &gt; img</code>) fill and crop with
 <p><code>gap</code>; <code>pad</code>: none · sm · md · lg · xl. Height
 defaults to <code>100svh</code>; override with <code>--min-height</code>.
 The principal element is the <code>h1</code> by default — mark any child
-with boolean <code>data-principal</code> instead (it wins over the h1).
-The former <code>.principal</code> class remains a compatibility alias.</p>
+with boolean <code>data-principal</code> instead (it wins over the h1).</p>
 """,
     ),
     # ---- Elements ----
@@ -353,7 +352,7 @@ The former <code>.principal</code> class remains a compatibility alias.</p>
 <p><code>data-variant</code> accepts <code>primary</code>, <code>ghost</code>,
 or <code>danger</code>. <code>data-size</code> accepts <code>small</code> or
 <code>large</code>. Data attributes keep extension markup valid on native HTML
-elements. The former class names remain compatibility aliases.</p>
+elements.</p>
 <h2>Notes</h2>
 <p>Ghost has deliberately zero rest affordance — toolbars and icon rows, not
 the lone action on a page. Disabled is the same fill at reduced opacity.</p>
@@ -465,8 +464,7 @@ semantics. Mica only fuses their presentation.</p>
 <p><code>role="switch"</code> gives the visual track matching on/off semantics.
 The checkbox's native <code>checked</code> state supplies the accessible state —
 do not duplicate it with <code>aria-checked</code>. Form participation, labeling,
-focus, and Space-key behavior remain native. The former <code>.switch</code> class
-remains a styling alias. Safari is prototyping a native <code>switch</code>
+focus, and Space-key behavior remain native. Safari is prototyping a native <code>switch</code>
 attribute; if it standardizes, this moves down a tier.</p>
 """,
     ),
@@ -501,8 +499,7 @@ Working markup, enhanced — never rendered.</p>
 {specimen('<m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button data-variant="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" data-drawer><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button data-variant="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog>')}
 <h2>Drawer attribute</h2>
 <p><code>data-drawer</code> is boolean: its presence turns the dialog into a
-responsive side sheet / bottom sheet. The former <code>.drawer</code> class
-remains a compatibility alias.</p>
+responsive side sheet / bottom sheet.</p>
 <h2>Composition</h2>
 <p>The shadcn structure, in native vocabulary — header (title +
 description), body, footer are real elements, not components:</p>
@@ -574,9 +571,8 @@ UA's centered position.</p>
 <p><code>popover="manual"</code> keeps it up through light dismiss and other
 popovers; <code>role="status"</code> announces politely. Variants:
 <code>data-variant="success"</code>, <code>data-variant="warning"</code>, or
-<code>data-variant="danger"</code> adds a status edge. The former status class
-names remain compatibility aliases. Apps show toasts from code
-(<code>showPopover()</code>).</p>
+<code>data-variant="danger"</code> adds a status edge. Apps show toasts from
+code (<code>showPopover()</code>).</p>
 <h2>Module: toast.js (Tier 2)</h2>
 <p>Loaded on this page. Open toasts stack upward (JS ships one offset
 number per toast; CSS owns the geometry and reflow motion), auto-dismiss
