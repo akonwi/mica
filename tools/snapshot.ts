@@ -92,10 +92,10 @@ const PROBES: [string, string, string[]][] = [
   ["input.text", 'input[type="text"]',
     ["background-color", "border-top-color", "font-size", "border-radius"]],
   ["textarea", "textarea", ["field-sizing", "background-color"]],
-  ["checkbox", 'input[type="checkbox"]:not(.switch)',
+  ["checkbox", 'input[type="checkbox"]:not(.switch, [role="switch"])',
     ["appearance", "inline-size", "block-size", "border-top-color", "border-radius"]],
   ["radio", 'input[type="radio"]', ["border-radius", "inline-size"]],
-  ["switch", "input.switch", ["inline-size", "block-size", "border-radius"]],
+  ["switch", 'input[type="checkbox"][role="switch"]', ["inline-size", "block-size", "border-radius"]],
   ["segmented", "m-segmented", ["display", "border-top-color", "border-radius"]],
   ["segmented.checked", "m-segmented label:has(input:checked)",
     ["background-color", "color", "font-weight"]],
@@ -124,10 +124,10 @@ const PROBES: [string, string, string[]][] = [
   ["h1", "h1", ["margin-block-start", "margin-block-end", "line-height"]],
   ["table", "table", ["border-collapse"]],
   // checked-state grammar (static — demo has checked + unchecked instances)
-  ["checkbox.checked", 'input[type="checkbox"]:not(.switch):checked',
+  ["checkbox.checked", 'input[type="checkbox"]:not(.switch, [role="switch"]):checked',
     ["background-color", "border-top-color"]],
   ["radio.checked", 'input[type="radio"]:checked', ["background-color"]],
-  ["switch.checked", "input.switch:checked", ["background-color"]],
+  ["switch.checked", 'input[type="checkbox"][role="switch"]:checked', ["background-color"]],
 ];
 
 // -------------------------------------------------------- state probes
@@ -153,11 +153,11 @@ const VISUAL_PROBES: [string, string][] = [
   ["progress", "progress"],
   ["meter", "meter"],
   ["select", "select"],
-  ["checkbox.checked", 'input[type="checkbox"]:not(.switch):checked'],
-  ["checkbox.unchecked", 'input[type="checkbox"]:not(.switch):not(:checked):not([disabled])'],
+  ["checkbox.checked", 'input[type="checkbox"]:not(.switch, [role="switch"]):checked'],
+  ["checkbox.unchecked", 'input[type="checkbox"]:not(.switch, [role="switch"]):not(:checked):not([disabled])'],
   ["radio.checked", 'input[type="radio"]:checked'],
-  ["switch.checked", "input.switch:checked"],
-  ["switch.unchecked", "input.switch:not(:checked):not([disabled])"],
+  ["switch.checked", 'input[type="checkbox"][role="switch"]:checked'],
+  ["switch.unchecked", 'input[type="checkbox"][role="switch"]:not(:checked):not([disabled])'],
 ];
 const VISUAL_DIR = join(import.meta.dir, "snapshots", "visual");
 

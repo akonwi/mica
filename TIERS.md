@@ -42,7 +42,7 @@ Lives here:
 - **Menus, tooltips, toast display** — `popover` + invoker commands,
   anchor positioning behind fallbacks
 - **All form controls** — button, input, textarea (`field-sizing`),
-  checkbox, radio, switch (restyled checkbox), range, progress, meter
+  checkbox, radio, switch (`role="switch"` checkbox), range, progress, meter
 - **Select** — `appearance: base-select` where available, graceful native
   select elsewhere
 - **Nav patterns, tables, lists, typography**

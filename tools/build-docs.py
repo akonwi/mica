@@ -456,14 +456,17 @@ semantics. Mica only fuses their presentation.</p>
     ),
     dict(
         group="Forms", slug="switch", title="switch", tier="1",
-        lead="A checkbox wearing a track. Square, like everything else.",
+        lead="A native checkbox with switch semantics, wearing a track. Square, like everything else.",
         body=f"""
-{specimen('<m-hstack gap="lg" wrap><label><input type="checkbox" class="switch" checked /> Notifications</label><label><input type="checkbox" class="switch" /> Marketing</label><label><input type="checkbox" class="switch" disabled /> Locked</label></m-hstack>')}
-{code('<label><input type="checkbox" class="switch" checked /> Notifications</label>')}
+{specimen('<m-hstack gap="lg" wrap><label><input type="checkbox" role="switch" checked /> Notifications</label><label><input type="checkbox" role="switch" /> Marketing</label><label><input type="checkbox" role="switch" disabled /> Locked</label></m-hstack>')}
+{code('<label><input type="checkbox" role="switch" checked /> Notifications</label>')}
 <h2>Notes</h2>
-<p>Just <code>class="switch"</code> on a checkbox — form participation and
-keyboard behavior are untouched. Safari is prototyping a native
-<code>switch</code> attribute; if it standardizes, this moves down a tier.</p>
+<p><code>role="switch"</code> gives the visual track matching on/off semantics.
+The checkbox's native <code>checked</code> state supplies the accessible state —
+do not duplicate it with <code>aria-checked</code>. Form participation, labeling,
+focus, and Space-key behavior remain native. The former <code>.switch</code> class
+remains a styling alias. Safari is prototyping a native <code>switch</code>
+attribute; if it standardizes, this moves down a tier.</p>
 """,
     ),
     dict(

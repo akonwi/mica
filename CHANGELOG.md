@@ -19,6 +19,11 @@
   a compatibility alias. Native-element extension attributes use the
   standards-defined `data-*` form; autonomous `m-*` elements keep their
   direct attribute vocabularies.
+- **Semantic switch API**: `role="switch"` on a native checkbox now selects
+  mica's switch presentation and exposes matching on/off semantics. Native
+  checked state, labels, keyboard behavior, and form participation remain the
+  source of truth; no `aria-checked` duplication or JavaScript is needed. The
+  former `.switch` class remains a styling alias.
 
 ## v0.3.0 — 2026-08-02
 

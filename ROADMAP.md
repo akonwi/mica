@@ -31,7 +31,7 @@ dialogs). Infrastructure interleaves — don't batch it.
 - [x] Inputs, textarea (`field-sizing`), basic select — one control
       family with buttons; `:user-invalid` wired to danger roles
 - [x] Checkbox, radio, switch — drawn (`appearance: none`), one family
-      with buttons/fields; switch is `class="switch"` on a checkbox
+      with buttons/fields; switch is `role="switch"` on a checkbox
 - [x] Select — `appearance: base-select` picker/options/checkmark/caret
       styled with mica vocabulary (Chromium); native picker elsewhere;
       UA positioning kept (fighting it clips)

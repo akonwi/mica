@@ -572,7 +572,7 @@
     }
   }
 
-  :where(input[type="checkbox"]:not(.switch)) {
+  :where(input[type="checkbox"]:not(.switch, [role="switch"])) {
     &:checked {
       background-image: var(--check-glyph);
     }
@@ -668,8 +668,9 @@
 
   /* switch: a checkbox wearing a track; the thumb is a positioned
      gradient (pseudo-elements don't render on inputs). square, per the
-     design language — a solid linear-gradient block */
-  :where(input[type="checkbox"].switch) {
+     design language — a solid linear-gradient block. .switch remains
+     an alias for the former class-based API. */
+  :where(input[type="checkbox"]:is([role="switch"], .switch)) {
     inline-size: 2.25rem;
     border-color: transparent;
     border-radius: var(--radius-sm);

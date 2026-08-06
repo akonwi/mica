@@ -323,12 +323,13 @@
           <label><input type="radio" name="demo-r" disabled /> Off-limits</label>
         </m-hstack>
         <m-hstack gap="lg" wrap>
-          <label><input type="checkbox" class="switch" checked /> Notifications</label>
-          <label><input type="checkbox" class="switch" /> Marketing email</label>
-          <label><input type="checkbox" class="switch" disabled /> Locked</label>
+          <label><input type="checkbox" role="switch" checked /> Notifications</label>
+          <label><input type="checkbox" role="switch" /> Marketing email</label>
+          <label><input type="checkbox" role="switch" disabled /> Locked</label>
         </m-hstack>
         <p>All three are native <code>&lt;input&gt;</code>s — keyboard, forms, and
-        AT semantics untouched. The switch is <code>class="switch"</code> on a checkbox.</p>
+        state stay native. <code>role="switch"</code> gives the track its matching
+        on/off semantics; the former <code>.switch</code> class remains an alias.</p>
       </m-vstack>
     </section>
 
