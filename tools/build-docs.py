@@ -557,15 +557,17 @@ UA's centered position.</p>
     dict(
         group="Patterns", slug="toast", title="toast", tier="1",
         scripts=["../toast.js"],
-        lead="A corner-pinned manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are honest Tier-2 work, not shipped yet.",
+        lead="A corner-pinned manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in Tier-2 enhancement.",
         body=f"""
-{specimen('<m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><div id="dt-a" popover="manual" class="toast" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></div><div id="dt-b" popover="manual" class="toast success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></div>')}
-{code('<div id="saved" popover="manual" class="toast success" role="status">' + chr(10) + '  <button class="close" popovertarget="saved"' + chr(10) + '          popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>' + chr(10) + '  <b>Saved</b>' + chr(10) + '  <span>Your changes are safe.</span>' + chr(10) + '</div>' + chr(10) + chr(10) + 'document.getElementById(&#39;saved&#39;).showPopover()  // from your app code')}
+{specimen('<m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><div id="dt-a" popover="manual" class="toast" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></div><div id="dt-b" popover="manual" class="toast" variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></div>')}
+{code('<div id="saved" popover="manual" class="toast" variant="success" role="status">' + chr(10) + '  <button class="close" popovertarget="saved"' + chr(10) + '          popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>' + chr(10) + '  <b>Saved</b>' + chr(10) + '  <span>Your changes are safe.</span>' + chr(10) + '</div>' + chr(10) + chr(10) + 'document.getElementById(&#39;saved&#39;).showPopover()  // from your app code')}
 <h2>Notes</h2>
 <p><code>popover="manual"</code> keeps it up through light dismiss and other
 popovers; <code>role="status"</code> announces politely. Variants:
-<code>.success</code> / <code>.danger</code> / <code>.warn</code> status edges.
-Apps show toasts from code (<code>showPopover()</code>).</p>
+<code>variant="success"</code>, <code>variant="warning"</code>, or
+<code>variant="danger"</code> adds a status edge. The former status class
+names remain compatibility aliases. Apps show toasts from code
+(<code>showPopover()</code>).</p>
 <h2>Module: toast.js (Tier 2)</h2>
 <p>Loaded on this page. Open toasts stack upward (JS ships one offset
 number per toast; CSS owns the geometry and reflow motion), auto-dismiss

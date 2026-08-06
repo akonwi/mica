@@ -9,7 +9,8 @@
  * - auto-dismiss: `duration` attribute in ms (default 5000, "0" = sticky),
  *   paused while hovered
  * - toast(title, { description, variant, duration }): spawns the same
- *   recipe markup, shows it, and removes it after dismissal
+ *   recipe markup (`variant`: success, warning, or danger), shows it,
+ *   and removes it after dismissal
  */
 
 const GAP = 8;
@@ -74,7 +75,12 @@ document.addEventListener(
 export function toast(title, { description = "", variant = "", duration } = {}) {
   const el = document.createElement("div");
   el.popover = "manual";
+  // Keep the generated class for consumers of the former API while
+  // emitting the attribute vocabulary used by declared toasts.
   el.className = `toast${variant ? ` ${variant}` : ""}`;
+  if (variant) {
+    el.setAttribute("variant", variant === "warn" ? "warning" : variant);
+  }
   el.setAttribute("role", "status");
   el.dataset.ephemeral = "";
   if (duration !== undefined) el.setAttribute("duration", String(duration));

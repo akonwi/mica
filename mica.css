@@ -1503,14 +1503,14 @@
       color: var(--color-text-muted);
     }
 
-    /* status edge variants */
-    &:where(.success) {
+    /* Status classes remain aliases for the former class-based API. */
+    &:where([variant="success"], .success) {
       border-inline-start: 2px solid var(--color-success);
     }
-    &:where(.danger) {
+    &:where([variant="danger"], .danger) {
       border-inline-start: 2px solid var(--color-danger);
     }
-    &:where(.warn) {
+    &:where([variant="warning"], .warn) {
       border-inline-start: 2px solid var(--color-warn);
     }
   }

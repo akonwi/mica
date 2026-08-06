@@ -8,6 +8,11 @@
   `variant="primary|ghost|danger"` and `size="small|large"`. The same
   attributes can compose with `.btn` links. The former variant and size
   class names remain compatibility aliases.
+- **Toast attribute API**: declared and generated toasts use
+  `variant="success|warning|danger"` for their status edge, aligning
+  warning vocabulary with badges. The former `.success`, `.warn`, and
+  `.danger` classes remain compatibility aliases; `toast()` also preserves
+  generated status classes during the migration.
 
 ## v0.3.0 — 2026-08-02
 
