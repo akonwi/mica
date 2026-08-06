@@ -234,20 +234,20 @@
         <h2>Buttons — native <code>&lt;button&gt;</code>, styled directly</h2>
         <m-hstack gap="sm" wrap>
           <button>Default</button>
-          <button variant="primary">Primary</button>
-          <button variant="ghost">Ghost</button>
-          <button variant="danger">Danger</button>
+          <button data-variant="primary">Primary</button>
+          <button data-variant="ghost">Ghost</button>
+          <button data-variant="danger">Danger</button>
           <button disabled>Disabled</button>
-          <button variant="primary" disabled>Disabled primary</button>
+          <button data-variant="primary" disabled>Disabled primary</button>
         </m-hstack>
         <m-hstack gap="sm" wrap>
-          <button size="small">Small</button>
+          <button data-size="small">Small</button>
           <button>Medium</button>
-          <button size="large">Large</button>
+          <button data-size="large">Large</button>
           <a class="btn" href="#main">A link dressed as a button</a>
         </m-hstack>
-        <p><code>variant</code> accepts <code>primary</code>, <code>ghost</code>, or
-        <code>danger</code>; <code>size</code> accepts <code>small</code> or
+        <p><code>data-variant</code> accepts <code>primary</code>, <code>ghost</code>, or
+        <code>danger</code>; <code>data-size</code> accepts <code>small</code> or
         <code>large</code>. The former class names remain compatibility aliases.</p>
         <p>Status roles (hue knobs, no scales):
         <span class="chip" style="background: var(--color-danger-surface); border: 1px solid var(--color-danger-border); color: var(--color-danger-text)">danger</span>
@@ -301,8 +301,8 @@
               </m-vstack>
             </fieldset>
             <m-hstack gap="sm">
-              <button type="submit" variant="primary">Submit</button>
-              <button type="reset" variant="ghost">Reset</button>
+              <button type="submit" data-variant="primary">Submit</button>
+              <button type="reset" data-variant="ghost">Reset</button>
             </m-hstack>
           </m-vstack>
         </form>
@@ -430,7 +430,7 @@
         </m-hstack>
         <p>Inline <code>code</code> gets a chip; press <kbd>⌘</kbd><kbd>K</kbd> for nothing.</p>
 <pre><code>&lt;m-vstack gap="lg"&gt;
-  &lt;button variant="primary"&gt;Submit&lt;/button&gt;
+  &lt;button data-variant="primary"&gt;Submit&lt;/button&gt;
 &lt;/m-vstack&gt;</code></pre>
         <blockquote>Delete the stylesheet and it still works — that is the demo.</blockquote>
         <hr />
@@ -460,11 +460,11 @@
           <footer>
             <form method="dialog">
               <button>Cancel</button>
-              <button variant="primary" value="ok">Confirm</button>
+              <button data-variant="primary" value="ok">Confirm</button>
             </form>
           </footer>
         </dialog>
-        <dialog id="demo-drawer" class="drawer">
+        <dialog id="demo-drawer" data-drawer>
           <button class="close" commandfor="demo-drawer" command="close" aria-label="Close">&#x2715;</button>
           <header>
             <h2>Drawer</h2>
@@ -475,7 +475,7 @@
             <input id="dw-note" type="text" placeholder="Tab around…" />
           </m-vstack>
           <footer>
-            <button variant="primary" commandfor="demo-drawer" command="close">Save changes</button>
+            <button data-variant="primary" commandfor="demo-drawer" command="close">Save changes</button>
             <button commandfor="demo-drawer" command="close">Cancel</button>
           </footer>
         </dialog>
@@ -517,7 +517,7 @@
           <button popovertarget="demo-menu" popovertargetaction="hide">Edit</button>
           <button popovertarget="demo-menu" popovertargetaction="hide">Duplicate</button>
           <hr />
-          <button variant="danger" popovertarget="demo-menu" popovertargetaction="hide">Delete</button>
+          <button data-variant="danger" popovertarget="demo-menu" popovertargetaction="hide">Delete</button>
         </div>
         <div id="demo-pop" popover>
           <m-vstack gap="2xs">
@@ -550,12 +550,12 @@
             });
           });
         </script>
-        <div id="demo-toast" popover="manual" class="toast" role="status" duration="0">
+        <div id="demo-toast" popover="manual" class="toast" role="status" data-duration="0">
           <button class="close" popovertarget="demo-toast" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>
           <b>Heads up</b>
           <span>popover="manual": survives light dismiss; dismissed by its X.</span>
         </div>
-        <div id="demo-toast-ok" popover="manual" class="toast" variant="success" role="status">
+        <div id="demo-toast-ok" popover="manual" class="toast" data-variant="success" role="status">
           <button class="close" popovertarget="demo-toast-ok" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>
           <b>Saved</b>
           <span>Your changes are safe.</span>

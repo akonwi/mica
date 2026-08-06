@@ -85,10 +85,10 @@ const PROBES: [string, string, string[]][] = [
   ["cover", "m-cover", ["display", "flex-direction", "padding-top", "row-gap"]],
   ["button", "button:not([class]):not([disabled])",
     ["background-color", "color", "border-top-color", "border-radius", "font-weight"]],
-  ["button.primary", 'button[variant="primary"]', ["background-color", "color", "border-top-color"]],
-  ["button.ghost", 'button[variant="ghost"]', ["background-color", "border-top-color"]],
-  ["button.danger", 'button[variant="danger"]', ["background-color", "color"]],
-  ["button.small", 'button[size="small"]', ["font-size", "padding-left"]],
+  ["button.primary", 'button[data-variant="primary"]', ["background-color", "color", "border-top-color"]],
+  ["button.ghost", 'button[data-variant="ghost"]', ["background-color", "border-top-color"]],
+  ["button.danger", 'button[data-variant="danger"]', ["background-color", "color"]],
+  ["button.small", 'button[data-size="small"]', ["font-size", "padding-left"]],
   ["input.text", 'input[type="text"]',
     ["background-color", "border-top-color", "font-size", "border-radius"]],
   ["textarea", "textarea", ["field-sizing", "background-color"]],
@@ -136,8 +136,8 @@ const PROBES: [string, string, string[]][] = [
 // interactions per scheme; results land under `states` in the baseline.
 const HOVER_PROBES: [string, string, string[]][] = [
   ["button.hover", "button:not([class]):not([disabled])", ["background-color"]],
-  ["button.primary.hover", 'button[variant="primary"]:not([disabled])', ["background-color"]],
-  ["button.danger.hover", 'button[variant="danger"]:not([disabled])', ["background-color"]],
+  ["button.primary.hover", 'button[data-variant="primary"]:not([disabled])', ["background-color"]],
+  ["button.danger.hover", 'button[data-variant="danger"]:not([disabled])', ["background-color"]],
 ];
 
 // -------------------------------------------------------- visual probes

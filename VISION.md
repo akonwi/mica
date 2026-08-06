@@ -73,7 +73,9 @@ See [TIERS.md](TIERS.md) for the classification tests and component map.
 5. **Attributes are the vocabulary, custom properties are the escape hatch.**
    `<m-vstack gap="lg">` for the enumerated token vocabulary;
    `style="--gap: 2.5rem"` for arbitrary values. Both converge on the same
-   mechanism: attributes only set custom properties.
+   mechanism: attributes only set custom properties. Autonomous `m-*`
+   elements own direct attributes; extensions on native HTML elements use
+   the standards-defined `data-*` form (`<button data-variant="primary">`).
 
 ## Browser baseline
 

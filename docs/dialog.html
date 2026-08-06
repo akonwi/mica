@@ -60,7 +60,7 @@
       .specimen { padding: var(--space-lg); }
     }
 
-    @media (max-width: 40rem) { .drawer > button.close { display: none; } }
+    @media (max-width: 40rem) { [data-drawer] > button.close { display: none; } }
   </style>
 </head>
 <body>
@@ -162,7 +162,11 @@
             <p class="lead">Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands (shimmed while support spreads).</p>
           </m-vstack>
 
-<div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button variant="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" class="drawer"><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button variant="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog></div>
+<div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button data-variant="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" data-drawer><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button data-variant="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog></div>
+<h2>Drawer attribute</h2>
+<p><code>data-drawer</code> is boolean: its presence turns the dialog into a
+responsive side sheet / bottom sheet. The former <code>.drawer</code> class
+remains a compatibility alias.</p>
 <h2>Composition</h2>
 <p>The shadcn structure, in native vocabulary — header (title +
 description), body, footer are real elements, not components:</p>
@@ -180,7 +184,7 @@ description), body, footer are real elements, not components:</p>
   &lt;footer&gt;                     &lt;!-- footer: right-aligned row --&gt;
     &lt;form method=&quot;dialog&quot;&gt;
       &lt;button&gt;Cancel&lt;/button&gt;
-      &lt;button variant=&quot;primary&quot; value=&quot;ok&quot;&gt;Confirm&lt;/button&gt;
+      &lt;button data-variant=&quot;primary&quot; value=&quot;ok&quot;&gt;Confirm&lt;/button&gt;
     &lt;/form&gt;
   &lt;/footer&gt;
 &lt;/dialog&gt;</code></pre>
@@ -203,7 +207,7 @@ when the behavior exists.</p>
 desktop side-sheet. Hide it below the breakpoint in your own CSS — this
 page does exactly that:</p>
 <pre><code>@media (max-width: 40rem) {
-  dialog.drawer &gt; button.close { display: none; }
+  dialog[data-drawer] &gt; button.close { display: none; }
 }</code></pre>
 <h2>Browser support</h2>
 <p>Invoker commands (<code>commandfor</code>/<code>command</code>) are

@@ -1,5 +1,5 @@
-/* mica/drawer.js — Tier 2: swipe-to-dismiss for dialog.drawer bottom
- * sheets on small screens.
+/* mica/drawer.js — Tier 2: swipe-to-dismiss for dialog[data-drawer]
+ * bottom sheets on small screens.
  *
  * Enhances working markup, never replaces it: without this module the
  * drawer opens/closes via buttons and Esc; with it, the mobile sheet
@@ -16,6 +16,7 @@
 const SHEET = matchMedia("(max-width: 40rem)");
 const CLOSE_DISTANCE = 1 / 3; // of sheet height
 const CLOSE_VELOCITY = 0.6; // px/ms, downward flick
+const DRAWER = "dialog:is([data-drawer], .drawer)";
 
 document.documentElement.setAttribute("data-drawer-gestures", "");
 
@@ -23,13 +24,13 @@ document.addEventListener("pointerdown", (down) => {
   if (!SHEET.matches) return;
   const dialog =
     down.target instanceof Element &&
-    down.target.closest("dialog.drawer[open]");
+    down.target.closest(`${DRAWER}[open]`);
   if (!dialog) return;
   if (down.target.closest("button, a, input, select, textarea")) return;
 
   // start only from the header or the top (handle) strip
   const rect = dialog.getBoundingClientRect();
-  const inHeader = down.target.closest("dialog.drawer > header");
+  const inHeader = down.target.closest(`${DRAWER} > header`);
   if (!inHeader && down.clientY - rect.top > 32) return;
 
   let dy = 0;

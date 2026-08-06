@@ -4,15 +4,21 @@
 
 ### Added
 
-- **Button attribute API**: native buttons use
-  `variant="primary|ghost|danger"` and `size="small|large"`. The same
-  attributes can compose with `.btn` links. The former variant and size
-  class names remain compatibility aliases.
-- **Toast attribute API**: declared and generated toasts use
-  `variant="success|warning|danger"` for their status edge, aligning
+- **Button data-attribute API**: native buttons use
+  `data-variant="primary|ghost|danger"` and `data-size="small|large"`.
+  The same attributes can compose with `.btn` links. The former variant
+  and size class names remain compatibility aliases.
+- **Toast data-attribute API**: declared and generated toasts use
+  `data-variant="success|warning|danger"` for their status edge, aligning
   warning vocabulary with badges. The former `.success`, `.warn`, and
   `.danger` classes remain compatibility aliases; `toast()` also preserves
-  generated status classes during the migration.
+  generated status classes during the migration. Auto-dismiss configuration
+  uses `data-duration`; the former `duration` attribute remains supported.
+- **Drawer data attribute**: `data-drawer` turns a native `<dialog>` into
+  mica's responsive drawer/bottom sheet. The former `.drawer` class remains
+  a compatibility alias. Native-element extension attributes use the
+  standards-defined `data-*` form; autonomous `m-*` elements keep their
+  direct attribute vocabularies.
 
 ## v0.3.0 — 2026-08-02
 

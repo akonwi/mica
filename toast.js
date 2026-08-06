@@ -6,8 +6,8 @@
  *
  * - stacking: open toasts stack upward; JS ships one number per toast
  *   (--m-toast-offset), CSS owns the geometry and the reflow motion
- * - auto-dismiss: `duration` attribute in ms (default 5000, "0" = sticky),
- *   paused while hovered
+ * - auto-dismiss: `data-duration` attribute in ms (default 5000,
+ *   "0" = sticky), paused while hovered
  * - toast(title, { description, variant, duration }): spawns the same
  *   recipe markup (`variant`: success, warning, or danger), shows it,
  *   and removes it after dismissal
@@ -31,8 +31,10 @@ function restack() {
 }
 
 function startTimer(el) {
-  const ms = el.hasAttribute("duration")
-    ? Number(el.getAttribute("duration"))
+  const duration =
+    el.getAttribute("data-duration") ?? el.getAttribute("duration");
+  const ms = duration !== null
+    ? Number(duration)
     : DEFAULT_DURATION;
   if (!ms) return;
   timers.set(el, setTimeout(() => el.hidePopover(), ms));
@@ -79,11 +81,11 @@ export function toast(title, { description = "", variant = "", duration } = {}) 
   // emitting the attribute vocabulary used by declared toasts.
   el.className = `toast${variant ? ` ${variant}` : ""}`;
   if (variant) {
-    el.setAttribute("variant", variant === "warn" ? "warning" : variant);
+    el.setAttribute("data-variant", variant === "warn" ? "warning" : variant);
   }
   el.setAttribute("role", "status");
   el.dataset.ephemeral = "";
-  if (duration !== undefined) el.setAttribute("duration", String(duration));
+  if (duration !== undefined) el.setAttribute("data-duration", String(duration));
 
   const x = document.createElement("button");
   x.className = "close";

@@ -26,8 +26,8 @@ dialogs). Infrastructure interleaves — don't batch it.
 
 ## Phase 3 — `mica.elements`: buttons & forms
 
-- [x] Button (`variant="primary|ghost|danger"` and
-      `size="small|large"`; former class names remain compatibility aliases)
+- [x] Button (`data-variant="primary|ghost|danger"` and
+      `data-size="small|large"`; former class names remain compatibility aliases)
 - [x] Inputs, textarea (`field-sizing`), basic select — one control
       family with buttons; `:user-invalid` wired to danger roles
 - [x] Checkbox, radio, switch — drawn (`appearance: none`), one family
@@ -59,7 +59,7 @@ Exit criterion: a plain HTML form page looks designed, zero classes.
 
 ## Phase 4 — Tier 1 patterns
 
-- [x] `<dialog>` — modal + drawer (`class="drawer"`), zero JS via
+- [x] `<dialog>` — modal + drawer (`data-drawer`; `.drawer` alias), zero JS via
       invoker commands + `form method=dialog`; enter/exit animations
       (`@starting-style` + allow-discrete) incl. backdrop fade; new
       `--color-surface-overlay` role for top-layer elevation in dark

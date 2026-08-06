@@ -87,7 +87,7 @@ The list must stay embarrassingly short:
   selection. Options come from the author's markup, never invented.
 - **Toast queue** (`mica/toast.js`, shipped) — stacking (JS ships one
   offset number per toast; CSS owns geometry/reflow), auto-dismiss with
-  hover-pause (`duration` attr), and a `toast()` spawn helper that
+  hover-pause (`data-duration` attr), and a `toast()` spawn helper that
   builds the Tier-1 recipe markup and removes it after dismissal.
   Without JS: declared toasts still show/dismiss declaratively.
 - Maybe: carousel *controls* (the reel is Tier 0; prev/next buttons and

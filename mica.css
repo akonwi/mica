@@ -299,7 +299,7 @@
     }
 
     /* Class selectors remain aliases for the former class-based API. */
-    &:where([variant="primary"], .primary) {
+    &:where([data-variant="primary"], .primary) {
       background: var(--color-primary);
       border-color: transparent;
       color: var(--color-on-primary);
@@ -316,7 +316,7 @@
          secondary button when primary is near-black */
     }
 
-    &:where([variant="danger"], .danger) {
+    &:where([data-variant="danger"], .danger) {
       background: var(--color-danger);
       border-color: transparent;
       color: var(--color-on-danger);
@@ -333,9 +333,9 @@
     }
 
     /* deliberately zero rest affordance — a ghost is invisible until
-       hover/focus. use variant="ghost" for toolbars and icon rows, not
-       as the lone action on a page. */
-    &:where([variant="ghost"], .ghost) {
+       hover/focus. use data-variant="ghost" for toolbars and icon rows,
+       not as the lone action on a page. */
+    &:where([data-variant="ghost"], .ghost) {
       background: transparent;
       border-color: transparent;
 
@@ -348,11 +348,11 @@
     }
 
     /* sizes (shadcn: h-8 px-3 / h-10 px-6, text-sm throughout) */
-    &:where([size="small"], .small) {
+    &:where([data-size="small"], .small) {
       block-size: var(--control-height-sm);
       padding-inline: var(--space-sm);
     }
-    &:where([size="large"], .large) {
+    &:where([data-size="large"], .large) {
       block-size: var(--control-height-lg);
       padding-inline: var(--space-lg);
     }
@@ -1081,8 +1081,9 @@
 
   /* drawer (shadcn sheet anatomy): inline-end panel, fade + 2.5rem
      nudge rather than a full slide; no section dividers; footer pinned
-     to the bottom with stacked actions */
-  :where(dialog.drawer) {
+     to the bottom with stacked actions. .drawer remains an alias for
+     the former class-based API. */
+  :where(dialog[data-drawer], dialog.drawer) {
     margin-inline: auto 0;
     margin-block: 0;
     /* full height WITHOUT an explicit block-size: the UA gives
@@ -1102,23 +1103,24 @@
     scale: 1;
     translate: 2.5rem 0;
   }
-  :where(dialog.drawer[open]) {
+  :where(dialog[data-drawer][open], dialog.drawer[open]) {
     translate: 0 0;
   }
   /* unconditional (survives the exit, like the rest of composition) */
-  :where(dialog.drawer) > :where(:not(header, footer, button.close)) {
+  :where(dialog[data-drawer], dialog.drawer)
+    > :where(:not(header, footer, button.close)) {
     font-size: inherit; /* panel runs 12/relaxed throughout */
   }
   @starting-style {
-    :where(dialog.drawer[open]) {
+    :where(dialog[data-drawer][open], dialog.drawer[open]) {
       translate: 2.5rem 0;
     }
   }
 
-  :where(dialog.drawer) > :where(header) {
+  :where(dialog[data-drawer], dialog.drawer) > :where(header) {
     border-block-end: 0;
   }
-  :where(dialog.drawer) > :where(footer) {
+  :where(dialog[data-drawer], dialog.drawer) > :where(footer) {
     margin-block-start: auto;
     flex-direction: column;
     align-items: stretch;
@@ -1133,7 +1135,7 @@
      nav bars). Explicit 100svh gapped behind the collapsed toolbar and
      100dvh lagged in the top layer — don't reintroduce heights here. */
   @media (max-width: 40rem) {
-    :where(dialog.drawer) {
+    :where(dialog[data-drawer], dialog.drawer) {
       inset-block: auto 0;       /* release the UA's top anchor… */
       margin-block: 0;           /* …so height resolves from content */
       block-size: auto;          /* content height, like vaul */
@@ -1164,14 +1166,14 @@
       translate: 0 100%;
       opacity: 1;
     }
-    :where(dialog.drawer[open]) {
+    :where(dialog[data-drawer][open], dialog.drawer[open]) {
       translate: 0 0;
       box-shadow:
         0 4rem 0 0 var(--color-surface-overlay),
         0 0 0 100vmax oklch(0 0 0 / 0.4);
     }
     @starting-style {
-      :where(dialog.drawer[open]) {
+      :where(dialog[data-drawer][open], dialog.drawer[open]) {
         translate: 0 100%;
         box-shadow:
           0 4rem 0 0 var(--color-surface-overlay),
@@ -1180,14 +1182,15 @@
     }
     /* the box-shadow scrim replaces ::backdrop here; keep the native
        backdrop clear so they don't double up or flash on the iOS cut. */
-    :where(dialog.drawer[open])::backdrop {
+    :where(dialog[data-drawer][open], dialog.drawer[open])::backdrop {
       background: oklch(0 0 0 / 0);
     }
 
     /* grab handle — only when drawer.js is loaded (an affordance
        without its behavior would fake interactivity; TIERS.md).
        the handle is the first flex item of the open sheet. */
-    :where(:root[data-drawer-gestures]) :where(dialog.drawer[open])::before {
+    :where(:root[data-drawer-gestures])
+      :where(dialog[data-drawer][open], dialog.drawer[open])::before {
       content: "";
       align-self: center;
       flex-shrink: 0;
@@ -1197,7 +1200,8 @@
       background: var(--color-border-strong);
       border-radius: var(--radius-full);
     }
-    :where(:root[data-drawer-gestures]) :where(dialog.drawer) > :where(header) {
+    :where(:root[data-drawer-gestures])
+      :where(dialog[data-drawer], dialog.drawer) > :where(header) {
       touch-action: none; /* the drag surface must own its touches */
     }
   }
@@ -1358,7 +1362,7 @@
         color: var(--color-on-accent);
       }
 
-      &:is([variant="danger"], .danger) {
+      &:is([data-variant="danger"], .danger) {
         color: var(--color-danger-text);
 
         &:hover:not(:disabled, [aria-disabled="true"]),
@@ -1504,13 +1508,13 @@
     }
 
     /* Status classes remain aliases for the former class-based API. */
-    &:where([variant="success"], .success) {
+    &:where([data-variant="success"], .success) {
       border-inline-start: 2px solid var(--color-success);
     }
-    &:where([variant="danger"], .danger) {
+    &:where([data-variant="danger"], .danger) {
       border-inline-start: 2px solid var(--color-danger);
     }
-    &:where([variant="warning"], .warn) {
+    &:where([data-variant="warning"], .warn) {
       border-inline-start: 2px solid var(--color-warn);
     }
   }
