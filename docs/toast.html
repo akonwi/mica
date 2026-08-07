@@ -155,8 +155,8 @@
         <m-vstack gap="xl">
           <span class="crumb">Patterns / toast</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>toast</h1> <span class="badge">Tier 1</span></m-hstack>
-            <p class="lead">A custom element around a native manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in Tier-2 enhancement.</p>
+            <m-hstack gap="sm"><h1>toast</h1> <span class="badge">native behavior</span></m-hstack>
+            <p class="lead">A custom element around a native manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in JS enhancement.</p>
           </m-vstack>
 
 <div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><m-toast id="dt-a" popover="manual" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></m-toast><m-toast id="dt-b" popover="manual" variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></m-toast></div>
@@ -175,7 +175,7 @@ and other popovers; <code>role="status"</code> announces politely. The
 <code>variant</code> attribute accepts <code>success</code>, <code>warning</code>,
 or <code>danger</code> for a status edge. Apps show toasts from code
 (<code>showPopover()</code>).</p>
-<h2>Module: toast.js (Tier 2)</h2>
+<h2>Module: toast.js (JS-enhanced)</h2>
 <p>Loaded on this page. Open toasts stack upward (JS ships one offset
 number per toast; CSS owns the geometry and reflow motion), auto-dismiss
 after <code>duration</code> ms (default 5000, <code>duration="0"</code> = sticky,

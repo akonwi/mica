@@ -1,4 +1,4 @@
-/* mica/tabs.js — <m-tabs>: accessible tabs. Tier 2.
+/* mica/tabs.js — <m-tabs>: accessible tabs. JS-enhanced module.
  *
  * Enhances working light-DOM markup; never renders it. Without this
  * module, the nav buttons are inert and every panel is visible in

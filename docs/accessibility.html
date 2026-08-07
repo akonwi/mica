@@ -171,11 +171,12 @@ so native controls follow the theme without a parallel palette.</p>
 <p>The checkbox-hack school of CSS-only components produces things that look
 like tabs and are unusable with a keyboard. Mica refuses that trade: if the
 <em>accessible</em> version of a pattern needs script, the script is the
-honest cost and ships as an opt-in Tier-2 module. That is the whole Tier 1/2
-boundary — <em>does accessibility require JS?</em> — and it is why
+honest cost and ships as an opt-in enhancement module. That is the line
+between native behavior and JS-enhanced — <em>does accessibility require
+JS?</em> — and it is why
 <code>m-tabs</code> and <code>m-combobox</code> have modules while dialogs,
 accordions, and menus do not.</p>
-<p>Tier-2 modules enhance working markup; they never render it. With the
+<p>Enhancement modules enhance working markup; they never render it. With the
 module absent you get a degraded but usable page — all tab panels visible in
 order, a native autocomplete — not an empty container.</p>
 

@@ -19,10 +19,10 @@ minor while 0.x):**
   first/last-child meaning, dialog/tabs anatomy)
 - Retuning color ramp values or token names — components and *user CSS*
   depend on scale steps (`--neutral-6`), roles, and space/size tokens
-- Changing a Tier-2 module's enhanced-markup contract
+- Changing an enhancement module's enhanced-markup contract
 
 **Additive (minor):** new elements, new attribute values, new tokens, new
-docs pages, a component moving *down* a tier (highlight it in notes).
+docs pages, a component coming to need less (highlight it in notes).
 **Patch:** visual bugfixes that don't move published token values users
 plausibly depend on. When in doubt about a ramp tweak: it's breaking.
 
@@ -91,6 +91,6 @@ vendored file after fetching so the upgrade's blast radius is visible.
 ## 7. GitHub release
 
 GitHub release on the tag (`gh release create vX.Y.Z`) with: breaking
-changes first (with migration snippets), then tier-movement highlights,
+changes first (with migration snippets), then needs-less highlights,
 then additions/fixes. Mica's marketing voice: platform-progress framing
-("X moved from Tier 2 to Tier 1") over feature-list framing.
+("X no longer needs its JS module") over feature-list framing.

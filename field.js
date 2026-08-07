@@ -1,4 +1,4 @@
-/* mica/field.js — <m-field>: declarative validation errors. Tier 2.
+/* mica/field.js — <m-field>: declarative validation errors. JS-enhanced module.
  *
  * Enhances working light-DOM markup; never renders it. Without this
  * module, fields inside <m-field> fall back to native bubbles plus the

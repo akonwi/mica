@@ -267,7 +267,7 @@
 }
 
 /* ------------------------------------------------------------------ *
- * Elements — Tier 1. Native elements styled directly; behavior is the
+ * Elements — native behavior. Native elements styled directly; behavior is the
  * browser's. Presentation APIs are attributes; user CSS still wins
  * because these rules live in a layer.
  * ------------------------------------------------------------------ */
@@ -1184,7 +1184,7 @@
     }
 
     /* grab handle — only when drawer.js is loaded (an affordance
-       without its behavior would fake interactivity; TIERS.md).
+       without its behavior would fake interactivity; PROGRESSIVE.md).
        the handle is the first flex item of the open sheet. */
     :where(:root[data-drawer-gestures])
       :where(dialog[data-drawer][open])::before {
@@ -1204,7 +1204,7 @@
   }
 
   /* scroll lock: the page must not scroll behind any modal dialog.
-     CSS-only best effort (→ no JS tier violation); iOS honors
+     CSS-only best effort (→ no faked-behavior violation); iOS honors
      overflow:hidden on the root for modern versions. */
   :where(html):has(:where(dialog:modal)) {
     overflow: hidden;
@@ -1384,7 +1384,7 @@
     }
   }
 
-  /* --- combobox: m-combobox + combobox.js (Tier 2) ------------------ *
+  /* --- combobox: m-combobox + combobox.js (JS-enhanced) ------------------ *
    * without the module: a native datalist — functional autocomplete.
    * with it: styled listbox, filtering, active-descendant keys.
    * positioned within the wrapper (no top layer) so it works everywhere.
@@ -1421,7 +1421,7 @@
     }
   }
 
-  /* --- tabs: m-tabs + tabs.js (Tier 2) ------------------------------ *
+  /* --- tabs: m-tabs + tabs.js (JS-enhanced) ------------------------------ *
    * without the module: inert nav, all panels visible in order —
    * complete content. with it: tablist semantics + roving focus.
    * shadcn segmented look: muted track, surface active tab.
@@ -1481,7 +1481,7 @@
     padding-block: var(--space-md);
   }
 
-  /* --- toast: display only (queueing/auto-dismiss are Tier 2) ------- *
+  /* --- toast: display only (queueing/auto-dismiss are JS-enhanced) ------- *
    * <m-toast popover="manual" role="status"> — manual so it survives
    * light dismiss and other popovers; role=status announces.
    * ------------------------------------------------------------------ */
@@ -1572,9 +1572,9 @@
   }
 
   /* --- validation errors ------------------------------------------- *
-   * Tier 1 (no JS): a generic <m-error> after a field shows when the
+   * No JS: a generic <m-error> after a field shows when the
    * field is :user-invalid. Submit attempts fall back to native bubbles.
-   * Tier 2 (mica/field.js): <m-field> suppresses bubbles and activates
+   * Enhanced (mica/field.js): <m-field> suppresses bubbles and activates
    * per-cause <m-error match="..."> messages. Rules below are all
    * zero-specificity; source order resolves them.
    * ------------------------------------------------------------------ */
@@ -1591,13 +1591,13 @@
     color: var(--color-danger-text);
   }
 
-  /* Tier-1 fallback: generic (matchless) error after user interaction */
+  /* no-JS fallback: generic (matchless) error after user interaction */
   :where(input:user-invalid, textarea:user-invalid, select:user-invalid)
     ~ :where(m-error:not([match])) {
     display: block;
   }
 
-  /* Tier 2: once m-field upgrades, the module owns visibility */
+  /* enhanced: once m-field upgrades, the module owns visibility */
   :where(m-field:defined) :where(m-error) {
     display: none;
   }
@@ -1642,7 +1642,7 @@
 }
 
 /* ------------------------------------------------------------------ *
- * Layout primitives (Tier 0)
+ * Layout primitives (CSS-only)
  *
  * Mechanism: attributes only set custom properties; rules read custom
  * properties. `gap="lg"` and `style="--gap: 2.5rem"` are the same thing.

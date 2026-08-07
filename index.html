@@ -171,11 +171,15 @@ View source on any page here — there is nothing but HTML and one stylesheet.</
   &lt;h1&gt;Hello&lt;/h1&gt;
   &lt;button data-variant=&quot;primary&quot;&gt;Submit&lt;/button&gt;
 &lt;/m-vstack&gt;</code></pre>
-<h2>The three tiers</h2>
-<p>Every component states where its behavior comes from.
-<b>Tier 0</b>: pure CSS custom tags (layout). <b>Tier 1</b>: styled native
-elements (forms, dialog, tables). <b>Tier 2</b>: tiny opt-in modules where
-accessibility genuinely requires script — each one enhances working markup,
+<h2>Progressive by design</h2>
+<p>Mica is a <b>progressive component library</b> — progressive as in
+progressive enhancement. Every component starts from markup that works, and
+each layer added enhances it; remove a layer and things get plainer, never
+broken. Components state what they need: <b>CSS-only</b> — custom tags whose
+entire behavior is a stylesheet (layout). <b>Native behavior</b> — styled
+native elements; the browser ships the interactivity (forms, dialog, tables).
+<b>JS-enhanced</b> — tiny opt-in modules for the few patterns where
+accessibility genuinely requires script; each one enhances working markup,
 never renders it.</p>
 
         </m-vstack>

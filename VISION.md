@@ -25,32 +25,35 @@ restyle. No wrapper abstraction. The default theme is the author's own
 design language (see principle 3), but every opinion is a token override
 away — copy the markup, restyle it, own it.
 
-## The three tiers
+## Progressive by design
 
-Every component states its tier. Moving a component *down* a tier as the
+Mica is a progressive component library — progressive as in progressive
+enhancement. Every component states what it needs. Coming to need *less* as the
 platform improves is a release highlight.
 
-- **Tier 0 — pure CSS, custom tags.** Layout primitives (`<m-vstack>`,
+- **CSS-only — pure CSS, custom tags.** Layout primitives (`<m-vstack>`,
   `<m-hstack>`, `<m-grid>`…). No registration, no JS, SSR-trivial, works
   with JS disabled.
-- **Tier 1 — styled native elements.** Dialog, details/accordion, popover
+- **Native behavior — styled native elements.** Dialog, details/accordion, popover
   menus, tooltips, select. The behavior is the browser's; mica is CSS plus
   documented markup patterns.
-- **Tier 2 — tiny opt-in enhancement.** The honest short list where the
+- **JS-enhanced — tiny opt-in enhancement.** The honest short list where the
   platform still has gaps (combobox filtering, tabs keyboard semantics).
   Light-DOM custom elements that *enhance* working markup, never render it.
 
 Never fake behavior in CSS. If a pattern requires JS to be accessible
-(roving tabindex, ARIA wiring), it is Tier 2 or it doesn't ship.
+(roving tabindex, ARIA wiring), it is an enhancement module or it doesn't
+ship.
 
-See [TIERS.md](TIERS.md) for the classification tests and component map.
+See [PROGRESSIVE.md](PROGRESSIVE.md) for the classification tests and
+component map.
 
 ## Principles
 
 1. **Light DOM, always.** Shadow DOM never guards anything a user might want
    to style. Internal markup structure is public API, handled with documented
    markup contracts and semver — not encapsulation. (Narrow exception
-   permitted in Tier 2 for genuinely private machinery, e.g. a live-region
+   permitted in enhancement modules for genuinely private machinery, e.g. a live-region
    announcer.)
 2. **User CSS always wins — by physics, not promise.** All mica styles ship
    inside `@layer mica.*`. Unlayered user CSS beats layered CSS by spec.
@@ -68,7 +71,7 @@ See [TIERS.md](TIERS.md) for the classification tests and component map.
    reserved for focus/selection, orange warning. Each of those is a
    documented 1–2 line token override to change.
 4. **Framework-agnostic by absence.** No props, no events, no registration
-   in Tier 0–1 means there is no interop surface at all. React, Svelte, a Go
+   outside the JS modules means there is no interop surface at all. React, Svelte, a Go
    template, a Markdown SSG: identical usage.
 5. **Attributes are the vocabulary, custom properties are the escape hatch.**
    `<m-vstack gap="lg">` for the enumerated token vocabulary;

@@ -84,8 +84,9 @@ def specimen(inner: str) -> str:
 
 
 # ---------------------------------------------------------------- pages
-# (slug, title, tier, lead, body, extra_css, scripts)
-# tier: "0" | "1" | "2" | None
+# (slug, title, level, lead, body, extra_css, scripts)
+# level: "css" (CSS-only) | "native" (native behavior) | "js" (JS-enhanced) | None
+LEVEL_LABEL = {"css": "CSS-only", "native": "native behavior", "js": "JS-enhanced"}
 
 def scale_strip(prefix: str) -> str:
     cells = []
@@ -98,7 +99,7 @@ def scale_strip(prefix: str) -> str:
 PAGES: list[dict] = [
     # ---- Start ----
     dict(
-        group="Start", slug="index", title="Introduction", tier=None,
+        group="Start", slug="index", title="Introduction", level=None,
         lead="Custom elements. Native behavior. Nearly no JavaScript.",
         body=f"""
 <p>Mica is a front-end library built from custom element tags, native HTML
@@ -110,16 +111,20 @@ View source on any page here — there is nothing but HTML and one stylesheet.</
 {code('<link rel="stylesheet" href="mica.css" />')}
 <h2>Use</h2>
 {code('<m-vstack gap="lg">' + chr(10) + '  <h1>Hello</h1>' + chr(10) + '  <button data-variant="primary">Submit</button>' + chr(10) + '</m-vstack>')}
-<h2>The three tiers</h2>
-<p>Every component states where its behavior comes from.
-<b>Tier 0</b>: pure CSS custom tags (layout). <b>Tier 1</b>: styled native
-elements (forms, dialog, tables). <b>Tier 2</b>: tiny opt-in modules where
-accessibility genuinely requires script — each one enhances working markup,
+<h2>Progressive by design</h2>
+<p>Mica is a <b>progressive component library</b> — progressive as in
+progressive enhancement. Every component starts from markup that works, and
+each layer added enhances it; remove a layer and things get plainer, never
+broken. Components state what they need: <b>CSS-only</b> — custom tags whose
+entire behavior is a stylesheet (layout). <b>Native behavior</b> — styled
+native elements; the browser ships the interactivity (forms, dialog, tables).
+<b>JS-enhanced</b> — tiny opt-in modules for the few patterns where
+accessibility genuinely requires script; each one enhances working markup,
 never renders it.</p>
 """,
     ),
     dict(
-        group="Start", slug="tokens", title="Tokens & theming", tier=None,
+        group="Start", slug="tokens", title="Tokens & theming", level=None,
         lead="Knobs → scales → roles. Theming is swapping token values, never overriding component CSS.",
         extra_css=TOKENS_CSS,
         body=f"""
@@ -142,7 +147,7 @@ status roles (<code>--color-danger…</code>).</p>
 """,
     ),
     dict(
-        group="Start", slug="preset", title="Preset", tier=None,
+        group="Start", slug="preset", title="Preset", level=None,
         lead="Constructive defaults: raw HTML should look finished, not like nothing.",
         body="""
 <p>This paragraph and everything around it is unstyled flow content. Rhythm,
@@ -155,7 +160,7 @@ from <code>@layer mica.preset</code> — zero-specificity, trivially overridable
 """,
     ),
     dict(
-        group="Start", slug="accessibility", title="Accessibility", tier=None,
+        group="Start", slug="accessibility", title="Accessibility", level=None,
         lead="Native semantics first; script only where access requires it.",
         body=f"""
 <p>Mica's accessibility position is mostly a consequence of its other
@@ -170,11 +175,12 @@ so native controls follow the theme without a parallel palette.</p>
 <p>The checkbox-hack school of CSS-only components produces things that look
 like tabs and are unusable with a keyboard. Mica refuses that trade: if the
 <em>accessible</em> version of a pattern needs script, the script is the
-honest cost and ships as an opt-in Tier-2 module. That is the whole Tier 1/2
-boundary — <em>does accessibility require JS?</em> — and it is why
+honest cost and ships as an opt-in enhancement module. That is the line
+between native behavior and JS-enhanced — <em>does accessibility require
+JS?</em> — and it is why
 <code>m-tabs</code> and <code>m-combobox</code> have modules while dialogs,
 accordions, and menus do not.</p>
-<p>Tier-2 modules enhance working markup; they never render it. With the
+<p>Enhancement modules enhance working markup; they never render it. With the
 module absent you get a degraded but usable page — all tab panels visible in
 order, a native autocomplete — not an empty container.</p>
 
@@ -210,7 +216,7 @@ testing with a screen reader remain yours.</p>
     ),
     # ---- Layout ----
     dict(
-        group="Layout", slug="vstack", title="vstack", tier="0",
+        group="Layout", slug="vstack", title="vstack", level="css",
         lead="Vertical flow with consistent gaps. The workhorse.",
         body=f"""
 {specimen('<m-vstack gap="sm"><div class="swatch">one</div><div class="swatch">two</div><div class="swatch">three</div></m-vstack>')}
@@ -223,7 +229,7 @@ attributes and custom properties are the same mechanism.</p>
 """,
     ),
     dict(
-        group="Layout", slug="hstack", title="hstack", tier="0",
+        group="Layout", slug="hstack", title="hstack", level="css",
         lead="One horizontal row. Wrapping is opt-in, per the name's promise.",
         body=f"""
 {specimen('<m-hstack gap="sm" wrap><div class="swatch">alpha</div><div class="swatch">beta</div><div class="swatch">gamma</div><div class="swatch">delta</div></m-hstack>')}
@@ -234,7 +240,7 @@ attributes and custom properties are the same mechanism.</p>
 """,
     ),
     dict(
-        group="Layout", slug="zstack", title="zstack", tier="0",
+        group="Layout", slug="zstack", title="zstack", level="css",
         lead="Layering: children share one grid cell. Paint order is DOM order.",
         body=f"""
 {specimen('<m-zstack style="min-block-size: 8rem"><div style="background: linear-gradient(135deg, var(--neutral-7), var(--neutral-9))"></div><p style="place-self: center; margin: 0">centered layer</p><p class="swatch" style="place-self: start end; margin: var(--space-sm)">badge</p></m-zstack>')}
@@ -246,7 +252,7 @@ means the platform is the escape hatch.</p>
 """,
     ),
     dict(
-        group="Layout", slug="center", title="center", tier="0",
+        group="Layout", slug="center", title="center", level="css",
         lead="Intrinsic horizontal centering with a readable measure.",
         body=f"""
 {specimen('<m-center max="sm" style="border: 1px dashed var(--color-border-strong)"><p style="margin:0">centered, capped at --size-sm</p></m-center>')}
@@ -257,7 +263,7 @@ means the platform is the escape hatch.</p>
 """,
     ),
     dict(
-        group="Layout", slug="box", title="box", tier="0",
+        group="Layout", slug="box", title="box", level="css",
         lead="Padding; an inside for content.",
         body=f"""
 {specimen('<div class="card"><m-box><p style="margin:0">a padded box inside a card</p></m-box></div>')}
@@ -267,7 +273,7 @@ means the platform is the escape hatch.</p>
 """,
     ),
     dict(
-        group="Layout", slug="grid", title="grid", tier="0",
+        group="Layout", slug="grid", title="grid", level="css",
         lead="Responsive grid with zero media queries.",
         body=f"""
 {specimen('<m-grid gap="md" min="xs"><div class="card tall">1</div><div class="card tall">2</div><div class="card tall">3</div><div class="card tall">4</div></m-grid>')}
@@ -278,7 +284,7 @@ columns pack to fit.</p>
 """,
     ),
     dict(
-        group="Layout", slug="sidecar", title="sidecar", tier="0",
+        group="Layout", slug="sidecar", title="sidecar", level="css",
         lead="A fixed + flexible pair that stacks when narrow. This page's shell uses it.",
         body=f"""
 {specimen('<m-sidecar gap="md"><div class="card tall">sidecar</div><div class="card tall">content</div></m-sidecar>')}
@@ -290,7 +296,7 @@ The markup contract: exactly two children, first (or last) is the fixed one.</p>
 """,
     ),
     dict(
-        group="Layout", slug="switcher", title="switcher", tier="0",
+        group="Layout", slug="switcher", title="switcher", level="css",
         lead="A row that switches to a column below a width threshold.",
         body=f"""
 {specimen('<m-switcher gap="md" threshold="lg"><div class="card tall">a</div><div class="card tall">b</div><div class="card tall">c</div></m-switcher>')}
@@ -301,7 +307,7 @@ it switch.</p>
 """,
     ),
     dict(
-        group="Layout", slug="reel", title="reel", tier="0",
+        group="Layout", slug="reel", title="reel", level="css",
         lead="Horizontal scroll with snap. Scrolling is the browser's; snap is CSS.",
         body=f"""
 {specimen('<m-reel gap="md" tabindex="0" role="region" aria-label="example slides">' + ''.join(f'<div class="card tall" style="inline-size: 10rem">slide {i}</div>' for i in range(1, 7)) + '</m-reel>')}
@@ -316,7 +322,7 @@ keyboard users cannot scroll the reel in some browsers.</p>
 """,
     ),
     dict(
-        group="Layout", slug="frame", title="frame", tier="0",
+        group="Layout", slug="frame", title="frame", level="css",
         lead="Hold an aspect ratio; crop media to fit. Uniform thumbnails from chaotic images.",
         body=f"""
 {specimen('<m-grid gap="md" min="xs"><m-frame ratio="16:9" class="card"><p>16:9 (default)</p></m-frame><m-frame ratio="square" class="card"><p>square</p></m-frame><m-frame ratio="4:3" class="card"><p>4:3</p></m-frame><m-frame style="--ratio: 21 / 9" class="card"><p>--ratio: 21/9</p></m-frame></m-grid>')}
@@ -329,7 +335,7 @@ children (and <code>picture &gt; img</code>) fill and crop with
 """,
     ),
     dict(
-        group="Layout", slug="cover", title="cover", tier="0",
+        group="Layout", slug="cover", title="cover", level="css",
         lead="Fill the viewport; center the principal element; pin the rest to the edges.",
         body=f"""
 {specimen('<m-cover class="card" style="--min-height: 18rem"><p>pinned top</p><p data-principal style="font-size: 1.5rem; font-weight: 600">the explicit principal element</p><p>pinned bottom ↓</p></m-cover>')}
@@ -343,7 +349,7 @@ with boolean <code>data-principal</code> instead (it wins over the h1).</p>
     ),
     # ---- Elements ----
     dict(
-        group="Elements", slug="button", title="button", tier="1",
+        group="Elements", slug="button", title="button", level="native",
         lead="The native element, styled directly. Variants and sizes are data attributes; behavior remains native.",
         body=f"""
 {specimen('<m-vstack gap="md"><m-hstack gap="sm" wrap><button>Default</button><button data-variant="primary">Primary</button><button data-variant="ghost">Ghost</button><button data-variant="danger">Danger</button></m-hstack><m-hstack gap="sm" wrap><button data-size="small">Small</button><button data-size="large">Large</button><button disabled>Disabled</button><button data-variant="primary" disabled>Disabled primary</button><a class="btn" href="#">Link as button</a></m-hstack></m-vstack>')}
@@ -359,7 +365,7 @@ the lone action on a page. Disabled is the same fill at reduced opacity.</p>
 """,
     ),
     dict(
-        group="Elements", slug="badge", title="badge", tier="0",
+        group="Elements", slug="badge", title="badge", level="css",
         lead="Quiet metadata in a styled box. Informational, never a fake control.",
         body=f"""
 {specimen('<m-hstack gap="xs" wrap><m-badge>Default</m-badge><m-badge variant="primary">Primary</m-badge><m-badge variant="success">Success</m-badge><m-badge variant="warning">Warning</m-badge><m-badge variant="danger">Danger</m-badge><m-badge count>8</m-badge></m-hstack>')}
@@ -372,10 +378,10 @@ attribute makes a compact, tabular-numeric badge. Badges are informational; use 
 """,
     ),
     dict(
-        group="Elements", slug="content", title="content", tier="1",
+        group="Elements", slug="content", title="content", level="native",
         lead="Tables, lists, code, quotes — prose-adjacent elements that just work.",
         body=f"""
-{specimen('<table><thead><tr><th>Element</th><th>Tier</th><th>JS</th></tr></thead><tbody><tr><td>m-vstack</td><td>0</td><td>none</td></tr><tr><td>dialog</td><td>1</td><td>none</td></tr><tr><td>m-field</td><td>2</td><td>one module</td></tr></tbody><caption>Horizontal borders only; hover a row; numerals are tabular.</caption></table>')}
+{specimen('<table><thead><tr><th>Element</th><th>Level</th><th>JS</th></tr></thead><tbody><tr><td>m-vstack</td><td>CSS-only</td><td>none</td></tr><tr><td>dialog</td><td>native behavior</td><td>none</td></tr><tr><td>m-field</td><td>JS-enhanced</td><td>one module</td></tr></tbody><caption>Horizontal borders only; hover a row; numerals are tabular.</caption></table>')}
 {specimen('<p style="margin:0">Inline <code>code</code> gets a chip; press <kbd>⌘</kbd><kbd>K</kbd>. Below, a thematic break.</p><hr /><blockquote style="margin:0">Delete the stylesheet and it still works.</blockquote>')}
 <h2>Notes</h2>
 <p>Markdown output (tables, <code>---</code> → <code>hr</code>, lists, code
@@ -383,7 +389,7 @@ fences) renders finished with zero classes.</p>
 """,
     ),
     dict(
-        group="Elements", slug="progress", title="progress & meter", tier="1",
+        group="Elements", slug="progress", title="progress & meter", level="native",
         lead="Thin square bars. Meter grades through the status roles — the browser decides which.",
         body=f"""
 {specimen('<m-vstack gap="md"><progress max="100" value="33"></progress><progress max="100" value="80"></progress><meter min="0" max="100" low="60" high="85" optimum="30" value="42"></meter><meter min="0" max="100" low="60" high="85" optimum="30" value="74"></meter><meter min="0" max="100" low="60" high="85" optimum="30" value="93"></meter></m-vstack>')}
@@ -392,7 +398,7 @@ fences) renders finished with zero classes.</p>
     ),
     # ---- Forms ----
     dict(
-        group="Forms", slug="input", title="input & textarea", tier="1",
+        group="Forms", slug="input", title="input & textarea", level="native",
         lead="One control family with buttons: same radius, border, and height.",
         body=f"""
 {specimen('<m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-vstack gap="2xs"><label for="di-name">Name</label><input id="di-name" type="text" placeholder="Ada Lovelace" /></m-vstack><m-vstack gap="2xs"><label for="di-bio">Bio (grows as you type — field-sizing, zero JS)</label><textarea id="di-bio" placeholder="A few lines…"></textarea></m-vstack><m-vstack gap="2xs"><label for="di-off">Disabled</label><input id="di-off" type="text" disabled value="Read only-ish" /></m-vstack></m-vstack>')}
@@ -403,7 +409,7 @@ container; constrain with layout primitives.</p>
 """,
     ),
     dict(
-        group="Forms", slug="select", title="select", tier="1",
+        group="Forms", slug="select", title="select", level="native",
         lead="Custom picker where the platform allows (base-select); native picker elsewhere. Zero JS either way.",
         scripts=["../select.js"],
         body=f"""
@@ -417,7 +423,7 @@ Without it: the styled anchored-below picker.</p>
 """,
     ),
     dict(
-        group="Forms", slug="checkbox", title="checkbox", tier="1",
+        group="Forms", slug="checkbox", title="checkbox", level="native",
         lead="Drawn with appearance: none; semantics, keyboard, and forms stay native.",
         body=f"""
 {specimen('<m-hstack gap="lg" wrap><label><input type="checkbox" checked /> Checked</label><label><input type="checkbox" /> Unchecked</label><label><input type="checkbox" id="dc-ind" /> Indeterminate</label><label><input type="checkbox" disabled checked /> Disabled</label></m-hstack>')}
@@ -429,7 +435,7 @@ wrapping the control becomes the click target and dims when disabled.</p>
 """,
     ),
     dict(
-        group="Forms", slug="radio", title="radio", tier="1",
+        group="Forms", slug="radio", title="radio", level="native",
         lead="The square target: a solid pip in every state.",
         body=f"""
 {specimen('<m-hstack gap="lg" wrap><label><input type="radio" name="dr" checked /> One</label><label><input type="radio" name="dr" /> Two</label><label><input type="radio" name="dr" disabled /> Off-limits</label></m-hstack>')}
@@ -441,7 +447,7 @@ switch = fill + block. The round radio is a two-line theme (see mica.css).</p>
 """,
     ),
     dict(
-        group="Forms", slug="segmented", title="segmented control", tier="1",
+        group="Forms", slug="segmented", title="segmented control", level="native",
         lead="A native radio group fused into one compact control. No script, no reconstructed ARIA.",
         body=f"""
 {specimen('<fieldset><legend>Leaderboard period</legend><m-segmented><label><input type="radio" name="period" value="week" checked /> Week</label><label><input type="radio" name="period" value="month" /> Month</label><label><input type="radio" name="period" value="season" /> Season</label><label><input type="radio" name="period" value="career" disabled /> Career</label></m-segmented></fieldset>')}
@@ -455,7 +461,7 @@ semantics. Mica only fuses their presentation.</p>
 """,
     ),
     dict(
-        group="Forms", slug="switch", title="switch", tier="1",
+        group="Forms", slug="switch", title="switch", level="native",
         lead="A native checkbox with switch semantics, wearing a track. Square, like everything else.",
         body=f"""
 {specimen('<m-hstack gap="lg" wrap><label><input type="checkbox" role="switch" checked /> Notifications</label><label><input type="checkbox" role="switch" /> Marketing</label><label><input type="checkbox" role="switch" disabled /> Locked</label></m-hstack>')}
@@ -465,11 +471,11 @@ semantics. Mica only fuses their presentation.</p>
 The checkbox's native <code>checked</code> state supplies the accessible state —
 do not duplicate it with <code>aria-checked</code>. Form participation, labeling,
 focus, and Space-key behavior remain native. Safari is prototyping a native <code>switch</code>
-attribute; if it standardizes, this moves down a tier.</p>
+attribute; if it standardizes, this component will need even less.</p>
 """,
     ),
     dict(
-        group="Forms", slug="fieldset", title="fieldset", tier="1",
+        group="Forms", slug="fieldset", title="fieldset", level="native",
         lead="A titled group, not a bordered box. Disabling one silences everything inside.",
         body=f"""
 {specimen('<fieldset><legend>Profile</legend><m-vstack gap="md"><m-vstack gap="2xs"><label for="df-n">Name</label><input id="df-n" type="text" /></m-vstack></m-vstack></fieldset><fieldset disabled style="margin-block-start: var(--space-lg)"><legend>Billing (disabled)</legend><m-vstack gap="md"><m-vstack gap="2xs"><label for="df-c">Card number</label><input id="df-c" type="text" value="4242 4242 4242 4242" /></m-vstack><label><input type="checkbox" checked /> Save card</label></m-vstack></fieldset>')}
@@ -477,7 +483,7 @@ attribute; if it standardizes, this moves down a tier.</p>
 """,
     ),
     dict(
-        group="Forms", slug="field", title="field validation", tier="2",
+        group="Forms", slug="field", title="field validation", level="js",
         lead="Declarative per-cause errors below the field. No browser bubbles.",
         scripts=["../field.js"],
         body=f"""
@@ -491,7 +497,7 @@ Working markup, enhanced — never rendered.</p>
     ),
     # ---- Patterns ----
     dict(
-        group="Patterns", slug="dialog", title="dialog", tier="1",
+        group="Patterns", slug="dialog", title="dialog", level="native",
         lead="Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands (shimmed while support spreads).",
         scripts=["../invoker.js", "../drawer.js"],
         extra_css="\n    @media (max-width: 40rem) { [data-drawer] > button.close { display: none; } }\n",
@@ -512,7 +518,7 @@ button.</p>
 <h2>Bottom sheet + gestures</h2>
 <p>Below 40rem the drawer becomes a full-width bottom sheet (content
 height, anchored to the bottom edge — the same pattern as shadcn's
-mobile drawer). The optional <code>drawer.js</code> module (Tier 2) adds
+mobile drawer). The optional <code>drawer.js</code> enhancement module adds
 a grab handle and swipe-to-dismiss: the sheet follows a downward drag,
 resists upward, and closes past a third of its height or on a flick.
 Without the module the markup still works — the handle only appears
@@ -533,7 +539,7 @@ one-line diff later:</p>
 """,
     ),
     dict(
-        group="Patterns", slug="accordion", title="accordion", tier="1",
+        group="Patterns", slug="accordion", title="accordion", level="native",
         lead="details + summary. Exclusivity, keyboard, and semantics are the browser's — the shared name attribute does the grouping.",
         body=f"""
 {specimen('<div style="inline-size: 100%"><details name="dacc" open><summary>Is it accessible?</summary><p>Yes. It is a native disclosure element; AT support comes with it.</p></details><details name="dacc"><summary>Is it styled?</summary><p>Border-per-item, rotating chevron, hover underline — the shadcn look.</p></details><details name="dacc"><summary>Is it animated?</summary><p>Height eases via interpolate-size where supported; instant elsewhere.</p></details></div>')}
@@ -546,7 +552,7 @@ browsers without it open instantly. Zero JS either way.</p>
 """,
     ),
     dict(
-        group="Patterns", slug="popover", title="popover & tooltip", tier="1",
+        group="Patterns", slug="popover", title="popover & tooltip", level="native",
         lead="popover attribute + popovertarget invokers. Toggle, light dismiss, Esc, top layer — the browser's. Zero JS.",
         body=f"""
 {specimen('<m-hstack gap="sm" wrap><button popovertarget="dp-menu">Menu</button><button popovertarget="dp-pop">Popover</button><button data-tip="Saved to your library" aria-label="Tooltip demo">Hover me</button></m-hstack><div id="dp-menu" popover class="menu"><button popovertarget="dp-menu" popovertargetaction="hide">Edit</button><button popovertarget="dp-menu" popovertargetaction="hide">Duplicate</button><hr /><button data-variant="danger" popovertarget="dp-menu" popovertargetaction="hide">Delete</button></div><div id="dp-pop" popover><m-vstack gap="2xs"><b>Anchored panel</b><span>Light dismiss, Esc, toggling: all the browser. Anchored to the invoker where anchor positioning exists.</span></m-vstack></div>')}
@@ -554,16 +560,16 @@ browsers without it open instantly. Zero JS either way.</p>
 <h2>Notes</h2>
 <p>Menu items close the menu declaratively (<code>popovertargetaction="hide"</code>)
 — an item is a button doing its job plus one attribute. Tab/Esc/light-dismiss
-are native; arrow-key roving is a future Tier-2 module. Tooltips are CSS-only
+are native; arrow-key roving is a future enhancement module. Tooltips are CSS-only
 (<code>data-tip</code>) and visual — pair with <code>aria-label</code> or
 visible text. Where anchor positioning is missing, popovers fall back to the
 UA's centered position.</p>
 """,
     ),
     dict(
-        group="Patterns", slug="toast", title="toast", tier="1",
+        group="Patterns", slug="toast", title="toast", level="native",
         scripts=["../toast.js"],
-        lead="A custom element around a native manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in Tier-2 enhancement.",
+        lead="A custom element around a native manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in JS enhancement.",
         body=f"""
 {specimen('<m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><m-toast id="dt-a" popover="manual" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></m-toast><m-toast id="dt-b" popover="manual" variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></m-toast>')}
 {code('<m-toast id="saved" popover="manual" variant="success" role="status">' + chr(10) + '  <button class="close" popovertarget="saved"' + chr(10) + '          popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>' + chr(10) + '  <b>Saved</b>' + chr(10) + '  <span>Your changes are safe.</span>' + chr(10) + '</m-toast>' + chr(10) + chr(10) + 'document.getElementById(&#39;saved&#39;).showPopover()  // from your app code')}
@@ -574,7 +580,7 @@ and other popovers; <code>role="status"</code> announces politely. The
 <code>variant</code> attribute accepts <code>success</code>, <code>warning</code>,
 or <code>danger</code> for a status edge. Apps show toasts from code
 (<code>showPopover()</code>).</p>
-<h2>Module: toast.js (Tier 2)</h2>
+<h2>Module: toast.js (JS-enhanced)</h2>
 <p>Loaded on this page. Open toasts stack upward (JS ships one offset
 number per toast; CSS owns the geometry and reflow motion), auto-dismiss
 after <code>duration</code> ms (default 5000, <code>duration="0"</code> = sticky,
@@ -585,7 +591,7 @@ stack.</p>
 """,
     ),
     dict(
-        group="Patterns", slug="tabs", title="tabs", tier="2",
+        group="Patterns", slug="tabs", title="tabs", level="js",
         scripts=["../tabs.js"],
         lead="The one pattern the platform still can't do accessibly without script. m-tabs enhances working markup — it never renders it.",
         body=f"""
@@ -597,7 +603,7 @@ stack.</p>
 tablist/tab/tabpanel roles, <code>aria-selected</code>, roving tabindex,
 and Arrow/Home/End keys. <b>Without the module</b> the nav is inert and
 every panel renders in order — complete, readable content, never a
-CSS-only fake (that is the Tier-2 line).</p>
+CSS-only fake (that is the enhancement line).</p>
 <h2>Overflow</h2>
 <p>Labels never wrap inside a tab. When the rail is narrower than its
 tabs, the nav scrolls horizontally — overscroll contained, a thin
@@ -607,7 +613,7 @@ the edge as the affordance.</p>
 """,
     ),
     dict(
-        group="Forms", slug="combobox", title="combobox", tier="2",
+        group="Forms", slug="combobox", title="combobox", level="js",
         scripts=["../combobox.js"],
         lead="A native datalist, upgraded. Without the module: functional autocomplete. With it: styled listbox, filtering, active-descendant keys.",
         body=f"""
@@ -657,7 +663,7 @@ def page_html(p: dict) -> str:
         prev_a = f'<a href="{href_for(prev_p["slug"], from_root)}">&larr; {esc(prev_p["title"])}</a>' if prev_p else "<span></span>"
         next_a = f'<a href="{href_for(next_p["slug"], from_root)}">{esc(next_p["title"])} &rarr;</a>' if next_p else "<span></span>"
         pager = f'\n          <m-hstack justify="between" class="pager">{prev_a}{next_a}</m-hstack>'
-    badge = f' <span class="badge">Tier {p["tier"]}</span>' if p.get("tier") is not None else ""
+    badge = f' <span class="badge">{LEVEL_LABEL[p["level"]]}</span>' if p.get("level") is not None else ""
     crumb = f'<span class="crumb">{p["group"]} / {esc(p["title"])}</span>' if p["slug"] != "index" else ""
     scripts = "\n".join(
         f'  <script type="module" src="{s if not from_root else s.removeprefix("../")}"></script>'

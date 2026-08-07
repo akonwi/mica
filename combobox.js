@@ -1,4 +1,4 @@
-/* mica/combobox.js — <m-combobox>: filterable input + listbox. Tier 2.
+/* mica/combobox.js — <m-combobox>: filterable input + listbox. JS-enhanced module.
  *
  * The no-JS state is a native <datalist> — real autocomplete, fully
  * functional, just unstylable. The module upgrades it into the ARIA

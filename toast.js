@@ -1,7 +1,7 @@
 /* mica/toast.js — toast stacking, auto-dismiss, and a spawn helper.
- * Tier 2.
+ * JS-enhanced module.
  *
- * Enhances the Tier-1 <m-toast> recipe (corner-pinned manual popovers).
+ * Enhances the no-JS <m-toast> recipe (corner-pinned manual popovers).
  * Declared toasts keep working without this module — it adds:
  *
  * - stacking: open toasts stack upward; JS ships one number per toast

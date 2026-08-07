@@ -403,12 +403,12 @@
         <h2>Content — tables, lists, code. Zero classes.</h2>
         <table>
           <thead>
-            <tr><th>Element</th><th>Tier</th><th>JS</th></tr>
+            <tr><th>Element</th><th>Level</th><th>JS</th></tr>
           </thead>
           <tbody>
-            <tr><td>m-vstack</td><td>0</td><td>none</td></tr>
-            <tr><td>dialog</td><td>1</td><td>none</td></tr>
-            <tr><td>m-field</td><td>2</td><td>one module</td></tr>
+            <tr><td>m-vstack</td><td>CSS-only</td><td>none</td></tr>
+            <tr><td>dialog</td><td>native behavior</td><td>none</td></tr>
+            <tr><td>m-field</td><td>JS-enhanced</td><td>one module</td></tr>
           </tbody>
           <caption>Hover a row. Borders are horizontal only; numerals are tabular.</caption>
         </table>
@@ -533,7 +533,7 @@
 
     <section>
       <m-vstack gap="md">
-        <h2><code>&lt;m-toast&gt;</code> — display only; queueing is Tier 2</h2>
+        <h2><code>&lt;m-toast&gt;</code> — display only; queueing is JS-enhanced</h2>
         <m-hstack gap="sm" wrap>
           <button popovertarget="demo-toast" popovertargetaction="show">Show toast</button>
           <button popovertarget="demo-toast-ok" popovertargetaction="show">Success toast</button>
@@ -567,7 +567,7 @@
 
     <section>
       <m-vstack gap="md">
-        <h2>Tabs — m-tabs + tabs.js (Tier 2)</h2>
+        <h2>Tabs — m-tabs + tabs.js (JS-enhanced)</h2>
         <m-tabs>
           <nav>
             <button>Account</button>
@@ -611,7 +611,7 @@
 
     <section>
       <m-vstack gap="md">
-        <h2>Combobox — m-combobox + combobox.js (Tier 2)</h2>
+        <h2>Combobox — m-combobox + combobox.js (JS-enhanced)</h2>
         <m-combobox style="max-inline-size: var(--size-md)">
           <input list="demo-langs" placeholder="Pick a language…" aria-label="Language" />
           <datalist id="demo-langs">

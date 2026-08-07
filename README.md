@@ -2,9 +2,11 @@
 
 **Custom elements. Native behavior. Nearly no JavaScript.**
 
-Mica is a front-end library built from custom element tags, native HTML
-elements, and CSS. No runtime, no build step, no framework. View source —
-there's nothing there but HTML and a stylesheet.
+Mica is a **progressive component library** of custom elements —
+progressive as in progressive enhancement: every component starts from
+markup that works, and each layer (CSS, the browser's native behavior, an
+optional JS module) enhances it. No runtime, no build step, no framework.
+View source — there's nothing there but HTML and a stylesheet.
 
 ```html
 <link rel="stylesheet" href="mica.css">
@@ -47,18 +49,18 @@ import "@akonwi/mica/mica.css";
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@akonwi/mica@0.2/mica.css">
 ```
 
-## The three tiers
+## Progressive by design
 
 Every component states where its behavior comes from
-(see [TIERS.md](TIERS.md)):
+(see [PROGRESSIVE.md](PROGRESSIVE.md)):
 
-- **Tier 0 — CSS is the behavior.** Layout primitives: `m-vstack`,
+- **CSS-only — CSS is the behavior.** Layout primitives: `m-vstack`,
   `m-hstack`, `m-zstack`, `m-center`, `m-box`, `m-grid`, `m-sidecar`,
   `m-switcher`, `m-reel`. Zero JS, work with JS disabled.
-- **Tier 1 — the browser is the behavior.** Styled native elements:
+- **Native behavior — the browser is the behavior.** Styled native elements:
   buttons, forms, `<dialog>`, `<details>` accordions, popover menus,
   tooltips, toasts. Delete the stylesheet and everything still works.
-- **Tier 2 — script, honestly.** Where accessibility genuinely requires
+- **JS-enhanced — script, honestly.** Where accessibility genuinely requires
   JS: `tabs.js`, `combobox.js`, `field.js` (declarative validation),
   `select.js`, `toast.js`. Each is a tiny standalone module that enhances
   working markup — never renders it. There is no shared runtime.
@@ -83,8 +85,8 @@ how. Nothing breaks; some things get plainer.
 mica itself (view source). The [demo](https://akonwi.io/mica/demo.html) is
 the whole library on one page.
 
-Read [VISION.md](VISION.md) for the philosophy and [TIERS.md](TIERS.md)
-for the tier system.
+Read [VISION.md](VISION.md) for the philosophy and
+[PROGRESSIVE.md](PROGRESSIVE.md) for how components are allowed to work.
 
 ## License
 

@@ -1,6 +1,6 @@
 /* mica/select.js — align the open select picker so the selected option
  * overlays the trigger (macOS-native / Base UI `alignItemWithTrigger`
- * behavior). Tier 2, and about as small as a module can be:
+ * behavior). A JS-enhanced module, and about as small as a module can be:
  *
  * JS supplies exactly one datum — the selected index, as a custom
  * property. All geometry lives in mica.css (anchor positioning).

@@ -1,4 +1,4 @@
-/* mica/drawer.js — Tier 2: swipe-to-dismiss for dialog[data-drawer]
+/* mica/drawer.js — JS-enhanced: swipe-to-dismiss for dialog[data-drawer]
  * bottom sheets on small screens.
  *
  * Enhances working markup, never replaces it: without this module the

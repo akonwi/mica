@@ -6,12 +6,12 @@ dialogs). Infrastructure interleaves — don't batch it.
 
 ## Phase 1 — foundation ✓
 
-- [x] Tier 0 layout primitives: `m-vstack`, `m-hstack`, `m-zstack`,
+- [x] CSS-only layout primitives: `m-vstack`, `m-hstack`, `m-zstack`,
       `m-center`, `m-box`, `m-grid`, `m-sidecar`, `m-switcher`, `m-reel`
 - [x] Space/size tokens
 - [x] Preset (constructive defaults: rhythm, focus ring, media, motion)
 - [x] `@layer` architecture, user CSS always wins
-- [x] Tier system documented (TIERS.md)
+- [x] Level system documented (now PROGRESSIVE.md)
 
 ## Phase 2 — color tokens & theming architecture
 
@@ -57,7 +57,7 @@ Exit criterion: a plain HTML form page looks designed, zero classes.
 - [x] Square radio ("square target", mockup-selected); switch square incl.
       thumb; escape hatches documented in css comments at point of change
 
-## Phase 4 — Tier 1 patterns
+## Phase 4 — native-behavior patterns
 
 - [x] `<dialog>` — modal + drawer (`data-drawer`), zero JS via
       invoker commands + `form method=dialog`; enter/exit animations
@@ -74,15 +74,15 @@ Exit criterion: a plain HTML form page looks designed, zero classes.
       tooltips (inverted chip, delayed show, instant hide)
 - [x] Toast display — `<m-toast popover="manual" role="status">`;
       status-edge variants; slide-up enter, declarative dismiss via the
-      shared corner X (queueing/auto-dismiss remain Tier 2)
+      shared corner X (queueing/auto-dismiss remain JS-enhanced)
 
 Each ships as markup recipe + CSS. "Delete the stylesheet and it still
 works" is the demo.
 **Phase 4 complete.**
 
-## Phase 5 — Tier 2, the honest appendix
+## Phase 5 — JS-enhanced, the honest appendix
 
-- [x] Declarative field errors (`field.js`) — first Tier-2 module;
+- [x] Declarative field errors (`field.js`) — first enhancement module;
       Base-UI-style `<m-error match>`, no browser bubbles, CSS fallback
 - [x] Select picker alignment (`select.js`) — selected option overlays
       the trigger; JS ships one number, CSS anchors do the rest
@@ -107,18 +107,18 @@ works" is the demo.
 - [x] Docs published at https://akonwi.io/mica/ (GitHub Pages; the repo
       root is the site — no build artifact, the checkout deploys as-is)
 - [x] Markup-contract semver policy u2014 internal, in AGENTS.md (API surface & semver)
-- [x] Tier-0 stragglers: `m-frame`, `m-cover`
-- [x] Badge (`m-badge`, Tier 0) + segmented radio group (`m-segmented`, Tier 1)
+- [x] CSS-only stragglers: `m-frame`, `m-cover`
+- [x] Badge (`m-badge`, CSS-only) + segmented radio group (`m-segmented`, native behavior)
 - [x] Browser support: stance stated in README; degradation documented per component (decided against a central matrix — second copy would drift)
 
-## Backlog — Tier 3 (heavier JS, feel-polish)
+## Backlog — feel-polish modules (heavier JS)
 
-A proposed tier *beyond* the current taxonomy. Tier 2 spends JS only
-where accessibility requires it and keeps modules tiny; Tier 3 would
-spend JS for premium *feel* — the vaul/framer-tier polish — as an
+A proposed level *beyond* the current taxonomy. JS-enhanced spends JS
+only where accessibility requires it and keeps modules tiny; these
+would spend JS for premium *feel* — vaul/framer-grade polish — as an
 explicit, opt-in trade against the near-zero-JS ethos. Each still
-enhances working Tier-0/1/2 markup; without it you get the CSS-only
-experience already shipped.
+enhances working markup; without it you get the CSS-only experience
+already shipped.
 
 Surfaced while polishing the mobile drawer (the CSS-only version is
 shipped and accepted; these are the "more" it can't cheaply reach):
@@ -136,6 +136,6 @@ shipped and accepted; these are the "more" it can't cheaply reach):
       transition; velocity-aware settle.
 - [ ] **Snap points** (peek / half / full) for the bottom sheet.
 
-Discipline to keep if this tier happens: still degrade to the shipped
+Discipline to keep if this level happens: still degrade to the shipped
 CSS experience with no module; still per-component, no shared runtime;
 name the trade honestly (this is where mica stops being "nearly no JS").

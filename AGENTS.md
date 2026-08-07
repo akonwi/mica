@@ -1,14 +1,18 @@
 # mica — agent guide
 
 CSS-first component library: custom element tags + styled native elements,
-nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
-(where behavior is allowed to come from), [ROADMAP.md](ROADMAP.md) (state).
+nearly no JS — a *progressive component library* (progressive enhancement:
+each layer enhances working markup). Read [VISION.md](VISION.md)
+(philosophy), [PROGRESSIVE.md](PROGRESSIVE.md) (where behavior is allowed
+to come from: CSS-only / native behavior / JS-enhanced),
+[ROADMAP.md](ROADMAP.md) (state).
 
 ## File map
 
 - `mica.css` — the entire library. One file, four layers:
   `@layer mica.tokens, mica.preset, mica.elements, mica.layout`.
-- `field.js`, `select.js` — Tier-2 modules. Plain ES modules, one file per
+- `field.js`, `select.js` — enhancement modules (JS-enhanced level).
+  Plain ES modules, one file per
   component, self-defining, no shared runtime.
 - `demo.html` — kitchen-sink testbed (every component on one page). This is
   what the feedback loop probes.
@@ -46,9 +50,9 @@ nearly no JS. Read [VISION.md](VISION.md) (philosophy), [TIERS.md](TIERS.md)
 3. **Consumers get no build step.** Artifacts are plain HTML + CSS + ES
    modules; view-source is part of the product. Repo-side generators are
    fine; runtimes, bundles, and preprocessors are not.
-4. **Tier discipline** (TIERS.md): never fake interactive behavior in CSS.
-   If accessibility requires JS, it's an opt-in Tier-2 module that
-   *enhances working markup, never renders it*.
+4. **Enhancement discipline** (PROGRESSIVE.md): never fake interactive
+   behavior in CSS. If accessibility requires JS, it's an opt-in
+   enhancement module that *enhances working markup, never renders it*.
 5. **Design explorations go through the `mockups` skill**: real pages in
    `mockups/` against the real `mica.css`, presented via glimpse, decision
    before implementation.
@@ -91,7 +95,7 @@ migration line; post-1.0: major):
 - Documented markup anatomy in `docs/` recipes (dialog structure,
   `m-field`/`m-error match`, tabs markup) — if a docs page shows it,
   it's frozen
-- Tier-2 module contracts: attributes read, events fired, enhancement
+- Enhancement-module contracts: attributes read, events fired, enhancement
   behavior when JS is absent
 - Browser-support floor (dropping a fallback is breaking)
 
