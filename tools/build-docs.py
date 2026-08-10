@@ -571,7 +571,7 @@ UA's centered position.</p>
         scripts=["../toast.js"],
         lead="A custom element around a native manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in JS enhancement.",
         body=f"""
-{specimen('<m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><m-toast id="dt-a" popover="manual" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></m-toast><m-toast id="dt-b" popover="manual" variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></m-toast>')}
+{specimen('<m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button><label for="toast-pos">--toast-position</label><select id="toast-pos"><option>bottom-right</option><option>bottom-left</option><option>bottom-center</option><option>top-right</option><option>top-left</option><option>top-center</option></select><script type="module">document.getElementById("toast-pos").addEventListener("change", (e) => document.documentElement.style.setProperty("--toast-position", e.target.value));</scr' + 'ipt></m-hstack>' + '<m-toast id="dt-a" popover="manual" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></m-toast><m-toast id="dt-b" popover="manual" variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></m-toast>')}
 {code('<m-toast id="saved" popover="manual" variant="success" role="status">' + chr(10) + '  <button class="close" popovertarget="saved"' + chr(10) + '          popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button>' + chr(10) + '  <b>Saved</b>' + chr(10) + '  <span>Your changes are safe.</span>' + chr(10) + '</m-toast>' + chr(10) + chr(10) + 'document.getElementById(&#39;saved&#39;).showPopover()  // from your app code')}
 <h2>Notes</h2>
 <p><code>&lt;m-toast&gt;</code> is an inert styling wrapper around the native
@@ -582,7 +582,7 @@ or <code>danger</code> for a status edge. Apps show toasts from code
 (<code>showPopover()</code>).</p>
 <h2>Position</h2>
 <p>Where toasts pin is app-level config — one token, set once, every toast
-obeys:</p>
+obeys. The picker in the specimen above sets it on <code>:root</code>:</p>
 {code(':root { --toast-position: top-center }' + chr(10) + '/* bottom-right (default) | bottom-left | bottom-center' + chr(10) + '   | top-right | top-left | top-center */')}
 <p>Top positions stack downward and enter from above; centers are
 viewport-centered. Read via container style queries (Baseline

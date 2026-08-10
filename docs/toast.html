@@ -159,7 +159,7 @@
             <p class="lead">A custom element around a native manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in JS enhancement.</p>
           </m-vstack>
 
-<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button></m-hstack><m-toast id="dt-a" popover="manual" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></m-toast><m-toast id="dt-b" popover="manual" variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></m-toast></div>
+<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button><label for="toast-pos">--toast-position</label><select id="toast-pos"><option>bottom-right</option><option>bottom-left</option><option>bottom-center</option><option>top-right</option><option>top-left</option><option>top-center</option></select><script type="module">document.getElementById("toast-pos").addEventListener("change", (e) => document.documentElement.style.setProperty("--toast-position", e.target.value));</script></m-hstack><m-toast id="dt-a" popover="manual" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></m-toast><m-toast id="dt-b" popover="manual" variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></m-toast></div>
 <pre><code>&lt;m-toast id=&quot;saved&quot; popover=&quot;manual&quot; variant=&quot;success&quot; role=&quot;status&quot;&gt;
   &lt;button class=&quot;close&quot; popovertarget=&quot;saved&quot;
           popovertargetaction=&quot;hide&quot; aria-label=&quot;Dismiss&quot;&gt;&amp;#x2715;&lt;/button&gt;
@@ -177,7 +177,7 @@ or <code>danger</code> for a status edge. Apps show toasts from code
 (<code>showPopover()</code>).</p>
 <h2>Position</h2>
 <p>Where toasts pin is app-level config — one token, set once, every toast
-obeys:</p>
+obeys. The picker in the specimen above sets it on <code>:root</code>:</p>
 <pre><code>:root { --toast-position: top-center }
 /* bottom-right (default) | bottom-left | bottom-center
    | top-right | top-left | top-center */</code></pre>
