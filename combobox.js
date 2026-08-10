@@ -20,13 +20,16 @@ let uid = 0;
 class MCombobox extends HTMLElement {
   #input;
   #list;
+  #datalist;
+  #listId;
   #options = [];
   #active = -1;
+  #observer;
 
   connectedCallback() {
     this.#input = this.querySelector("input");
-    const datalist = this.querySelector("datalist");
-    if (!this.#input || !datalist) return;
+    this.#datalist = this.querySelector("datalist");
+    if (!this.#input || !this.#datalist) return;
 
     // disable the native popup; the module takes over
     this.#input.removeAttribute("list");
@@ -35,16 +38,49 @@ class MCombobox extends HTMLElement {
     this.#input.setAttribute("aria-autocomplete", "list");
     this.#input.autocomplete = "off";
 
-    const listId = `m-cb-${++uid}`;
+    this.#listId = `m-cb-${++uid}`;
     this.#list = document.createElement("div");
-    this.#list.id = listId;
+    this.#list.id = this.#listId;
     this.#list.setAttribute("role", "listbox");
     this.#list.hidden = true;
 
-    this.#options = [...datalist.options].map((o, i) => {
+    this.#buildOptions();
+    this.append(this.#list);
+    this.#input.setAttribute("aria-controls", this.#listId);
+
+    // Options may be rendered asynchronously (a search-backed combobox):
+    // rebuild the listbox whenever the author's datalist changes.
+    this.#observer = new MutationObserver(() => {
+      this.#buildOptions();
+      if (document.activeElement === this.#input) this.#openAndFilter();
+    });
+    this.#observer.observe(this.#datalist, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["value"],
+    });
+
+    this.#input.addEventListener("input", (e) => {
+      // ignore our own dispatched events from #choose — they'd reopen
+      if (e.isTrusted) this.#openAndFilter();
+    });
+    this.#input.addEventListener("keydown", (e) => this.#onKey(e));
+    this.addEventListener("focusout", (e) => {
+      if (!this.contains(e.relatedTarget)) this.#close();
+    });
+  }
+
+  disconnectedCallback() {
+    this.#observer?.disconnect();
+  }
+
+  #buildOptions() {
+    this.#list.replaceChildren();
+    this.#options = [...this.#datalist.options].map((o, i) => {
       const d = document.createElement("div");
       d.setAttribute("role", "option");
-      d.id = `${listId}-${i}`;
+      d.id = `${this.#listId}-${i}`;
       d.textContent = o.value || o.textContent;
       // pointerdown so the input never loses focus
       d.addEventListener("pointerdown", (e) => {
@@ -58,17 +94,7 @@ class MCombobox extends HTMLElement {
       this.#list.append(d);
       return d;
     });
-    this.append(this.#list);
-    this.#input.setAttribute("aria-controls", listId);
-
-    this.#input.addEventListener("input", (e) => {
-      // ignore our own dispatched events from #choose — they'd reopen
-      if (e.isTrusted) this.#openAndFilter();
-    });
-    this.#input.addEventListener("keydown", (e) => this.#onKey(e));
-    this.addEventListener("focusout", (e) => {
-      if (!this.contains(e.relatedTarget)) this.#close();
-    });
+    this.#active = -1;
   }
 
   #visible() {
@@ -127,7 +153,15 @@ class MCombobox extends HTMLElement {
   }
 
   #choose(option) {
-    this.#input.value = option.textContent;
+    // Write through the native prototype setter: frameworks that patch
+    // the value property to track controlled inputs (React) only observe
+    // the change when it lands on the native setter.
+    const setter = Object.getOwnPropertyDescriptor(
+      HTMLInputElement.prototype,
+      "value",
+    )?.set;
+    if (setter) setter.call(this.#input, option.textContent);
+    else this.#input.value = option.textContent;
     this.#close();
     this.#input.dispatchEvent(new Event("input", { bubbles: true }));
     this.#input.dispatchEvent(new Event("change", { bubbles: true }));

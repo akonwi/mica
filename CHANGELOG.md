@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.8.0 — 2026-08-15
+
+### Added
+
+- **Combobox supports dynamic option sources** — `<m-combobox>` now
+  observes its `datalist` and rebuilds the listbox when options change,
+  so a search-backed combobox that renders options asynchronously works.
+  Previously the options were snapshotted once at upgrade time.
+
+### Fixed
+
+- **Combobox selection now registers in React** — choosing an option
+  writes the value through the native prototype setter before dispatching
+  `input`/`change`, so frameworks that patch the value property to track
+  controlled inputs observe the selection.
+
 ## v0.7.0 — 2026-08-10
 
 ### Added

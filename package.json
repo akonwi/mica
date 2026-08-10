@@ -1,6 +1,6 @@
 {
   "name": "@akonwi/mica",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Custom elements. Native behavior. Nearly no JavaScript.",
   "keywords": [
     "css",
@@ -21,13 +21,34 @@
   "exports": {
     ".": "./mica.css",
     "./mica.css": "./mica.css",
-    "./invoker.js": { "types": "./invoker.d.ts", "default": "./invoker.js" },
-    "./drawer.js": { "types": "./drawer.d.ts", "default": "./drawer.js" },
-    "./field.js": { "types": "./field.d.ts", "default": "./field.js" },
-    "./select.js": { "types": "./select.d.ts", "default": "./select.js" },
-    "./tabs.js": { "types": "./tabs.d.ts", "default": "./tabs.js" },
-    "./toast.js": { "types": "./toast.d.ts", "default": "./toast.js" },
-    "./combobox.js": { "types": "./combobox.d.ts", "default": "./combobox.js" },
+    "./invoker.js": {
+      "types": "./invoker.d.ts",
+      "default": "./invoker.js"
+    },
+    "./drawer.js": {
+      "types": "./drawer.d.ts",
+      "default": "./drawer.js"
+    },
+    "./field.js": {
+      "types": "./field.d.ts",
+      "default": "./field.js"
+    },
+    "./select.js": {
+      "types": "./select.d.ts",
+      "default": "./select.js"
+    },
+    "./tabs.js": {
+      "types": "./tabs.d.ts",
+      "default": "./tabs.js"
+    },
+    "./toast.js": {
+      "types": "./toast.d.ts",
+      "default": "./toast.js"
+    },
+    "./combobox.js": {
+      "types": "./combobox.d.ts",
+      "default": "./combobox.js"
+    },
     "./types/react": {
       "types": "./types/react.d.ts"
     }

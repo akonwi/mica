@@ -177,6 +177,11 @@ substring filtering on input, Arrow/Enter/Esc keys, selection dispatches
 real <code>input</code>/<code>change</code> events. The listbox positions
 inside the wrapper (no top layer), so it works in every browser mica
 supports.</p>
+<p>The datalist may be populated <em>asynchronously</em> — a search-backed
+combobox that renders options as results arrive just works. The module
+observes the datalist and rebuilds its listbox when options change, and
+selection writes through the native value setter so frameworks that track
+controlled inputs (React) observe it.</p>
 
           <m-hstack justify="between" class="pager"><a href="tabs.html">&larr; tabs</a><span></span></m-hstack>
         </m-vstack>
