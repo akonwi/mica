@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **`--toast-position` token** — app-level toast placement: set
+  `--toast-position: top-center` (etc.) once on `:root`; every toast obeys.
+  Vocabulary: `bottom-right` (default) | `bottom-left` | `bottom-center` |
+  `top-right` | `top-left` | `top-center`. Top positions stack downward and
+  enter from above. Read via container style queries (Baseline newly
+  available 2026-05); browsers without them keep the bottom-right default.
+- **TypeScript declarations for all JS modules** — `toast()` is fully typed;
+  side-effect modules type their registered elements
+  (`HTMLElementTagNameMap`). `exports` map carries `types` conditions.
+
+### Fixed
+
+- Docs: toast page code samples rendered literal `{{ }}` braces.
+
 ## v0.6.0 — 2026-08-07
 
 ### Changed

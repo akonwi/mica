@@ -580,6 +580,14 @@ and other popovers; <code>role="status"</code> announces politely. The
 <code>variant</code> attribute accepts <code>success</code>, <code>warning</code>,
 or <code>danger</code> for a status edge. Apps show toasts from code
 (<code>showPopover()</code>).</p>
+<h2>Position</h2>
+<p>Where toasts pin is app-level config — one token, set once, every toast
+obeys:</p>
+{code(':root { --toast-position: top-center }' + chr(10) + '/* bottom-right (default) | bottom-left | bottom-center' + chr(10) + '   | top-right | top-left | top-center */')}
+<p>Top positions stack downward and enter from above; centers are
+viewport-centered. Read via container style queries (Baseline
+newly-available 2026-05); in browsers without them the token is ignored
+and toasts keep the bottom-right default — plainer, not broken.</p>
 <h2>Module: toast.js (JS-enhanced)</h2>
 <p>Loaded on this page. Open toasts stack upward (JS ships one offset
 number per toast; CSS owns the geometry and reflow motion), auto-dismiss
@@ -587,7 +595,7 @@ after <code>duration</code> ms (default 5000, <code>duration="0"</code> = sticky
 paused while hovered), and <code>toast()</code> spawns an <code>&lt;m-toast&gt;</code>
 from code and removes it after dismissal. Try both buttons above — the toasts
 stack.</p>
-{code("import {{ toast }} from 'mica/toast.js'" + chr(10) + chr(10) + "toast('Saved', {{ description: 'Your changes are safe.'," + chr(10) + "                variant: 'success', duration: 4000 }})")}
+{code("import { toast } from 'mica/toast.js'" + chr(10) + chr(10) + "toast('Saved', { description: 'Your changes are safe.'," + chr(10) + "                variant: 'success', duration: 4000 })")}
 """,
     ),
     dict(

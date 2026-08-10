@@ -294,6 +294,23 @@ try {
       await page.evaluate(() =>
         (document.querySelector("[popover]:popover-open") as any)?.hidePopover());
 
+      // toast position token — default corner + one style-query branch.
+      // Probes used inset/margin values on an OPEN toast (closed popovers
+      // are display:none and report unresolved calc strings).
+      const toastPos = ["top", "right", "bottom", "left", "margin-left", "margin-right"];
+      await page.evaluate(() =>
+        (document.getElementById("demo-toast") as any)?.showPopover());
+      await page.waitForTimeout(50);
+      states["toast.position.default"] = await probe("m-toast:popover-open", toastPos);
+      await page.evaluate(() =>
+        document.documentElement.style.setProperty("--toast-position", "top-center"));
+      await page.waitForTimeout(50);
+      states["toast.position.top-center"] = await probe("m-toast:popover-open", toastPos);
+      await page.evaluate(() => {
+        document.documentElement.style.removeProperty("--toast-position");
+        (document.querySelector("m-toast:popover-open") as any)?.hidePopover();
+      });
+
       (data as any).states = states;
 
       // ---- visual probes (element crops, PNG baselines) ----

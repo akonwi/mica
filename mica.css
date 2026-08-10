@@ -40,6 +40,13 @@
     --control-height: 2.25rem;
     --control-height-lg: 2.5rem;
 
+    /* Where toasts pin. App-level config — set once, all toasts obey:
+       bottom-right (default) | bottom-left | bottom-center |
+       top-right | top-left | top-center.
+       Read via container style queries (Baseline newly-available
+       2026-05); browsers without them keep the bottom-right default. */
+    --toast-position: bottom-right;
+
     --focus-ring-width: 2px;
     --focus-ring-offset: 2px;
     --focus-ring-color: var(--color-accent);
@@ -1514,10 +1521,45 @@
       border-inline-start: 2px solid var(--color-warn);
     }
   }
-  /* restacking motion always (inset-block-end); the entrance slide/fade
-     only where overlay transitions work — see the base popover note. */
+  /* --toast-position overrides (base = bottom-right). Style queries read
+     the token from the toast's parent; without support the default
+     corner stands — graceful. Stack offset feeds whichever block inset
+     is active; centers use inset-inline 0 + auto margins. */
+  @container style(--toast-position: bottom-left) {
+    :where(m-toast[popover]) {
+      inset: auto auto calc(var(--space-lg) + var(--m-toast-offset, 0px)) var(--space-lg);
+    }
+  }
+  @container style(--toast-position: bottom-center) {
+    :where(m-toast[popover]) {
+      inset: auto 0 calc(var(--space-lg) + var(--m-toast-offset, 0px)) 0;
+      margin-inline: auto;
+    }
+  }
+  @container style(--toast-position: top-right) {
+    :where(m-toast[popover]) {
+      inset: calc(var(--space-lg) + var(--m-toast-offset, 0px)) var(--space-lg) auto auto;
+    }
+  }
+  @container style(--toast-position: top-left) {
+    :where(m-toast[popover]) {
+      inset: calc(var(--space-lg) + var(--m-toast-offset, 0px)) auto auto var(--space-lg);
+    }
+  }
+  @container style(--toast-position: top-center) {
+    :where(m-toast[popover]) {
+      inset: calc(var(--space-lg) + var(--m-toast-offset, 0px)) 0 auto 0;
+      margin-inline: auto;
+    }
+  }
+
+  /* restacking motion always (both block insets — only the active one
+     ever changes); the entrance slide/fade only where overlay
+     transitions work — see the base popover note. */
   :where(m-toast[popover]:popover-open) {
-    transition: inset-block-end 0.15s;
+    transition:
+      inset-block-end 0.15s,
+      inset-block-start 0.15s;
   }
   @supports (overlay: auto) {
     :where(m-toast[popover]:popover-open) {
@@ -1525,12 +1567,24 @@
         opacity 0.1s,
         translate 0.1s,
         inset-block-end 0.15s,
+        inset-block-start 0.15s,
         overlay 0.1s allow-discrete,
         display 0.1s allow-discrete;
     }
     @starting-style {
       :where(m-toast[popover]:popover-open) {
         translate: 0 0.75rem;
+      }
+    }
+    /* top positions enter from above — must follow the base
+       @starting-style in source order to win at equal specificity */
+    @container style(--toast-position: top-right) or
+               style(--toast-position: top-left) or
+               style(--toast-position: top-center) {
+      @starting-style {
+        :where(m-toast[popover]:popover-open) {
+          translate: 0 -0.75rem;
+        }
       }
     }
   }
