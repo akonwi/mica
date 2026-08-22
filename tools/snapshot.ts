@@ -108,6 +108,12 @@ const PROBES: [string, string, string[]][] = [
   ["badge.warning", 'm-badge[variant="warning"]', ["background-color", "color", "border-top-color"]],
   ["badge.danger", 'm-badge[variant="danger"]', ["background-color", "color", "border-top-color"]],
   ["badge.count", "m-badge[count]", ["min-inline-size", "font-family"]],
+  ["avatar.initials", "m-avatar:not([blobatar])",
+    ["display", "inline-size", "block-size", "background-color", "color", "font-size", "border-radius"]],
+  ["avatar.blobatar", "m-avatar[blobatar]:not([contained])",
+    ["inline-size", "block-size", "color", "border-radius"]],
+  ["avatar.contained", "m-avatar[blobatar][contained]",
+    ["inline-size", "block-size", "color", "border-radius"]],
   // a11y primitives. These also stand in for the parse canary's blind
   // spot: they are the last rule block in mica.elements, after m-error.
   ["visually-hidden", "[data-visually-hidden]:not([data-visually-hidden=\"focusable\"])",
@@ -162,6 +168,8 @@ const VISUAL_PROBES: [string, string][] = [
   ["radio.checked", 'input[type="radio"]:checked'],
   ["switch.checked", 'input[type="checkbox"][role="switch"]:checked'],
   ["switch.unchecked", 'input[type="checkbox"][role="switch"]:not(:checked):not([disabled])'],
+  ["avatar.blobatar", "m-avatar[blobatar]:not([contained])"],
+  ["avatar.contained", "m-avatar[blobatar][contained]"],
 ];
 const VISUAL_DIR = join(import.meta.dir, "snapshots", "visual");
 
@@ -241,6 +249,32 @@ try {
         throw new Error("PARSE CANARY FAILED: mica.css did not parse to the end");
       delete data.canary;
 
+      const avatarUpgrade = await page.evaluate(() => {
+        const make = () => {
+          const avatar = document.createElement("m-avatar");
+          avatar.textContent = "TS";
+          avatar.setAttribute("blobatar", "snapshot-seed");
+          document.body.append(avatar);
+          return avatar;
+        };
+        const first = make();
+        const second = make();
+        const properties = ["--m-avatar-body-color", "--m-avatar-eye-color"];
+        const generated = properties.every((property) =>
+          first.style.getPropertyValue(property) !== "");
+        const deterministic = properties.every((property) =>
+          first.style.getPropertyValue(property) === second.style.getPropertyValue(property));
+        first.removeAttribute("blobatar");
+        const restored = properties.every((property) =>
+          first.style.getPropertyValue(property) === "") &&
+          getComputedStyle(first).color !== "rgba(0, 0, 0, 0)";
+        first.remove();
+        second.remove();
+        return { generated, deterministic, restored };
+      });
+      if (!avatarUpgrade.generated || !avatarUpgrade.deterministic || !avatarUpgrade.restored)
+        throw new Error(`avatar.js upgrade failed: ${JSON.stringify(avatarUpgrade)}`);
+
       // ---- state probes (real interactions) ----
       const states: Record<string, unknown> = {};
       const probe = (sel: string, props: string[], pseudo?: string) =>
@@ -250,6 +284,15 @@ try {
           const cs = getComputedStyle(el, pe || undefined);
           return Object.fromEntries(ps.map((p) => [p, cs.getPropertyValue(p)]));
         }, [sel, props, pseudo] as any);
+
+      states["avatar.blobatar.body"] = await probe(
+        "m-avatar[blobatar]:not([contained])", ["background-color", "inset-block-start"],
+        "::before");
+      states["avatar.blobatar.eyes"] = await probe(
+        "m-avatar[blobatar]:not([contained])", ["background-image"], "::after");
+      states["avatar.contained.body"] = await probe(
+        "m-avatar[blobatar][contained]", ["background-color", "inset-block-start"],
+        "::before");
 
       for (const [name, sel, props] of HOVER_PROBES) {
         await page.hover(sel);

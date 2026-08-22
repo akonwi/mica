@@ -21,6 +21,10 @@
   "exports": {
     ".": "./mica.css",
     "./mica.css": "./mica.css",
+    "./avatar.js": {
+      "types": "./avatar.d.ts",
+      "default": "./avatar.js"
+    },
     "./invoker.js": {
       "types": "./invoker.d.ts",
       "default": "./invoker.js"
@@ -55,6 +59,8 @@
   },
   "files": [
     "mica.css",
+    "avatar.js",
+    "avatar.d.ts",
     "invoker.js",
     "invoker.d.ts",
     "drawer.js",
@@ -69,16 +75,19 @@
     "toast.d.ts",
     "combobox.js",
     "combobox.d.ts",
-    "types/react.d.ts"
+    "types/react.d.ts",
+    "THIRD_PARTY_LICENSES.md"
   ],
   "sideEffects": true,
   "devDependencies": {
     "axe-core": "^4.12.1",
+    "blobatar": "2.4.0",
     "pixelmatch": "^7.2.0",
     "playwright": "^1.61.1",
     "pngjs": "^7.0.0"
   },
   "scripts": {
+    "build:avatar": "bun tools/build-avatar.ts",
     "snapshot": "bun tools/snapshot.ts",
     "snapshot:check": "bun tools/snapshot.ts --check",
     "snapshot:setup": "playwright install chromium webkit"

@@ -56,6 +56,10 @@ declare module 'react' {
         variant?: 'primary' | 'success' | 'warning' | 'danger'
         count?: boolean
       }>
+      'm-avatar': MicaElement<{
+        blobatar?: string
+        contained?: boolean
+      }>
       'm-toast': MicaElement<{
         popover?: 'manual'
         variant?: 'success' | 'warning' | 'danger'

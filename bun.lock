@@ -6,6 +6,7 @@
       "name": "@akonwi/mica",
       "devDependencies": {
         "axe-core": "^4.12.1",
+        "blobatar": "2.4.0",
         "pixelmatch": "^7.2.0",
         "playwright": "^1.61.1",
         "pngjs": "^7.0.0",
@@ -14,6 +15,8 @@
   },
   "packages": {
     "axe-core": ["axe-core@4.12.1", "", {}, "sha512-s7iGf5GaVMxEG0ENN9x+xTr7GFZCb1ZP/1uATUpCEK2X78nDB3RwbtFCo9pGAf9ru+VwoQ464DkaLEeRM08wJA=="],
+
+    "blobatar": ["blobatar@2.4.0", "", { "peerDependencies": { "react": ">=18", "vue": ">=3" }, "optionalPeers": ["react", "vue"] }, "sha512-eLXuYUW+Xr1FvB+ThFPxR3gjAArkhS6Z1OJnOFCqsoh8phkmHlcnZtzl/Mqi1VT6Ii+IuZ2bdCzmQhysOR2+kA=="],
 
     "fsevents": ["fsevents@2.3.2", "", { "os": "darwin" }, "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="],
 

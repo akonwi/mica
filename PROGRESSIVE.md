@@ -25,9 +25,13 @@ Lives here:
 
 - The stacks: `m-vstack`, `m-hstack`, `m-zstack`
 - `m-center`, `m-box`, `m-grid`, `m-sidecar`, `m-switcher`, `m-reel`,
-  `m-frame`, `m-cover`, badges — anything that is "a styled box"
+  `m-frame`, `m-cover`, badges, avatars — anything that is "a styled box"
 - Boundary note: `m-reel` scrolls and snaps, which *feels* behavioral —
   but scrolling is the browser's and snap is CSS. CSS-only.
+- Avatar initials are complete CSS-only content. The optional `avatar.js`
+  module changes their paint from initials to a locally generated,
+  seed-deterministic face; it adds no behavior or semantics, so it does not
+  move the component into the JS-enhanced level.
 
 ## Native behavior — the behavior is a native element's
 

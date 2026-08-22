@@ -11,9 +11,10 @@ to come from: CSS-only / native behavior / JS-enhanced),
 
 - `mica.css` — the entire library. One file, four layers:
   `@layer mica.tokens, mica.preset, mica.elements, mica.layout`.
-- `field.js`, `select.js` — enhancement modules (JS-enhanced level).
-  Plain ES modules, one file per
-  component, self-defining, no shared runtime.
+- Root `*.js` files — opt-in enhancement modules. Plain ES modules, one file
+  per component, self-defining, no shared runtime. `avatar.js` is the generated
+  exception: edit `tools/avatar.js`, then run `bun run build:avatar` to bundle
+  Blobatar for direct browser use.
 - `demo.html` — kitchen-sink testbed (every component on one page). This is
   what the feedback loop probes.
 - `index.html`, `docs/*.html` — paginated docs. **Generated** by

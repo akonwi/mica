@@ -771,6 +771,73 @@
     --m-badge-numerals: tabular-nums;
   }
 
+  /* --- avatar: authored initials, optionally Blobatar-painted -------- */
+  :where(m-avatar) {
+    display: inline-grid;
+    place-items: center;
+    position: relative;
+    flex: none;
+    box-sizing: border-box;
+    inline-size: var(--avatar-size, 3rem);
+    block-size: var(--avatar-size, 3rem);
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+    color: var(--m-avatar-content-color, var(--color-text));
+    font-size: calc(var(--avatar-size, 3rem) * 0.5);
+    font-weight: 600;
+    line-height: 1;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  /* Attribute selectors only transport values. The pseudo rules below
+     render them, so missing avatar.js leaves authored initials untouched. */
+  :where(m-avatar[blobatar]) {
+    --m-avatar-decoration: "";
+    --m-avatar-render-inset-block: 0;
+    --m-avatar-render-inset-inline: 0;
+    --m-avatar-render-x: 0;
+    --m-avatar-render-y: 0;
+  }
+
+  :where(m-avatar[blobatar][contained]) {
+    --m-avatar-render-inset-block: var(--m-avatar-body-inset-block);
+    --m-avatar-render-inset-inline: var(--m-avatar-body-inset-inline);
+    --m-avatar-render-x: var(--m-avatar-body-x);
+    --m-avatar-render-y: var(--m-avatar-body-y);
+  }
+
+  :where(m-avatar)::before {
+    content: var(--m-avatar-decoration, none);
+    position: absolute;
+    inset-block: var(--m-avatar-render-inset-block);
+    inset-inline: var(--m-avatar-render-inset-inline);
+    border-radius: inherit;
+    background: var(--m-avatar-body-color);
+    transform: translate(var(--m-avatar-render-x), var(--m-avatar-render-y));
+  }
+
+  :where(m-avatar)::after {
+    content: var(--m-avatar-decoration, none);
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        ellipse var(--m-avatar-eye-width) var(--m-avatar-eye-height)
+        at var(--m-avatar-eye-left) var(--m-avatar-eye-top),
+        var(--m-avatar-eye-color) 98%, transparent 100%
+      ),
+      radial-gradient(
+        ellipse var(--m-avatar-eye-width) var(--m-avatar-eye-height)
+        at calc(var(--m-avatar-eye-left) + var(--m-avatar-eye-gap))
+          calc(var(--m-avatar-eye-top) + var(--m-avatar-eye-drop)),
+        var(--m-avatar-eye-color) 98%, transparent 100%
+      );
+  }
+
   /* --- content: tables, lists, code, quotes ------------------------ */
   :where(table) {
     inline-size: 100%;

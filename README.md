@@ -65,6 +65,10 @@ Every component states where its behavior comes from
   `select.js`, `toast.js`. Each is a tiny standalone module that enhances
   working markup — never renders it. There is no shared runtime.
 
+`avatar.js` is a separate opt-in visual enhancement: authored initials work
+without it; importing it locally derives deterministic color and features from
+the `blobatar` seed without a network request.
+
 ## Your CSS always wins
 
 All of mica ships inside `@layer mica.*`. Unlayered user CSS beats layered

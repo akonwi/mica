@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Accessibility — mica</title>
+  <title>avatar — mica</title>
   <link rel="stylesheet" href="../mica.css" />
-
+  <script type="module" src="../avatar.js"></script>
   <style>
     /* Mica's primitive only reveals on focus; where the revealed link sits
        is the site's call. Pinned so it never shifts the rail's layout. */
@@ -71,7 +71,7 @@
       <a href="../index.html">Introduction</a>
       <a href="tokens.html">Tokens &amp; theming</a>
       <a href="preset.html">Preset</a>
-      <a href="accessibility.html" aria-current="page">Accessibility</a>
+      <a href="accessibility.html">Accessibility</a>
       <a href="../llms.txt">llms.txt</a>
       <h2>Layout</h2>
       <a href="vstack.html">vstack</a>
@@ -88,7 +88,7 @@
       <h2>Elements</h2>
       <a href="button.html">button</a>
       <a href="badge.html">badge</a>
-      <a href="avatar.html">avatar</a>
+      <a href="avatar.html" aria-current="page">avatar</a>
       <a href="content.html">content</a>
       <a href="progress.html">progress &amp; meter</a>
       <h2>Forms</h2>
@@ -117,7 +117,7 @@
       <a href="../index.html">Introduction</a>
       <a href="tokens.html">Tokens &amp; theming</a>
       <a href="preset.html">Preset</a>
-      <a href="accessibility.html" aria-current="page">Accessibility</a>
+      <a href="accessibility.html">Accessibility</a>
       <a href="../llms.txt">llms.txt</a>
       <h2>Layout</h2>
       <a href="vstack.html">vstack</a>
@@ -134,7 +134,7 @@
       <h2>Elements</h2>
       <a href="button.html">button</a>
       <a href="badge.html">badge</a>
-      <a href="avatar.html">avatar</a>
+      <a href="avatar.html" aria-current="page">avatar</a>
       <a href="content.html">content</a>
       <a href="progress.html">progress &amp; meter</a>
       <h2>Forms</h2>
@@ -157,63 +157,35 @@
     <article id="main">
       <m-center style="--max: 48rem">
         <m-vstack gap="xl">
-          <span class="crumb">Start / Accessibility</span>
+          <span class="crumb">Elements / avatar</span>
           <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>Accessibility</h1></m-hstack>
-            <p class="lead">Native semantics first; script only where access requires it.</p>
+            <m-hstack gap="sm"><h1>avatar</h1> <span class="badge">CSS-only</span></m-hstack>
+            <p class="lead">Authored initials by default; optional deterministic color and features from a local seed.</p>
           </m-vstack>
 
-<p>Mica's accessibility position is mostly a consequence of its other
-choices. Styling native elements means their semantics, keyboard behavior,
-and assistive-tech mapping arrive intact — a <code>&lt;button&gt;</code> is
-announced as a button because it is one. The tokenized focus ring in
-<code>mica.preset</code> is visible on every control by default rather than
-something you remember to add, and dark mode is <code>color-scheme</code>,
-so native controls follow the theme without a parallel palette.</p>
+<div class="specimen"><m-vstack gap="md"><m-hstack gap="sm" wrap><m-avatar role="img" aria-label="Akonwi Ngoh">AN</m-avatar><m-avatar role="img" blobatar="akonwi" aria-label="Akonwi Ngoh">AN</m-avatar><m-avatar role="img" blobatar="ada" aria-label="Ada Lovelace">AL</m-avatar><m-avatar role="img" blobatar="grace" contained aria-label="Grace Hopper">GH</m-avatar><m-avatar role="img" blobatar="mica" style="--avatar-size: 4rem" aria-label="Mica">MI</m-avatar></m-hstack><m-hstack gap="sm"><m-avatar blobatar="akonwi-profile" aria-hidden="true">AN</m-avatar><m-vstack gap="none"><b>Akonwi Ngoh</b><small>akonwi@example.com</small></m-vstack></m-hstack></m-vstack></div>
+<pre><code>&lt;m-avatar role=&quot;img&quot; aria-label=&quot;Akonwi Ngoh&quot;&gt;AN&lt;/m-avatar&gt;
+&lt;m-avatar role=&quot;img&quot; blobatar=&quot;akonwi&quot; aria-label=&quot;Akonwi Ngoh&quot;&gt;AN&lt;/m-avatar&gt;
+&lt;m-avatar role=&quot;img&quot; blobatar=&quot;akonwi&quot; contained aria-label=&quot;Akonwi Ngoh&quot;&gt;AN&lt;/m-avatar&gt;
 
-<h2>Never fake behavior in CSS</h2>
-<p>The checkbox-hack school of CSS-only components produces things that look
-like tabs and are unusable with a keyboard. Mica refuses that trade: if the
-<em>accessible</em> version of a pattern needs script, the script is the
-honest cost and ships as an opt-in enhancement module. That is the line
-between native behavior and JS-enhanced — <em>does accessibility require
-JS?</em> — and it is why
-<code>m-tabs</code> and <code>m-combobox</code> have modules while dialogs,
-accordions, and menus do not.</p>
-<p>Enhancement modules enhance working markup; they never render it. With the
-module absent you get a degraded but usable page — all tab panels visible in
-order, a native autocomplete — not an empty container.</p>
+&lt;script type=&quot;module&quot; src=&quot;mica/avatar.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h2>Progressive fallback</h2>
+<p>Initials are authored content, not generated by the module. Without
+<code>avatar.js</code>, or before it loads, every example remains a complete
+initials avatar. The optional module uses Blobatar's deterministic seed and
+contrast-safe palette utilities locally; it makes no image or identity request.</p>
+<h2>Attributes</h2>
+<p><code>blobatar</code> is the deterministic seed. Its color fills the avatar
+by default and its corners follow the theme's <code>--radius-md</code>.
+Boolean <code>contained</code> keeps the generated body inset on the quiet
+surface instead. Change size with <code>style="--avatar-size: 4rem"</code>.</p>
+<h2>Accessibility</h2>
+<p>Give a standalone avatar <code>role="img"</code> and the person's name with
+<code>aria-label</code>. When visible text alongside it already identifies the person, use
+<code>aria-hidden="true"</code> to avoid announcing the name twice. Generated
+paint is decorative; authored initials remain the semantic fallback.</p>
 
-<h2>Visually hidden</h2>
-<p>Content some users must reach and others must not see: a table caption
-the layout already implies, a heading that structures the document without
-repeating a visible title, a description for an icon-only control.
-<code>display: none</code> and <code>inline-size: 0</code> both remove it
-from the accessibility tree, which is the opposite of the goal.</p>
-<div class="specimen"><p>There is a hidden sentence here.<span data-visually-hidden> Off-screen, still announced.</span> Nothing renders between the period and this word.</p></div>
-<pre><code>&lt;caption data-visually-hidden&gt;Standings by conference&lt;/caption&gt;</code></pre>
-<p>It is an attribute, not a class. <code>class</code> stays the app's;
-<code>data-*</code> is valid HTML and needs no <code>HTMLAttributes</code>
-augmentation in React or TypeScript; and <code>.visually-hidden</code> /
-<code>.sr-only</code> are the most copy-pasted names in accessibility, so a
-project arriving with its own copy is the likely case rather than the edge
-case. Nothing to collide with.</p>
-
-<h3><code>focusable</code> — the skip link</h3>
-<p>A skip link must be hidden until someone tabs to it, then visible. The
-variant hides only while unfocused; on focus the rule stops matching and the
-element keeps whatever styling you gave it — there is no undo rule fighting
-your CSS.</p>
-<pre><code>&lt;a href=&quot;#main&quot; data-visually-hidden=&quot;focusable&quot;&gt;Skip to content&lt;/a&gt;</code></pre>
-<p>Tab into this page from the address bar to see mica's own skip link.</p>
-
-<h2>What mica does not do for you</h2>
-<p>A stylesheet cannot supply an accessible name, a heading order, or a
-sensible tab sequence. Mica keeps the platform's semantics available and
-declines to break them; labelling controls, structuring headings, and
-testing with a screen reader remain yours.</p>
-
-          <m-hstack justify="between" class="pager"><a href="preset.html">&larr; Preset</a><a href="vstack.html">vstack &rarr;</a></m-hstack>
+          <m-hstack justify="between" class="pager"><a href="badge.html">&larr; badge</a><a href="content.html">content &rarr;</a></m-hstack>
         </m-vstack>
       </m-center>
     </article>

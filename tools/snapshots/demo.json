@@ -1,6 +1,27 @@
 {
  "dark": {
   "elements": {
+   "avatar.blobatar": {
+    "block-size": "48px",
+    "border-radius": "0px",
+    "color": "rgba(0, 0, 0, 0)",
+    "inline-size": "48px"
+   },
+   "avatar.contained": {
+    "block-size": "48px",
+    "border-radius": "0px",
+    "color": "rgba(0, 0, 0, 0)",
+    "inline-size": "48px"
+   },
+   "avatar.initials": {
+    "background-color": "oklch(0.17 0 263)",
+    "block-size": "48px",
+    "border-radius": "0px",
+    "color": "oklch(0.96 0 263)",
+    "display": "grid",
+    "font-size": "24px",
+    "inline-size": "48px"
+   },
    "badge": {
     "border-radius": "0px",
     "border-top-color": "oklch(0.3 0 263)",
@@ -229,6 +250,17 @@
    }
   },
   "states": {
+   "avatar.blobatar.body": {
+    "background-color": "rgb(69, 131, 232)",
+    "inset-block-start": "0px"
+   },
+   "avatar.blobatar.eyes": {
+    "background-image": "radial-gradient(2.61% 9.85% at 37.93% 42.58%, rgb(10, 16, 24) 98%, rgba(0, 0, 0, 0) 100%), radial-gradient(2.61% 9.85% at 59.19% 40.9%, rgb(10, 16, 24) 98%, rgba(0, 0, 0, 0) 100%)"
+   },
+   "avatar.contained.body": {
+    "background-color": "rgb(56, 134, 231)",
+    "inset-block-start": "6.70312px"
+   },
    "button.danger.hover": {
     "background-color": "oklch(0.7312 0.1584 10.36)"
    },
@@ -399,6 +431,27 @@
  },
  "light": {
   "elements": {
+   "avatar.blobatar": {
+    "block-size": "48px",
+    "border-radius": "0px",
+    "color": "rgba(0, 0, 0, 0)",
+    "inline-size": "48px"
+   },
+   "avatar.contained": {
+    "block-size": "48px",
+    "border-radius": "0px",
+    "color": "rgba(0, 0, 0, 0)",
+    "inline-size": "48px"
+   },
+   "avatar.initials": {
+    "background-color": "oklch(0.973 0 263)",
+    "block-size": "48px",
+    "border-radius": "0px",
+    "color": "oklch(0.18 0 263)",
+    "display": "grid",
+    "font-size": "24px",
+    "inline-size": "48px"
+   },
    "badge": {
     "border-radius": "0px",
     "border-top-color": "oklch(0.89 0 263)",
@@ -627,6 +680,17 @@
    }
   },
   "states": {
+   "avatar.blobatar.body": {
+    "background-color": "rgb(69, 131, 232)",
+    "inset-block-start": "0px"
+   },
+   "avatar.blobatar.eyes": {
+    "background-image": "radial-gradient(2.61% 9.85% at 37.93% 42.58%, rgb(10, 16, 24) 98%, rgba(0, 0, 0, 0) 100%), radial-gradient(2.61% 9.85% at 59.19% 40.9%, rgb(10, 16, 24) 98%, rgba(0, 0, 0, 0) 100%)"
+   },
+   "avatar.contained.body": {
+    "background-color": "rgb(56, 134, 231)",
+    "inset-block-start": "6.70312px"
+   },
    "button.danger.hover": {
     "background-color": "oklch(0.4792 0.1584 10.36)"
    },
