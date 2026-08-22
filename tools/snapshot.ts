@@ -285,6 +285,74 @@ try {
       states["dialog.backdrop"] = await probe("dialog[open]",
         ["background-color"], "::backdrop");
       await page.evaluate(() => document.querySelector("dialog[open]")?.close());
+      await page.waitForTimeout(50);
+
+      // Mobile drawer: drawer.js replaces the CSS-only giant shadow with
+      // an ordinary fixed overlay whose opacity follows drag progress.
+      await page.setViewportSize({ width: 390, height: 800 });
+      await page.evaluate(() =>
+        (document.getElementById("demo-drawer") as HTMLDialogElement)?.showModal());
+      await page.waitForTimeout(50);
+      states["drawer.open"] = await probe("#demo-drawer[open]", ["box-shadow"]);
+      states["drawer.overlay.open"] = await probe("[data-mica-drawer-overlay]",
+        ["display", "background-color", "opacity"]);
+
+      const drag = await page.evaluate(() => {
+        const dialog = document.getElementById("demo-drawer")!;
+        const header = dialog.querySelector("header")!;
+        const dr = dialog.getBoundingClientRect();
+        const hr = header.getBoundingClientRect();
+        return {
+          x: hr.left + hr.width / 2,
+          y: hr.top + Math.min(12, hr.height / 2),
+          dy: dr.height / 4,
+        };
+      });
+      await page.mouse.move(drag.x, drag.y);
+      await page.mouse.down();
+      await page.mouse.move(drag.x, drag.y + drag.dy);
+      await page.waitForTimeout(50);
+      states["drawer.overlay.drag"] = await probe("[data-mica-drawer-overlay]",
+        ["opacity"]);
+      // End with negligible upward velocity so the sub-threshold drag
+      // reliably cancels instead of satisfying the flick threshold.
+      await page.waitForTimeout(50);
+      await page.mouse.move(drag.x, drag.y + drag.dy - 1);
+      await page.mouse.up();
+      await page.waitForTimeout(50);
+      states["drawer.overlay.cancelled"] = await probe("[data-mica-drawer-overlay]",
+        ["opacity"]);
+
+      // Shipped iOS drops the closed top-layer dialog before transitionend,
+      // which used to strand the drag-dismiss inline translate off-screen.
+      // Suppress that event, dismiss, and reopen before the timeout fallback
+      // to assert that the open mutation clears the stale transform itself.
+      const noDrawerTransition = await page.addStyleTag({
+        content: "dialog[data-drawer] { transition: none !important; }",
+      });
+      await page.mouse.move(drag.x, drag.y);
+      await page.mouse.down();
+      await page.mouse.move(drag.x, drag.y + drag.dy * 2);
+      await page.waitForTimeout(50);
+      await page.mouse.move(drag.x, drag.y + drag.dy * 2 + 1);
+      await page.mouse.up();
+      await page.waitForTimeout(30);
+      await page.evaluate(() =>
+        (document.getElementById("demo-drawer") as HTMLDialogElement)?.showModal());
+      await page.waitForTimeout(50);
+      states["drawer.reopened-after-dismiss"] = await probe("#demo-drawer[open]",
+        ["translate"]);
+      const reopenedVisible = await page.evaluate(() =>
+        document.getElementById("demo-drawer")!.getBoundingClientRect().top < innerHeight);
+      if (!reopenedVisible)
+        throw new Error("drawer stayed translated off-screen after drag-dismiss reopen");
+      await noDrawerTransition.evaluate((style) => style.remove());
+      await page.evaluate(() =>
+        (document.getElementById("demo-drawer") as HTMLDialogElement)?.close());
+      await page.waitForTimeout(50);
+      states["drawer.overlay.closed"] = await probe("[data-mica-drawer-overlay]",
+        ["opacity"]);
+      await page.setViewportSize({ width: 1280, height: 800 });
 
       await page.evaluate(() =>
         (document.querySelector("[popover]") as any)?.showPopover());

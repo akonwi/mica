@@ -246,6 +246,26 @@
     "border-top-color": "oklch(0.3 0 263)",
     "box-shadow": "oklch(0 0 0 / 0.6) 0px 16px 48px 0px"
    },
+   "drawer.open": {
+    "box-shadow": "oklch(0.17 0 263) 0px 64px 0px 0px"
+   },
+   "drawer.overlay.cancelled": {
+    "opacity": "1"
+   },
+   "drawer.overlay.closed": {
+    "opacity": "0"
+   },
+   "drawer.overlay.drag": {
+    "opacity": "0.5"
+   },
+   "drawer.overlay.open": {
+    "background-color": "oklch(0 0 0 / 0.4)",
+    "display": "block",
+    "opacity": "1"
+   },
+   "drawer.reopened-after-dismiss": {
+    "translate": "0px"
+   },
    "input.focus-ring": {
     "outline-color": "oklch(0.7 0.21 263)",
     "outline-offset": "2px",
@@ -623,6 +643,26 @@
     "background-color": "oklch(1 0 263)",
     "border-top-color": "oklch(0.89 0 263)",
     "box-shadow": "oklch(0 0 0 / 0.2) 0px 16px 48px 0px"
+   },
+   "drawer.open": {
+    "box-shadow": "oklch(1 0 263) 0px 64px 0px 0px"
+   },
+   "drawer.overlay.cancelled": {
+    "opacity": "1"
+   },
+   "drawer.overlay.closed": {
+    "opacity": "0"
+   },
+   "drawer.overlay.drag": {
+    "opacity": "0.5"
+   },
+   "drawer.overlay.open": {
+    "background-color": "oklch(0 0 0 / 0.4)",
+    "display": "block",
+    "opacity": "1"
+   },
+   "drawer.reopened-after-dismiss": {
+    "translate": "0px"
    },
    "input.focus-ring": {
     "outline-color": "oklch(0.55 0.21 263)",

@@ -77,7 +77,8 @@ The list must stay embarrassingly short:
 - **Field validation** (`field.js`) — declarative error placement
 - **Toast queueing** (`toast.js`) — display is native behavior (popover);
   queue management, timeouts, and announcements are script
-- **Select alignment** (`select.js`), **drawer gestures** (`drawer.js`)
+- **Select alignment** (`select.js`), **drawer gestures + managed scrim**
+  (`drawer.js`)
 
 ## Why the boundaries earn their keep
 

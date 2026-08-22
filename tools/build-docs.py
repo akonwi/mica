@@ -498,7 +498,7 @@ Working markup, enhanced — never rendered.</p>
     # ---- Patterns ----
     dict(
         group="Patterns", slug="dialog", title="dialog", level="native",
-        lead="Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands (shimmed while support spreads).",
+        lead="Modal and drawer. Focus trap, Esc, and top layer — the browser's. Open/close — invoker commands (shimmed while support spreads).",
         scripts=["../invoker.js", "../drawer.js"],
         extra_css="\n    @media (max-width: 40rem) { [data-drawer] > button.close { display: none; } }\n",
         body=f"""
@@ -512,7 +512,8 @@ description), body, footer are real elements, not components:</p>
 {code('<button commandfor="confirm" command="show-modal">Open</button>  <!-- trigger -->' + chr(10) + chr(10) + '<dialog id="confirm">          <!-- content -->' + chr(10) + '  <button class="close" commandfor="confirm" command="close" aria-label="Close">&#x2715;</button>' + chr(10) + '  <header>                     <!-- header -->' + chr(10) + '    <h2>Are you sure?</h2>     <!-- title -->' + chr(10) + '    <p>This cannot be undone.</p>  <!-- description -->' + chr(10) + '  </header>' + chr(10) + chr(10) + '  <p>Any body content.</p>' + chr(10) + chr(10) + '  <footer>                     <!-- footer: right-aligned row -->' + chr(10) + '    <form method="dialog">' + chr(10) + '      <button>Cancel</button>' + chr(10) + '      <button data-variant="primary" value="ok">Confirm</button>' + chr(10) + '    </form>' + chr(10) + '  </footer>' + chr(10) + '</dialog>')}
 <h2>Notes</h2>
 <p>Enter/exit animations use <code>@starting-style</code> +
-<code>transition-behavior: allow-discrete</code> — the backdrop fades too.
+<code>transition-behavior: allow-discrete</code>. Standard modal backdrops
+fade where the engine supports top-layer exit transitions.
 <code>dialog.returnValue</code> carries the value of the submitting
 button.</p>
 <h2>Bottom sheet + gestures</h2>
@@ -520,9 +521,11 @@ button.</p>
 height, anchored to the bottom edge — the same pattern as shadcn's
 mobile drawer). The optional <code>drawer.js</code> enhancement module adds
 a grab handle and swipe-to-dismiss: the sheet follows a downward drag,
-resists upward, and closes past a third of its height or on a flick.
-Without the module the markup still works — the handle only appears
-when the behavior exists.</p>
+resists upward, and closes past a third of its height or on a flick. It
+also manages the mobile scrim, lightening it as the sheet moves down and
+fading it cleanly on close, including on iOS. Without the module the
+markup still works with a CSS-only scrim — the handle only appears when
+the behavior exists.</p>
 {code('<script type="module" src="mica/drawer.js"><' + '/script>')}
 <p>On the sheet the handle is the dismiss affordance, so the corner
 <code>×</code> is redundant there while it stays the only one on the

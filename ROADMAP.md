@@ -12,12 +12,6 @@ already shipped.
 Surfaced while polishing the mobile drawer (the CSS-only version is
 shipped and accepted; these are the "more" it can't cheaply reach):
 
-- [ ] **Managed overlay scrim.** Replace the box-shadow/`::backdrop`
-      scrim with a JS-controlled overlay element, so the dim can be
-      coupled to a drag in real time (lightens as you pull) and fade
-      cleanly on every engine — including the iOS modal, whose native
-      `::backdrop` can't fade on exit (iOS drops the top layer before
-      the `overlay` transition runs).
 - [ ] **Drag-anywhere dismissal** on the sheet (not just the handle),
       with the scroll-vs-drag heuristics that requires (vaul's hardest
       code, deliberately skipped in `drawer.js` v1).

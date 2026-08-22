@@ -159,7 +159,7 @@
           <span class="crumb">Patterns / dialog</span>
           <m-vstack gap="2xs">
             <m-hstack gap="sm"><h1>dialog</h1> <span class="badge">native behavior</span></m-hstack>
-            <p class="lead">Modal and drawer. Focus trap, Esc, top layer, backdrop — the browser's. Open/close — invoker commands (shimmed while support spreads).</p>
+            <p class="lead">Modal and drawer. Focus trap, Esc, and top layer — the browser's. Open/close — invoker commands (shimmed while support spreads).</p>
           </m-vstack>
 
 <div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button data-variant="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" data-drawer><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button data-variant="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog></div>
@@ -189,7 +189,8 @@ description), body, footer are real elements, not components:</p>
 &lt;/dialog&gt;</code></pre>
 <h2>Notes</h2>
 <p>Enter/exit animations use <code>@starting-style</code> +
-<code>transition-behavior: allow-discrete</code> — the backdrop fades too.
+<code>transition-behavior: allow-discrete</code>. Standard modal backdrops
+fade where the engine supports top-layer exit transitions.
 <code>dialog.returnValue</code> carries the value of the submitting
 button.</p>
 <h2>Bottom sheet + gestures</h2>
@@ -197,9 +198,11 @@ button.</p>
 height, anchored to the bottom edge — the same pattern as shadcn's
 mobile drawer). The optional <code>drawer.js</code> enhancement module adds
 a grab handle and swipe-to-dismiss: the sheet follows a downward drag,
-resists upward, and closes past a third of its height or on a flick.
-Without the module the markup still works — the handle only appears
-when the behavior exists.</p>
+resists upward, and closes past a third of its height or on a flick. It
+also manages the mobile scrim, lightening it as the sheet moves down and
+fading it cleanly on close, including on iOS. Without the module the
+markup still works with a CSS-only scrim — the handle only appears when
+the behavior exists.</p>
 <pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/drawer.js&quot;&gt;&lt;/script&gt;</code></pre>
 <p>On the sheet the handle is the dismiss affordance, so the corner
 <code>×</code> is redundant there while it stays the only one on the

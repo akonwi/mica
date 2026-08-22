@@ -1132,6 +1132,14 @@
     border-block-start: 0;
   }
 
+  /* Internal visual layer injected by drawer.js. It stays ordinary page
+     content beneath the dialog's transparent top-layer ::backdrop, so it
+     survives iOS removing that backdrop on close. Hidden outside the
+     mobile-sheet breakpoint; aria-hidden + inert are set by the module. */
+  :where([data-mica-drawer-overlay]) {
+    display: none;
+  }
+
   /* small screens: the drawer becomes a bottom sheet — shadcn's own
      mobile drawer (vaul/radix) is exactly this. Anchored to the bottom
      edge via auto top margin: bottom attachment is the one thing iOS
@@ -1148,7 +1156,7 @@
       max-inline-size: none;
       border-inline-start: 0;
       border-block-start: 1px solid var(--color-border);
-      /* Two box-shadows, both painted by the SHEET element so they
+      /* CSS-only fallback: two shadows painted by the SHEET so they
          persist through the exit (display:allow-discrete keeps the box
          rendered) — unlike ::backdrop, which iOS drops from the top
          layer the instant you close, cutting the scrim. So the dim
@@ -1184,8 +1192,28 @@
           0 0 0 100vmax oklch(0 0 0 / 0);
       }
     }
-    /* the box-shadow scrim replaces ::backdrop here; keep the native
-       backdrop clear so they don't double up or flash on the iOS cut. */
+    /* With drawer.js, keep only the bleed slab; its ordinary fixed
+       overlay owns the visible scrim and follows drag progress. */
+    :where(:root[data-drawer-gestures])
+      :where(dialog[data-drawer]) {
+      box-shadow: 0 4rem 0 0 var(--color-surface-overlay);
+    }
+
+    :where([data-mica-drawer-overlay]) {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      inline-size: 100lvw;
+      block-size: 100lvh;
+      background: oklch(0 0 0 / 0.4);
+      opacity: var(--m-drawer-overlay-opacity, 0);
+      pointer-events: none;
+      transition: opacity 0.15s;
+    }
+
+    /* The fallback shadow or managed overlay replaces ::backdrop here;
+       keep it clear so the scrims don't double up or flash on iOS. */
     :where(dialog[data-drawer][open])::backdrop {
       background: oklch(0 0 0 / 0);
     }
