@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
+run_step() {
+  local description="$1"
+  shift
+  printf '\n==> %s\n' "$description"
+  time "$@"
+}
+
+command -v bun >/dev/null || {
+  echo "error: Bun is required but is not available in PATH" >&2
+  exit 1
+}
+
+run_step "Install locked development dependencies" bun install --frozen-lockfile
+
+printf '\n==> Check Playwright system dependencies\n'
+if bunx playwright install-deps --dry-run chromium webkit; then
+  printf 'Playwright system dependencies are already installed.\n'
+else
+  run_step "Install Playwright system dependencies" \
+    bunx playwright install-deps chromium webkit
+fi
+
+run_step "Install Playwright browsers" bun run snapshot:setup
+
+printf '\nOrb setup complete.\n'
