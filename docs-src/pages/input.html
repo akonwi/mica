@@ -1,0 +1,6 @@
+<div class="specimen"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-vstack gap="2xs"><label for="di-name">Name</label><input id="di-name" type="text" placeholder="Ada Lovelace" /></m-vstack><m-vstack gap="2xs"><label for="di-bio">Bio (grows as you type — field-sizing, zero JS)</label><textarea id="di-bio" placeholder="A few lines…"></textarea></m-vstack><m-vstack gap="2xs"><label for="di-off">Disabled</label><input id="di-off" type="text" disabled value="Read only-ish" /></m-vstack></m-vstack></div>
+<pre><code>&lt;label for=&quot;bio&quot;&gt;Bio&lt;/label&gt;
+&lt;textarea id=&quot;bio&quot;&gt;&lt;/textarea&gt;  &lt;!-- field-sizing: content --&gt;</code></pre>
+<h2>Notes</h2>
+<p>Field text stays 16px — smaller triggers iOS auto-zoom. Fields fill their
+container; constrain with layout primitives.</p>

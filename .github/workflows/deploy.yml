@@ -23,6 +23,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Build documentation
+        run: bun run docs:build
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:

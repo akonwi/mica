@@ -1,0 +1,56 @@
+<div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button data-variant="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" data-drawer><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button data-variant="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog></div>
+<h2>Drawer attribute</h2>
+<p><code>data-drawer</code> is boolean: its presence turns the dialog into a
+responsive side sheet / bottom sheet.</p>
+<h2>Composition</h2>
+<p>The shadcn structure, in native vocabulary — header (title +
+description), body, footer are real elements, not components:</p>
+<pre><code>&lt;button commandfor=&quot;confirm&quot; command=&quot;show-modal&quot;&gt;Open&lt;/button&gt;  &lt;!-- trigger --&gt;
+
+&lt;dialog id=&quot;confirm&quot;&gt;          &lt;!-- content --&gt;
+  &lt;button class=&quot;close&quot; commandfor=&quot;confirm&quot; command=&quot;close&quot; aria-label=&quot;Close&quot;&gt;&amp;#x2715;&lt;/button&gt;
+  &lt;header&gt;                     &lt;!-- header --&gt;
+    &lt;h2&gt;Are you sure?&lt;/h2&gt;     &lt;!-- title --&gt;
+    &lt;p&gt;This cannot be undone.&lt;/p&gt;  &lt;!-- description --&gt;
+  &lt;/header&gt;
+
+  &lt;p&gt;Any body content.&lt;/p&gt;
+
+  &lt;footer&gt;                     &lt;!-- footer: right-aligned row --&gt;
+    &lt;form method=&quot;dialog&quot;&gt;
+      &lt;button&gt;Cancel&lt;/button&gt;
+      &lt;button data-variant=&quot;primary&quot; value=&quot;ok&quot;&gt;Confirm&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/footer&gt;
+&lt;/dialog&gt;</code></pre>
+<h2>Notes</h2>
+<p>Enter/exit animations use <code>@starting-style</code> +
+<code>transition-behavior: allow-discrete</code>. Standard modal backdrops
+fade where the engine supports top-layer exit transitions.
+<code>dialog.returnValue</code> carries the value of the submitting
+button.</p>
+<h2>Bottom sheet + gestures</h2>
+<p>Below 40rem the drawer becomes a full-width bottom sheet (content
+height, anchored to the bottom edge — the same pattern as shadcn's
+mobile drawer). The optional <code>drawer.js</code> enhancement module adds
+a grab handle and swipe-to-dismiss: the sheet follows a downward drag,
+resists upward, and closes past a third of its height or on a flick. It
+also manages the mobile scrim, lightening it as the sheet moves down and
+fading it cleanly on close, including on iOS. Without the module the
+markup still works with a CSS-only scrim — the handle only appears when
+the behavior exists.</p>
+<pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/drawer.js&quot;&gt;&lt;/script&gt;</code></pre>
+<p>On the sheet the handle is the dismiss affordance, so the corner
+<code>×</code> is redundant there while it stays the only one on the
+desktop side-sheet. Hide it below the breakpoint in your own CSS — this
+page does exactly that:</p>
+<pre><code>@media (max-width: 40rem) {
+  dialog[data-drawer] &gt; button.close { display: none; }
+}</code></pre>
+<h2>Browser support</h2>
+<p>Invoker commands (<code>commandfor</code>/<code>command</code>) are
+Baseline newly-available (Chrome 135+, Firefox 144+, Safari 26.2+).
+Until they're widely available, include the shim — it installs nothing
+where the browser handles commands natively, and its removal is a
+one-line diff later:</p>
+<pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/invoker.js&quot;&gt;&lt;/script&gt;</code></pre>

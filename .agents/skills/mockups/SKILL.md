@@ -31,11 +31,11 @@ mica-specific workflow around it.
 
 ## 2. Present it
 
-Serve first (project rule — `serve.py` is no-store; plain http.server
-serves stale files):
+Serve first (project rule — `tools/serve.ts` is no-store; generic static
+servers may serve stale files). Run this in a separate terminal:
 
 ```bash
-(python3 serve.py >/dev/null 2>&1 &)   # port 8471, from repo root
+bun run docs:serve   # port 8471, from repo root
 ```
 
 Present either way:

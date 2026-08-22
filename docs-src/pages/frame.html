@@ -1,0 +1,9 @@
+<div class="specimen"><m-grid gap="md" min="xs"><m-frame ratio="16:9" class="card"><p>16:9 (default)</p></m-frame><m-frame ratio="square" class="card"><p>square</p></m-frame><m-frame ratio="4:3" class="card"><p>4:3</p></m-frame><m-frame style="--ratio: 21 / 9" class="card"><p>--ratio: 21/9</p></m-frame></m-grid></div>
+<pre><code>&lt;m-frame ratio=&quot;square&quot;&gt;
+  &lt;img src=&quot;photo.jpg&quot; alt=&quot;…&quot;&gt;
+&lt;/m-frame&gt;</code></pre>
+<h2>Attributes</h2>
+<p><code>ratio</code>: square · 16:9 · 4:3 · 3:2 · 2:1 · 9:16 — or any
+fraction via <code>--ratio</code>. Direct <code>img</code>/<code>video</code>
+children (and <code>picture &gt; img</code>) fill and crop with
+<code>object-fit: cover</code>; anything else is centered in the shape.</p>

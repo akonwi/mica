@@ -1,0 +1,24 @@
+<div class="specimen"><m-tabs><nav><button>Account</button><button>Password</button><button>Team</button></nav><section><p>Account settings panel.</p></section><section><p>Password panel. Try the arrow keys — roving tabindex, automatic activation.</p></section><section><p>Team panel.</p></section></m-tabs></div>
+<pre><code>&lt;m-tabs&gt;
+  &lt;nav&gt;
+    &lt;button&gt;Account&lt;/button&gt;
+    &lt;button selected&gt;Password&lt;/button&gt;  &lt;!-- optional initial --&gt;
+  &lt;/nav&gt;
+  &lt;section&gt;&amp;#8230;account panel&amp;#8230;&lt;/section&gt;
+  &lt;section&gt;&amp;#8230;password panel&amp;#8230;&lt;/section&gt;
+&lt;/m-tabs&gt;
+
+&lt;script type=&quot;module&quot; src=&quot;mica/tabs.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h2>Notes</h2>
+<p>Buttons pair with panels positionally, or explicitly via
+<code>aria-controls="panel-id"</code>. The module wires
+tablist/tab/tabpanel roles, <code>aria-selected</code>, roving tabindex,
+and Arrow/Home/End keys. <b>Without the module</b> the nav is inert and
+every panel renders in order — complete, readable content, never a
+CSS-only fake (that is the enhancement line).</p>
+<h2>Overflow</h2>
+<p>Labels never wrap inside a tab. When the rail is narrower than its
+tabs, the nav scrolls horizontally — overscroll contained, a thin
+scrollbar where the platform shows one, and the clipped tab peeking at
+the edge as the affordance.</p>
+<div class="specimen"><m-tabs style="max-inline-size: 16rem"><nav aria-label="Overflow demo"><button>Overview</button><button>Head-to-head record</button><button>Recent team form</button></nav><section><p>The rail is constrained to 16rem; tabs keep intrinsic width and the overflow scrolls.</p></section><section><p>Head-to-head panel.</p></section><section><p>Form panel.</p></section></m-tabs></div>

@@ -1,0 +1,14 @@
+<div class="specimen"><div style="inline-size: 100%"><details name="dacc" open><summary>Is it accessible?</summary><p>Yes. It is a native disclosure element; AT support comes with it.</p></details><details name="dacc"><summary>Is it styled?</summary><p>Border-per-item, rotating chevron, hover underline — the shadcn look.</p></details><details name="dacc"><summary>Is it animated?</summary><p>Height eases via interpolate-size where supported; instant elsewhere.</p></details></div></div>
+<pre><code>&lt;details name=&quot;faq&quot;&gt;
+  &lt;summary&gt;Is it accessible?&lt;/summary&gt;
+  &lt;p&gt;Yes.&lt;/p&gt;
+&lt;/details&gt;
+&lt;details name=&quot;faq&quot;&gt;
+  &lt;summary&gt;Is it styled?&lt;/summary&gt;
+  &lt;p&gt;Also yes.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+<h2>Notes</h2>
+<p>Omit <code>name</code> for independent disclosures. The open/close
+animation uses <code>::details-content</code> +
+<code>interpolate-size: allow-keywords</code> (set in the preset) —
+browsers without it open instantly. Zero JS either way.</p>

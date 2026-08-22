@@ -3,3 +3,9 @@ tools/snapshots/.current.json
 *.current.png
 *.diff.png
 .amp/portals/*
+
+# Generated documentation; docs-src/ is the source of truth.
+/index.html
+/llms.txt
+/docs/*.html
+/docs/site.css

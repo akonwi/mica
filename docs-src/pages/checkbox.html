@@ -1,0 +1,6 @@
+<div class="specimen"><m-hstack gap="lg" wrap><label><input type="checkbox" checked /> Checked</label><label><input type="checkbox" /> Unchecked</label><label><input type="checkbox" id="dc-ind" /> Indeterminate</label><label><input type="checkbox" disabled checked /> Disabled</label></m-hstack></div>
+<pre><code>&lt;label&gt;&lt;input type=&quot;checkbox&quot; checked /&gt; Remember me&lt;/label&gt;</code></pre>
+<h2>Notes</h2>
+<p>Checked is primary fill + glyph; indeterminate is a drawn dash. A label
+wrapping the control becomes the click target and dims when disabled.</p>
+<script>document.getElementById('dc-ind').indeterminate = true;</script>

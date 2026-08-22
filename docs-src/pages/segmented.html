@@ -1,0 +1,14 @@
+<div class="specimen"><fieldset><legend>Leaderboard period</legend><m-segmented><label><input type="radio" name="period" value="week" checked /> Week</label><label><input type="radio" name="period" value="month" /> Month</label><label><input type="radio" name="period" value="season" /> Season</label><label><input type="radio" name="period" value="career" disabled /> Career</label></m-segmented></fieldset></div>
+<pre><code>&lt;fieldset&gt;
+  &lt;legend&gt;View&lt;/legend&gt;
+  &lt;m-segmented&gt;
+    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;view&quot; value=&quot;list&quot; checked /&gt; List&lt;/label&gt;
+    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;view&quot; value=&quot;grid&quot; /&gt; Grid&lt;/label&gt;
+  &lt;/m-segmented&gt;
+&lt;/fieldset&gt;</code></pre>
+<h2>Contract</h2>
+<p>Direct children are labels wrapping native radios that share a
+<code>name</code> and have distinct <code>value</code>s. Wrap the control in a
+<code>fieldset</code> with a <code>legend</code> to name the choice set. The browser
+supplies keyboard navigation, focus, form values, and assistive-technology
+semantics. Mica only fuses their presentation.</p>

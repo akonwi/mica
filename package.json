@@ -88,6 +88,9 @@
   },
   "scripts": {
     "build:avatar": "bun tools/build-avatar.ts",
+    "docs:build": "bun tools/build-docs.ts",
+    "docs:check": "bun tools/build-docs.ts --check",
+    "docs:serve": "bun run docs:build && bun tools/serve.ts",
     "snapshot": "bun tools/snapshot.ts",
     "snapshot:check": "bun tools/snapshot.ts --check",
     "snapshot:setup": "playwright install chromium webkit"

@@ -1,0 +1,9 @@
+<div class="specimen"><m-zstack style="min-block-size: 8rem"><div style="background: linear-gradient(135deg, var(--neutral-7), var(--neutral-9))"></div><p style="place-self: center; margin: 0">centered layer</p><p class="swatch" style="place-self: start end; margin: var(--space-sm)">badge</p></m-zstack></div>
+<pre><code>&lt;m-zstack&gt;
+  &lt;img src=&quot;cover.jpg&quot; alt=&quot;&quot; /&gt;
+  &lt;p style=&quot;place-self: center&quot;&gt;Title&lt;/p&gt;
+&lt;/m-zstack&gt;</code></pre>
+<h2>Notes</h2>
+<p>Defaults to stretch (fill layers are the web's common case; SwiftUI centers).
+Per-layer placement is plain <code>place-self</code> on the child — light DOM
+means the platform is the escape hatch.</p>

@@ -1,0 +1,23 @@
+<div class="specimen"><m-combobox style="max-inline-size: var(--size-md)"><input list="dcb-langs" placeholder="Pick a language&#8230;" aria-label="Language" /><datalist id="dcb-langs"><option>Ard</option><option>C</option><option>Go</option><option>JavaScript</option><option>Python</option><option>Rust</option><option>Swift</option><option>Zig</option></datalist></m-combobox></div>
+<pre><code>&lt;m-combobox&gt;
+  &lt;input list=&quot;langs&quot; placeholder=&quot;Language&amp;#8230;&quot; /&gt;
+  &lt;datalist id=&quot;langs&quot;&gt;
+    &lt;option&gt;Ard&lt;/option&gt;
+    &lt;option&gt;Go&lt;/option&gt;
+  &lt;/datalist&gt;
+&lt;/m-combobox&gt;
+
+&lt;script type=&quot;module&quot; src=&quot;mica/combobox.js&quot;&gt;&lt;/script&gt;</code></pre>
+<h2>Notes</h2>
+<p>The options are the author&#39;s <code>datalist</code> markup — the module
+presents them, it doesn&#39;t invent them. It wires the ARIA combobox
+pattern: <code>aria-expanded</code>, <code>aria-activedescendant</code>,
+substring filtering on input, Arrow/Enter/Esc keys, selection dispatches
+real <code>input</code>/<code>change</code> events. The listbox positions
+inside the wrapper (no top layer), so it works in every browser mica
+supports.</p>
+<p>The datalist may be populated <em>asynchronously</em> — a search-backed
+combobox that renders options as results arrive just works. The module
+observes the datalist and rebuilds its listbox when options change, and
+selection writes through the native value setter so frameworks that track
+controlled inputs (React) observe it.</p>

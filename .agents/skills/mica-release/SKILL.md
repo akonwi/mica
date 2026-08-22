@@ -31,8 +31,8 @@ plausibly depend on. When in doubt about a ramp tweak: it's breaking.
 - Working tree clean, on `main`, pushed.
 - Run the `mica-feedback-loop` sweep on demo.html — both color schemes,
   parse-error canary (probe the last rule block of mica.css).
-- If components were added/changed: docs regenerated via
-  `tools/build-docs.py` (never hand-edit output), demo.html updated.
+- If components were added/changed: edit `docs-src/`, run
+  `bun run docs:build`, confirm `bun run docs:check`, and update demo.html.
 - **New JS modules must appear in BOTH `package.json` `exports` and
   `files`** — the files allowlist silently drops anything unlisted from
   the npm tarball.

@@ -1,0 +1,246 @@
+{
+  "groups": ["Start", "Layout", "Elements", "Forms", "Patterns"],
+  "pages": [
+    {
+      "group": "Start",
+      "slug": "index",
+      "title": "Introduction",
+      "lead": "Custom elements. Native behavior. Nearly no JavaScript."
+    },
+    {
+      "group": "Start",
+      "slug": "tokens",
+      "title": "Tokens & theming",
+      "lead": "Knobs → scales → roles. Theming is swapping token values, never overriding component CSS."
+    },
+    {
+      "group": "Start",
+      "slug": "preset",
+      "title": "Preset",
+      "lead": "Constructive defaults: raw HTML should look finished, not like nothing."
+    },
+    {
+      "group": "Start",
+      "slug": "accessibility",
+      "title": "Accessibility",
+      "lead": "Native semantics first; script only where access requires it."
+    },
+    {
+      "group": "Layout",
+      "slug": "vstack",
+      "title": "vstack",
+      "level": "css",
+      "lead": "Vertical flow with consistent gaps. The workhorse."
+    },
+    {
+      "group": "Layout",
+      "slug": "hstack",
+      "title": "hstack",
+      "level": "css",
+      "lead": "One horizontal row. Wrapping is opt-in, per the name's promise."
+    },
+    {
+      "group": "Layout",
+      "slug": "zstack",
+      "title": "zstack",
+      "level": "css",
+      "lead": "Layering: children share one grid cell. Paint order is DOM order."
+    },
+    {
+      "group": "Layout",
+      "slug": "center",
+      "title": "center",
+      "level": "css",
+      "lead": "Intrinsic horizontal centering with a readable measure."
+    },
+    {
+      "group": "Layout",
+      "slug": "box",
+      "title": "box",
+      "level": "css",
+      "lead": "Padding; an inside for content."
+    },
+    {
+      "group": "Layout",
+      "slug": "grid",
+      "title": "grid",
+      "level": "css",
+      "lead": "Responsive grid with zero media queries."
+    },
+    {
+      "group": "Layout",
+      "slug": "sidecar",
+      "title": "sidecar",
+      "level": "css",
+      "lead": "A fixed + flexible pair that stacks when narrow. This page's shell uses it."
+    },
+    {
+      "group": "Layout",
+      "slug": "switcher",
+      "title": "switcher",
+      "level": "css",
+      "lead": "A row that switches to a column below a width threshold."
+    },
+    {
+      "group": "Layout",
+      "slug": "reel",
+      "title": "reel",
+      "level": "css",
+      "lead": "Horizontal scroll with snap. Scrolling is the browser's; snap is CSS."
+    },
+    {
+      "group": "Layout",
+      "slug": "frame",
+      "title": "frame",
+      "level": "css",
+      "lead": "Hold an aspect ratio; crop media to fit. Uniform thumbnails from chaotic images."
+    },
+    {
+      "group": "Layout",
+      "slug": "cover",
+      "title": "cover",
+      "level": "css",
+      "lead": "Fill the viewport; center the principal element; pin the rest to the edges."
+    },
+    {
+      "group": "Elements",
+      "slug": "button",
+      "title": "button",
+      "level": "native",
+      "lead": "The native element, styled directly. Variants and sizes are data attributes; behavior remains native."
+    },
+    {
+      "group": "Elements",
+      "slug": "badge",
+      "title": "badge",
+      "level": "css",
+      "lead": "Quiet metadata in a styled box. Informational, never a fake control."
+    },
+    {
+      "group": "Elements",
+      "slug": "avatar",
+      "title": "avatar",
+      "level": "css",
+      "lead": "Authored initials or a native image; optional deterministic color and features from a local seed.",
+      "scripts": ["avatar.js"]
+    },
+    {
+      "group": "Elements",
+      "slug": "content",
+      "title": "content",
+      "level": "native",
+      "lead": "Tables, lists, code, quotes — prose-adjacent elements that just work."
+    },
+    {
+      "group": "Elements",
+      "slug": "progress",
+      "title": "progress & meter",
+      "level": "native",
+      "lead": "Thin square bars. Meter grades through the status roles — the browser decides which."
+    },
+    {
+      "group": "Forms",
+      "slug": "input",
+      "title": "input & textarea",
+      "level": "native",
+      "lead": "One control family with buttons: same radius, border, and height."
+    },
+    {
+      "group": "Forms",
+      "slug": "select",
+      "title": "select",
+      "level": "native",
+      "lead": "Custom picker where the platform allows (base-select); native picker elsewhere. Zero JS either way.",
+      "scripts": ["select.js"]
+    },
+    {
+      "group": "Forms",
+      "slug": "checkbox",
+      "title": "checkbox",
+      "level": "native",
+      "lead": "Drawn with appearance: none; semantics, keyboard, and forms stay native."
+    },
+    {
+      "group": "Forms",
+      "slug": "radio",
+      "title": "radio",
+      "level": "native",
+      "lead": "The square target: a solid pip in every state."
+    },
+    {
+      "group": "Forms",
+      "slug": "segmented",
+      "title": "segmented control",
+      "level": "native",
+      "lead": "A native radio group fused into one compact control. No script, no reconstructed ARIA."
+    },
+    {
+      "group": "Forms",
+      "slug": "switch",
+      "title": "switch",
+      "level": "native",
+      "lead": "A native checkbox with switch semantics, wearing a track. Square, like everything else."
+    },
+    {
+      "group": "Forms",
+      "slug": "fieldset",
+      "title": "fieldset",
+      "level": "native",
+      "lead": "A titled group, not a bordered box. Disabling one silences everything inside."
+    },
+    {
+      "group": "Forms",
+      "slug": "field",
+      "title": "field validation",
+      "level": "js",
+      "lead": "Declarative per-cause errors below the field. No browser bubbles.",
+      "scripts": ["field.js"]
+    },
+    {
+      "group": "Patterns",
+      "slug": "dialog",
+      "title": "dialog",
+      "level": "native",
+      "lead": "Modal and drawer. Focus trap, Esc, and top layer — the browser's. Open/close — invoker commands (shimmed while support spreads).",
+      "scripts": ["invoker.js", "drawer.js"]
+    },
+    {
+      "group": "Patterns",
+      "slug": "accordion",
+      "title": "accordion",
+      "level": "native",
+      "lead": "details + summary. Exclusivity, keyboard, and semantics are the browser's — the shared name attribute does the grouping."
+    },
+    {
+      "group": "Patterns",
+      "slug": "popover",
+      "title": "popover & tooltip",
+      "level": "native",
+      "lead": "popover attribute + popovertarget invokers. Toggle, light dismiss, Esc, top layer — the browser's. Zero JS."
+    },
+    {
+      "group": "Patterns",
+      "slug": "toast",
+      "title": "toast",
+      "level": "native",
+      "lead": "A custom element around a native manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in JS enhancement.",
+      "scripts": ["toast.js"]
+    },
+    {
+      "group": "Patterns",
+      "slug": "tabs",
+      "title": "tabs",
+      "level": "js",
+      "lead": "The one pattern the platform still can't do accessibly without script. m-tabs enhances working markup — it never renders it.",
+      "scripts": ["tabs.js"]
+    },
+    {
+      "group": "Forms",
+      "slug": "combobox",
+      "title": "combobox",
+      "level": "js",
+      "lead": "A native datalist, upgraded. Without the module: functional autocomplete. With it: styled listbox, filtering, active-descendant keys.",
+      "scripts": ["combobox.js"]
+    }
+  ]
+}

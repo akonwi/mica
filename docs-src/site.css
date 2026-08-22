@@ -1,0 +1,199 @@
+/* Documentation shell source. Mica remains the component source of truth; these
+   rules only compose the site around it. */
+.skip:focus {
+  position: fixed;
+  inset-block-start: var(--space-sm);
+  inset-inline-start: var(--space-sm);
+  z-index: 10;
+  padding: var(--space-2xs) var(--space-xs);
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+body > m-sidecar {
+  min-block-size: 100svh;
+  --gap: 0;
+}
+
+.rail {
+  position: sticky;
+  inset-block-start: 0;
+  align-self: flex-start;
+  block-size: 100svh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-lg);
+  border-inline-end: 1px solid var(--color-border);
+}
+
+.brand {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.docnav h2 {
+  margin-block: var(--space-lg) 0;
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.docnav a {
+  display: block;
+  padding: var(--space-2xs) var(--space-xs);
+  border-inline-start: 1px solid transparent;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.docnav a:hover {
+  color: var(--color-text);
+}
+
+.docnav a[aria-current="page"] {
+  border-inline-start: 2px solid var(--color-primary);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.topbar {
+  display: none;
+}
+
+article {
+  min-inline-size: 0;
+  padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+}
+
+.crumb,
+.lead {
+  color: var(--color-text-muted);
+}
+
+.crumb {
+  font-size: 0.875rem;
+}
+
+.badge {
+  align-self: center;
+  padding: 0.1em var(--space-xs);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.specimen {
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border);
+}
+
+.pager {
+  padding-block-start: var(--space-md);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.pager a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.pager a:hover {
+  color: var(--color-text);
+}
+
+article h2:not(dialog *) {
+  font-size: 1rem;
+}
+
+.swatch {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--neutral-3);
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+}
+
+.tall {
+  display: grid;
+  min-block-size: 5rem;
+  place-items: center;
+}
+
+/* Token-page specimens. */
+.scale {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.scale div {
+  display: grid;
+  min-block-size: 3rem;
+  place-items: center;
+  color: var(--neutral-12);
+  font-size: 0.8rem;
+}
+
+.scale .inv {
+  color: var(--neutral-1);
+}
+
+/* On the mobile drawer specimen the handle is the dismiss affordance. */
+@media (max-width: 40rem) {
+  [data-drawer] > button.close {
+    display: none;
+  }
+}
+
+/* Mobile shell: the rail becomes a sticky native disclosure. */
+@media (max-width: 52rem) {
+  .rail {
+    display: none;
+  }
+
+  .topbar {
+    display: block;
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 5;
+    padding-inline: var(--space-md);
+    border-block-end: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .topbar > details {
+    border-block-end: none;
+  }
+
+  .topbar summary {
+    font-weight: 600;
+  }
+
+  .topbar .docnav {
+    max-block-size: 70svh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .topbar .brand {
+    display: none;
+  }
+
+  article {
+    padding: var(--space-lg) var(--space-md) var(--space-xl);
+  }
+
+  .specimen {
+    padding: var(--space-lg);
+  }
+}

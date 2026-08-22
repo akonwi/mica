@@ -1,0 +1,8 @@
+<div class="specimen"><m-hstack gap="lg" wrap><label><input type="checkbox" role="switch" checked /> Notifications</label><label><input type="checkbox" role="switch" /> Marketing</label><label><input type="checkbox" role="switch" disabled /> Locked</label></m-hstack></div>
+<pre><code>&lt;label&gt;&lt;input type=&quot;checkbox&quot; role=&quot;switch&quot; checked /&gt; Notifications&lt;/label&gt;</code></pre>
+<h2>Notes</h2>
+<p><code>role="switch"</code> gives the visual track matching on/off semantics.
+The checkbox's native <code>checked</code> state supplies the accessible state —
+do not duplicate it with <code>aria-checked</code>. Form participation, labeling,
+focus, and Space-key behavior remain native. Safari is prototyping a native <code>switch</code>
+attribute; if it standardizes, this component will need even less.</p>

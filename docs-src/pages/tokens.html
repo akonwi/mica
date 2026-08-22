@@ -1,0 +1,19 @@
+<h2>Knobs</h2>
+<p><code>--hue</code>, <code>--chroma</code>, <code>--neutral-chroma</code>,
+status hues, and the radius tokens. Everything below derives from them.</p>
+<h2>Scales</h2>
+<p>Theme-relative (Radix convention): step 1 is always the app background,
+6–8 borders, 9 the solid, 12 high-contrast text — in both modes.</p>
+<div class="scale"><div style="background: var(--neutral-1)">1</div><div style="background: var(--neutral-2)">2</div><div style="background: var(--neutral-3)">3</div><div style="background: var(--neutral-4)">4</div><div style="background: var(--neutral-5)">5</div><div style="background: var(--neutral-6)">6</div><div style="background: var(--neutral-7)">7</div><div style="background: var(--neutral-8)">8</div><div style="background: var(--neutral-9)" class="inv">9</div><div style="background: var(--neutral-10)" class="inv">10</div><div style="background: var(--neutral-11)" class="inv">11</div><div style="background: var(--neutral-12)" class="inv">12</div></div>
+<div class="scale"><div style="background: var(--accent-1)">1</div><div style="background: var(--accent-2)">2</div><div style="background: var(--accent-3)">3</div><div style="background: var(--accent-4)">4</div><div style="background: var(--accent-5)">5</div><div style="background: var(--accent-6)">6</div><div style="background: var(--accent-7)">7</div><div style="background: var(--accent-8)">8</div><div style="background: var(--accent-9)" class="inv">9</div><div style="background: var(--accent-10)" class="inv">10</div><div style="background: var(--accent-11)" class="inv">11</div><div style="background: var(--accent-12)" class="inv">12</div></div>
+<h2>Roles</h2>
+<p>Components only touch roles: <code>--color-surface</code>,
+<code>--color-text</code>, <code>--color-border</code>,
+<code>--color-primary</code> (near-black; the action color),
+<code>--color-accent</code> (the one blue: focus, selection), and the
+status roles (<code>--color-danger…</code>).</p>
+<h2>Theming recipes</h2>
+<pre><code>:root { --radius-sm: .25rem; --radius-md: .375rem; --radius-lg: .75rem } /* un-square */
+:root { --hue: 150 }                                    /* different brand */
+:root { --color-primary: var(--accent-9);
+        --color-on-primary: var(--color-on-accent) }   /* colorful primary */</code></pre>

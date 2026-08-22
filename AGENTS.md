@@ -17,10 +17,15 @@ to come from: CSS-only / native behavior / JS-enhanced),
   Blobatar for direct browser use.
 - `demo.html` — kitchen-sink testbed (every component on one page). This is
   what the feedback loop probes.
-- `index.html`, `docs/*.html` — paginated docs. **Generated** by
-  `tools/build-docs.py`; edit the generator and rerun it, never the output.
-- `serve.py` — dev server on :8471 with caching disabled. Always use it;
-  plain `python3 -m http.server` serves stale files to browsers and probes.
+- `docs-src/pages/*.html` — authored documentation bodies. Navigation and
+  page metadata live in `docs-src/pages.json`; shared markup lives in
+  `docs-src/shell.html`; site-only styles live in `docs-src/site.css`.
+  `index.html`, `docs/*`, and `llms.txt` are ignored generated outputs:
+  run `bun run docs:build`, never edit or commit them. `bun run docs:check`
+  checks local output when needed.
+- `tools/serve.ts` — Bun dev server on :8471 with caching disabled. Run it
+  with `bun run docs:serve`, which builds the docs first; generic static
+  servers may serve stale files.
 - `tools/snapshot.ts` — snapshot tests (bun + Playwright, repo-side dev
   deps only; never shipped): computed styles + interactive states + axe
   pass + element-crop visual diffs (pixels ONLY where computed styles
@@ -126,7 +131,7 @@ switch = fill + block. Field text never drops below 16px (iOS zoom).
 ## Gotchas that already cost time
 
 - CSS parse errors kill only *trailing* rules — hence the canary.
-- Aside browser tabs cache HTML **and** CSS; `serve.py` sends no-store,
+- Aside browser tabs cache HTML **and** CSS; `tools/serve.ts` sends no-store,
   but cache-bust probe URLs anyway.
 - `getComputedStyle` lies about vendor pseudos (returns element styles) —
   verify progress/meter/picker visually.
