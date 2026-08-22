@@ -793,6 +793,15 @@
     user-select: none;
   }
 
+  :where(m-avatar > img) {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
   /* Attribute selectors only transport values. The pseudo rules below
      render them, so missing avatar.js leaves authored initials untouched. */
   :where(m-avatar[blobatar]) {

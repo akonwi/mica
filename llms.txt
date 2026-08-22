@@ -35,7 +35,7 @@ never render it.
 
 - [button](https://akonwi.io/mica/docs/button.html): The native element, styled directly. Variants and sizes are data attributes; behavior remains native. (native behavior)
 - [badge](https://akonwi.io/mica/docs/badge.html): Quiet metadata in a styled box. Informational, never a fake control. (CSS-only)
-- [avatar](https://akonwi.io/mica/docs/avatar.html): Authored initials by default; optional deterministic color and features from a local seed. (CSS-only)
+- [avatar](https://akonwi.io/mica/docs/avatar.html): Authored initials or a native image; optional deterministic color and features from a local seed. (CSS-only)
 - [content](https://akonwi.io/mica/docs/content.html): Tables, lists, code, quotes — prose-adjacent elements that just work. (native behavior)
 - [progress & meter](https://akonwi.io/mica/docs/progress.html): Thin square bars. Meter grades through the status roles — the browser decides which. (native behavior)
 

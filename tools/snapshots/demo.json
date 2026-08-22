@@ -13,6 +13,13 @@
     "color": "rgba(0, 0, 0, 0)",
     "inline-size": "48px"
    },
+   "avatar.image": {
+    "block-size": "48px",
+    "inline-size": "48px",
+    "inset-block-start": "0px",
+    "object-fit": "cover",
+    "position": "absolute"
+   },
    "avatar.initials": {
     "background-color": "oklch(0.17 0 263)",
     "block-size": "48px",
@@ -442,6 +449,13 @@
     "border-radius": "0px",
     "color": "rgba(0, 0, 0, 0)",
     "inline-size": "48px"
+   },
+   "avatar.image": {
+    "block-size": "48px",
+    "inline-size": "48px",
+    "inset-block-start": "0px",
+    "object-fit": "cover",
+    "position": "absolute"
    },
    "avatar.initials": {
     "background-color": "oklch(0.973 0 263)",

@@ -385,7 +385,7 @@
 
     <section>
       <m-vstack gap="md">
-        <h2>Avatar — authored initials, optional deterministic paint</h2>
+        <h2>Avatar — initials, native images, optional deterministic paint</h2>
         <m-hstack gap="sm" wrap>
           <m-avatar role="img" aria-label="Akonwi Ngoh">AN</m-avatar>
           <m-avatar role="img" aria-label="Ada Lovelace">AL</m-avatar>
@@ -393,14 +393,16 @@
           <m-avatar role="img" blobatar="ada" aria-label="Ada Lovelace">AL</m-avatar>
           <m-avatar role="img" blobatar="grace" contained aria-label="Grace Hopper">GH</m-avatar>
           <m-avatar role="img" blobatar="mica" style="--avatar-size: 4rem" aria-label="Mica">MI</m-avatar>
+          <m-avatar><img src="https://picsum.photos/seed/mica-avatar/160/100" alt="Photo avatar example" /></m-avatar>
         </m-hstack>
         <m-hstack gap="sm">
           <m-avatar blobatar="akonwi-profile" aria-hidden="true">AN</m-avatar>
           <m-vstack gap="none"><b>Akonwi Ngoh</b><small>akonwi@example.com</small></m-vstack>
         </m-hstack>
-        <p>Initials are complete without script. <code>avatar.js</code> locally
-        derives color and features from the <code>blobatar</code> seed;
-        <code>contained</code> opts out of the full-bleed treatment.</p>
+        <p>Initials and direct <code>img</code> children need no script.
+        <code>avatar.js</code> locally derives color and features from the
+        <code>blobatar</code> seed; <code>contained</code> opts out of the
+        full-bleed treatment.</p>
       </m-vstack>
     </section>
 
