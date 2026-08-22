@@ -12,9 +12,6 @@ already shipped.
 Surfaced while polishing the mobile drawer (the CSS-only version is
 shipped and accepted; these are the "more" it can't cheaply reach):
 
-- [ ] **Drag-anywhere dismissal** on the sheet (not just the handle),
-      with the scroll-vs-drag heuristics that requires (vaul's hardest
-      code, deliberately skipped in `drawer.js` v1).
 - [ ] **Spring / inertia** on release instead of a fixed-duration
       transition; velocity-aware settle.
 - [ ] **Snap points** (peek / half / full) for the bottom sheet.
