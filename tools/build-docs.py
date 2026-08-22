@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stamp the docs shell (rail nav, crumbs, pager) onto per-page content.
+"""Build the paginated docs and the public LLM documentation index.
 
 Output is plain static HTML — view-source stays the product. This script
 only exists so the duplicated rail stays in sync across pages.
@@ -648,12 +648,48 @@ controlled inputs (React) observe it.</p>
 ]
 
 GROUPS = ["Start", "Layout", "Elements", "Forms", "Patterns"]
+DOCS_URL = "https://akonwi.io/mica/"
 
 
 def href_for(slug: str, from_root: bool) -> str:
     if slug == "index":
         return "index.html" if from_root else "../index.html"
     return f"docs/{slug}.html" if from_root else f"{slug}.html"
+
+
+def llms_txt() -> str:
+    lines = [
+        "# mica",
+        "",
+        "This is the documentation for the `@akonwi/mica` package, a CSS-first",
+        "component library built from custom elements, native HTML, and small",
+        "optional ES modules. It has no shared runtime and requires no consumer",
+        "build step.",
+        "",
+        "Import `@akonwi/mica/mica.css`, then import only the enhancement modules",
+        "used by the page. Follow documented element names, attributes, classes,",
+        "and markup anatomy exactly; optional modules enhance working markup and",
+        "never render it.",
+        "",
+    ]
+    for group in GROUPS:
+        lines.append(f"## {'Overview' if group == 'Start' else group}")
+        lines.append("")
+        for page in PAGES:
+            if page["group"] != group:
+                continue
+            href = DOCS_URL if page["slug"] == "index" else f'{DOCS_URL}docs/{page["slug"]}.html'
+            level = f' ({LEVEL_LABEL[page["level"]]})' if page.get("level") else ""
+            lines.append(f'- [{page["title"]}]({href}): {page["lead"]}{level}')
+        lines.append("")
+    lines.extend([
+        "## Additional reference",
+        "",
+        f"- [Kitchen-sink demo]({DOCS_URL}demo.html): Every component and representative state on one page.",
+        f"- [Package README](https://github.com/akonwi/mica#readme): Installation, distribution options, progressive-enhancement model, and browser support.",
+        "",
+    ])
+    return "\n".join(lines)
 
 
 def nav_html(current: str, from_root: bool) -> str:
@@ -665,6 +701,9 @@ def nav_html(current: str, from_root: bool) -> str:
                 continue
             cur = ' aria-current="page"' if p["slug"] == current else ""
             parts.append(f'<a href="{href_for(p["slug"], from_root)}"{cur}>{esc(p["title"])}</a>')
+        if g == "Start":
+            href = "llms.txt" if from_root else "../llms.txt"
+            parts.append(f'<a href="{href}">llms.txt</a>')
     return "\n      ".join(parts)
 
 
@@ -737,6 +776,9 @@ def main() -> None:
         with open(path, "w") as f:
             f.write(page_html(p))
         print(f"wrote {path}")
+    with open("llms.txt", "w") as f:
+        f.write(llms_txt())
+    print("wrote llms.txt")
 
 
 if __name__ == "__main__":
