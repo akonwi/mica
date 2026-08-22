@@ -1,9 +1,10 @@
-<div class="specimen"><m-zstack style="min-block-size: 8rem"><div style="background: linear-gradient(135deg, var(--neutral-7), var(--neutral-9))"></div><p style="place-self: center; margin: 0">centered layer</p><p class="swatch" style="place-self: start end; margin: var(--space-sm)">badge</p></m-zstack></div>
-<pre><code>&lt;m-zstack&gt;
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-zstack style="min-block-size: 8rem"><div style="background: linear-gradient(135deg, var(--neutral-7), var(--neutral-9))"></div><p style="place-self: center; margin: 0">centered layer</p><p class="swatch" style="place-self: start end; margin: var(--space-sm)">badge</p></m-zstack></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;m-zstack&gt;
   &lt;img src=&quot;cover.jpg&quot; alt=&quot;&quot; /&gt;
   &lt;p style=&quot;place-self: center&quot;&gt;Title&lt;/p&gt;
-&lt;/m-zstack&gt;</code></pre>
-<h2>Notes</h2>
-<p>Defaults to stretch (fill layers are the web's common case; SwiftUI centers).
-Per-layer placement is plain <code>place-self</code> on the child — light DOM
-means the platform is the escape hatch.</p>
+&lt;/m-zstack&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>align</code></td><td><code>start</code> · <code>center</code> · <code>end</code> · <code>stretch</code></td><td><code>stretch</code></td><td>Aligns all layers on the block axis.</td></tr>
+<tr><td><code>justify</code></td><td><code>start</code> · <code>center</code> · <code>end</code> · <code>stretch</code></td><td><code>stretch</code></td><td>Aligns all layers on the inline axis.</td></tr>
+</tbody></table></div><div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Children</td><td>layers in DOM order</td><td>—</td><td>Every child occupies the same grid cell; DOM order determines paint order.</td></tr></tbody></table></div></m-vstack></section>
+<section><m-vstack gap="sm"><h2>Notes</h2><p>Defaults to stretch (fill layers are the web's common case; SwiftUI centers). Per-layer placement is plain <code>place-self</code> on the child — light DOM means the platform is the escape hatch.</p></m-vstack></section>

@@ -1,9 +1,11 @@
-<div class="specimen"><m-grid gap="md" min="xs"><m-frame ratio="16:9" class="card"><p>16:9 (default)</p></m-frame><m-frame ratio="square" class="card"><p>square</p></m-frame><m-frame ratio="4:3" class="card"><p>4:3</p></m-frame><m-frame style="--ratio: 21 / 9" class="card"><p>--ratio: 21/9</p></m-frame></m-grid></div>
-<pre><code>&lt;m-frame ratio=&quot;square&quot;&gt;
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-grid gap="md" min="xs"><m-frame ratio="16:9" class="card"><p>16:9 (default)</p></m-frame><m-frame ratio="square" class="card"><p>square</p></m-frame><m-frame ratio="4:3" class="card"><p>4:3</p></m-frame><m-frame style="--ratio: 21 / 9" class="card"><p>--ratio: 21/9</p></m-frame></m-grid></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;m-frame ratio=&quot;square&quot;&gt;
   &lt;img src=&quot;photo.jpg&quot; alt=&quot;…&quot;&gt;
-&lt;/m-frame&gt;</code></pre>
-<h2>Attributes</h2>
-<p><code>ratio</code>: square · 16:9 · 4:3 · 3:2 · 2:1 · 9:16 — or any
-fraction via <code>--ratio</code>. Direct <code>img</code>/<code>video</code>
-children (and <code>picture &gt; img</code>) fill and crop with
-<code>object-fit: cover</code>; anything else is centered in the shape.</p>
+&lt;/m-frame&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>ratio</code></td><td><code>square</code> · <code>16:9</code> · <code>4:3</code> · <code>3:2</code> · <code>2:1</code> · <code>9:16</code></td><td><code>16:9</code></td><td>Sets the frame's aspect ratio.</td></tr></tbody></table></div>
+<div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td>Direct media</td><td><code>img</code> · <code>video</code></td><td>—</td><td>Fills the frame and crops with <code>object-fit: cover</code>.</td></tr>
+<tr><td>Picture media</td><td><code>picture &gt; img</code></td><td>—</td><td>The image fills the frame and crops with <code>object-fit: cover</code>.</td></tr>
+<tr><td>Other content</td><td>any element</td><td>—</td><td>Centers in the frame.</td></tr>
+</tbody></table></div>
+<div class="api-block"><h3>Styling</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>--ratio</code></td><td>CSS ratio</td><td><code>16 / 9</code></td><td>Accepts any fraction, for example <code>style="--ratio: 21 / 9"</code>.</td></tr></tbody></table></div></m-vstack></section>

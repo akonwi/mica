@@ -1,11 +1,40 @@
+<section><m-vstack gap="md">
+<h2>Example</h2>
 <div class="specimen"><m-vstack gap="md"><m-hstack gap="sm" wrap><button>Default</button><button data-variant="primary">Primary</button><button data-variant="ghost">Ghost</button><button data-variant="danger">Danger</button></m-hstack><m-hstack gap="sm" wrap><button data-size="small">Small</button><button data-size="large">Large</button><button disabled>Disabled</button><button data-variant="primary" disabled>Disabled primary</button><a class="btn" href="#">Link as button</a></m-hstack></m-vstack></div>
+</m-vstack></section>
+
+<section><m-vstack gap="md">
+<h2>Basic usage</h2>
 <pre><code>&lt;button data-variant=&quot;primary&quot;&gt;Submit&lt;/button&gt;
 &lt;a class=&quot;btn&quot; href=&quot;/docs&quot;&gt;A link dressed as a button&lt;/a&gt;</code></pre>
-<h2>Attributes</h2>
-<p><code>data-variant</code> accepts <code>primary</code>, <code>ghost</code>,
-or <code>danger</code>. <code>data-size</code> accepts <code>small</code> or
-<code>large</code>. Data attributes keep extension markup valid on native HTML
-elements.</p>
+</m-vstack></section>
+
+<section><m-vstack gap="lg">
+<m-vstack gap="2xs"><h2>API</h2><p class="lead">Button behavior and standard attributes come from native HTML. Mica adds only presentation through the attributes and class listed below.</p></m-vstack>
+<div class="api-block">
+  <h3>Native HTML attributes</h3>
+  <table class="api-table">
+    <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>type</code></td><td>HTML button type</td><td><code>submit</code></td><td>Use <code>button</code>, <code>submit</code>, or <code>reset</code> according to the native button's action.</td></tr>
+      <tr><td><code>disabled</code></td><td>boolean</td><td><code>false</code></td><td>Uses the native disabled state and Mica's reduced-opacity treatment.</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="api-block">
+  <h3>Mica extensions</h3>
+  <table class="api-table">
+    <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-variant</code></td><td><code>primary | ghost | danger</code></td><td>default</td><td>Selects a presentation variant.</td></tr>
+      <tr><td><code>data-size</code></td><td><code>small | large</code></td><td>default</td><td>Selects a compact or large control size.</td></tr>
+      <tr><td><code>class="btn"</code></td><td>class</td><td>—</td><td>Applies button presentation to a link while preserving native link behavior.</td></tr>
+    </tbody>
+  </table>
+</div>
+</m-vstack></section>
+
+<section><m-vstack gap="sm">
 <h2>Notes</h2>
-<p>Ghost has deliberately zero rest affordance — toolbars and icon rows, not
-the lone action on a page. Disabled is the same fill at reduced opacity.</p>
+<p>Data attributes keep extension markup valid on native HTML elements. Ghost has deliberately zero rest affordance — use it in toolbars and icon rows, not for the lone action on a page. Disabled is the same fill at reduced opacity.</p>
+</m-vstack></section>

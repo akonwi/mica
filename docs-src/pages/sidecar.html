@@ -1,9 +1,10 @@
-<div class="specimen"><m-sidecar gap="md"><div class="card tall">sidecar</div><div class="card tall">content</div></m-sidecar></div>
-<pre><code>&lt;m-sidecar&gt;
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-sidecar gap="md"><div class="card tall">sidecar</div><div class="card tall">content</div></m-sidecar></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;m-sidecar&gt;
   &lt;nav&gt;…&lt;/nav&gt;
   &lt;main&gt;…&lt;/main&gt;
-&lt;/m-sidecar&gt;</code></pre>
-<h2>Attributes</h2>
-<p><code>gap</code>; <code>side="end"</code> makes the <em>last</em> child the
-sidecar (no visual reordering); <code>side-width</code>: xs · sm · md.
-The markup contract: exactly two children, first (or last) is the fixed one.</p>
+&lt;/m-sidecar&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><m-vstack gap="2xs"><h2>API</h2><p class="lead">Pairs one fixed-width sidecar with flexible content and stacks them when space is narrow.</p></m-vstack><div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>gap</code></td><td><code>none</code> · <code>2xs</code> · <code>xs</code> · <code>sm</code> · <code>md</code> · <code>lg</code> · <code>xl</code> · <code>2xl</code></td><td><code>md</code></td><td>Sets the space between the pair.</td></tr>
+<tr><td><code>side</code></td><td><code>end</code></td><td>start</td><td>Makes the last child the sidecar without visual reordering.</td></tr>
+<tr><td><code>side-width</code></td><td><code>xs</code> · <code>sm</code> · <code>md</code></td><td><code>xs</code></td><td>Sets the sidecar's preferred width.</td></tr>
+</tbody></table></div><div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Children</td><td>exactly two</td><td>first child is fixed</td><td>The first child is the sidecar and the last is flexible content. With <code>side="end"</code>, the last child is the sidecar.</td></tr></tbody></table></div></m-vstack></section>

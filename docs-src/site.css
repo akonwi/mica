@@ -71,22 +71,18 @@ article {
   padding: var(--space-xl) var(--space-lg) var(--space-2xl);
 }
 
-.crumb,
 .lead {
   color: var(--color-text-muted);
 }
 
-.crumb {
-  font-size: 0.875rem;
+.page-header {
+  padding-block-end: var(--space-lg);
+  border-block-end: 1px solid var(--color-border);
 }
 
-.badge {
-  align-self: center;
-  padding: 0.1em var(--space-xs);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-muted);
-  font-size: 0.7rem;
-  white-space: nowrap;
+.page-header h1,
+.page-header p {
+  margin-block: 0;
 }
 
 .specimen {
@@ -108,8 +104,72 @@ article {
   color: var(--color-text);
 }
 
-article h2:not(dialog *) {
-  font-size: 1rem;
+.api-table {
+  inline-size: 100%;
+  table-layout: fixed;
+}
+
+.api-table th:nth-child(1) {
+  inline-size: 22%;
+}
+
+.api-table th:nth-child(2) {
+  inline-size: 23%;
+}
+
+.api-table th:nth-child(3) {
+  inline-size: 16%;
+}
+
+.api-table th,
+.api-table td {
+  vertical-align: top;
+}
+
+.api-table th {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.api-table td p {
+  margin: 0;
+}
+
+.api-table td small {
+  display: block;
+  margin-block-start: var(--space-2xs);
+  color: var(--color-text-muted);
+}
+
+.api-block {
+  padding-block-start: var(--space-lg);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.api-block > h3 {
+  margin-block-start: 0;
+}
+
+.module-note {
+  padding: var(--space-md);
+  border-inline-start: 2px solid var(--color-primary);
+  background: var(--color-surface-raised);
+}
+
+.module-note > :first-child {
+  margin-block-start: 0;
+}
+
+.module-note > :last-child {
+  margin-block-end: 0;
+}
+
+.sample {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
 }
 
 .swatch {
@@ -196,4 +256,59 @@ article h2:not(dialog *) {
   .specimen {
     padding: var(--space-lg);
   }
+
+  /* Four columns become reference rows rather than a low-affordance
+     horizontal scroller. The real headers stay available to assistive
+     technology; these generic visual labels fit every API table shape. */
+  .api-table {
+    display: block;
+    table-layout: auto;
+  }
+
+  .api-table thead {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .api-table tbody,
+  .api-table tr,
+  .api-table td {
+    display: block;
+  }
+
+  .api-table tr {
+    padding-block: var(--space-sm);
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  .api-table tbody tr:last-child {
+    border-block-end: 0;
+  }
+
+  .api-table td {
+    position: relative;
+    padding: var(--space-xs) var(--space-sm) var(--space-xs)
+      calc(35% + var(--space-sm));
+    border-block-end: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .api-table td::before {
+    position: absolute;
+    inset-block-start: var(--space-xs);
+    inset-inline-start: var(--space-sm);
+    inline-size: calc(35% - var(--space-sm));
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .api-table td:nth-child(1)::before { content: "Item" / ""; }
+  .api-table td:nth-child(2)::before { content: "Value / contract" / ""; }
+  .api-table td:nth-child(3)::before { content: "Default" / ""; }
+  .api-table td:nth-child(4)::before { content: "Description" / ""; }
 }

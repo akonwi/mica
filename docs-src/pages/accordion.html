@@ -1,14 +1,17 @@
-<div class="specimen"><div style="inline-size: 100%"><details name="dacc" open><summary>Is it accessible?</summary><p>Yes. It is a native disclosure element; AT support comes with it.</p></details><details name="dacc"><summary>Is it styled?</summary><p>Border-per-item, rotating chevron, hover underline — the shadcn look.</p></details><details name="dacc"><summary>Is it animated?</summary><p>Height eases via interpolate-size where supported; instant elsewhere.</p></details></div></div>
-<pre><code>&lt;details name=&quot;faq&quot;&gt;
+<m-vstack gap="xl">
+  <section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><div style="inline-size: 100%"><details name="dacc" open><summary>Is it accessible?</summary><p>Yes. It is a native disclosure element; AT support comes with it.</p></details><details name="dacc"><summary>Is it styled?</summary><p>Border-per-item, rotating chevron, hover underline — the shadcn look.</p></details><details name="dacc"><summary>Is it animated?</summary><p>Height eases via interpolate-size where supported; instant elsewhere.</p></details></div></div></m-vstack></section>
+  <section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;details name=&quot;faq&quot;&gt;
   &lt;summary&gt;Is it accessible?&lt;/summary&gt;
   &lt;p&gt;Yes.&lt;/p&gt;
 &lt;/details&gt;
 &lt;details name=&quot;faq&quot;&gt;
   &lt;summary&gt;Is it styled?&lt;/summary&gt;
   &lt;p&gt;Also yes.&lt;/p&gt;
-&lt;/details&gt;</code></pre>
-<h2>Notes</h2>
-<p>Omit <code>name</code> for independent disclosures. The open/close
-animation uses <code>::details-content</code> +
-<code>interpolate-size: allow-keywords</code> (set in the preset) —
-browsers without it open instantly. Zero JS either way.</p>
+&lt;/details&gt;</code></pre></m-vstack></section>
+  <section><m-vstack gap="lg"><h2>API</h2>
+    <div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>name</code></td><td>string</td><td>—</td><td>Groups disclosures so only one is open. Omit it for independent disclosures.</td></tr><tr><td><code>open</code></td><td>native boolean</td><td><code>false</code></td><td>Sets and reflects the expanded state.</td></tr></tbody></table></div>
+    <div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>summary</code></td><td>first child</td><td>required</td><td>Native disclosure control with the styled chevron.</td></tr><tr><td>Content</td><td>elements after summary</td><td>—</td><td>Content shown when the disclosure is open.</td></tr></tbody></table></div>
+  </m-vstack></section>
+  <section><m-vstack gap="sm"><h2>Accessibility</h2><p><code>details</code> and <code>summary</code> provide native disclosure semantics and assistive-technology support without JavaScript.</p></m-vstack></section>
+  <section><m-vstack gap="sm"><h2>Browser support</h2><p>The open/close animation uses <code>::details-content</code> and <code>interpolate-size: allow-keywords</code>, set in the preset. Browsers without that animation support open instantly; behavior and content remain intact.</p></m-vstack></section>
+</m-vstack>

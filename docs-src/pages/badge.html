@@ -1,9 +1,37 @@
+<section><m-vstack gap="md">
+<h2>Example</h2>
 <div class="specimen"><m-hstack gap="xs" wrap><m-badge>Default</m-badge><m-badge variant="primary">Primary</m-badge><m-badge variant="success">Success</m-badge><m-badge variant="warning">Warning</m-badge><m-badge variant="danger">Danger</m-badge><m-badge count>8</m-badge></m-hstack></div>
+</m-vstack></section>
+
+<section><m-vstack gap="md">
+<h2>Basic usage</h2>
 <pre><code>&lt;m-badge&gt;Starter&lt;/m-badge&gt;
 &lt;m-badge variant=&quot;warning&quot;&gt;Delayed&lt;/m-badge&gt;
 &lt;m-badge count&gt;8&lt;/m-badge&gt;</code></pre>
-<h2>Attributes</h2>
-<p><code>variant</code> accepts <code>primary</code>, <code>success</code>,
-<code>warning</code>, or <code>danger</code>. The boolean <code>count</code>
-attribute makes a compact, tabular-numeric badge. Badges are informational; use a real
-<code>&lt;button&gt;</code> for an interactive chip.</p>
+</m-vstack></section>
+
+<section><m-vstack gap="lg">
+<h2>API</h2>
+<div class="api-block">
+  <h3>Attributes</h3>
+  <table class="api-table">
+    <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>variant</code></td><td><code>primary | success | warning | danger</code></td><td>default</td><td>Selects the badge's semantic color treatment.</td></tr>
+      <tr><td><code>count</code></td><td>boolean</td><td><code>false</code></td><td>Makes a compact badge with tabular numerals.</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="api-block">
+  <h3>Content</h3>
+  <table class="api-table">
+    <thead><tr><th>Content</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody><tr><td>Text</td><td>informational label or count</td><td>—</td><td>Short, non-interactive metadata displayed on one line.</td></tr></tbody>
+  </table>
+</div>
+</m-vstack></section>
+
+<section><m-vstack gap="sm">
+<h2>Accessibility</h2>
+<p>Badges are informational. Use a real <code>&lt;button&gt;</code> for an interactive chip.</p>
+</m-vstack></section>

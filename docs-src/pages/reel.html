@@ -1,9 +1,7 @@
-<div class="specimen"><m-reel gap="md" tabindex="0" role="region" aria-label="example slides"><div class="card tall" style="inline-size: 10rem">slide 1</div><div class="card tall" style="inline-size: 10rem">slide 2</div><div class="card tall" style="inline-size: 10rem">slide 3</div><div class="card tall" style="inline-size: 10rem">slide 4</div><div class="card tall" style="inline-size: 10rem">slide 5</div><div class="card tall" style="inline-size: 10rem">slide 6</div></m-reel></div>
-<pre><code>&lt;m-reel gap=&quot;md&quot; snap=&quot;mandatory&quot; tabindex=&quot;0&quot; role=&quot;region&quot; aria-label=&quot;screenshots&quot;&gt;…&lt;/m-reel&gt;</code></pre>
-<h2>Attributes</h2>
-<p><code>gap</code>; <code>snap</code>: none · mandatory (default proximity).</p>
-<h2>Markup contract</h2>
-<p>A scrollable region must be keyboard-reachable — CSS cannot confer
-focusability, so the recipe carries it: <code>tabindex="0"</code> plus an
-accessible name (<code>role="region" aria-label="…"</code>). Without it,
-keyboard users cannot scroll the reel in some browsers.</p>
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-reel gap="md" tabindex="0" role="region" aria-label="example slides"><div class="card tall" style="inline-size: 10rem">slide 1</div><div class="card tall" style="inline-size: 10rem">slide 2</div><div class="card tall" style="inline-size: 10rem">slide 3</div><div class="card tall" style="inline-size: 10rem">slide 4</div><div class="card tall" style="inline-size: 10rem">slide 5</div><div class="card tall" style="inline-size: 10rem">slide 6</div></m-reel></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;m-reel gap=&quot;md&quot; snap=&quot;mandatory&quot; tabindex=&quot;0&quot; role=&quot;region&quot; aria-label=&quot;screenshots&quot;&gt;…&lt;/m-reel&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>gap</code></td><td><code>none</code> · <code>2xs</code> · <code>xs</code> · <code>sm</code> · <code>md</code> · <code>lg</code> · <code>xl</code> · <code>2xl</code></td><td><code>md</code></td><td>Sets the space between items.</td></tr>
+<tr><td><code>snap</code></td><td><code>none</code> · <code>mandatory</code></td><td><code>proximity</code></td><td>Controls horizontal scroll snapping.</td></tr>
+</tbody></table></div><div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Children</td><td>reel items</td><td>—</td><td>Direct children do not shrink and snap at their start edge.</td></tr></tbody></table></div></m-vstack></section>
+<section><m-vstack gap="sm"><h2>Accessibility</h2><p>A scrollable region must be keyboard-reachable — CSS cannot confer focusability, so the recipe carries it: <code>tabindex="0"</code> plus an accessible name (<code>role="region" aria-label="…"</code>). Without it, keyboard users cannot scroll the reel in some browsers.</p></m-vstack></section>

@@ -1,5 +1,5 @@
-<div class="specimen"><form onsubmit="event.preventDefault()"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-field><label for="dv-email">Email (submit empty, then type)</label><input id="dv-email" type="email" required placeholder="ada@example.com" /><m-error match="value-missing">Email is required.</m-error><m-error match="type-mismatch">That doesn&#39;t look like an email address.</m-error></m-field><m-hstack gap="sm"><button data-variant="primary" type="submit">Submit</button></m-hstack></m-vstack></form></div>
-<pre><code>&lt;m-field&gt;
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><form onsubmit="event.preventDefault()"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-field><label for="dv-email">Email (submit empty, then type)</label><input id="dv-email" type="email" required placeholder="ada@example.com" /><m-error match="value-missing">Email is required.</m-error><m-error match="type-mismatch">That doesn&#39;t look like an email address.</m-error></m-field><m-hstack gap="sm"><button data-variant="primary" type="submit">Submit</button></m-hstack></m-vstack></form></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;m-field&gt;
   &lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;
   &lt;input id=&quot;email&quot; type=&quot;email&quot; required /&gt;
   &lt;m-error match=&quot;value-missing&quot;&gt;Email is required.&lt;/m-error&gt;
@@ -7,8 +7,9 @@
   &lt;m-error&gt;&lt;/m-error&gt;  &lt;!-- catch-all: browser&amp;#39;s own message --&gt;
 &lt;/m-field&gt;
 
-&lt;script type=&quot;module&quot; src=&quot;mica/field.js&quot;&gt;&lt;/script&gt;</code></pre>
-<h2>Without the module</h2>
-<p>Matchless <code>&lt;m-error&gt;</code>s still show via
-<code>:user-invalid</code> (pure CSS); submits fall back to native bubbles.
-Working markup, enhanced — never rendered.</p>
+&lt;script type=&quot;module&quot; src=&quot;mica/field.js&quot;&gt;&lt;/script&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><p class="lead"><code>m-field</code> groups one native field with declarative <code>m-error</code> messages. Native constraints remain the source of validity.</p>
+<div class="api-block"><h3>Mica-specific attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>match</code></td><td>validity cause</td><td>catch-all</td><td>On <code>m-error</code>, matches <code>value-missing</code>, <code>type-mismatch</code>, <code>pattern-mismatch</code>, <code>too-long</code>, <code>too-short</code>, <code>range-underflow</code>, <code>range-overflow</code>, <code>step-mismatch</code>, <code>bad-input</code>, or <code>custom-error</code>.</td></tr></tbody></table></div>
+<div class="api-block"><h3>Content/markup contracts</h3><table class="api-table"><thead><tr><th>Content</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Field</td><td>one <code>input</code>, <code>textarea</code>, or <code>select</code></td><td>—</td><td>The first matching descendant is validated and wired to the active error.</td></tr><tr><td><code>m-error</code></td><td>one or more messages</td><td>hidden</td><td>The first matching error is activated; a matchless error is the fallback. An empty fallback receives the browser's validation message.</td></tr></tbody></table></div>
+<div class="module-note"><h3><code>field.js</code></h3><p>Optional. Suppresses native validation bubbles while preserving blocked submission, focuses the first invalid field, activates the first applicable error, and wires <code>aria-invalid</code> and <code>aria-describedby</code>. Once shown, an error revalidates on input and clears when fixed.</p><p>Without the module, a matchless <code>m-error</code> still shows through <code>:user-invalid</code> and submits fall back to native bubbles. Working markup, enhanced — never rendered.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/field.js&quot;&gt;&lt;/script&gt;</code></pre></div>
+</m-vstack></section>

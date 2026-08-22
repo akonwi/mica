@@ -1,5 +1,33 @@
+<section><m-vstack gap="md">
+<h2>Example</h2>
 <div class="specimen"><table><thead><tr><th>Element</th><th>Level</th><th>JS</th></tr></thead><tbody><tr><td>m-vstack</td><td>CSS-only</td><td>none</td></tr><tr><td>dialog</td><td>native behavior</td><td>none</td></tr><tr><td>m-field</td><td>JS-enhanced</td><td>one module</td></tr></tbody><caption>Horizontal borders only; hover a row; numerals are tabular.</caption></table></div>
 <div class="specimen"><p style="margin:0">Inline <code>code</code> gets a chip; press <kbd>⌘</kbd><kbd>K</kbd>. Below, a thematic break.</p><hr /><blockquote style="margin:0">Delete the stylesheet and it still works.</blockquote></div>
+</m-vstack></section>
+
+<section><m-vstack gap="md">
+<h2>Basic usage</h2>
+<pre><code>&lt;blockquote&gt;Delete the stylesheet and it still works.&lt;/blockquote&gt;
+&lt;p&gt;Press &lt;kbd&gt;⌘&lt;/kbd&gt;&lt;kbd&gt;K&lt;/kbd&gt;.&lt;/p&gt;
+&lt;hr&gt;</code></pre>
+</m-vstack></section>
+
+<section><m-vstack gap="lg">
+<m-vstack gap="2xs"><h2>API</h2><p class="lead">These are native HTML elements and retain their native semantics. Mica adds finished presentation, not attributes or behavior.</p></m-vstack>
+<div class="api-block">
+  <h3>Content and markup</h3>
+  <table class="api-table">
+    <thead><tr><th>Elements</th><th>Native contract</th><th>Mica extension</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>table</code>, <code>thead</code>, <code>tbody</code>, <code>tr</code>, <code>th</code>, <code>td</code>, <code>caption</code></td><td>HTML table structure</td><td>none</td><td>Full-width tables with horizontal row borders, tabular numerals, row hover, and a muted bottom caption.</td></tr>
+      <tr><td><code>ul</code>, <code>ol</code>, <code>li</code>, <code>dl</code>, <code>dt</code>, <code>dd</code></td><td>HTML list structure</td><td>none</td><td>Styled list spacing, markers, and definition terms.</td></tr>
+      <tr><td><code>code</code>, <code>pre</code>, <code>kbd</code>, <code>samp</code></td><td>native phrasing or preformatted content</td><td>none</td><td>Inline code chips, bordered code blocks, and keyboard-key treatments.</td></tr>
+      <tr><td><code>blockquote</code>, <code>hr</code></td><td>native quotation or thematic break</td><td>none</td><td>Muted quotations and a strong horizontal divider.</td></tr>
+    </tbody>
+  </table>
+</div>
+</m-vstack></section>
+
+<section><m-vstack gap="sm">
 <h2>Notes</h2>
-<p>Markdown output (tables, <code>---</code> → <code>hr</code>, lists, code
-fences) renders finished with zero classes.</p>
+<p>Markdown output (tables, <code>---</code> → <code>hr</code>, lists, and code fences) renders finished with zero classes.</p>
+</m-vstack></section>

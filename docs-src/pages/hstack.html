@@ -1,6 +1,9 @@
-<div class="specimen"><m-hstack gap="sm" wrap><div class="swatch">alpha</div><div class="swatch">beta</div><div class="swatch">gamma</div><div class="swatch">delta</div></m-hstack></div>
-<pre><code>&lt;m-hstack gap=&quot;sm&quot;&gt;…&lt;/m-hstack&gt;        &lt;!-- one row, like SwiftUI --&gt;
-&lt;m-hstack gap=&quot;sm&quot; wrap&gt;…&lt;/m-hstack&gt;   &lt;!-- allowed to wrap --&gt;</code></pre>
-<h2>Attributes</h2>
-<p><code>gap</code>, <code>align</code> (default center),
-<code>justify</code>: start · center · end · between, boolean <code>wrap</code>.</p>
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-hstack gap="sm" wrap><div class="swatch">alpha</div><div class="swatch">beta</div><div class="swatch">gamma</div><div class="swatch">delta</div></m-hstack></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;m-hstack gap=&quot;sm&quot;&gt;…&lt;/m-hstack&gt;        &lt;!-- one row, like SwiftUI --&gt;
+&lt;m-hstack gap=&quot;sm&quot; wrap&gt;…&lt;/m-hstack&gt;   &lt;!-- allowed to wrap --&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>gap</code></td><td><code>none</code> · <code>2xs</code> · <code>xs</code> · <code>sm</code> · <code>md</code> · <code>lg</code> · <code>xl</code> · <code>2xl</code></td><td><code>md</code></td><td>Sets the space between children.</td></tr>
+<tr><td><code>align</code></td><td><code>start</code> · <code>center</code> · <code>end</code> · <code>stretch</code></td><td><code>center</code></td><td>Aligns children on the vertical axis.</td></tr>
+<tr><td><code>justify</code></td><td><code>start</code> · <code>center</code> · <code>end</code> · <code>between</code></td><td><code>start</code></td><td>Distributes children along the horizontal axis.</td></tr>
+<tr><td><code>wrap</code></td><td>boolean</td><td><code>false</code></td><td>Allows the row to wrap onto multiple lines.</td></tr>
+</tbody></table></div></m-vstack></section>

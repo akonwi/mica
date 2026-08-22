@@ -24,13 +24,14 @@
       {{NAV}}
     </nav>
     <article id="main">
-      <m-center style="--max: 48rem">
+      <m-center style="--max: 62rem">
         <m-vstack gap="xl">
-          {{CRUMB}}
-          <m-vstack gap="2xs">
-            <m-hstack gap="sm"><h1>{{PAGE_TITLE}}</h1>{{BADGE}}</m-hstack>
-            <p class="lead">{{LEAD}}</p>
-          </m-vstack>
+          <header class="page-header">
+            <m-vstack gap="2xs">
+              <h1>{{PAGE_TITLE}}</h1>
+              <p class="lead">{{LEAD}}</p>
+            </m-vstack>
+          </header>
 {{BODY}}{{PAGER}}
         </m-vstack>
       </m-center>

@@ -1,6 +1,8 @@
-<div class="specimen"><m-hstack gap="lg" wrap><label><input type="checkbox" checked /> Checked</label><label><input type="checkbox" /> Unchecked</label><label><input type="checkbox" id="dc-ind" /> Indeterminate</label><label><input type="checkbox" disabled checked /> Disabled</label></m-hstack></div>
-<pre><code>&lt;label&gt;&lt;input type=&quot;checkbox&quot; checked /&gt; Remember me&lt;/label&gt;</code></pre>
-<h2>Notes</h2>
-<p>Checked is primary fill + glyph; indeterminate is a drawn dash. A label
-wrapping the control becomes the click target and dims when disabled.</p>
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-hstack gap="lg" wrap><label><input type="checkbox" checked /> Checked</label><label><input type="checkbox" /> Unchecked</label><label><input type="checkbox" id="dc-ind" /> Indeterminate</label><label><input type="checkbox" disabled checked /> Disabled</label></m-hstack></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;label&gt;&lt;input type=&quot;checkbox&quot; checked /&gt; Remember me&lt;/label&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><p class="lead">This is a native <code>input type="checkbox"</code>. Checked, disabled, indeterminate, events, and form behavior remain native; Mica adds only presentation.</p>
+<div class="api-block"><h3>Content/markup contracts</h3><table class="api-table"><thead><tr><th>Content</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>label</code></td><td>wrap the input or use <code>for</code></td><td>—</td><td>Provides the accessible name and click target. A wrapping label dims with its disabled control.</td></tr></tbody></table></div>
+<div class="api-block"><h3>Styling</h3><table class="api-table"><thead><tr><th>State</th><th>Native source</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Checked</td><td><code>checked</code></td><td><code>false</code></td><td>Primary fill with a glyph.</td></tr><tr><td>Indeterminate</td><td><code>HTMLInputElement.indeterminate</code></td><td><code>false</code></td><td>Primary fill with a drawn dash. Set this native property from script.</td></tr></tbody></table></div>
+</m-vstack></section>
+<section><m-vstack gap="sm"><h2>Notes</h2><p>Checked is primary fill + glyph; indeterminate is a drawn dash. A label wrapping the control becomes the click target and dims when disabled.</p></m-vstack></section>
 <script>document.getElementById('dc-ind').indeterminate = true;</script>

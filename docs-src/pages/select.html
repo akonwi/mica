@@ -1,10 +1,10 @@
-<div class="specimen"><m-vstack gap="2xs" style="max-inline-size: var(--size-md)"><label for="ds-role">Role</label><select id="ds-role"><option>Engineer</option><option>Designer</option><option>Mathematician</option></select></m-vstack></div>
-<pre><code>&lt;select&gt;
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-vstack gap="2xs" style="max-inline-size: var(--size-md)"><label for="ds-role">Role</label><select id="ds-role"><option>Engineer</option><option>Designer</option><option>Mathematician</option></select></m-vstack></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;select&gt;
   &lt;option&gt;Engineer&lt;/option&gt;
   &lt;option&gt;Designer&lt;/option&gt;
-&lt;/select&gt;</code></pre>
-<h2>Module: picker alignment</h2>
-<p>With the optional <code>select.js</code> module (loaded on this page), the
-open picker overlays the trigger with the selected option kept in place —
-macOS-native behavior. JS ships one number; CSS anchors do the rest.
-Without it: the styled anchored-below picker.</p>
+&lt;/select&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><p class="lead"><code>select</code> and <code>option</code> retain their complete native attributes, events, keyboard interaction, and form behavior. Mica adds picker presentation where the platform supports customizable selects.</p>
+<div class="api-block"><h3>Content/markup contracts</h3><table class="api-table"><thead><tr><th>Content</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>option</code></td><td>native select content</td><td>—</td><td>Authored options remain the source of labels, values, disabled state, and selection.</td></tr></tbody></table></div>
+<div class="api-block"><h3>Styling</h3><table class="api-table"><thead><tr><th>Target</th><th>Value</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Single select</td><td><code>select:not([multiple], [size])</code></td><td>Mica control height</td><td>Uses the field family presentation. Supporting browsers receive a styled picker; other browsers retain the native picker.</td></tr></tbody></table></div>
+<div class="module-note"><h3><code>select.js</code></h3><p>Optional. Keeps the selected option aligned over the trigger when the open customizable picker supports it. JavaScript supplies the selected index and CSS handles the geometry. Without the module, the styled picker anchors below the trigger; browsers without customizable select support keep their native picker.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/select.js&quot;&gt;&lt;/script&gt;</code></pre></div>
+</m-vstack></section>

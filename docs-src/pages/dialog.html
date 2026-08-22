@@ -1,11 +1,9 @@
-<div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button data-variant="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" data-drawer><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button data-variant="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog></div>
-<h2>Drawer attribute</h2>
-<p><code>data-drawer</code> is boolean: its presence turns the dialog into a
-responsive side sheet / bottom sheet.</p>
-<h2>Composition</h2>
-<p>The shadcn structure, in native vocabulary — header (title +
-description), body, footer are real elements, not components:</p>
-<pre><code>&lt;button commandfor=&quot;confirm&quot; command=&quot;show-modal&quot;&gt;Open&lt;/button&gt;  &lt;!-- trigger --&gt;
+<m-vstack gap="xl">
+  <section><m-vstack gap="md"><h2>Example</h2>
+    <div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button data-variant="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" data-drawer><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button data-variant="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog></div>
+  </m-vstack></section>
+  <section><m-vstack gap="md"><h2>Basic usage</h2>
+    <pre><code>&lt;button commandfor=&quot;confirm&quot; command=&quot;show-modal&quot;&gt;Open&lt;/button&gt;  &lt;!-- trigger --&gt;
 
 &lt;dialog id=&quot;confirm&quot;&gt;          &lt;!-- content --&gt;
   &lt;button class=&quot;close&quot; commandfor=&quot;confirm&quot; command=&quot;close&quot; aria-label=&quot;Close&quot;&gt;&amp;#x2715;&lt;/button&gt;
@@ -23,34 +21,29 @@ description), body, footer are real elements, not components:</p>
     &lt;/form&gt;
   &lt;/footer&gt;
 &lt;/dialog&gt;</code></pre>
-<h2>Notes</h2>
-<p>Enter/exit animations use <code>@starting-style</code> +
-<code>transition-behavior: allow-discrete</code>. Standard modal backdrops
-fade where the engine supports top-layer exit transitions.
-<code>dialog.returnValue</code> carries the value of the submitting
-button.</p>
-<h2>Bottom sheet + gestures</h2>
-<p>Below 40rem the drawer becomes a full-width bottom sheet (content
-height, anchored to the bottom edge — the same pattern as shadcn's
-mobile drawer). The optional <code>drawer.js</code> enhancement module adds
-a grab handle and swipe-to-dismiss: the sheet follows a downward drag,
-resists upward, and closes past a third of its height or on a flick. It
-also manages the mobile scrim, lightening it as the sheet moves down and
-fading it cleanly on close, including on iOS. Without the module the
-markup still works with a CSS-only scrim — the handle only appears when
-the behavior exists.</p>
-<pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/drawer.js&quot;&gt;&lt;/script&gt;</code></pre>
-<p>On the sheet the handle is the dismiss affordance, so the corner
-<code>×</code> is redundant there while it stays the only one on the
-desktop side-sheet. Hide it below the breakpoint in your own CSS — this
-page does exactly that:</p>
-<pre><code>@media (max-width: 40rem) {
+  </m-vstack></section>
+  <section><m-vstack gap="lg"><h2>API</h2>
+    <div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody>
+      <tr><td><code>data-drawer</code></td><td>boolean</td><td><code>false</code></td><td>Turns the dialog into a responsive desktop side sheet and mobile bottom sheet.</td></tr>
+      <tr><td><code>open</code></td><td>native boolean</td><td><code>false</code></td><td>Reflects whether the native dialog is open. Prefer <code>showModal()</code> to open a modal.</td></tr>
+    </tbody></table></div>
+    <div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody>
+      <tr><td><code>header</code></td><td>direct child</td><td>optional</td><td>Contains the title and description.</td></tr>
+      <tr><td>Body</td><td>one element between header and footer</td><td>—</td><td>Padded, scrollable content region.</td></tr>
+      <tr><td><code>footer</code></td><td>direct child</td><td>optional</td><td>Right-aligned actions; drawer actions stack and pin to the bottom. A <code>form method="dialog"</code> closes natively.</td></tr>
+      <tr><td><code>button.close</code></td><td>direct child</td><td>optional</td><td>Corner dismiss control; provide an accessible name.</td></tr>
+    </tbody></table></div>
+    <div class="api-block"><h3>Native methods and values</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody>
+      <tr><td><code>showModal()</code></td><td>method</td><td>—</td><td>Opens in the top layer with modal focus and backdrop behavior.</td></tr>
+      <tr><td><code>close()</code></td><td>method</td><td>—</td><td>Closes the dialog.</td></tr>
+      <tr><td><code>returnValue</code></td><td>string property</td><td><code>""</code></td><td>Carries the value of the button that submitted a <code>method="dialog"</code> form.</td></tr>
+    </tbody></table></div>
+    <div class="module-note"><h3><code>drawer.js</code></h3><p>Optional. Below 40rem the drawer is a content-height, full-width bottom sheet. The module adds a grab handle and swipe-to-dismiss from the handle/header strip: downward drags follow the pointer, upward drags resist, and the sheet closes past one third of its height or on a flick. It also manages the mobile scrim, lightening it during drag and fading it on close, including on iOS. Without the module, open/close, Esc, and the CSS-only scrim still work; no handle appears.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/drawer.js&quot;&gt;&lt;/script&gt;</code></pre><p>On mobile the handle is the dismiss affordance, so you may hide the redundant corner close button:</p><pre><code>@media (max-width: 40rem) {
   dialog[data-drawer] &gt; button.close { display: none; }
-}</code></pre>
-<h2>Browser support</h2>
-<p>Invoker commands (<code>commandfor</code>/<code>command</code>) are
-Baseline newly-available (Chrome 135+, Firefox 144+, Safari 26.2+).
-Until they're widely available, include the shim — it installs nothing
-where the browser handles commands natively, and its removal is a
-one-line diff later:</p>
-<pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/invoker.js&quot;&gt;&lt;/script&gt;</code></pre>
+}</code></pre></div>
+    <div class="module-note"><h3><code>invoker.js</code></h3><p>Temporary optional shim for the recipe's <code>show-modal</code> and <code>close</code> invoker commands. It installs nothing when commands are native.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/invoker.js&quot;&gt;&lt;/script&gt;</code></pre></div>
+  </m-vstack></section>
+  <section><m-vstack gap="sm"><h2>Accessibility</h2><p>Native modal dialogs provide top-layer behavior, focus trapping, Esc dismissal, and backdrop handling. Give icon-only close buttons an accessible name. Use a heading and description in the header so the purpose is clear.</p></m-vstack></section>
+  <section><m-vstack gap="sm"><h2>Browser support</h2><p>Invoker commands (<code>commandfor</code>/<code>command</code>) are Baseline newly-available (Chrome 135+, Firefox 144+, Safari 26.2+). Include <code>invoker.js</code> until they are widely available. The shim's removal is a one-line diff.</p></m-vstack></section>
+  <section><m-vstack gap="sm"><h2>Notes</h2><p>Enter/exit animations use <code>@starting-style</code> and <code>transition-behavior: allow-discrete</code>. Standard modal backdrops fade where the engine supports top-layer exit transitions.</p></m-vstack></section>
+</m-vstack>

@@ -1,37 +1,25 @@
-<div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button><label for="toast-pos">--toast-position</label><select id="toast-pos"><option>bottom-right</option><option>bottom-left</option><option>bottom-center</option><option>top-right</option><option>top-left</option><option>top-center</option></select><script type="module">document.getElementById("toast-pos").addEventListener("change", (e) => document.documentElement.style.setProperty("--toast-position", e.target.value));</script></m-hstack><m-toast id="dt-a" popover="manual" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></m-toast><m-toast id="dt-b" popover="manual" variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></m-toast></div>
-<pre><code>&lt;m-toast id=&quot;saved&quot; popover=&quot;manual&quot; variant=&quot;success&quot; role=&quot;status&quot;&gt;
+<m-vstack gap="xl">
+  <section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-hstack gap="sm" wrap><button popovertarget="dt-a" popovertargetaction="show">Show toast</button><button popovertarget="dt-b" popovertargetaction="show">Success toast</button><label for="toast-pos">--toast-position</label><select id="toast-pos"><option>bottom-right</option><option>bottom-left</option><option>bottom-center</option><option>top-right</option><option>top-left</option><option>top-center</option></select><script type="module">document.getElementById("toast-pos").addEventListener("change", (e) => document.documentElement.style.setProperty("--toast-position", e.target.value));</script></m-hstack><m-toast id="dt-a" popover="manual" role="status" duration="0"><button class="close" popovertarget="dt-a" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Heads up</b><span>Manual popovers survive light dismiss; the X dismisses.</span></m-toast><m-toast id="dt-b" popover="manual" variant="success" role="status"><button class="close" popovertarget="dt-b" popovertargetaction="hide" aria-label="Dismiss">&#x2715;</button><b>Saved</b><span>Your changes are safe.</span></m-toast></div></m-vstack></section>
+  <section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;m-toast id=&quot;saved&quot; popover=&quot;manual&quot; variant=&quot;success&quot; role=&quot;status&quot;&gt;
   &lt;button class=&quot;close&quot; popovertarget=&quot;saved&quot;
           popovertargetaction=&quot;hide&quot; aria-label=&quot;Dismiss&quot;&gt;&amp;#x2715;&lt;/button&gt;
   &lt;b&gt;Saved&lt;/b&gt;
   &lt;span&gt;Your changes are safe.&lt;/span&gt;
 &lt;/m-toast&gt;
 
-document.getElementById(&amp;#39;saved&amp;#39;).showPopover()  // from your app code</code></pre>
-<h2>Notes</h2>
-<p><code>&lt;m-toast&gt;</code> is an inert styling wrapper around the native
-popover behavior. <code>popover="manual"</code> keeps it up through light dismiss
-and other popovers; <code>role="status"</code> announces politely. The
-<code>variant</code> attribute accepts <code>success</code>, <code>warning</code>,
-or <code>danger</code> for a status edge. Apps show toasts from code
-(<code>showPopover()</code>).</p>
-<h2>Position</h2>
-<p>Where toasts pin is app-level config — one token, set once, every toast
-obeys. The picker in the specimen above sets it on <code>:root</code>:</p>
-<pre><code>:root { --toast-position: top-center }
+document.getElementById(&amp;#39;saved&amp;#39;).showPopover()  // from your app code</code></pre></m-vstack></section>
+  <section><m-vstack gap="lg"><h2>API</h2>
+    <div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>popover="manual"</code></td><td>native attribute</td><td>—</td><td>Keeps the toast open through light dismiss and while other popovers open.</td></tr><tr><td><code>variant</code></td><td><code>success | warning | danger</code></td><td>—</td><td>Adds the corresponding status edge.</td></tr><tr><td><code>duration</code></td><td>milliseconds</td><td><code>5000</code></td><td>Auto-dismiss delay when <code>toast.js</code> is loaded. <code>0</code> makes the toast sticky.</td></tr><tr><td><code>role="status"</code></td><td>ARIA role</td><td>—</td><td>Requests a polite announcement.</td></tr></tbody></table></div>
+    <div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>button.close</code></td><td>direct child</td><td>optional</td><td>Dismisses through <code>popovertargetaction="hide"</code>; provide an accessible name.</td></tr><tr><td><code>b</code></td><td>title</td><td>—</td><td>Primary toast message.</td></tr><tr><td><code>span</code> or <code>p</code></td><td>description</td><td>optional</td><td>Muted supporting text.</td></tr></tbody></table></div>
+    <div class="api-block"><h3>Styling/public properties</h3><table class="api-table"><thead><tr><th>Property</th><th>Value</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>--toast-position</code></td><td><code>bottom-right | bottom-left | bottom-center | top-right | top-left | top-center</code></td><td><code>bottom-right</code></td><td>App-level position set once on <code>:root</code>; every toast follows it.</td></tr></tbody></table><pre><code>:root { --toast-position: top-center }
 /* bottom-right (default) | bottom-left | bottom-center
-   | top-right | top-left | top-center */</code></pre>
-<p>Top positions stack downward and enter from above; centers are
-viewport-centered. Read via container style queries (Baseline
-newly-available 2026-05); in browsers without them the token is ignored
-and toasts keep the bottom-right default — plainer, not broken.</p>
-<h2>Module: toast.js (JS-enhanced)</h2>
-<p>Loaded on this page. Open toasts stack upward (JS ships one offset
-number per toast; CSS owns the geometry and reflow motion), auto-dismiss
-after <code>duration</code> ms (default 5000, <code>duration="0"</code> = sticky,
-paused while hovered), and <code>toast()</code> spawns an <code>&lt;m-toast&gt;</code>
-from code and removes it after dismissal. Try both buttons above — the toasts
-stack.</p>
-<pre><code>import { toast } from &#x27;mica/toast.js&#x27;
+   | top-right | top-left | top-center */</code></pre><p>Top positions stack downward and enter from above; centers are viewport-centered.</p></div>
+    <div class="api-block"><h3>Native methods</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>showPopover()</code></td><td>method</td><td>—</td><td>Shows an authored toast from app code.</td></tr><tr><td><code>hidePopover()</code></td><td>method</td><td>—</td><td>Dismisses an authored toast from app code.</td></tr></tbody></table></div>
+    <div class="module-note"><h3><code>toast.js</code></h3><p>Optional and loaded on this page. Open toasts stack upward; auto-dismiss defaults to 5000ms, is disabled by <code>duration="0"</code>, and pauses while hovered. The exported <code>toast()</code> helper creates the same markup, shows it, and removes it after dismissal.</p><pre><code>import { toast } from &#x27;mica/toast.js&#x27;
 
 toast(&#x27;Saved&#x27;, { description: &#x27;Your changes are safe.&#x27;,
-                variant: &#x27;success&#x27;, duration: 4000 })</code></pre>
+                variant: &#x27;success&#x27;, duration: 4000 })</code></pre><table class="api-table"><thead><tr><th>Export</th><th>Signature</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>toast</code></td><td><code>(title, { description, variant, duration })</code></td><td>optional fields</td><td>Spawns and returns an ephemeral <code>m-toast</code>. Variant accepts <code>success</code>, <code>warning</code>, or <code>danger</code>.</td></tr></tbody></table><p>Without the module, <code>m-toast</code> remains an inert styling wrapper around working native manual-popover behavior.</p></div>
+  </m-vstack></section>
+  <section><m-vstack gap="sm"><h2>Accessibility</h2><p>Use <code>role="status"</code> for polite announcements and give an icon-only dismiss button an accessible name. Sticky toasts remain available until explicitly dismissed.</p></m-vstack></section>
+  <section><m-vstack gap="sm"><h2>Browser support</h2><p>Position overrides use container style queries (Baseline newly-available 2026-05). Without support, <code>--toast-position</code> is ignored and toasts keep the bottom-right default — plainer, not broken.</p></m-vstack></section>
+</m-vstack>

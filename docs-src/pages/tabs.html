@@ -1,5 +1,6 @@
-<div class="specimen"><m-tabs><nav><button>Account</button><button>Password</button><button>Team</button></nav><section><p>Account settings panel.</p></section><section><p>Password panel. Try the arrow keys — roving tabindex, automatic activation.</p></section><section><p>Team panel.</p></section></m-tabs></div>
-<pre><code>&lt;m-tabs&gt;
+<m-vstack gap="xl">
+  <section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-tabs><nav><button>Account</button><button>Password</button><button>Team</button></nav><section><p>Account settings panel.</p></section><section><p>Password panel. Try the arrow keys — roving tabindex, automatic activation.</p></section><section><p>Team panel.</p></section></m-tabs></div></m-vstack></section>
+  <section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;m-tabs&gt;
   &lt;nav&gt;
     &lt;button&gt;Account&lt;/button&gt;
     &lt;button selected&gt;Password&lt;/button&gt;  &lt;!-- optional initial --&gt;
@@ -8,17 +9,12 @@
   &lt;section&gt;&amp;#8230;password panel&amp;#8230;&lt;/section&gt;
 &lt;/m-tabs&gt;
 
-&lt;script type=&quot;module&quot; src=&quot;mica/tabs.js&quot;&gt;&lt;/script&gt;</code></pre>
-<h2>Notes</h2>
-<p>Buttons pair with panels positionally, or explicitly via
-<code>aria-controls="panel-id"</code>. The module wires
-tablist/tab/tabpanel roles, <code>aria-selected</code>, roving tabindex,
-and Arrow/Home/End keys. <b>Without the module</b> the nav is inert and
-every panel renders in order — complete, readable content, never a
-CSS-only fake (that is the enhancement line).</p>
-<h2>Overflow</h2>
-<p>Labels never wrap inside a tab. When the rail is narrower than its
-tabs, the nav scrolls horizontally — overscroll contained, a thin
-scrollbar where the platform shows one, and the clipped tab peeking at
-the edge as the affordance.</p>
-<div class="specimen"><m-tabs style="max-inline-size: 16rem"><nav aria-label="Overflow demo"><button>Overview</button><button>Head-to-head record</button><button>Recent team form</button></nav><section><p>The rail is constrained to 16rem; tabs keep intrinsic width and the overflow scrolls.</p></section><section><p>Head-to-head panel.</p></section><section><p>Form panel.</p></section></m-tabs></div>
+&lt;script type=&quot;module&quot; src=&quot;mica/tabs.js&quot;&gt;&lt;/script&gt;</code></pre></m-vstack></section>
+  <section><m-vstack gap="lg"><h2>API</h2>
+    <div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>selected</code></td><td>boolean on a tab button</td><td>first tab</td><td>Chooses the optional initial tab before enhancement.</td></tr><tr><td><code>aria-controls</code></td><td>panel ID</td><td>positional pairing</td><td>Explicitly pairs a button with a panel.</td></tr></tbody></table></div>
+    <div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>nav</code></td><td>direct child</td><td>required</td><td>Contains tab buttons.</td></tr><tr><td><code>button</code></td><td>inside nav</td><td>required</td><td>Pairs positionally with a direct panel unless <code>aria-controls</code> names one.</td></tr><tr><td><code>section</code></td><td>direct child</td><td>required</td><td>Panel content. Keep all content complete and readable without enhancement.</td></tr></tbody></table></div>
+    <div class="module-note"><h3><code>tabs.js</code></h3><p>Optional enhancement that registers <code>m-tabs</code>. It wires <code>tablist</code>, <code>tab</code>, and <code>tabpanel</code> roles; <code>aria-selected</code>; roving tabindex; and Arrow Left/Right, Home, and End keys with automatic activation.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/tabs.js&quot;&gt;&lt;/script&gt;</code></pre><p>Without the module, the nav is inert and every panel renders in order: complete, readable content rather than a CSS-only fake.</p></div>
+  </m-vstack></section>
+  <section><m-vstack gap="sm"><h2>Accessibility</h2><p>The module establishes native ARIA tabs semantics, labels each panel from its button, makes panels focusable, and manages keyboard focus and selection. The unenhanced fallback exposes every panel in document order.</p></m-vstack></section>
+  <section><m-vstack gap="md"><h2>Notes</h2><p>Tab labels never wrap. When the rail is narrower than its tabs, the nav scrolls horizontally with contained overscroll, a thin scrollbar where the platform shows one, and a clipped tab peeking at the edge as the affordance.</p><div class="specimen"><m-tabs style="max-inline-size: 16rem"><nav aria-label="Overflow demo"><button>Overview</button><button>Head-to-head record</button><button>Recent team form</button></nav><section><p>The rail is constrained to 16rem; tabs keep intrinsic width and the overflow scrolls.</p></section><section><p>Head-to-head panel.</p></section><section><p>Form panel.</p></section></m-tabs></div></m-vstack></section>
+</m-vstack>

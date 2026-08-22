@@ -121,7 +121,7 @@
       "slug": "avatar",
       "title": "avatar",
       "level": "css",
-      "lead": "Authored initials or a native image; optional deterministic color and features from a local seed.",
+      "lead": "Initials or an image; optional deterministic color and features based on a string.",
       "scripts": ["avatar.js"]
     },
     {

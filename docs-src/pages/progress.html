@@ -1,3 +1,43 @@
+<section><m-vstack gap="md">
+<h2>Example</h2>
 <div class="specimen"><m-vstack gap="md"><progress max="100" value="33"></progress><progress max="100" value="80"></progress><meter min="0" max="100" low="60" high="85" optimum="30" value="42"></meter><meter min="0" max="100" low="60" high="85" optimum="30" value="74"></meter><meter min="0" max="100" low="60" high="85" optimum="30" value="93"></meter></m-vstack></div>
+</m-vstack></section>
+
+<section><m-vstack gap="md">
+<h2>Basic usage</h2>
 <pre><code>&lt;progress max=&quot;100&quot; value=&quot;33&quot;&gt;&lt;/progress&gt;
 &lt;meter min=&quot;0&quot; max=&quot;100&quot; low=&quot;60&quot; high=&quot;85&quot; optimum=&quot;30&quot; value=&quot;74&quot;&gt;&lt;/meter&gt;</code></pre>
+</m-vstack></section>
+
+<section><m-vstack gap="lg">
+<m-vstack gap="2xs"><h2>API</h2><p class="lead">Both controls use native HTML attributes and behavior. Mica adds the thin-bar presentation and status colors; it adds no attributes.</p></m-vstack>
+<div class="api-block">
+  <h3>Native <code>progress</code> attributes</h3>
+  <table class="api-table">
+    <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>max</code></td><td>positive number</td><td><code>1</code></td><td>Sets the total required work.</td></tr>
+      <tr><td><code>value</code></td><td>number</td><td>indeterminate</td><td>Sets completed work. Omit it for native indeterminate progress.</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="api-block">
+  <h3>Native <code>meter</code> attributes</h3>
+  <table class="api-table">
+    <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>value</code></td><td>number</td><td><code>0</code></td><td>The measured value.</td></tr>
+      <tr><td><code>min</code></td><td>number</td><td><code>0</code></td><td>The lower bound of the measured range.</td></tr>
+      <tr><td><code>max</code></td><td>number</td><td><code>1</code></td><td>The upper bound of the measured range.</td></tr>
+      <tr><td><code>low</code></td><td>number</td><td><code>min</code></td><td>The upper boundary of the low range.</td></tr>
+      <tr><td><code>high</code></td><td>number</td><td><code>max</code></td><td>The lower boundary of the high range.</td></tr>
+      <tr><td><code>optimum</code></td><td>number</td><td>range midpoint</td><td>Indicates which part of the range is optimal; Mica maps meter grades to status colors.</td></tr>
+    </tbody>
+  </table>
+</div>
+</m-vstack></section>
+
+<section><m-vstack gap="sm">
+<h2>Accessibility</h2>
+<p>Use surrounding text or an accessible name to identify what each native control measures. Use <code>progress</code> for task completion and <code>meter</code> for a scalar value within a known range.</p>
+</m-vstack></section>

@@ -1,8 +1,8 @@
-<div class="specimen"><m-hstack gap="lg" wrap><label><input type="checkbox" role="switch" checked /> Notifications</label><label><input type="checkbox" role="switch" /> Marketing</label><label><input type="checkbox" role="switch" disabled /> Locked</label></m-hstack></div>
-<pre><code>&lt;label&gt;&lt;input type=&quot;checkbox&quot; role=&quot;switch&quot; checked /&gt; Notifications&lt;/label&gt;</code></pre>
-<h2>Notes</h2>
-<p><code>role="switch"</code> gives the visual track matching on/off semantics.
-The checkbox's native <code>checked</code> state supplies the accessible state —
-do not duplicate it with <code>aria-checked</code>. Form participation, labeling,
-focus, and Space-key behavior remain native. Safari is prototyping a native <code>switch</code>
-attribute; if it standardizes, this component will need even less.</p>
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-hstack gap="lg" wrap><label><input type="checkbox" role="switch" checked /> Notifications</label><label><input type="checkbox" role="switch" /> Marketing</label><label><input type="checkbox" role="switch" disabled /> Locked</label></m-hstack></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;label&gt;&lt;input type=&quot;checkbox&quot; role=&quot;switch&quot; checked /&gt; Notifications&lt;/label&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><p class="lead">A switch is a native checkbox with the ARIA <code>switch</code> role. Checked, disabled, form participation, labeling, focus, events, and Space-key behavior remain native.</p>
+<div class="api-block"><h3>Mica-specific attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>role="switch"</code></td><td>ARIA role</td><td>checkbox role</td><td>Selects Mica's switch track presentation and exposes on/off semantics to assistive technology.</td></tr></tbody></table></div>
+<div class="api-block"><h3>Content/markup contracts</h3><table class="api-table"><thead><tr><th>Content</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>label</code></td><td>wrap the input or use <code>for</code></td><td>—</td><td>Provides the switch's accessible name and click target.</td></tr></tbody></table></div>
+<div class="api-block"><h3>Styling</h3><table class="api-table"><thead><tr><th>State</th><th>Native source</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Off</td><td>unchecked checkbox</td><td>initial</td><td>Muted track with the block at the start edge.</td></tr><tr><td>On</td><td><code>checked</code></td><td><code>false</code></td><td>Primary fill with the block at the end edge.</td></tr></tbody></table></div>
+</m-vstack></section>
+<section><m-vstack gap="sm"><h2>Accessibility</h2><p>The checkbox's native <code>checked</code> state supplies the accessible state — do not duplicate it with <code>aria-checked</code>. Safari is prototyping a native <code>switch</code> attribute; if it standardizes, this component will need even less.</p></m-vstack></section>

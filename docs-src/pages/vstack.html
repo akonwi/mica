@@ -1,10 +1,37 @@
-<div class="specimen"><m-vstack gap="sm"><div class="swatch">one</div><div class="swatch">two</div><div class="swatch">three</div></m-vstack></div>
-<pre><code>&lt;m-vstack gap=&quot;sm&quot;&gt;
+<section>
+  <m-vstack gap="md">
+    <h2>Example</h2>
+    <div class="specimen"><m-vstack gap="sm"><div class="swatch">one</div><div class="swatch">two</div><div class="swatch">three</div></m-vstack></div>
+  </m-vstack>
+</section>
+<section>
+  <m-vstack gap="md">
+    <h2>Basic usage</h2>
+    <pre><code>&lt;m-vstack gap=&quot;sm&quot;&gt;
   &lt;div&gt;one&lt;/div&gt;
   &lt;div&gt;two&lt;/div&gt;
 &lt;/m-vstack&gt;</code></pre>
-<h2>Attributes</h2>
-<p><code>gap</code>: none · 2xs · xs · sm · md (default) · lg · xl · 2xl.
-<code>align</code>: start · center · end · stretch (default).
-Arbitrary values via the escape hatch: <code>style="--gap: 2.75rem"</code> —
-attributes and custom properties are the same mechanism.</p>
+  </m-vstack>
+</section>
+<section>
+  <m-vstack gap="lg">
+    <h2>API</h2>
+    <div class="api-block">
+      <h3>Attributes</h3>
+      <table class="api-table">
+        <thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>gap</code></td><td><code>none</code> · <code>2xs</code> · <code>xs</code> · <code>sm</code> · <code>md</code> · <code>lg</code> · <code>xl</code> · <code>2xl</code></td><td><code>md</code></td><td>Sets the space between children.</td></tr>
+          <tr><td><code>align</code></td><td><code>start</code> · <code>center</code> · <code>end</code> · <code>stretch</code></td><td><code>stretch</code></td><td>Aligns children on the horizontal axis.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="api-block">
+      <h3>Styling</h3>
+      <table class="api-table">
+        <thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody><tr><td><code>--gap</code></td><td>CSS length</td><td><code>--space-md</code></td><td>Accepts arbitrary spacing, for example <code>style="--gap: 2.75rem"</code>. The attribute and custom property are the same mechanism.</td></tr></tbody>
+      </table>
+    </div>
+  </m-vstack>
+</section>

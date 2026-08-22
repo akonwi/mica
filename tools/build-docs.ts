@@ -82,11 +82,7 @@ async function pageHtml(page: Page, index: number): Promise<string> {
     SITE_CSS: fromRoot ? "docs/site.css" : "site.css",
     SCRIPTS: scripts,
     NAV: navHtml(page.slug, fromRoot),
-    CRUMB: fromRoot
-      ? ""
-      : `<span class="crumb">${escapeHtml(page.group)} / ${escapeHtml(page.title)}</span>`,
     PAGE_TITLE: escapeHtml(page.title),
-    BADGE: page.level ? ` <span class="badge">${LEVEL_LABEL[page.level]}</span>` : "",
     LEAD: escapeHtml(page.lead),
     BODY: `\n${body}\n`,
     PAGER: pagerHtml(index, fromRoot),

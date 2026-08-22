@@ -1,14 +1,12 @@
-<div class="specimen"><fieldset><legend>Leaderboard period</legend><m-segmented><label><input type="radio" name="period" value="week" checked /> Week</label><label><input type="radio" name="period" value="month" /> Month</label><label><input type="radio" name="period" value="season" /> Season</label><label><input type="radio" name="period" value="career" disabled /> Career</label></m-segmented></fieldset></div>
-<pre><code>&lt;fieldset&gt;
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><fieldset><legend>Leaderboard period</legend><m-segmented><label><input type="radio" name="period" value="week" checked /> Week</label><label><input type="radio" name="period" value="month" /> Month</label><label><input type="radio" name="period" value="season" /> Season</label><label><input type="radio" name="period" value="career" disabled /> Career</label></m-segmented></fieldset></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;fieldset&gt;
   &lt;legend&gt;View&lt;/legend&gt;
   &lt;m-segmented&gt;
     &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;view&quot; value=&quot;list&quot; checked /&gt; List&lt;/label&gt;
     &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;view&quot; value=&quot;grid&quot; /&gt; Grid&lt;/label&gt;
   &lt;/m-segmented&gt;
-&lt;/fieldset&gt;</code></pre>
-<h2>Contract</h2>
-<p>Direct children are labels wrapping native radios that share a
-<code>name</code> and have distinct <code>value</code>s. Wrap the control in a
-<code>fieldset</code> with a <code>legend</code> to name the choice set. The browser
-supplies keyboard navigation, focus, form values, and assistive-technology
-semantics. Mica only fuses their presentation.</p>
+&lt;/fieldset&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><p class="lead"><code>m-segmented</code> fuses the presentation of a native radio group. It adds no attributes or JavaScript behavior.</p>
+<div class="api-block"><h3>Content/markup contracts</h3><table class="api-table"><thead><tr><th>Content</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Direct children</td><td><code>label</code> wrapping one radio</td><td>—</td><td>Each direct label carries the visual state of its native radio.</td></tr><tr><td>Radio group</td><td>shared <code>name</code>, distinct <code>value</code>s</td><td>—</td><td>Preserves native mutual exclusion, keyboard navigation, focus, form values, and assistive-technology semantics.</td></tr><tr><td>Group name</td><td><code>fieldset</code> and <code>legend</code></td><td>—</td><td>Wrap the control to provide an accessible name for the choice set.</td></tr></tbody></table></div>
+<div class="api-block"><h3>Styling</h3><table class="api-table"><thead><tr><th>Target</th><th>Value</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>m-segmented</code></td><td>inline fused control</td><td>content width</td><td>Checked, focus-visible, and disabled presentation is derived from each enclosed native radio.</td></tr></tbody></table></div>
+</m-vstack></section>

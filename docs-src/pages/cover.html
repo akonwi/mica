@@ -1,12 +1,13 @@
-<div class="specimen"><m-cover class="card" style="--min-height: 18rem"><p>pinned top</p><p data-principal style="font-size: 1.5rem; font-weight: 600">the explicit principal element</p><p>pinned bottom ↓</p></m-cover></div>
-<pre><code>&lt;m-cover&gt;
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-cover class="card" style="--min-height: 18rem"><p>pinned top</p><p data-principal style="font-size: 1.5rem; font-weight: 600">the explicit principal element</p><p>pinned bottom ↓</p></m-cover></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;m-cover&gt;
   &lt;nav&gt;…&lt;/nav&gt;
   &lt;h1&gt;Page title&lt;/h1&gt;
   &lt;p data-principal&gt;Big campaign message&lt;/p&gt;
   &lt;p&gt;scroll ↓&lt;/p&gt;
-&lt;/m-cover&gt;</code></pre>
-<h2>Attributes</h2>
-<p><code>gap</code>; <code>pad</code>: none · sm · md · lg · xl. Height
-defaults to <code>100svh</code>; override with <code>--min-height</code>.
-The principal element is the <code>h1</code> by default — mark any child
-with boolean <code>data-principal</code> instead (it wins over the h1).</p>
+&lt;/m-cover&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><m-vstack gap="2xs"><h2>API</h2><p class="lead">Fills the viewport and centers one principal child while pinning surrounding content to the edges.</p></m-vstack><div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>gap</code></td><td><code>none</code> · <code>2xs</code> · <code>xs</code> · <code>sm</code> · <code>md</code> · <code>lg</code> · <code>xl</code> · <code>2xl</code></td><td><code>md</code></td><td>Sets the space between children.</td></tr>
+<tr><td><code>pad</code></td><td><code>none</code> · <code>sm</code> · <code>md</code> · <code>lg</code> · <code>xl</code></td><td><code>md</code></td><td>Sets padding on every side.</td></tr>
+</tbody></table></div>
+<div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Principal child</td><td><code>h1</code> or a child with boolean <code>data-principal</code></td><td><code>h1</code></td><td>The principal element is vertically centered. An explicit <code>data-principal</code> child wins over the <code>h1</code>; children before it pin to the top and children after it pin to the bottom.</td></tr></tbody></table></div>
+<div class="api-block"><h3>Styling</h3><table class="api-table"><thead><tr><th>Name</th><th>Type/Values</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>--min-height</code></td><td>CSS length</td><td><code>100svh</code></td><td>Overrides the cover's minimum height.</td></tr></tbody></table></div></m-vstack></section>

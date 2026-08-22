@@ -1,6 +1,7 @@
-<div class="specimen"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-vstack gap="2xs"><label for="di-name">Name</label><input id="di-name" type="text" placeholder="Ada Lovelace" /></m-vstack><m-vstack gap="2xs"><label for="di-bio">Bio (grows as you type — field-sizing, zero JS)</label><textarea id="di-bio" placeholder="A few lines…"></textarea></m-vstack><m-vstack gap="2xs"><label for="di-off">Disabled</label><input id="di-off" type="text" disabled value="Read only-ish" /></m-vstack></m-vstack></div>
-<pre><code>&lt;label for=&quot;bio&quot;&gt;Bio&lt;/label&gt;
-&lt;textarea id=&quot;bio&quot;&gt;&lt;/textarea&gt;  &lt;!-- field-sizing: content --&gt;</code></pre>
-<h2>Notes</h2>
-<p>Field text stays 16px — smaller triggers iOS auto-zoom. Fields fill their
-container; constrain with layout primitives.</p>
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-vstack gap="md" style="max-inline-size: var(--size-md)"><m-vstack gap="2xs"><label for="di-name">Name</label><input id="di-name" type="text" placeholder="Ada Lovelace" /></m-vstack><m-vstack gap="2xs"><label for="di-bio">Bio (grows as you type — field-sizing, zero JS)</label><textarea id="di-bio" placeholder="A few lines…"></textarea></m-vstack><m-vstack gap="2xs"><label for="di-off">Disabled</label><input id="di-off" type="text" disabled value="Read only-ish" /></m-vstack></m-vstack></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;label for=&quot;bio&quot;&gt;Bio&lt;/label&gt;
+&lt;textarea id=&quot;bio&quot;&gt;&lt;/textarea&gt;  &lt;!-- field-sizing: content --&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><p class="lead">These are native <code>input</code> and <code>textarea</code> elements. Their types, values, constraints, events, and form behavior are the HTML API; Mica adds presentation, not replacement semantics.</p>
+<div class="api-block"><h3>Styling</h3><table class="api-table"><thead><tr><th>Target</th><th>Value</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Text-like controls</td><td>native <code>input</code> types</td><td>native semantics</td><td>Fill their container and share Mica's control height, border, disabled, focus, and user-invalid presentation.</td></tr><tr><td><code>textarea</code></td><td>native element</td><td>at least three lines</td><td>Uses <code>field-sizing: content</code> to grow with authored content while retaining vertical resize.</td></tr></tbody></table></div>
+</m-vstack></section>
+<section><m-vstack gap="sm"><h2>Notes</h2><p>Field text stays 16px — smaller triggers iOS auto-zoom. Fields fill their container; constrain with layout primitives.</p></m-vstack></section>

@@ -1,7 +1,8 @@
-<div class="specimen"><m-hstack gap="lg" wrap><label><input type="radio" name="dr" checked /> One</label><label><input type="radio" name="dr" /> Two</label><label><input type="radio" name="dr" disabled /> Off-limits</label></m-hstack></div>
-<pre><code>&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;r&quot; checked /&gt; One&lt;/label&gt;
-&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;r&quot; /&gt; Two&lt;/label&gt;</code></pre>
-<h2>Notes</h2>
-<p>Muted pip unchecked, bright pip on primary fill checked. The checked-state
-grammar across the family: checkbox = fill + glyph, radio = fill + pip,
-switch = fill + block. The round radio is a two-line theme (see mica.css).</p>
+<section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-hstack gap="lg" wrap><label><input type="radio" name="dr" checked /> One</label><label><input type="radio" name="dr" /> Two</label><label><input type="radio" name="dr" disabled /> Off-limits</label></m-hstack></div></m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;r&quot; checked /&gt; One&lt;/label&gt;
+&lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;r&quot; /&gt; Two&lt;/label&gt;</code></pre></m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2><p class="lead">These are native <code>input type="radio"</code> controls. Naming, selection, keyboard interaction, events, and form behavior are the HTML API; Mica adds presentation.</p>
+<div class="api-block"><h3>Content/markup contracts</h3><table class="api-table"><thead><tr><th>Content</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Radio group</td><td>shared <code>name</code>, distinct values</td><td>—</td><td>Native grouping makes the choices mutually exclusive. Associate each radio with a label.</td></tr></tbody></table></div>
+<div class="api-block"><h3>Styling</h3><table class="api-table"><thead><tr><th>State</th><th>Native source</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Unchecked</td><td>native state</td><td>initial</td><td>Muted pip.</td></tr><tr><td>Checked</td><td><code>checked</code></td><td><code>false</code></td><td>Bright pip on primary fill.</td></tr></tbody></table></div>
+</m-vstack></section>
+<section><m-vstack gap="sm"><h2>Notes</h2><p>The checked-state grammar across the family: checkbox = fill + glyph, radio = fill + pip, switch = fill + block. The round radio is a two-line theme (see mica.css).</p></m-vstack></section>
