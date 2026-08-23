@@ -354,6 +354,34 @@
 
     <section>
       <m-vstack gap="md">
+        <h2>Stepper — framed sequence controls</h2>
+        <m-vstack gap="sm" style="max-inline-size: 24.375rem">
+          <m-stepper role="group" aria-label="Choose date">
+            <button type="button" data-step="previous" aria-label="Previous day">&larr;</button>
+            <time datetime="2026-08-21">Friday, August 21</time>
+            <button type="button" data-step="next" aria-label="Next day">&rarr;</button>
+            <button type="button" data-reset>Today</button>
+          </m-stepper>
+          <m-stepper role="group" aria-label="Choose current date">
+            <button type="button" data-step="previous" aria-label="Previous day">&larr;</button>
+            <time datetime="2026-08-23" aria-current="date">Today, August 23</time>
+            <button type="button" data-step="next" aria-label="Next day" disabled>&rarr;</button>
+            <button type="button" data-reset disabled>Today</button>
+          </m-stepper>
+          <m-stepper role="group" aria-label="Choose competition round">
+            <button type="button" data-step="previous" aria-label="Previous round">&larr;</button>
+            <span aria-current="step">Championship quarterfinals</span>
+            <button type="button" data-step="next" aria-label="Next round">&rarr;</button>
+          </m-stepper>
+        </m-vstack>
+        <p>Mica fuses the frame; native buttons provide focus, keyboard, and
+        disabled behavior. Labels, events, routing, and value changes stay in the
+        application.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
         <h2>Visually hidden — announced, not seen</h2>
         <p>There is a hidden sentence at the end of this paragraph.
         <span data-visually-hidden>This text is off-screen but present in the

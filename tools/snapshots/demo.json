@@ -202,6 +202,34 @@
     "display": "flex",
     "flex-wrap": "wrap"
    },
+   "stepper": {
+    "background-color": "oklch(0.14 0 263)",
+    "border-radius": "0px",
+    "border-top-color": "oklch(0.46 0 263)",
+    "display": "grid",
+    "overflow-x": "visible"
+   },
+   "stepper.no-reset.next": {
+    "border-end-end-radius": "0px",
+    "border-start-end-radius": "0px"
+   },
+   "stepper.reset": {
+    "border-inline-start-color": "oklch(0.3 0 263)",
+    "border-inline-start-width": "1px"
+   },
+   "stepper.step": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "border-radius": "0px",
+    "border-top-width": "0px",
+    "inline-size": "36px"
+   },
+   "stepper.value": {
+    "background-color": "oklch(0.17 0 263)",
+    "display": "grid",
+    "font-weight": "600",
+    "overflow-x": "hidden",
+    "text-overflow": "ellipsis"
+   },
    "switch": {
     "block-size": "20px",
     "border-radius": "0px",
@@ -320,6 +348,16 @@
     "outline-offset": "2px",
     "outline-style": "solid",
     "outline-width": "2px"
+   },
+   "stepper.focus-ring": {
+    "outline-color": "oklch(0.7 0.21 263)",
+    "outline-offset": "2px",
+    "outline-style": "solid",
+    "outline-width": "2px",
+    "z-index": "1"
+   },
+   "stepper.step.hover": {
+    "background-color": "oklch(0.2 0 263)"
    },
    "toast.position.default": {
     "bottom": "24px",
@@ -639,6 +677,34 @@
     "display": "flex",
     "flex-wrap": "wrap"
    },
+   "stepper": {
+    "background-color": "oklch(1 0 263)",
+    "border-radius": "0px",
+    "border-top-color": "oklch(0.74 0 263)",
+    "display": "grid",
+    "overflow-x": "visible"
+   },
+   "stepper.no-reset.next": {
+    "border-end-end-radius": "0px",
+    "border-start-end-radius": "0px"
+   },
+   "stepper.reset": {
+    "border-inline-start-color": "oklch(0.89 0 263)",
+    "border-inline-start-width": "1px"
+   },
+   "stepper.step": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "border-radius": "0px",
+    "border-top-width": "0px",
+    "inline-size": "36px"
+   },
+   "stepper.value": {
+    "background-color": "oklch(0.973 0 263)",
+    "display": "grid",
+    "font-weight": "600",
+    "overflow-x": "hidden",
+    "text-overflow": "ellipsis"
+   },
    "switch": {
     "block-size": "20px",
     "border-radius": "0px",
@@ -757,6 +823,16 @@
     "outline-offset": "2px",
     "outline-style": "solid",
     "outline-width": "2px"
+   },
+   "stepper.focus-ring": {
+    "outline-color": "oklch(0.55 0.21 263)",
+    "outline-offset": "2px",
+    "outline-style": "solid",
+    "outline-width": "2px",
+    "z-index": "1"
+   },
+   "stepper.step.hover": {
+    "background-color": "oklch(0.952 0 263)"
    },
    "toast.position.default": {
     "bottom": "24px",

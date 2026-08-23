@@ -198,6 +198,13 @@
     },
     {
       "group": "Patterns",
+      "slug": "stepper",
+      "title": "stepper",
+      "level": "native",
+      "lead": "A compact previous, current, and next frame for any consumer-owned sequence."
+    },
+    {
+      "group": "Patterns",
       "slug": "dialog",
       "title": "dialog",
       "level": "native",

@@ -983,6 +983,71 @@
     background: var(--color-danger);
   }
 
+  /* --- stepper: framed sequence controls --------------------------- *
+   * Mica owns only the fused layout. Consumers own labels, disabled
+   * state, events, routing, and value changes. The frame deliberately does
+   * not clip overflow: native focus rings must remain fully visible.
+   * ------------------------------------------------------------------ */
+  :where(m-stepper) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: stretch;
+    min-inline-size: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  :where(m-stepper:has(> [data-reset])) {
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+  }
+
+  :where(m-stepper) > :where(button) {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+
+    &:focus-visible {
+      z-index: 1;
+    }
+  }
+
+  :where(m-stepper) > :where(button:first-child) {
+    border-start-start-radius: inherit;
+    border-end-start-radius: inherit;
+  }
+
+  :where(m-stepper) > :where(button:last-child) {
+    border-start-end-radius: inherit;
+    border-end-end-radius: inherit;
+  }
+
+  :where(m-stepper) > :where([data-step]) {
+    inline-size: var(--control-height);
+    padding-inline: 0;
+  }
+
+  :where(m-stepper) > :where(:nth-child(2)) {
+    display: grid;
+    place-items: center;
+    min-inline-size: 0;
+    block-size: var(--control-height);
+    padding-inline: var(--space-sm);
+    overflow: hidden;
+    border-inline: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+    color: var(--color-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  :where(m-stepper) > :where([data-reset]) {
+    border-inline-start: 1px solid var(--color-border);
+  }
+
   /* --- dialog: modal + drawer --------------------------------------- *
    * The browser brings focus trapping, Esc, top layer, ::backdrop, and
    * form[method=dialog] closing. Invoker commands (commandfor/command)

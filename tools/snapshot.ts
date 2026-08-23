@@ -101,6 +101,16 @@ const PROBES: [string, string, string[]][] = [
     ["background-color", "color", "font-weight"]],
   ["segmented.disabled", "m-segmented label:has(input:disabled)",
     ["color", "cursor", "opacity"]],
+  ["stepper", "m-stepper",
+    ["display", "overflow-x", "border-top-color", "border-radius", "background-color"]],
+  ["stepper.value", "m-stepper > :nth-child(2)",
+    ["display", "overflow-x", "text-overflow", "background-color", "font-weight"]],
+  ["stepper.step", 'm-stepper > [data-step="previous"]',
+    ["inline-size", "border-top-width", "border-radius", "background-color"]],
+  ["stepper.reset", "m-stepper > [data-reset]",
+    ["border-inline-start-color", "border-inline-start-width"]],
+  ["stepper.no-reset.next", 'm-stepper:not(:has(> [data-reset])) > [data-step="next"]',
+    ["border-start-end-radius", "border-end-end-radius"]],
   ["badge", "m-badge:not([variant]):not([count])",
     ["display", "border-top-color", "color", "font-size", "border-radius"]],
   ["badge.primary", 'm-badge[variant="primary"]', ["background-color", "color", "border-top-color"]],
@@ -150,6 +160,7 @@ const HOVER_PROBES: [string, string, string[]][] = [
   ["button.hover", "button:not([class]):not([disabled])", ["background-color"]],
   ["button.primary.hover", 'button[data-variant="primary"]:not([disabled])', ["background-color"]],
   ["button.danger.hover", 'button[data-variant="danger"]:not([disabled])', ["background-color"]],
+  ["stepper.step.hover", 'm-stepper > [data-step="previous"]', ["background-color"]],
 ];
 
 // -------------------------------------------------------- visual probes
@@ -314,6 +325,12 @@ try {
       states["segmented.focus-ring"] = await probe(
         "m-segmented label:has(input:focus-visible)",
         ["outline-color", "outline-width", "outline-offset", "outline-style"]);
+      await page.evaluate(() =>
+        (document.querySelector('m-stepper > [data-step="previous"]') as HTMLElement)?.focus());
+      await page.waitForTimeout(50);
+      states["stepper.focus-ring"] = await probe(
+        'm-stepper > [data-step="previous"]:focus-visible',
+        ["outline-color", "outline-width", "outline-offset", "outline-style", "z-index"]);
       await page.evaluate(() =>
         (document.querySelector('[data-visually-hidden="focusable"]') as HTMLElement)?.focus());
       await page.waitForTimeout(50);

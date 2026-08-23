@@ -1,0 +1,94 @@
+<section>
+  <m-vstack gap="md">
+    <h2>Example</h2>
+    <div class="specimen">
+      <m-vstack gap="sm" style="inline-size: min(100%, 24.375rem)">
+        <m-stepper role="group" aria-label="Choose date">
+          <button type="button" data-step="previous" aria-label="Previous day">&larr;</button>
+          <time datetime="2026-08-21">Friday, August 21</time>
+          <button type="button" data-step="next" aria-label="Next day">&rarr;</button>
+          <button type="button" data-reset>Today</button>
+        </m-stepper>
+        <m-stepper role="group" aria-label="Choose current date">
+          <button type="button" data-step="previous" aria-label="Previous day">&larr;</button>
+          <time datetime="2026-08-23" aria-current="date">Today, August 23</time>
+          <button type="button" data-step="next" aria-label="Next day" disabled>&rarr;</button>
+          <button type="button" data-reset disabled>Today</button>
+        </m-stepper>
+        <m-stepper role="group" aria-label="Choose competition round">
+          <button type="button" data-step="previous" aria-label="Previous round">&larr;</button>
+          <span aria-current="step">Championship quarterfinals</span>
+          <button type="button" data-step="next" aria-label="Next round">&rarr;</button>
+        </m-stepper>
+      </m-vstack>
+    </div>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="md">
+    <h2>Basic usage</h2>
+    <pre><code>&lt;m-stepper role=&quot;group&quot; aria-label=&quot;Choose date&quot;&gt;
+  &lt;button type=&quot;button&quot; data-step=&quot;previous&quot; aria-label=&quot;Previous day&quot;&gt;&amp;larr;&lt;/button&gt;
+  &lt;time datetime=&quot;2026-08-21&quot;&gt;Friday, August 21&lt;/time&gt;
+  &lt;button type=&quot;button&quot; data-step=&quot;next&quot; aria-label=&quot;Next day&quot;&gt;&amp;rarr;&lt;/button&gt;
+  &lt;button type=&quot;button&quot; data-reset&gt;Today&lt;/button&gt;
+&lt;/m-stepper&gt;</code></pre>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="lg">
+    <m-vstack gap="2xs">
+      <h2>API</h2>
+      <p class="lead"><code>m-stepper</code> supplies only the fused layout. Its native controls remain the event and state targets; the application supplies values, changes, routing, labels, and state.</p>
+    </m-vstack>
+    <div class="api-block">
+      <h3>Content/markup contract</h3>
+      <table class="api-table">
+        <thead><tr><th>Part</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Previous</td><td><code>button[data-step="previous"]</code>, first direct child</td><td>required</td><td>Moves toward the previous consumer-defined value. Give icon-only content an accessible name.</td></tr>
+          <tr><td>Current value</td><td>second direct child</td><td>required</td><td>Use the semantic element appropriate to the value, such as <code>time</code>, <code>span</code>, or <code>output</code>. Long text truncates rather than forcing the control wider.</td></tr>
+          <tr><td>Next</td><td><code>button[data-step="next"]</code>, third direct child</td><td>required</td><td>Moves toward the next consumer-defined value. Native <code>disabled</code> expresses an unavailable step.</td></tr>
+          <tr><td>Reset</td><td><code>button[data-reset]</code>, last direct child</td><td>omitted</td><td>Optional return action such as “Today” or “Latest.” Omit it when unnecessary, or disable it when already current.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="api-block">
+      <h3>Native attributes and events</h3>
+      <table class="api-table">
+        <thead><tr><th>Name</th><th>Target</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>disabled</code></td><td>any direct button</td><td><code>false</code></td><td>Uses native disabled behavior and presentation for unavailable actions.</td></tr>
+          <tr><td><code>aria-current</code></td><td>current-value child</td><td>—</td><td>Uses the token appropriate to the sequence, such as <code>date</code>, <code>step</code>, or <code>page</code>.</td></tr>
+          <tr><td><code>click</code></td><td>any direct button</td><td>—</td><td>Handle the ordinary native event. The stepper emits no custom events.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="api-block">
+      <h3>Styling</h3>
+      <table class="api-table">
+        <thead><tr><th>Target</th><th>Value</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>m-stepper</code></td><td>framed grid</td><td>available width</td><td>The current value takes remaining space between fixed controls. The frame follows <code>--radius-md</code>.</td></tr>
+          <tr><td>Second child</td><td>center track</td><td>raised surface</td><td>Uses a stronger label weight, internal separators, and ellipsis for constrained widths.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="sm">
+    <h2>Accessibility</h2>
+    <p>Give the wrapper <code>role="group"</code> and an accessible name. Label icon-only previous and next buttons with the value they change, such as “Previous day” or “Next round.” Use semantic value markup where available—for example, keep a machine-readable date in <code>time[datetime]</code>. Apply the appropriate <code>aria-current</code> token only when useful, and prefer native <code>disabled</code> over an ARIA-only disabled state.</p>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="sm">
+    <h2>Notes</h2>
+    <p>The arrow glyphs are authored content, so applications can use icons or direction-appropriate symbols without a Mica override. Keep the visible reset label short in narrow containers; its accessible name may be more descriptive. Without application code the markup still presents a readable current value and ordinary native controls; Mica adds no value-changing behavior.</p>
+  </m-vstack>
+</section>
