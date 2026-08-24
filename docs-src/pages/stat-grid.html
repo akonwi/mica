@@ -1,0 +1,96 @@
+<section>
+  <m-vstack gap="md">
+    <h2>Example</h2>
+    <div class="specimen">
+      <m-vstack gap="lg">
+        <m-vstack gap="sm">
+          <h3>Team snapshot</h3>
+          <dl class="stat-grid">
+            <div class="stat"><dt>Position</dt><dd><span>3rd</span><small>Eastern Conference</small></dd></div>
+            <div class="stat"><dt>Played</dt><dd><data value="24">24</data><small>League matches</small></dd></div>
+            <div class="stat"><dt>Wins</dt><dd><data value="14">14</data><small>58% win rate</small></dd></div>
+            <div class="stat"><dt>Goal difference</dt><dd><data value="18">+18</data></dd></div>
+            <div class="stat"><dt>Next match</dt><dd><time datetime="2026-08-29">Aug 29</time><small>vs. Northbridge</small></dd></div>
+          </dl>
+        </m-vstack>
+        <m-vstack gap="sm" style="inline-size: min(100%, 22rem)">
+          <h3>Player snapshot</h3>
+          <dl class="stat-grid">
+            <div class="stat"><dt>Appearances</dt><dd><data value="17">17</data><small>Season total</small></dd></div>
+            <div class="stat"><dt>Minutes</dt><dd><data value="1284">1,284</data><small>All competitions</small></dd></div>
+            <div class="stat"><dt>Goals</dt><dd><data value="8">8</data></dd></div>
+            <div class="stat"><dt>Assists</dt><dd><data value="11">11</data></dd></div>
+            <div class="stat"><dt>Primary role</dt><dd><span>Attacking midfielder</span><small>Most-used position</small></dd></div>
+            <div class="stat"><dt>Availability</dt><dd><span>Available</span><small>Last updated today</small></dd></div>
+          </dl>
+        </m-vstack>
+      </m-vstack>
+    </div>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="md">
+    <h2>Basic usage</h2>
+    <pre><code>&lt;dl class=&quot;stat-grid&quot;&gt;
+  &lt;div class=&quot;stat&quot;&gt;
+    &lt;dt&gt;Appearances&lt;/dt&gt;
+    &lt;dd&gt;
+      &lt;data value=&quot;17&quot;&gt;17&lt;/data&gt;
+      &lt;small&gt;Season total&lt;/small&gt;
+    &lt;/dd&gt;
+  &lt;/div&gt;
+&lt;/dl&gt;</code></pre>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="lg">
+    <m-vstack gap="2xs">
+      <h2>API</h2>
+      <p class="lead">The grid adds an intrinsic fused layout to native description-list semantics. It owns no metric count, domain meaning, or behavior.</p>
+    </m-vstack>
+    <div class="api-block">
+      <h3>Content/markup contract</h3>
+      <table class="api-table">
+        <thead><tr><th>Part</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Grid</td><td><code>dl.stat-grid</code></td><td>required</td><td>Groups the complete set of related name/value pairs.</td></tr>
+          <tr><td>Stat</td><td><code>div.stat</code>, direct child</td><td>one or more</td><td>Groups exactly one <code>dt</code> followed by exactly one <code>dd</code>.</td></tr>
+          <tr><td>Label</td><td><code>dt</code></td><td>required</td><td>Names the value in the following description.</td></tr>
+          <tr><td>Description</td><td><code>dd</code></td><td>required</td><td>Its first direct child is the primary value. Use the appropriate native element, such as <code>span</code>, <code>data</code>, or <code>time</code>.</td></tr>
+          <tr><td>Supporting text</td><td><code>small</code>, direct child of <code>dd</code></td><td>omitted</td><td>Optional context anchored to the bottom of the stat while remaining part of its description.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="api-block">
+      <h3>Styling</h3>
+      <table class="api-table">
+        <thead><tr><th>Target</th><th>Value</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>dl.stat-grid</code></td><td>intrinsic wrapping grid</td><td>minimum <code>8rem</code> tracks</td><td>Fills available space and wraps without a media query. Incomplete final rows expand to fill the frame.</td></tr>
+          <tr><td><code>div.stat</code></td><td>individual item</td><td>surface with medium padding</td><td>The explicit hook for consumer item-level customization. Mica's zero-specificity rule lets a consumer <code>.stat</code> selector win.</td></tr>
+          <tr><td><code>--radius-md</code></td><td><code>&lt;length&gt;</code></td><td>theme</td><td>Controls the outer fused frame; internal one-pixel separators remain square.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="sm">
+    <h2>Accessibility</h2>
+    <p>Keep the native <code>dl</code>, <code>dt</code>, and <code>dd</code> elements so each stat retains its label/value relationship. Supporting text belongs inside the same <code>dd</code> as its primary value. Do not add list roles or recreate these semantics with custom elements.</p>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="md">
+    <h2>Custom columns</h2>
+    <p>The default is intrinsic. Product layouts with a fixed metric count can override columns directly; this is styling, not a component attribute.</p>
+    <pre><code>.season-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}</code></pre>
+  </m-vstack>
+</section>

@@ -436,6 +436,22 @@
 
     <section>
       <m-vstack gap="md">
+        <h2>Stat grid — semantic summaries in a fused frame</h2>
+        <dl class="stat-grid">
+          <div class="stat"><dt>Position</dt><dd><span>3rd</span><small>Eastern Conference</small></dd></div>
+          <div class="stat"><dt>Played</dt><dd><data value="24">24</data><small>League matches</small></dd></div>
+          <div class="stat"><dt>Wins</dt><dd><data value="14">14</data><small>58% win rate</small></dd></div>
+          <div class="stat"><dt>Goal difference</dt><dd><data value="18">+18</data></dd></div>
+          <div class="stat"><dt>Next match</dt><dd><time datetime="2026-08-29">Aug 29</time><small>vs. Northbridge</small></dd></div>
+        </dl>
+        <p>A native description list keeps each label associated with its value.
+        Intrinsic columns wrap without a media query; <code>.stat</code> remains
+        the individual-item styling hook.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
         <h2>Progress &amp; meter — thin bars, status-graded meter</h2>
         <m-vstack gap="sm" style="max-inline-size: var(--size-lg)">
           <progress max="100" value="33"></progress>

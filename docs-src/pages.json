@@ -126,6 +126,13 @@
     },
     {
       "group": "Elements",
+      "slug": "stat-grid",
+      "title": "stat grid",
+      "level": "css",
+      "lead": "Responsive name/value summaries using a native description list and explicit stat items."
+    },
+    {
+      "group": "Elements",
       "slug": "content",
       "title": "content",
       "level": "native",

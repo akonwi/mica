@@ -126,6 +126,18 @@ const PROBES: [string, string, string[]][] = [
     ["inline-size", "block-size", "color", "border-radius"]],
   ["avatar.contained", "m-avatar[blobatar][contained]",
     ["inline-size", "block-size", "color", "border-radius"]],
+  ["stat-grid", "dl.stat-grid",
+    ["display", "flex-wrap", "gap", "padding", "overflow-x", "border-radius", "background-color"]],
+  ["stat-grid.stat", "dl.stat-grid > div.stat",
+    ["display", "flex-direction", "flex", "gap", "min-inline-size", "padding", "background-color"]],
+  ["stat-grid.term", "dl.stat-grid > div.stat > dt",
+    ["color", "font-size", "font-weight", "line-height"]],
+  ["stat-grid.description", "dl.stat-grid > div.stat > dd",
+    ["display", "flex-direction", "flex", "gap", "margin-block-start", "margin-block-end"]],
+  ["stat-grid.value", "dl.stat-grid > div.stat > dd > :first-child",
+    ["color", "font-size", "font-weight", "font-variant-numeric", "line-height", "overflow-wrap"]],
+  ["stat-grid.support", "dl.stat-grid > div.stat > dd > small",
+    ["margin-block-start", "color", "font-size", "line-height"]],
   // a11y primitives. These also stand in for the parse canary's blind
   // spot: they are the last rule block in mica.elements, after m-error.
   ["visually-hidden", "[data-visually-hidden]:not([data-visually-hidden=\"focusable\"])",

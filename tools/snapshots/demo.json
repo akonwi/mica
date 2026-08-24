@@ -202,6 +202,52 @@
     "display": "flex",
     "flex-wrap": "wrap"
    },
+   "stat-grid": {
+    "background-color": "oklch(0.3 0 263)",
+    "border-radius": "0px",
+    "display": "flex",
+    "flex-wrap": "wrap",
+    "gap": "1px",
+    "overflow-x": "hidden",
+    "padding": "1px"
+   },
+   "stat-grid.description": {
+    "display": "flex",
+    "flex": "1 1 auto",
+    "flex-direction": "column",
+    "gap": "4px",
+    "margin-block-end": "0px",
+    "margin-block-start": "0px"
+   },
+   "stat-grid.stat": {
+    "background-color": "oklch(0.14 0 263)",
+    "display": "flex",
+    "flex": "1 1 min(100%, 128px)",
+    "flex-direction": "column",
+    "gap": "12px",
+    "min-inline-size": "0px",
+    "padding": "16px"
+   },
+   "stat-grid.support": {
+    "color": "oklch(0.71 0 263)",
+    "font-size": "12px",
+    "line-height": "16.8px",
+    "margin-block-start": "0px"
+   },
+   "stat-grid.term": {
+    "color": "oklch(0.71 0 263)",
+    "font-size": "12px",
+    "font-weight": "500",
+    "line-height": "16.8px"
+   },
+   "stat-grid.value": {
+    "color": "oklch(0.96 0 263)",
+    "font-size": "24px",
+    "font-variant-numeric": "tabular-nums",
+    "font-weight": "600",
+    "line-height": "28.8px",
+    "overflow-wrap": "anywhere"
+   },
    "stepper": {
     "background-color": "oklch(0.14 0 263)",
     "border-radius": "0px",
@@ -676,6 +722,52 @@
     "column-gap": "16px",
     "display": "flex",
     "flex-wrap": "wrap"
+   },
+   "stat-grid": {
+    "background-color": "oklch(0.89 0 263)",
+    "border-radius": "0px",
+    "display": "flex",
+    "flex-wrap": "wrap",
+    "gap": "1px",
+    "overflow-x": "hidden",
+    "padding": "1px"
+   },
+   "stat-grid.description": {
+    "display": "flex",
+    "flex": "1 1 auto",
+    "flex-direction": "column",
+    "gap": "4px",
+    "margin-block-end": "0px",
+    "margin-block-start": "0px"
+   },
+   "stat-grid.stat": {
+    "background-color": "oklch(1 0 263)",
+    "display": "flex",
+    "flex": "1 1 min(100%, 128px)",
+    "flex-direction": "column",
+    "gap": "12px",
+    "min-inline-size": "0px",
+    "padding": "16px"
+   },
+   "stat-grid.support": {
+    "color": "oklch(0.44 0 263)",
+    "font-size": "12px",
+    "line-height": "16.8px",
+    "margin-block-start": "0px"
+   },
+   "stat-grid.term": {
+    "color": "oklch(0.44 0 263)",
+    "font-size": "12px",
+    "font-weight": "500",
+    "line-height": "16.8px"
+   },
+   "stat-grid.value": {
+    "color": "oklch(0.18 0 263)",
+    "font-size": "24px",
+    "font-variant-numeric": "tabular-nums",
+    "font-weight": "600",
+    "line-height": "28.8px",
+    "overflow-wrap": "anywhere"
    },
    "stepper": {
     "background-color": "oklch(1 0 263)",
