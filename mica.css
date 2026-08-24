@@ -847,6 +847,31 @@
       );
   }
 
+  /* --- skeleton: quiet CSS-only loading placeholder ---------------- */
+  :where(m-skeleton) {
+    display: block;
+    flex: none;
+    inline-size: var(--skeleton-width, 100%);
+    block-size: var(--skeleton-height, 0.75rem);
+    overflow: hidden;
+    border-radius: var(--skeleton-radius, var(--radius-md));
+    background-color: var(--color-surface-raised);
+    animation: mica-skeleton-pulse 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes mica-skeleton-pulse {
+    to {
+      background-color: var(--color-border);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where(m-skeleton) {
+      animation: none;
+      background-color: var(--color-border);
+    }
+  }
+
   /* --- stat grid: semantic summaries in a fused frame -------------- */
   :where(dl.stat-grid) {
     display: flex;

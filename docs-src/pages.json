@@ -126,6 +126,13 @@
     },
     {
       "group": "Elements",
+      "slug": "skeleton",
+      "title": "skeleton",
+      "level": "css",
+      "lead": "A quiet, composable placeholder for consumer-owned loading states."
+    },
+    {
+      "group": "Elements",
       "slug": "stat-grid",
       "title": "stat grid",
       "level": "css",

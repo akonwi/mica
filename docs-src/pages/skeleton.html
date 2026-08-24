@@ -1,0 +1,102 @@
+<section>
+  <m-vstack gap="md">
+    <h2>Example</h2>
+    <div class="specimen">
+      <m-vstack gap="lg">
+        <span id="profile-loading" role="status" data-visually-hidden>Loading profile</span>
+        <div aria-busy="true" aria-describedby="profile-loading" style="inline-size: min(100%, 22rem)">
+          <m-hstack gap="sm" align="center" aria-hidden="true">
+            <m-skeleton style="--skeleton-width: 3.5rem; --skeleton-height: 3.5rem"></m-skeleton>
+            <m-vstack gap="xs" style="flex: 1">
+              <m-skeleton style="--skeleton-width: 62%"></m-skeleton>
+              <m-skeleton></m-skeleton>
+              <m-skeleton style="--skeleton-width: 42%"></m-skeleton>
+            </m-vstack>
+          </m-hstack>
+        </div>
+        <span id="article-loading" role="status" data-visually-hidden>Loading article</span>
+        <div aria-busy="true" aria-describedby="article-loading" style="inline-size: min(100%, 22rem)">
+          <m-vstack gap="sm" aria-hidden="true">
+            <m-skeleton style="--skeleton-height: 8rem"></m-skeleton>
+            <m-skeleton style="--skeleton-width: 84%"></m-skeleton>
+            <m-skeleton></m-skeleton>
+            <m-skeleton style="--skeleton-width: 68%"></m-skeleton>
+          </m-vstack>
+        </div>
+      </m-vstack>
+    </div>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="md">
+    <h2>Basic usage</h2>
+    <pre><code>&lt;span id=&quot;profile-loading&quot; role=&quot;status&quot; data-visually-hidden&gt;
+  Loading profile
+&lt;/span&gt;
+
+&lt;div aria-busy=&quot;true&quot; aria-describedby=&quot;profile-loading&quot;&gt;
+  &lt;m-vstack gap=&quot;xs&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;m-skeleton style=&quot;--skeleton-width: 62%&quot;&gt;&lt;/m-skeleton&gt;
+    &lt;m-skeleton&gt;&lt;/m-skeleton&gt;
+    &lt;m-skeleton style=&quot;--skeleton-width: 42%&quot;&gt;&lt;/m-skeleton&gt;
+  &lt;/m-vstack&gt;
+&lt;/div&gt;</code></pre>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="lg">
+    <m-vstack gap="2xs">
+      <h2>API</h2>
+      <p class="lead"><code>m-skeleton</code> is one contentless visual box. Consumers compose boxes to approximate their content and own every loading-state transition.</p>
+    </m-vstack>
+    <div class="api-block">
+      <h3>Content and loading contract</h3>
+      <table class="api-table">
+        <thead><tr><th>Part</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Skeleton</td><td><code>m-skeleton</code></td><td>required</td><td>An empty visual placeholder. Repeat it for multiple lines or blocks; it renders no generated content.</td></tr>
+          <tr><td>Placeholder group</td><td><code>aria-hidden="true"</code></td><td>consumer-owned</td><td>Hides the decorative skeleton composition from assistive technology.</td></tr>
+          <tr><td>Loading region</td><td><code>aria-busy</code></td><td>consumer-owned</td><td>Marks the content region while the application is replacing placeholders with real content.</td></tr>
+          <tr><td>Status message</td><td><code>role="status"</code></td><td>omitted</td><td>Optionally announces a meaningful loading label. Keep it outside an <code>aria-hidden</code> placeholder group.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="api-block">
+      <h3>Styling</h3>
+      <table class="api-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>--skeleton-width</code></td><td><code>&lt;length-percentage&gt;</code></td><td><code>100%</code></td><td>Sets the placeholder's inline size.</td></tr>
+          <tr><td><code>--skeleton-height</code></td><td><code>&lt;length-percentage&gt;</code></td><td><code>0.75rem</code></td><td>Sets the placeholder's block size. The default reads as one text line.</td></tr>
+          <tr><td><code>--skeleton-radius</code></td><td><code>&lt;length&gt;</code></td><td><code>var(--radius-md)</code></td><td>Overrides the theme-following corner shape for a specific placeholder.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="api-block">
+      <h3>Motion</h3>
+      <table class="api-table">
+        <thead><tr><th>State</th><th>Treatment</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td>quiet pulse</td><td><code>1.6s</code></td><td>Moves slowly between the raised-surface and border roles without a directional sweep.</td></tr>
+          <tr><td>Reduced motion</td><td>static fill</td><td>automatic</td><td>Disables animation and rests on the border color role.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="sm">
+    <h2>Accessibility</h2>
+    <p>A skeleton is decorative and must not be the only indication that content is loading. Hide the placeholder composition with <code>aria-hidden="true"</code>, mark the consumer-owned content region with <code>aria-busy="true"</code>, and provide a concise status message when the loading transition needs an announcement. When content arrives, replace the placeholders and clear <code>aria-busy</code>; <code>m-skeleton</code> emits no events and manages no state.</p>
+  </m-vstack>
+</section>
+
+<section>
+  <m-vstack gap="sm">
+    <h2>Notes</h2>
+    <p>Match placeholder dimensions to the expected content to reduce layout shift. Compose repeated elements rather than asking one skeleton to generate a line count. Mica supplies no circle or avatar variant: the default follows the theme radius, and a consumer can set <code>--skeleton-radius</code> when the represented content requires a different shape.</p>
+  </m-vstack>
+</section>

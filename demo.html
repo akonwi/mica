@@ -436,6 +436,26 @@
 
     <section>
       <m-vstack gap="md">
+        <h2>Skeleton — quiet loading placeholders</h2>
+        <span id="demo-skeleton-status" role="status" data-visually-hidden>Loading profile</span>
+        <div aria-busy="true" aria-describedby="demo-skeleton-status" style="max-inline-size: var(--size-md)">
+          <m-hstack gap="sm" align="center" aria-hidden="true">
+            <m-skeleton style="--skeleton-width: 3.5rem; --skeleton-height: 3.5rem"></m-skeleton>
+            <m-vstack gap="xs" style="flex: 1">
+              <m-skeleton style="--skeleton-width: 62%"></m-skeleton>
+              <m-skeleton></m-skeleton>
+              <m-skeleton style="--skeleton-width: 42%"></m-skeleton>
+            </m-vstack>
+          </m-hstack>
+        </div>
+        <p>Each empty box reserves consumer-defined space while the surrounding
+        region owns loading state and announcements. Reduced-motion users get a
+        static fill.</p>
+      </m-vstack>
+    </section>
+
+    <section>
+      <m-vstack gap="md">
         <h2>Stat grid — semantic summaries in a fused frame</h2>
         <dl class="stat-grid">
           <div class="stat"><dt>Position</dt><dd><span>3rd</span><small>Eastern Conference</small></dd></div>

@@ -25,7 +25,8 @@ Lives here:
 
 - The stacks: `m-vstack`, `m-hstack`, `m-zstack`
 - `m-center`, `m-box`, `m-grid`, `m-sidecar`, `m-switcher`, `m-reel`,
-  `m-frame`, `m-cover`, badges, avatars — anything that is "a styled box"
+  `m-frame`, `m-cover`, badges, avatars, skeletons — anything that is
+  "a styled box"
 - Boundary note: `m-reel` scrolls and snaps, which *feels* behavioral —
   but scrolling is the browser's and snap is CSS. CSS-only.
 - Avatar initials and native images are complete CSS-only content. The

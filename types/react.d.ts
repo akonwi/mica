@@ -61,6 +61,7 @@ declare module 'react' {
         blobatar?: string
         contained?: boolean
       }>
+      'm-skeleton': MicaElement
       'm-toast': MicaElement<{
         popover?: 'manual'
         variant?: 'success' | 'warning' | 'danger'
