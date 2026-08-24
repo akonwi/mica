@@ -1,20 +1,122 @@
 <m-vstack gap="xl">
-  <section><m-vstack gap="md"><h2>Example</h2><div class="specimen"><m-tabs><nav><button>Account</button><button>Password</button><button>Team</button></nav><section><p>Account settings panel.</p></section><section><p>Password panel. Try the arrow keys — roving tabindex, automatic activation.</p></section><section><p>Team panel.</p></section></m-tabs></div></m-vstack></section>
-  <section><m-vstack gap="md"><h2>Basic usage</h2><pre><code>&lt;m-tabs&gt;
-  &lt;nav&gt;
-    &lt;button&gt;Account&lt;/button&gt;
-    &lt;button selected&gt;Password&lt;/button&gt;  &lt;!-- optional initial --&gt;
+  <section>
+    <m-vstack gap="md">
+      <h2>Examples</h2>
+      <div class="specimen">
+        <m-vstack gap="lg">
+          <div>
+            <h3>Default</h3>
+            <m-tabs>
+              <nav aria-label="Settings section">
+                <button>Account</button>
+                <button>Password</button>
+                <button>Team</button>
+              </nav>
+              <section><p>Account settings panel.</p></section>
+              <section><p>Password panel. Try the arrow keys — roving tabindex, automatic activation.</p></section>
+              <section><p>Team panel.</p></section>
+            </m-tabs>
+          </div>
+          <div>
+            <h3>Underline</h3>
+            <m-tabs variant="underline">
+              <nav aria-label="Leader category">
+                <button>Overall</button>
+                <button selected>Attacking</button>
+                <button>Passing</button>
+                <button>Defending</button>
+                <button>Goalkeeping</button>
+              </nav>
+              <section><p>Overall leaders.</p></section>
+              <section><p>Attacking leaders.</p></section>
+              <section><p>Passing leaders.</p></section>
+              <section><p>Defending leaders.</p></section>
+              <section><p>Goalkeeping leaders.</p></section>
+            </m-tabs>
+          </div>
+        </m-vstack>
+      </div>
+    </m-vstack>
+  </section>
+
+  <section>
+    <m-vstack gap="md">
+      <h2>Basic usage</h2>
+      <pre><code>&lt;m-tabs variant=&quot;underline&quot;&gt;
+  &lt;nav aria-label=&quot;Leader category&quot;&gt;
+    &lt;button&gt;Overall&lt;/button&gt;
+    &lt;button selected&gt;Attacking&lt;/button&gt; &lt;!-- optional initial --&gt;
   &lt;/nav&gt;
-  &lt;section&gt;&amp;#8230;account panel&amp;#8230;&lt;/section&gt;
-  &lt;section&gt;&amp;#8230;password panel&amp;#8230;&lt;/section&gt;
+  &lt;section&gt;&amp;#8230;overall panel&amp;#8230;&lt;/section&gt;
+  &lt;section&gt;&amp;#8230;attacking panel&amp;#8230;&lt;/section&gt;
 &lt;/m-tabs&gt;
 
-&lt;script type=&quot;module&quot; src=&quot;mica/tabs.js&quot;&gt;&lt;/script&gt;</code></pre></m-vstack></section>
-  <section><m-vstack gap="lg"><h2>API</h2>
-    <div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>selected</code></td><td>boolean on a tab button</td><td>first tab</td><td>Chooses the optional initial tab before enhancement.</td></tr><tr><td><code>aria-controls</code></td><td>panel ID</td><td>positional pairing</td><td>Explicitly pairs a button with a panel.</td></tr></tbody></table></div>
-    <div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>nav</code></td><td>direct child</td><td>required</td><td>Contains tab buttons.</td></tr><tr><td><code>button</code></td><td>inside nav</td><td>required</td><td>Pairs positionally with a direct panel unless <code>aria-controls</code> names one.</td></tr><tr><td><code>section</code></td><td>direct child</td><td>required</td><td>Panel content. Keep all content complete and readable without enhancement.</td></tr></tbody></table></div>
-    <div class="module-note"><h3><code>tabs.js</code></h3><p>Optional enhancement that registers <code>m-tabs</code>. It wires <code>tablist</code>, <code>tab</code>, and <code>tabpanel</code> roles; <code>aria-selected</code>; roving tabindex; and Arrow Left/Right, Home, and End keys with automatic activation.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/tabs.js&quot;&gt;&lt;/script&gt;</code></pre><p>Without the module, the nav is inert and every panel renders in order: complete, readable content rather than a CSS-only fake.</p></div>
-  </m-vstack></section>
-  <section><m-vstack gap="sm"><h2>Accessibility</h2><p>The module establishes native ARIA tabs semantics, labels each panel from its button, makes panels focusable, and manages keyboard focus and selection. The unenhanced fallback exposes every panel in document order.</p></m-vstack></section>
-  <section><m-vstack gap="md"><h2>Notes</h2><p>Tab labels never wrap. When the rail is narrower than its tabs, the nav scrolls horizontally with contained overscroll, a thin scrollbar where the platform shows one, and a clipped tab peeking at the edge as the affordance.</p><div class="specimen"><m-tabs style="max-inline-size: 16rem"><nav aria-label="Overflow demo"><button>Overview</button><button>Head-to-head record</button><button>Recent team form</button></nav><section><p>The rail is constrained to 16rem; tabs keep intrinsic width and the overflow scrolls.</p></section><section><p>Head-to-head panel.</p></section><section><p>Form panel.</p></section></m-tabs></div></m-vstack></section>
+&lt;script type=&quot;module&quot; src=&quot;mica/tabs.js&quot;&gt;&lt;/script&gt;</code></pre>
+    </m-vstack>
+  </section>
+
+  <section>
+    <m-vstack gap="lg">
+      <h2>API</h2>
+      <div class="api-block">
+        <h3>Attributes</h3>
+        <table class="api-table">
+          <thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>variant</code></td><td><code>underline</code></td><td>segmented</td><td>Uses the quieter underline treatment without changing behavior.</td></tr>
+            <tr><td><code>selected</code></td><td>boolean on a tab button</td><td>first tab</td><td>Chooses the optional initial tab before enhancement.</td></tr>
+            <tr><td><code>aria-controls</code></td><td>panel ID</td><td>positional pairing</td><td>Explicitly pairs a button with a panel.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="api-block">
+        <h3>Content/markup contract</h3>
+        <table class="api-table">
+          <thead><tr><th>Part</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>nav</code></td><td>direct child</td><td>required</td><td>Contains tab buttons.</td></tr>
+            <tr><td><code>button</code></td><td>inside nav</td><td>required</td><td>Pairs positionally with a direct panel unless <code>aria-controls</code> names one.</td></tr>
+            <tr><td><code>section</code></td><td>direct child</td><td>required</td><td>Panel content. Keep all content complete and readable without enhancement.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="module-note">
+        <h3><code>tabs.js</code></h3>
+        <p>Optional enhancement that registers <code>m-tabs</code>. It wires <code>tablist</code>, <code>tab</code>, and <code>tabpanel</code> roles; <code>aria-selected</code>; roving tabindex; Arrow Left/Right, Home, and End keys with automatic activation; selected-tab reveal; and position-aware overflow markers.</p>
+        <pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/tabs.js&quot;&gt;&lt;/script&gt;</code></pre>
+        <p>Without the module, the nav is inert and every panel renders in order: complete, readable content rather than a CSS-only fake.</p>
+      </div>
+    </m-vstack>
+  </section>
+
+  <section>
+    <m-vstack gap="sm">
+      <h2>Accessibility</h2>
+      <p>The module establishes native ARIA tabs semantics, labels each panel from its button, makes panels focusable, and manages keyboard focus and selection. The unenhanced fallback exposes every panel in document order.</p>
+    </m-vstack>
+  </section>
+
+  <section>
+    <m-vstack gap="md">
+      <h2>Horizontal overflow</h2>
+      <p>Tab labels never wrap. When the rail is narrower than its tabs, the nav scrolls horizontally with contained overscroll. With <code>tabs.js</code>, a direction marker fades in only on a side with more tabs, and selecting a partially visible tab brings it fully into view. The scrollbar stays hidden, but touch, wheel, and keyboard scrolling still work.</p>
+      <div class="specimen">
+        <m-tabs variant="underline" style="max-inline-size: 20rem">
+          <nav aria-label="Constrained leader category">
+            <button>Overall</button>
+            <button>Attacking</button>
+            <button>Passing</button>
+            <button>Defending</button>
+            <button>Goalkeeping</button>
+          </nav>
+          <section><p>The rail is constrained to 20rem; tabs keep their intrinsic width and overflow scrolls.</p></section>
+          <section><p>Attacking leaders.</p></section>
+          <section><p>Passing leaders.</p></section>
+          <section><p>Defending leaders.</p></section>
+          <section><p>Goalkeeping leaders.</p></section>
+        </m-tabs>
+      </div>
+      <p><strong>Use tabs for in-page panels.</strong> Route navigation and deep links should remain ordinary anchors outside <code>m-tabs</code>, so URLs, open-in-new-tab behavior, and routing stay consumer-owned.</p>
+    </m-vstack>
+  </section>
 </m-vstack>

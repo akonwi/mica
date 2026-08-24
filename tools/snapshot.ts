@@ -25,6 +25,7 @@
  */
 
 import { chromium, webkit } from "playwright";
+import type { Browser } from "playwright";
 import { join, dirname } from "node:path";
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
@@ -142,6 +143,16 @@ const PROBES: [string, string, string[]][] = [
     ["color", "font-size", "font-weight", "font-variant-numeric", "line-height", "overflow-wrap"]],
   ["stat-grid.support", "dl.stat-grid > div.stat > dd > small",
     ["margin-block-start", "color", "font-size", "line-height"]],
+  ["tabs.default.rail", "m-tabs:not([variant]) > nav",
+    ["display", "gap", "padding", "border-block-end-width", "border-block-end-style", "border-radius", "background-color", "overflow-x", "scrollbar-width"]],
+  ["tabs.default.selected", 'm-tabs:not([variant]) > nav > button[aria-selected="true"]',
+    ["background-color", "color", "box-shadow", "border-radius", "padding-inline-start", "white-space"]],
+  ["tabs.underline.rail", 'm-tabs[variant="underline"] > nav',
+    ["display", "gap", "padding", "border-block-end-width", "border-block-end-style", "border-block-end-color", "border-radius", "background-color", "overflow-x", "scrollbar-width"]],
+  ["tabs.underline.selected", 'm-tabs[variant="underline"] > nav > button[aria-selected="true"]',
+    ["background-color", "color", "box-shadow", "border-radius", "padding-inline-start", "padding-inline-end", "white-space"]],
+  ["tabs.underline.last", 'm-tabs[variant="underline"] > nav > button:last-of-type',
+    ["padding-inline-start", "padding-inline-end"]],
   // a11y primitives. These also stand in for the parse canary's blind
   // spot: they are the last rule block in mica.elements, after m-error.
   ["visually-hidden", "[data-visually-hidden]:not([data-visually-hidden=\"focusable\"])",
@@ -177,6 +188,8 @@ const HOVER_PROBES: [string, string, string[]][] = [
   ["button.primary.hover", 'button[data-variant="primary"]:not([disabled])', ["background-color"]],
   ["button.danger.hover", 'button[data-variant="danger"]:not([disabled])', ["background-color"]],
   ["stepper.step.hover", 'm-stepper > [data-step="previous"]', ["background-color"]],
+  ["tabs.underline.hover", 'm-tabs[variant="underline"] > nav > button:not([aria-selected="true"])',
+    ["background-color", "color"]],
 ];
 
 // -------------------------------------------------------- visual probes
@@ -252,6 +265,158 @@ const server = Bun.serve({
 
 // --------------------------------------------------------------- collect
 const url = `http://127.0.0.1:${server.port}/demo.html`;
+
+async function assertTabsOverflowRuntime(browser: Browser, engine: string) {
+  for (const reducedMotion of ["no-preference", "reduce"] as const) {
+    for (const direction of ["ltr", "rtl"] as const) {
+      const ctx = await browser.newContext({
+        viewport: { width: 351, height: 740 },
+        colorScheme: "light",
+        reducedMotion,
+      });
+      try {
+        const page = await ctx.newPage();
+        const resp = await page.goto(url, { waitUntil: "load" });
+        if (!resp?.ok())
+          throw new Error(`demo.html: HTTP ${resp?.status()} (${engine} tabs runtime)`);
+        const state = await page.evaluate(async ([direction, reducedMotion]) => {
+          const component = document.querySelector('m-tabs[variant="underline"]')!;
+          component.setAttribute("dir", direction);
+          const rail = component.querySelector(":scope > nav") as HTMLElement;
+          const enhancedScrollbar = getComputedStyle(rail).scrollbarWidth;
+          rail.removeAttribute("role");
+          const fallbackScrollbar = getComputedStyle(rail).scrollbarWidth;
+          rail.setAttribute("role", "tablist");
+          const tabs = () => [...rail.querySelectorAll("button")] as HTMLElement[];
+          const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+          const marker = (pseudo: "::before" | "::after") => {
+            const style = getComputedStyle(rail, pseudo);
+            const margin = pseudo === "::before" ? style.marginInlineEnd : style.marginInlineStart;
+            const duration = style.transitionDuration.split(",").reduce((longest, value) => {
+              const time = Number.parseFloat(value) *
+                (value.trim().endsWith("ms") ? 1 : 1000);
+              return Math.max(longest, time);
+            }, 0);
+            return {
+              duration,
+              opacity: Number(style.opacity),
+              gutter: Math.max(0,
+                (Number.parseFloat(style.inlineSize) || 0) +
+                (Number.parseFloat(margin) || 0)),
+            };
+          };
+          const partialTab = () => {
+            const railRect = rail.getBoundingClientRect();
+            const before = marker("::before").gutter;
+            const after = marker("::after").gutter;
+            const left = railRect.left + (direction === "rtl" ? after : before);
+            const right = railRect.right - (direction === "rtl" ? before : after);
+            const index = tabs().findIndex((tab) => {
+              const rect = tab.getBoundingClientRect();
+              return (rect.left < left && rect.right > left) ||
+                (rect.left < right && rect.right > right);
+            });
+            if (index === -1) throw new Error("no partially visible tab found");
+            return index;
+          };
+          const fullyVisible = (tab: HTMLElement) => {
+            const railRect = rail.getBoundingClientRect();
+            const rect = tab.getBoundingClientRect();
+            const before = marker("::before").gutter;
+            const after = marker("::after").gutter;
+            const left = railRect.left + (direction === "rtl" ? after : before);
+            const right = railRect.right - (direction === "rtl" ? before : after);
+            return rect.left >= left - 1 && rect.right <= right + 1;
+          };
+          const reduced = reducedMotion === "reduce";
+          const midpointWait = reduced ? 10 : 75;
+          const waitForMarker = async (opacity: number, gutter: number) => {
+            const deadline = performance.now() + 500;
+            let state = marker("::before");
+            while ((state.opacity !== opacity || Math.abs(state.gutter - gutter) > 0.01) &&
+              performance.now() < deadline) {
+              await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+              state = marker("::before");
+            }
+            return state;
+          };
+          await wait(reduced ? 20 : 200);
+          const initialStationary = rail.scrollLeft === 0;
+          rail.scrollLeft = direction === "rtl" ? -60 : 60;
+          rail.dispatchEvent(new Event("scroll"));
+          await wait(midpointWait);
+          const fadeIn = marker("::before");
+          const shown = await waitForMarker(1, 16);
+          rail.scrollLeft = 0;
+          rail.dispatchEvent(new Event("scroll"));
+          await wait(midpointWait);
+          const fadeOut = marker("::before");
+          const hidden = await waitForMarker(0, 0);
+
+          const revealIndex = partialTab();
+          tabs()[revealIndex].click();
+          await wait(reduced ? 50 : 220);
+          const reveal = {
+            selected: tabs()[revealIndex].getAttribute("aria-selected") === "true",
+            fullyVisible: fullyVisible(tabs()[revealIndex]),
+          };
+
+          (component as HTMLElement & { select(index: number): void }).select(0);
+          rail.scrollLeft = 0;
+          const parent = component.parentNode!;
+          const next = component.nextSibling;
+          component.remove();
+          parent.insertBefore(component, next);
+          await new Promise<void>((resolve) =>
+            requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+          const reconnectedTabs = tabs();
+          reconnectedTabs[0].focus();
+          reconnectedTabs[0].dispatchEvent(new KeyboardEvent("keydown", {
+            key: "ArrowRight",
+            bubbles: true,
+            cancelable: true,
+          }));
+          await wait(reduced ? 50 : 220);
+          const reconnectSelectsOneStep = reconnectedTabs.findIndex((tab) =>
+            tab.getAttribute("aria-selected") === "true") === 1;
+
+          (component as HTMLElement & { select(index: number): void }).select(0);
+          rail.scrollLeft = 0;
+          await wait(reduced ? 20 : 200);
+          const cancelIndex = partialTab();
+          tabs()[cancelIndex].click();
+          rail.dispatchEvent(new WheelEvent("wheel", { bubbles: true }));
+          rail.scrollLeft = 0;
+          await wait(reduced ? 50 : 220);
+          const userScrollWins = rail.scrollLeft === 0;
+
+          return {
+            initialStationary, fadeIn, shown, fadeOut, hidden, reveal,
+            reconnectSelectsOneStep, userScrollWins,
+            scrollbarContract: enhancedScrollbar === "none" && fallbackScrollbar === "thin",
+          };
+        }, [direction, reducedMotion] as const);
+        const fades = reducedMotion === "reduce"
+          ? state.shown.duration < 1 && state.hidden.duration < 1
+          : state.fadeIn.opacity > 0 && state.fadeIn.opacity < 1 &&
+            state.fadeIn.gutter > 0 && state.fadeIn.gutter < 16 &&
+            state.fadeOut.opacity > 0 && state.fadeOut.opacity < 1 &&
+            state.fadeOut.gutter > 0 && state.fadeOut.gutter < 16;
+        const passed = state.initialStationary && fades &&
+          Math.abs(state.shown.opacity - 1) < 0.001 &&
+          Math.abs(state.shown.gutter - 16) < 0.01 &&
+          state.hidden.opacity < 0.001 && state.hidden.gutter < 0.01 &&
+          state.reveal.selected && state.reveal.fullyVisible &&
+          state.reconnectSelectsOneStep && state.userScrollWins && state.scrollbarContract;
+        if (!passed)
+          throw new Error(`${engine} ${direction} ${reducedMotion} tabs runtime failed: ${JSON.stringify(state)}`);
+      } finally {
+        await ctx.close();
+      }
+    }
+  }
+}
+
 const result: Record<string, unknown> = {};
 const visuals = new Map<string, Uint8Array>();
 let browser;
@@ -329,6 +494,169 @@ try {
         states[name] = await probe(sel, props);
       }
       await page.mouse.move(0, 0);
+
+      const tabsOverflow = await page.evaluate(() => {
+        const rail = document.querySelector('m-tabs[variant="underline"] > nav') as HTMLElement;
+        const tabs = [...rail.querySelectorAll("button")];
+        const maxScroll = rail.scrollWidth - rail.clientWidth;
+        const markerGutter = (pseudo: "::before" | "::after") => {
+          const style = getComputedStyle(rail, pseudo);
+          const margin = pseudo === "::before" ? style.marginInlineEnd : style.marginInlineStart;
+          return Math.max(0,
+            (Number.parseFloat(style.inlineSize) || 0) +
+            (Number.parseFloat(margin) || 0));
+        };
+        const edgeState = () => ({
+          moreBefore: rail.scrollLeft > 1,
+          moreAfter: rail.scrollLeft < maxScroll - 1,
+        });
+        rail.scrollLeft = 0;
+        const start = edgeState();
+        rail.scrollLeft = maxScroll / 2;
+        const middle = edgeState();
+        rail.scrollLeft = maxScroll;
+        const end = edgeState();
+        rail.scrollLeft = 0;
+        return {
+          overflows: maxScroll > 0,
+          labelsStayOnOneLine: tabs.every((tab) => getComputedStyle(tab).whiteSpace === "nowrap"),
+          startMarkerGutter: markerGutter("::before"),
+          endMarkerGutter: markerGutter("::after"),
+          edgeStates: { start, middle, end },
+        };
+      });
+      states["tabs.underline.overflow"] = tabsOverflow;
+      if (!tabsOverflow.overflows || !tabsOverflow.labelsStayOnOneLine ||
+          tabsOverflow.startMarkerGutter !== 0 || tabsOverflow.endMarkerGutter !== 16 ||
+          tabsOverflow.edgeStates.start.moreBefore || !tabsOverflow.edgeStates.start.moreAfter ||
+          !tabsOverflow.edgeStates.middle.moreBefore || !tabsOverflow.edgeStates.middle.moreAfter ||
+          !tabsOverflow.edgeStates.end.moreBefore || tabsOverflow.edgeStates.end.moreAfter)
+        throw new Error(`underline tabs overflow failed: ${JSON.stringify(tabsOverflow)}`);
+
+      const markerProperties = [
+        "opacity", "inline-size", "margin-inline-start", "margin-inline-end",
+        "background-image", "background-color", "transition-property", "transition-duration",
+      ];
+      states["tabs.underline.marker.start.before"] = await probe(
+        'm-tabs[variant="underline"] > nav', markerProperties, "::before");
+      states["tabs.underline.marker.start.after"] = await probe(
+        'm-tabs[variant="underline"] > nav', markerProperties, "::after");
+      await page.evaluate(() => {
+        const rail = document.querySelector('m-tabs[variant="underline"] > nav') as HTMLElement;
+        rail.scrollLeft = (rail.scrollWidth - rail.clientWidth) / 2;
+      });
+      await page.waitForTimeout(50);
+      states["tabs.underline.marker.middle.before"] = await probe(
+        'm-tabs[variant="underline"] > nav', markerProperties, "::before");
+      states["tabs.underline.marker.middle.after"] = await probe(
+        'm-tabs[variant="underline"] > nav', markerProperties, "::after");
+      await page.evaluate(() => {
+        const rail = document.querySelector('m-tabs[variant="underline"] > nav') as HTMLElement;
+        rail.scrollLeft = rail.scrollWidth;
+      });
+      await page.waitForTimeout(50);
+      states["tabs.underline.marker.end.before"] = await probe(
+        'm-tabs[variant="underline"] > nav', markerProperties, "::before");
+      states["tabs.underline.marker.end.after"] = await probe(
+        'm-tabs[variant="underline"] > nav', markerProperties, "::after");
+      await page.evaluate(() => {
+        (document.querySelector('m-tabs[variant="underline"] > nav') as HTMLElement).scrollLeft = 0;
+      });
+      await page.waitForTimeout(50);
+
+      const tabsReveal = await page.evaluate(async () => {
+        const component = document.querySelector('m-tabs[variant="underline"]')!;
+        const rail = component.querySelector(":scope > nav") as HTMLElement;
+        const tabs = [...rail.querySelectorAll("button")] as HTMLElement[];
+        const panels = [...component.querySelectorAll(":scope > section")] as HTMLElement[];
+        rail.scrollIntoView({ block: "center", inline: "nearest" });
+        rail.scrollLeft = 0;
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+        const railRect = rail.getBoundingClientRect();
+        const endGutter = Number.parseFloat(getComputedStyle(rail, "::after").inlineSize) || 0;
+        const usableEnd = railRect.right - endGutter;
+        const targetIndex = tabs.findIndex((tab) => {
+          const rect = tab.getBoundingClientRect();
+          return rect.left < usableEnd && rect.right > usableEnd;
+        });
+        if (targetIndex === -1) throw new Error("no partially visible underline tab found");
+        const target = tabs[targetIndex];
+        const beforeRect = target.getBoundingClientRect();
+        const pageScroll = window.scrollY;
+        target.click();
+        await new Promise<void>((resolve) =>
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+        const afterRect = target.getBoundingClientRect();
+        const settledRailRect = rail.getBoundingClientRect();
+        const beforeStyle = getComputedStyle(rail, "::before");
+        const afterStyle = getComputedStyle(rail, "::after");
+        const startGutter = Math.max(0,
+          (Number.parseFloat(beforeStyle.inlineSize) || 0) +
+          (Number.parseFloat(beforeStyle.marginInlineEnd) || 0));
+        const settledEndGutter = Math.max(0,
+          (Number.parseFloat(afterStyle.inlineSize) || 0) +
+          (Number.parseFloat(afterStyle.marginInlineStart) || 0));
+        const result = {
+          target: target.textContent?.trim(),
+          partiallyVisibleBefore: beforeRect.left < usableEnd && beforeRect.right > usableEnd,
+          selected: target.getAttribute("aria-selected") === "true",
+          matchingPanelVisible: !panels[targetIndex]?.hidden,
+          scrollMoved: rail.scrollLeft > 1,
+          fullyVisibleAfter: afterRect.left >= settledRailRect.left + startGutter - 1 &&
+            afterRect.right <= settledRailRect.right - settledEndGutter + 1,
+          pageScrollStable: Math.abs(window.scrollY - pageScroll) < 1,
+        };
+        (component as HTMLElement & { select(index: number): void }).select(0);
+        rail.scrollLeft = 0;
+        return result;
+      });
+      states["tabs.underline.reveal-partial"] = tabsReveal;
+      if (!tabsReveal.partiallyVisibleBefore || !tabsReveal.selected ||
+          !tabsReveal.matchingPanelVisible || !tabsReveal.scrollMoved ||
+          !tabsReveal.fullyVisibleAfter || !tabsReveal.pageScrollStable)
+        throw new Error(`underline tabs selected reveal failed: ${JSON.stringify(tabsReveal)}`);
+      await page.waitForTimeout(50);
+
+      await page.evaluate(() =>
+        (document.querySelector('m-tabs[variant="underline"] > nav > button[aria-selected="true"]') as HTMLElement)?.focus());
+      await page.waitForTimeout(50);
+      states["tabs.underline.focus-ring"] = await probe(
+        'm-tabs[variant="underline"] > nav > button[aria-selected="true"]',
+        ["outline-color", "outline-width", "outline-offset", "outline-style", "box-shadow"]);
+
+      await page.keyboard.press("End");
+      await page.waitForTimeout(50);
+      const tabsKeyboard = await page.evaluate(() => {
+        const component = document.querySelector('m-tabs[variant="underline"]')!;
+        const rail = component.querySelector(":scope > nav") as HTMLElement;
+        const tabs = [...component.querySelectorAll(":scope > nav > button")];
+        const panels = [...component.querySelectorAll(":scope > section")];
+        const last = tabs.length - 1;
+        const railRect = rail.getBoundingClientRect();
+        const tabRect = tabs[last]?.getBoundingClientRect();
+        const beforeStyle = getComputedStyle(rail, "::before");
+        const afterStyle = getComputedStyle(rail, "::after");
+        const startGutter = Math.max(0,
+          (Number.parseFloat(beforeStyle.inlineSize) || 0) +
+          (Number.parseFloat(beforeStyle.marginInlineEnd) || 0));
+        const endGutter = Math.max(0,
+          (Number.parseFloat(afterStyle.inlineSize) || 0) +
+          (Number.parseFloat(afterStyle.marginInlineStart) || 0));
+        return {
+          endKeySelectsLast: document.activeElement === tabs[last] &&
+            tabs[last]?.getAttribute("aria-selected") === "true",
+          matchingPanelVisible: !(panels[last] as HTMLElement)?.hidden,
+          selectedTabFullyVisible: !!tabRect &&
+            tabRect.left >= railRect.left + startGutter - 1 &&
+            tabRect.right <= railRect.right - endGutter + 1,
+        };
+      });
+      states["tabs.underline.keyboard"] = tabsKeyboard;
+      if (!tabsKeyboard.endKeySelectsLast || !tabsKeyboard.matchingPanelVisible ||
+          !tabsKeyboard.selectedTabFullyVisible)
+        throw new Error(`underline tabs keyboard behavior failed: ${JSON.stringify(tabsKeyboard)}`);
+      await page.keyboard.press("Home");
 
       await page.evaluate(() =>
         (document.querySelector('input[type="text"]') as HTMLElement)?.focus());
@@ -489,6 +817,8 @@ try {
     }
   }
 
+  await assertTabsOverflowRuntime(browser, "chromium");
+
   // ---- webkit pass: parse canary + visual crops only ----
   await browser.close();
   try {
@@ -526,6 +856,7 @@ try {
       await ctx.close();
     }
   }
+  await assertTabsOverflowRuntime(browser, "webkit");
 } finally {
   await browser?.close();
   server.stop();

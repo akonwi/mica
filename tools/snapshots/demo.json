@@ -306,6 +306,50 @@
    "table": {
     "border-collapse": "collapse"
    },
+   "tabs.default.rail": {
+    "background-color": "oklch(0.2 0 263)",
+    "border-block-end-style": "none",
+    "border-block-end-width": "0px",
+    "border-radius": "0px",
+    "display": "inline-flex",
+    "gap": "4px",
+    "overflow-x": "auto",
+    "padding": "4px",
+    "scrollbar-width": "none"
+   },
+   "tabs.default.selected": {
+    "background-color": "oklch(0.14 0 263)",
+    "border-radius": "0px",
+    "box-shadow": "oklch(0 0 0 / 0.08) 0px 1px 2px 0px",
+    "color": "oklch(0.96 0 263)",
+    "padding-inline-start": "12px",
+    "white-space": "nowrap"
+   },
+   "tabs.underline.last": {
+    "padding-inline-end": "0px",
+    "padding-inline-start": "12px"
+   },
+   "tabs.underline.rail": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "border-block-end-color": "oklch(0.3 0 263)",
+    "border-block-end-style": "solid",
+    "border-block-end-width": "1px",
+    "border-radius": "0px",
+    "display": "inline-flex",
+    "gap": "0px",
+    "overflow-x": "auto",
+    "padding": "0px",
+    "scrollbar-width": "none"
+   },
+   "tabs.underline.selected": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "border-radius": "0px",
+    "box-shadow": "oklch(0.7 0.21 263) 0px -2px 0px 0px inset",
+    "color": "oklch(0.96 0 263)",
+    "padding-inline-end": "12px",
+    "padding-inline-start": "0px",
+    "white-space": "nowrap"
+   },
    "textarea": {
     "background-color": "oklch(0.14 0 263)",
     "field-sizing": "content"
@@ -419,6 +463,111 @@
    },
    "stepper.step.hover": {
     "background-color": "oklch(0.2 0 263)"
+   },
+   "tabs.underline.focus-ring": {
+    "box-shadow": "oklch(0.7 0.21 263) 0px -2px 0px 0px inset",
+    "outline-color": "oklch(0.7 0.21 263)",
+    "outline-offset": "-2px",
+    "outline-style": "solid",
+    "outline-width": "2px"
+   },
+   "tabs.underline.hover": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "oklch(0.96 0 263)"
+   },
+   "tabs.underline.keyboard": {
+    "endKeySelectsLast": true,
+    "matchingPanelVisible": true,
+    "selectedTabFullyVisible": true
+   },
+   "tabs.underline.marker.end.after": {
+    "background-color": "oklch(0.14 0 263)",
+    "background-image": "conic-gradient(from 225deg at 100% 50%, oklch(0.71 0 263 / 0.7) 0deg, oklch(0.71 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "-16px",
+    "opacity": "0",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-start"
+   },
+   "tabs.underline.marker.end.before": {
+    "background-color": "oklch(0.14 0 263)",
+    "background-image": "conic-gradient(from 45deg at 0% 50%, oklch(0.71 0 263 / 0.7) 0deg, oklch(0.71 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "0px",
+    "opacity": "1",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-end"
+   },
+   "tabs.underline.marker.middle.after": {
+    "background-color": "oklch(0.14 0 263)",
+    "background-image": "conic-gradient(from 225deg at 100% 50%, oklch(0.71 0 263 / 0.7) 0deg, oklch(0.71 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "0px",
+    "opacity": "1",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-start"
+   },
+   "tabs.underline.marker.middle.before": {
+    "background-color": "oklch(0.14 0 263)",
+    "background-image": "conic-gradient(from 45deg at 0% 50%, oklch(0.71 0 263 / 0.7) 0deg, oklch(0.71 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "0px",
+    "opacity": "1",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-end"
+   },
+   "tabs.underline.marker.start.after": {
+    "background-color": "oklch(0.14 0 263)",
+    "background-image": "conic-gradient(from 225deg at 100% 50%, oklch(0.71 0 263 / 0.7) 0deg, oklch(0.71 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "0px",
+    "opacity": "1",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-start"
+   },
+   "tabs.underline.marker.start.before": {
+    "background-color": "oklch(0.14 0 263)",
+    "background-image": "conic-gradient(from 45deg at 0% 50%, oklch(0.71 0 263 / 0.7) 0deg, oklch(0.71 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "-16px",
+    "margin-inline-start": "0px",
+    "opacity": "0",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-end"
+   },
+   "tabs.underline.overflow": {
+    "edgeStates": {
+     "end": {
+      "moreAfter": false,
+      "moreBefore": true
+     },
+     "middle": {
+      "moreAfter": true,
+      "moreBefore": true
+     },
+     "start": {
+      "moreAfter": true,
+      "moreBefore": false
+     }
+    },
+    "endMarkerGutter": 16,
+    "labelsStayOnOneLine": true,
+    "overflows": true,
+    "startMarkerGutter": 0
+   },
+   "tabs.underline.reveal-partial": {
+    "fullyVisibleAfter": true,
+    "matchingPanelVisible": true,
+    "pageScrollStable": true,
+    "partiallyVisibleBefore": true,
+    "scrollMoved": true,
+    "selected": true,
+    "target": "Defending"
    },
    "toast.position.default": {
     "bottom": "24px",
@@ -842,6 +991,50 @@
    "table": {
     "border-collapse": "collapse"
    },
+   "tabs.default.rail": {
+    "background-color": "oklch(0.952 0 263)",
+    "border-block-end-style": "none",
+    "border-block-end-width": "0px",
+    "border-radius": "0px",
+    "display": "inline-flex",
+    "gap": "4px",
+    "overflow-x": "auto",
+    "padding": "4px",
+    "scrollbar-width": "none"
+   },
+   "tabs.default.selected": {
+    "background-color": "oklch(1 0 263)",
+    "border-radius": "0px",
+    "box-shadow": "oklch(0 0 0 / 0.08) 0px 1px 2px 0px",
+    "color": "oklch(0.18 0 263)",
+    "padding-inline-start": "12px",
+    "white-space": "nowrap"
+   },
+   "tabs.underline.last": {
+    "padding-inline-end": "0px",
+    "padding-inline-start": "12px"
+   },
+   "tabs.underline.rail": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "border-block-end-color": "oklch(0.89 0 263)",
+    "border-block-end-style": "solid",
+    "border-block-end-width": "1px",
+    "border-radius": "0px",
+    "display": "inline-flex",
+    "gap": "0px",
+    "overflow-x": "auto",
+    "padding": "0px",
+    "scrollbar-width": "none"
+   },
+   "tabs.underline.selected": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "border-radius": "0px",
+    "box-shadow": "oklch(0.55 0.21 263) 0px -2px 0px 0px inset",
+    "color": "oklch(0.18 0 263)",
+    "padding-inline-end": "12px",
+    "padding-inline-start": "0px",
+    "white-space": "nowrap"
+   },
    "textarea": {
     "background-color": "oklch(1 0 263)",
     "field-sizing": "content"
@@ -955,6 +1148,111 @@
    },
    "stepper.step.hover": {
     "background-color": "oklch(0.952 0 263)"
+   },
+   "tabs.underline.focus-ring": {
+    "box-shadow": "oklch(0.55 0.21 263) 0px -2px 0px 0px inset",
+    "outline-color": "oklch(0.55 0.21 263)",
+    "outline-offset": "-2px",
+    "outline-style": "solid",
+    "outline-width": "2px"
+   },
+   "tabs.underline.hover": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "oklch(0.18 0 263)"
+   },
+   "tabs.underline.keyboard": {
+    "endKeySelectsLast": true,
+    "matchingPanelVisible": true,
+    "selectedTabFullyVisible": true
+   },
+   "tabs.underline.marker.end.after": {
+    "background-color": "oklch(1 0 263)",
+    "background-image": "conic-gradient(from 225deg at 100% 50%, oklch(0.44 0 263 / 0.7) 0deg, oklch(0.44 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "-16px",
+    "opacity": "0",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-start"
+   },
+   "tabs.underline.marker.end.before": {
+    "background-color": "oklch(1 0 263)",
+    "background-image": "conic-gradient(from 45deg at 0% 50%, oklch(0.44 0 263 / 0.7) 0deg, oklch(0.44 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "0px",
+    "opacity": "1",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-end"
+   },
+   "tabs.underline.marker.middle.after": {
+    "background-color": "oklch(1 0 263)",
+    "background-image": "conic-gradient(from 225deg at 100% 50%, oklch(0.44 0 263 / 0.7) 0deg, oklch(0.44 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "0px",
+    "opacity": "1",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-start"
+   },
+   "tabs.underline.marker.middle.before": {
+    "background-color": "oklch(1 0 263)",
+    "background-image": "conic-gradient(from 45deg at 0% 50%, oklch(0.44 0 263 / 0.7) 0deg, oklch(0.44 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "0px",
+    "opacity": "1",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-end"
+   },
+   "tabs.underline.marker.start.after": {
+    "background-color": "oklch(1 0 263)",
+    "background-image": "conic-gradient(from 225deg at 100% 50%, oklch(0.44 0 263 / 0.7) 0deg, oklch(0.44 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "0px",
+    "opacity": "1",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-start"
+   },
+   "tabs.underline.marker.start.before": {
+    "background-color": "oklch(1 0 263)",
+    "background-image": "conic-gradient(from 45deg at 0% 50%, oklch(0.44 0 263 / 0.7) 0deg, oklch(0.44 0 263 / 0.7) 25%, rgba(0, 0, 0, 0) 0deg)",
+    "inline-size": "16px",
+    "margin-inline-end": "-16px",
+    "margin-inline-start": "0px",
+    "opacity": "0",
+    "transition-duration": "1e-05s",
+    "transition-property": "opacity, margin-inline-end"
+   },
+   "tabs.underline.overflow": {
+    "edgeStates": {
+     "end": {
+      "moreAfter": false,
+      "moreBefore": true
+     },
+     "middle": {
+      "moreAfter": true,
+      "moreBefore": true
+     },
+     "start": {
+      "moreAfter": true,
+      "moreBefore": false
+     }
+    },
+    "endMarkerGutter": 16,
+    "labelsStayOnOneLine": true,
+    "overflows": true,
+    "startMarkerGutter": 0
+   },
+   "tabs.underline.reveal-partial": {
+    "fullyVisibleAfter": true,
+    "matchingPanelVisible": true,
+    "pageScrollStable": true,
+    "partiallyVisibleBefore": true,
+    "scrollMoved": true,
+    "selected": true,
+    "target": "Defending"
    },
    "toast.position.default": {
     "bottom": "24px",

@@ -52,7 +52,7 @@ declare module 'react' {
       // components
       'm-segmented': MicaElement
       'm-stepper': MicaElement
-      'm-tabs': MicaElement
+      'm-tabs': MicaElement<{ variant?: 'underline' }>
       'm-badge': MicaElement<{
         variant?: 'primary' | 'success' | 'warning' | 'danger'
         count?: boolean

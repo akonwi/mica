@@ -1679,27 +1679,113 @@
   /* --- tabs: m-tabs + tabs.js (JS-enhanced) ------------------------------ *
    * without the module: inert nav, all panels visible in order —
    * complete content. with it: tablist semantics + roving focus.
-   * shadcn segmented look: muted track, surface active tab.
+   * default: muted track + surface active tab. variant="underline":
+   * quiet rail + accent selection line; behavior stays identical.
    * ------------------------------------------------------------------ */
   :where(m-tabs) {
+    --m-tabs-rail-gap: var(--space-2xs);
+    --m-tabs-rail-padding: var(--space-2xs);
+    --m-tabs-rail-border: none;
+    --m-tabs-rail-radius: var(--radius-md);
+    --m-tabs-rail-background: var(--neutral-3);
+    --m-tabs-overflow-cover: var(--neutral-3);
+    --m-tabs-overflow-duration: 0.15s;
+    --m-tabs-overflow-marker: color-mix(in oklch, var(--color-text-muted) 70%, transparent);
+    --m-tabs-overflow-start-gutter: 0px;
+    --m-tabs-overflow-end-gutter: 0px;
+    --m-tabs-overflow-start: 0;
+    --m-tabs-overflow-end: 0;
+    --m-tabs-tab-radius: var(--radius-sm);
+    --m-tabs-tab-edge-padding: var(--space-sm);
+    --m-tabs-tab-focus-offset: var(--focus-ring-offset);
+    --m-tabs-tab-selected-background: var(--color-surface);
+    --m-tabs-tab-selected-shadow: 0 1px 2px oklch(0 0 0 / 0.08);
     display: block;
+  }
+
+  :where(m-tabs[variant="underline"]) {
+    --m-tabs-rail-gap: 0;
+    --m-tabs-rail-padding: 0;
+    --m-tabs-rail-border: 1px solid var(--color-border);
+    --m-tabs-rail-radius: 0;
+    --m-tabs-rail-background: transparent;
+    --m-tabs-overflow-cover: var(--color-surface);
+    --m-tabs-tab-radius: 0;
+    --m-tabs-tab-edge-padding: 0;
+    --m-tabs-tab-focus-offset: -2px;
+    --m-tabs-tab-selected-background: transparent;
+    --m-tabs-tab-selected-shadow: inset 0 -2px var(--color-accent);
   }
 
   :where(m-tabs) > :where(nav) {
     display: inline-flex;
-    gap: var(--space-2xs);
-    padding: var(--space-2xs);
-    background: var(--neutral-3);
-    border-radius: var(--radius-md);
+    gap: var(--m-tabs-rail-gap);
+    padding: var(--m-tabs-rail-padding);
+    border-block-end: var(--m-tabs-rail-border);
+    border-radius: var(--m-tabs-rail-radius);
+    background: var(--m-tabs-rail-background);
 
     /* Graceful collapse: labels never wrap inside a tab — when the rail
-       is narrower than its tabs it scrolls horizontally instead. The
-       thin scrollbar is the overflow affordance on platforms that show
-       one; scroll chaining stays contained. */
+       is narrower than its tabs it scrolls horizontally instead. Before
+       enhancement, the native scrollbar remains the overflow affordance.
+       tabs.js hides it, activates sticky direction markers in clear
+       gutters, and reveals a selected tab within those gutters. Scroll
+       chaining stays contained. */
     max-inline-size: 100%;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scrollbar-width: thin;
+
+    &[role="tablist"] {
+      scrollbar-width: none;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: sticky;
+      z-index: 1;
+      align-self: stretch;
+      background-color: var(--m-tabs-overflow-cover);
+      background-position: center;
+      background-size: 6px 10px;
+      background-repeat: no-repeat;
+      pointer-events: none;
+    }
+
+    &::before {
+      inset-inline-start: 0;
+      flex: 0 0 var(--space-md);
+      margin-inline-end: calc(var(--m-tabs-overflow-start-gutter) - var(--space-md));
+      opacity: var(--m-tabs-overflow-start);
+      background-image: conic-gradient(from 45deg at left center,
+        var(--m-tabs-overflow-marker) 0 25%, transparent 0);
+      transition:
+        opacity var(--m-tabs-overflow-duration),
+        margin-inline-end var(--m-tabs-overflow-duration);
+    }
+
+    &::after {
+      inset-inline-end: 0;
+      flex: 0 0 var(--space-md);
+      margin-inline-start: calc(var(--m-tabs-overflow-end-gutter) - var(--space-md));
+      opacity: var(--m-tabs-overflow-end);
+      background-image: conic-gradient(from 225deg at right center,
+        var(--m-tabs-overflow-marker) 0 25%, transparent 0);
+      transition:
+        opacity var(--m-tabs-overflow-duration),
+        margin-inline-start var(--m-tabs-overflow-duration);
+    }
+
+    &:dir(rtl)::before {
+      background-image: conic-gradient(from 225deg at right center,
+        var(--m-tabs-overflow-marker) 0 25%, transparent 0);
+    }
+
+    &:dir(rtl)::after {
+      background-image: conic-gradient(from 45deg at left center,
+        var(--m-tabs-overflow-marker) 0 25%, transparent 0);
+    }
 
     & > :where(button) {
       flex-shrink: 0;
@@ -1707,9 +1793,21 @@
       block-size: var(--control-height-sm);
       padding-inline: var(--space-sm);
       border: 0;
-      border-radius: var(--radius-sm);
+      border-radius: var(--m-tabs-tab-radius);
       background: transparent;
       color: var(--color-text-muted);
+
+      &:first-of-type {
+        padding-inline-start: var(--m-tabs-tab-edge-padding);
+      }
+
+      &:last-of-type {
+        padding-inline-end: var(--m-tabs-tab-edge-padding);
+      }
+
+      &:focus-visible {
+        outline-offset: var(--m-tabs-tab-focus-offset);
+      }
 
       /* :not() guards mirror the base button states (house rule) */
       &:hover:not(:disabled, [aria-disabled="true"]),
@@ -1719,17 +1817,23 @@
       }
 
       &[aria-selected="true"] {
-        background: var(--color-surface);
+        background: var(--m-tabs-tab-selected-background);
         color: var(--color-text);
-        box-shadow: 0 1px 2px oklch(0 0 0 / 0.08);
+        box-shadow: var(--m-tabs-tab-selected-shadow);
 
         &:hover:not(:disabled, [aria-disabled="true"]),
         &:active:not(:disabled, [aria-disabled="true"]) {
-          background: var(--color-surface);
+          background: var(--m-tabs-tab-selected-background);
           color: var(--color-text);
         }
       }
     }
+  }
+
+  /* Vendor pseudo gets its own rule: one unknown selector in a list
+     invalidates the whole list. */
+  :where(m-tabs) > :where(nav[role="tablist"])::-webkit-scrollbar {
+    display: none;
   }
 
   :where(m-tabs) > :where(section) {

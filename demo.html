@@ -691,23 +691,32 @@
           </section>
         </m-tabs>
 
-        <p>Long labels in a narrow rail never wrap — the nav scrolls
-        horizontally instead (thin scrollbar as the affordance):</p>
-        <m-tabs style="max-inline-size: 16rem">
-          <nav aria-label="Overflow demo">
+        <p>The underline variant uses the same behavior. In a narrow rail,
+        labels stay on one line, the nav scrolls horizontally, and edge
+        markers show whichever direction has more tabs:</p>
+        <m-tabs variant="underline" style="max-inline-size: 20rem">
+          <nav aria-label="Leader category overflow demo">
             <button>Overview</button>
-            <button>Head-to-head record</button>
-            <button>Recent team form</button>
+            <button>Attacking</button>
+            <button>Passing</button>
+            <button>Defending</button>
+            <button>Goalkeeping</button>
           </nav>
           <section>
-            <p>The rail is constrained to 16rem; tabs keep their intrinsic
+            <p>The rail is constrained to 20rem; tabs keep their intrinsic
             width and the overflow scrolls.</p>
           </section>
           <section>
-            <p>Head-to-head panel.</p>
+            <p>Attacking leaders.</p>
           </section>
           <section>
-            <p>Form panel.</p>
+            <p>Passing leaders.</p>
+          </section>
+          <section>
+            <p>Defending leaders.</p>
+          </section>
+          <section>
+            <p>Goalkeeping leaders.</p>
           </section>
         </m-tabs>
       </m-vstack>
