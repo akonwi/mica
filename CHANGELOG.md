@@ -1,5 +1,46 @@
 # Changelog
 
+## v0.10.0 — 2026-08-25
+
+This is an additive release. Existing markup and the default segmented tabs
+presentation are unchanged.
+
+### Added
+
+- **Stepper** — new `<m-stepper>` presentation for compact previous/current/
+  next navigation with an optional reset action. It is sequence-neutral and
+  owns no value changes, date math, routing, or custom events; consumers keep
+  ordinary native buttons and semantic current-value markup.
+- **Stat grid** — new CSS-only `dl.stat-grid` layout with explicit `div.stat`
+  items. Native `dt`/`dd` relationships remain intact, optional supporting
+  text stays anchored to the bottom of each stat, and the intrinsic grid wraps
+  without a media query.
+- **Skeleton** — new `<m-skeleton>` placeholder with quiet pulse motion,
+  automatic reduced-motion handling, and `--skeleton-width`,
+  `--skeleton-height`, and `--skeleton-radius` styling properties. Loading
+  state, announcements, and replacement remain consumer-owned.
+- **Underline tabs** — `<m-tabs variant="underline">` adds a quiet underlined
+  presentation without changing the existing button/panel contract. React
+  JSX declarations include the new variant.
+
+### Improved
+
+- **Tabs overflow** — `tabs.js` now adds smooth direction-aware overflow
+  markers, keeps selected tabs visible as marker gutters move, supports RTL,
+  and yields immediately to pointer or wheel scrolling. The enhanced rail
+  hides its scrollbar; without JavaScript, the native scrollbar remains as
+  the progressive overflow affordance.
+- **Tabs lifecycle** — enhancement listeners and observers now cleanly detach
+  and reconnect without duplicated click or keyboard handling.
+
+### Docs and testing
+
+- Added complete reference pages, examples, markup contracts, accessibility
+  guidance, and React types for the new primitives and tabs variant.
+- Tabs runtime coverage now exercises Chromium and WebKit in LTR and RTL,
+  normal and reduced motion, including reconnects, user-scroll cancellation,
+  progressive fallback, and selected-tab reveal.
+
 ## v0.9.0 — 2026-08-23
 
 ### Added
