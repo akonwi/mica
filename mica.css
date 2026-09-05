@@ -2187,6 +2187,85 @@
     border-radius: 0; background: transparent; overflow: visible;
   }
 
+  /* Breadcrumbs: native hierarchy with decorative separators. The current
+     page is plain text; nothing is automatically removed on narrow screens.
+     Override --breadcrumb-current-weight or --breadcrumb-separator-color
+     to tune emphasis without changing the authored trail. */
+  :where(nav[data-breadcrumbs]) {
+    --breadcrumb-font-size: .8125rem;
+    --breadcrumb-gap: var(--space-xs);
+    --breadcrumb-row-gap: var(--space-2xs);
+    --breadcrumb-current-weight: 500;
+    --breadcrumb-separator-size: .3rem;
+    --breadcrumb-separator-color: var(--color-text-muted);
+    --breadcrumb-menu-width: 14rem;
+    --breadcrumb-overflow-font-size: 1rem;
+    --breadcrumb-menu-target: 2.25rem;
+    --breadcrumb-menu-z: 5;
+    font-size: var(--breadcrumb-font-size);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+  :where(nav[data-breadcrumbs] ol) {
+    display: flex; align-items: center; flex-wrap: wrap;
+    list-style: none; margin: 0; padding: 0;
+    column-gap: var(--breadcrumb-gap); row-gap: var(--breadcrumb-row-gap);
+  }
+  :where(nav[data-breadcrumbs] li) {
+    display: flex; align-items: center; gap: var(--breadcrumb-gap);
+    min-inline-size: 0; max-inline-size: 100%;
+  }
+  :where(nav[data-breadcrumbs] > ol > li + li)::before {
+    content: ''; display: block; flex: none;
+    inline-size: var(--breadcrumb-separator-size); block-size: var(--breadcrumb-separator-size);
+    border: solid var(--breadcrumb-separator-color); border-width: 1px 1px 0 0;
+    transform: rotate(45deg); margin-inline: var(--space-2xs);
+  }
+  :where(nav[data-breadcrumbs]:dir(rtl) > ol > li + li)::before { transform: rotate(225deg); }
+  :where(nav[data-breadcrumbs] a) {
+    color: var(--color-text-muted); text-decoration: none;
+    overflow-wrap: anywhere; padding-block: var(--space-2xs);
+  }
+  :where(nav[data-breadcrumbs] a):hover { text-decoration: underline; color: var(--color-text); }
+  :where(nav[data-breadcrumbs] [aria-current="page"]) {
+    color: var(--color-text); font-weight: var(--breadcrumb-current-weight);
+    overflow-wrap: anywhere; padding-block: var(--space-2xs);
+  }
+  :where(m-breadcrumb-overflow) { display: block; min-inline-size: 0; }
+  :where(nav[data-breadcrumbs] details) { position: relative; margin: 0; border: 0; padding: 0; flex: none; }
+  :where(nav[data-breadcrumbs] summary) {
+    display: grid; place-items: center;
+    inline-size: var(--breadcrumb-menu-target); min-block-size: var(--breadcrumb-menu-target);
+    padding: 0; list-style: none; font-size: var(--breadcrumb-overflow-font-size);
+    font-weight: var(--breadcrumb-current-weight); border-radius: var(--radius-md);
+    color: var(--color-text-muted); cursor: pointer;
+  }
+  :where(nav[data-breadcrumbs] summary)::-webkit-details-marker { display: none; }
+  :where(nav[data-breadcrumbs] summary)::after { display: none; }
+  :where(nav[data-breadcrumbs] summary):hover,
+  :where(nav[data-breadcrumbs] details)[open] > :where(summary) {
+    background: var(--color-surface-raised); color: var(--color-text); text-decoration: none;
+  }
+  :where(nav[data-breadcrumbs] details)::details-content { transition: none; overflow: visible; }
+  :where(nav[data-breadcrumbs] [data-breadcrumb-menu]) {
+    position: absolute; inset-block-start: 100%; inset-inline-start: 0;
+    inline-size: var(--breadcrumb-menu-width); max-inline-size: calc(100vw - var(--space-2xl));
+    max-block-size: var(--m-breadcrumb-height, none); overflow: auto;
+    z-index: var(--breadcrumb-menu-z); display: flex; flex-direction: column;
+    align-items: stretch; flex-wrap: nowrap; gap: 0;
+    margin: var(--space-2xs) 0 0; padding: var(--space-xs);
+    border: 1px solid var(--color-border); border-radius: var(--radius-md);
+    background: var(--color-surface-overlay);
+  }
+  :where(m-breadcrumb-overflow[data-m-breadcrumb-ready] [data-breadcrumb-menu]) {
+    position: fixed; inset: auto; left: var(--m-breadcrumb-left); top: var(--m-breadcrumb-top);
+  }
+  :where(nav[data-breadcrumbs] [data-breadcrumb-menu] li) { display: block; max-inline-size: none; flex: none; }
+  :where(nav[data-breadcrumbs] [data-breadcrumb-menu] a) {
+    display: block; padding: var(--space-xs); min-block-size: var(--breadcrumb-menu-target);
+  }
+  :where(nav[data-breadcrumbs] [data-breadcrumb-menu] a):hover { background: var(--color-surface-raised); text-decoration: none; }
+
   /* Bottom navigation is ordinary site navigation, not a tab widget.
      Place it in the last row of an app shell; no fixed positioning or
      breakpoint is imposed. For emphasis without fill, override

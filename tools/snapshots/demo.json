@@ -87,6 +87,21 @@
    "box": {
     "padding-top": "16px"
    },
+   "breadcrumbs.current": {
+    "color": "oklch(0.96 0 263)",
+    "font-weight": "500"
+   },
+   "breadcrumbs.link": {
+    "color": "oklch(0.71 0 263)",
+    "font-size": "13px",
+    "text-decoration-line": "none"
+   },
+   "breadcrumbs.list": {
+    "column-gap": "8px",
+    "display": "flex",
+    "flex-wrap": "wrap",
+    "row-gap": "4px"
+   },
    "button": {
     "background-color": "oklch(0.17 0 263)",
     "border-radius": "0px",
@@ -845,6 +860,21 @@
    },
    "box": {
     "padding-top": "16px"
+   },
+   "breadcrumbs.current": {
+    "color": "oklch(0.18 0 263)",
+    "font-weight": "500"
+   },
+   "breadcrumbs.link": {
+    "color": "oklch(0.44 0 263)",
+    "font-size": "13px",
+    "text-decoration-line": "none"
+   },
+   "breadcrumbs.list": {
+    "column-gap": "8px",
+    "display": "flex",
+    "flex-wrap": "wrap",
+    "row-gap": "4px"
    },
    "button": {
     "background-color": "oklch(0.973 0 263)",

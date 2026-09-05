@@ -228,6 +228,14 @@
     },
     {
       "group": "Navigation",
+      "slug": "breadcrumbs",
+      "title": "breadcrumbs",
+      "level": "native",
+      "lead": "A quiet trail through the page hierarchy. Natural wrapping and an optional ancestor disclosure preserve every destination.",
+      "scripts": ["breadcrumbs.js"]
+    },
+    {
+      "group": "Navigation",
       "slug": "bottom-navigation",
       "title": "bottom navigation",
       "level": "native",

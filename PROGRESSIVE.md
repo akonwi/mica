@@ -75,6 +75,9 @@ enhancement module is its own opt-in import. There is no shared runtime.
 
 The list must stay embarrassingly short:
 
+- **Breadcrumb overflow** (`breadcrumbs.js`) — optional placement, Escape,
+  outside-click, and focus-out dismissal for an authored native disclosure.
+  The full breadcrumb trail needs no module.
 - **Sidebar layout** (`sidebar.js`) — optional desktop icon collapse and a
   native mobile modal. Moves the same authored panel; manages focus and
   responsive state. Without it, the navigation remains visible.

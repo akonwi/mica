@@ -4,6 +4,11 @@
 
 ### Added
 
+- Breadcrumbs: native `nav[data-breadcrumbs]` with decorative separators,
+  plain current-page emphasis, and natural wrapping. Optional
+  `m-breadcrumb-overflow` / `breadcrumbs.js` enhances an authored ancestor
+  disclosure with placement and dismissal. Includes docs and browser checks.
+
 - Bottom navigation: native `nav[data-bottom-nav]` with equal-width links,
   quiet active fill, optional authored icons, compact text-only sizing,
   and safe-area padding. Includes an app-shell recipe and browser checks.

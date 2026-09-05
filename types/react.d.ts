@@ -53,6 +53,7 @@ declare module 'react' {
       'm-segmented': MicaElement
       'm-sidebar': MicaElement
       'm-sidebar-layout': MicaElement<{ variant?: 'docked' | 'inset'; collapse?: 'icon' }>
+      'm-breadcrumb-overflow': MicaElement
       'm-header': MicaElement<{ align?: 'start' | 'end' }>
       'm-stepper': MicaElement
       'm-tabs': MicaElement<{ variant?: 'underline' }>

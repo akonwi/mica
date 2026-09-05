@@ -107,3 +107,7 @@ Bottom navigation uses `nav[data-bottom-nav]` and native links, with optional
 consumer-authored icons. No JavaScript module is needed. See the
 [bottom navigation docs](https://akonwi.io/mica/docs/bottom-navigation.html)
 for a shell that keeps content clear of the bar.
+
+Breadcrumbs use `nav[data-breadcrumbs]` with an ordered list of links and a
+current-page label. Optional `breadcrumbs.js` enhances an authored ancestor
+disclosure. See [the breadcrumbs docs](https://akonwi.io/mica/docs/breadcrumbs.html).

@@ -1,0 +1,60 @@
+<section><m-vstack gap="md"><h2>Example</h2>
+<nav data-breadcrumbs aria-label="Breadcrumb example"><ol role="list"><li><a href="../index.html">mica</a></li><li><a href="header.html">Navigation</a></li><li><span aria-current="page">Breadcrumbs</span></li></ol></nav>
+<p>Quiet ancestor links and a plain current-page label. Long trails wrap naturally; separators stay attached to the following crumb.</p>
+<iframe title="Breadcrumbs interactive example" src="../examples/breadcrumbs.html" style="inline-size:100%;block-size:48rem;border:1px solid var(--color-border)"></iframe>
+<p><a href="../examples/breadcrumbs.html">Open the full example</a> for narrow-width, dark-theme, and RTL controls.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Usage</h2>
+<pre tabindex="0" aria-label="Breadcrumb markup"><code>&lt;nav data-breadcrumbs aria-label="Breadcrumb"&gt;
+  &lt;ol role="list"&gt;
+    &lt;li&gt;&lt;a href="/projects"&gt;Projects&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span aria-current="page"&gt;Website refresh&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+<p>Use a native navigation landmark, ordered list, and real links. The current page can be a <code>span</code> or an <code>a</code> with <code>aria-current="page"</code>. The explicit list role preserves list semantics when list markers are removed in Safari. Separators are decorative CSS borders with no spoken text.</p>
+<p>No JavaScript is needed for the full trail. Mica does not generate hierarchy, infer routes, truncate labels, or hide ancestors automatically.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Collapsed ancestors</h2>
+<p>For a deep hierarchy, author the earlier ancestors inside a disclosure at the beginning of the list. Keep the immediate parent and current page visible. The native disclosure still opens and closes without JavaScript.</p>
+<pre tabindex="0" aria-label="Ancestor disclosure markup"><code>&lt;script type="module" src="breadcrumbs.js"&gt;&lt;/script&gt;
+&lt;nav data-breadcrumbs aria-label="Breadcrumb"&gt;
+  &lt;ol role="list"&gt;
+    &lt;li&gt;
+      &lt;m-breadcrumb-overflow&gt;
+        &lt;details&gt;
+          &lt;summary aria-label="Show ancestor pages"&gt;…&lt;/summary&gt;
+          &lt;ol data-breadcrumb-menu role="list"&gt;
+            &lt;li&gt;&lt;a href="/"&gt;Workspace&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/team"&gt;Design team&lt;/a&gt;&lt;/li&gt;
+          &lt;/ol&gt;
+        &lt;/details&gt;
+      &lt;/m-breadcrumb-overflow&gt;
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href="/projects"&gt;Projects&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span aria-current="page"&gt;Website refresh&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+<p>The optional module enhances each <code>m-breadcrumb-overflow</code> instance. It positions the panel within the viewport and flips above when needed, adds Escape with summary focus restoration, and closes on outside click, focus leaving, or an unprevented link activation. Modified link clicks retain browser behavior.</p>
+<p>Tab and Shift+Tab use native focus order. These are navigation links, not an ARIA menu widget. The module generates no content and does not change routes.</p>
+<p>Without the module, the panel opens beneath its summary using CSS positioning. It does not automatically clamp to viewport edges or dismiss on Escape/outside click. Place the disclosure first and avoid clipping ancestors. Enhanced panels use fixed positioning, not the top layer; transformed ancestors can change their containing block.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>API</h2>
+<table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>data-breadcrumbs</code></td><td>Native <code>nav</code> with a direct <code>ol</code></td><td>Direct list items contain ancestor links or the current-page label.</td></tr>
+<tr><td><code>m-breadcrumb-overflow</code></td><td>Optional child of a list item</td><td>One direct <code>details</code>, with <code>summary</code> first and the ancestor list after it.</td></tr>
+<tr><td><code>data-breadcrumb-menu</code></td><td>Direct <code>ol</code> inside the disclosure</td><td>Native list items and links. Supply a descriptive summary label.</td></tr>
+</tbody></table>
+<table class="api-table"><thead><tr><th>Token</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>--breadcrumb-font-size</code></td><td>.8125rem</td><td>Trail and ancestor link size.</td></tr>
+<tr><td><code>--breadcrumb-gap</code></td><td><code>--space-xs</code></td><td>Horizontal spacing.</td></tr>
+<tr><td><code>--breadcrumb-row-gap</code></td><td><code>--space-2xs</code></td><td>Space between wrapped rows.</td></tr>
+<tr><td><code>--breadcrumb-current-weight</code></td><td>500</td><td>Current-page and disclosure-trigger emphasis.</td></tr>
+<tr><td><code>--breadcrumb-separator-size</code></td><td>.3rem</td><td>Decorative chevron size.</td></tr>
+<tr><td><code>--breadcrumb-separator-color</code></td><td><code>--color-text-muted</code></td><td>Decorative chevron color.</td></tr>
+<tr><td><code>--breadcrumb-menu-width</code></td><td>14rem</td><td>Preferred ancestor panel width, capped to the viewport.</td></tr>
+<tr><td><code>--breadcrumb-overflow-font-size</code></td><td>1rem</td><td>Ancestor disclosure trigger text size.</td></tr>
+<tr><td><code>--breadcrumb-menu-target</code></td><td>2.25rem</td><td>Disclosure width and minimum height; ancestor link minimum height.</td></tr>
+<tr><td><code>--breadcrumb-menu-z</code></td><td>5</td><td>Enhanced and native panel stacking level.</td></tr>
+</tbody></table>
+<p>Shared color and radius tokens apply throughout. Internal <code>data-m-*</code> state and <code>--m-*</code> placement values belong to the enhancement.</p>
+</m-vstack></section>

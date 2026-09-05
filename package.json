@@ -63,6 +63,10 @@
     "./sidebar.js": {
       "types": "./sidebar.d.ts",
       "default": "./sidebar.js"
+    },
+    "./breadcrumbs.js": {
+      "types": "./breadcrumbs.d.ts",
+      "default": "./breadcrumbs.js"
     }
   },
   "files": [
@@ -88,7 +92,9 @@
     "header.js",
     "header.d.ts",
     "sidebar.js",
-    "sidebar.d.ts"
+    "sidebar.d.ts",
+    "breadcrumbs.js",
+    "breadcrumbs.d.ts"
   ],
   "sideEffects": true,
   "devDependencies": {
@@ -109,6 +115,7 @@
     "header:check": "bun tools/header-check.ts",
     "sidebar:check": "bun tools/sidebar-check.ts",
     "navigation-menu:check": "bun tools/navigation-menu-check.ts",
-    "bottom-navigation:check": "bun tools/bottom-navigation-check.ts"
+    "bottom-navigation:check": "bun tools/bottom-navigation-check.ts",
+    "breadcrumbs:check": "bun tools/breadcrumbs-check.ts"
   }
 }
