@@ -4,6 +4,10 @@
 
 ### Added
 
+- Bottom navigation: native `nav[data-bottom-nav]` with equal-width links,
+  quiet active fill, optional authored icons, compact text-only sizing,
+  and safe-area padding. Includes an app-shell recipe and browser checks.
+
 - Nested header navigation: `nav[data-navigation-menu]` composes native
   disclosures and authored `[data-nav-panel]` link panels. `header.js` adds
   floating placement and dismissal; mobile groups expand in the Menu panel.

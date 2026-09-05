@@ -102,3 +102,8 @@ Nested header navigation uses `nav[data-navigation-menu]` with native
 `details`/`summary` groups and authored `[data-nav-panel]` content. Import
 `header.js` for floating desktop panels and inline mobile disclosures. See
 [the navigation menu docs](https://akonwi.io/mica/docs/navigation-menu.html).
+
+Bottom navigation uses `nav[data-bottom-nav]` and native links, with optional
+consumer-authored icons. No JavaScript module is needed. See the
+[bottom navigation docs](https://akonwi.io/mica/docs/bottom-navigation.html)
+for a shell that keeps content clear of the bar.

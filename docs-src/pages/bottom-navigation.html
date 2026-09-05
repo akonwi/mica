@@ -1,0 +1,80 @@
+<section><m-vstack gap="md"><h2>Example</h2>
+<p>Persistent destinations below a scrolling page. The icons and unread badge belong to this example; Mica does not supply an icon set.</p>
+<m-hstack wrap gap="md"><label><input type="checkbox" id="bottom-text"> Text only</label><label><input type="checkbox" id="bottom-small"> 320px preview</label><label><input type="checkbox" id="bottom-disabled"> Disable Settings</label></m-hstack>
+<iframe id="bottom-preview" title="Bottom navigation app example" src="../examples/bottom-navigation.html" style="inline-size:100%;max-inline-size:390px;block-size:640px;border:1px solid var(--color-border)"></iframe>
+<p><a href="../examples/bottom-navigation.html">Open the full viewport example</a></p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Usage</h2>
+<p>Use a named native <code>nav</code> with direct links. Mark the current destination with <code>aria-current="page"</code>. No script or custom element registration is needed.</p>
+<pre tabindex="0" aria-label="Bottom navigation markup"><code>&lt;nav data-bottom-nav aria-label="Primary"&gt;
+  &lt;a href="/home"&gt;Home&lt;/a&gt;
+  &lt;a href="/projects" aria-current="page"&gt;Projects&lt;/a&gt;
+  &lt;a href="/inbox"&gt;Inbox&lt;/a&gt;
+  &lt;a href="/settings"&gt;Settings&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+<p>Links receive equal width. Text-only navigation uses a compact target height; adding <code>data-bottom-icon</code> opts the whole bar into taller icon-and-label sizing. Keep labels short and visible.</p>
+<h3>Optional icons and badges</h3>
+<pre tabindex="0" aria-label="Bottom navigation icon markup"><code>&lt;a href="/inbox" aria-label="Inbox, 3 unread"&gt;
+  &lt;svg data-bottom-icon aria-hidden="true" viewBox="0 0 24 24"&gt;
+    &lt;!-- Your icon paths --&gt;
+  &lt;/svg&gt;
+  &lt;span&gt;Inbox &lt;span aria-hidden="true"&gt;3&lt;/span&gt;&lt;/span&gt;
+&lt;/a&gt;</code></pre>
+<p><code>data-bottom-icon</code> only sizes your icon. It does not inject artwork. Badge layout is authored content; include its meaning in the link’s accessible name. Use a consistent icon treatment across the bar.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Keeping the bar at the bottom</h2>
+<p>The component stays in normal flow. Give it the last row of a viewport-height shell, with a scrolling main region. This reserves its actual height, including safe-area padding and wrapped labels.</p>
+<pre tabindex="0" aria-label="Bottom navigation app shell"><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;
+&lt;div class="app"&gt;
+  &lt;header&gt;…&lt;/header&gt;
+  &lt;main&gt;…&lt;/main&gt;
+  &lt;nav data-bottom-nav aria-label="Primary"&gt;…&lt;/nav&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.app {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  block-size: 100svh;
+  block-size: 100dvh;
+}
+.app &gt; main {
+  min-block-size: 0;
+  overflow: auto;
+}
+&lt;/style&gt;</code></pre>
+<p>Mica adds bottom and side safe-area padding. The app chooses its responsive breakpoint and whether a header or sidebar replaces this navigation on larger screens. The bar does not hide itself, fix itself to the viewport, or manage the software keyboard.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>States and behavior</h2>
+<ul><li>Current destination: <code>aria-current="page"</code> gives a quiet background, stronger text, and no link border.</li><li>Unavailable destination: remove <code>href</code> and add <code>aria-disabled="true"</code>. The attribute alone does not stop a native link from navigating.</li><li>Keyboard: normal Tab/Shift+Tab and Enter, with the shared focus ring. These are navigation links, not tabs; do not add tab roles or arrow-key behavior.</li><li>Navigation and focus after a route change belong to the browser or your router. The example’s script demonstrates routing and is not part of the library.</li></ul>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>API and tokens</h2>
+<table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>data-bottom-nav</code></td><td>On a native <code>nav</code></td><td>Direct children are native links. Supply a navigation label.</td></tr>
+<tr><td><code>data-bottom-icon</code></td><td>Optional, inside a link</td><td>Sizes an authored icon and selects icon-and-label spacing for the bar.</td></tr>
+</tbody></table>
+<table class="api-table"><thead><tr><th>Token</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>--bottom-nav-pad</code></td><td><code>--space-xs</code></td><td>Bar padding, increased to accommodate safe areas.</td></tr>
+<tr><td><code>--bottom-nav-gap</code></td><td><code>--space-2xs</code></td><td>Gap between links and between icon and label.</td></tr>
+<tr><td><code>--bottom-nav-target-height</code></td><td>3.5rem / 2.75rem</td><td>Minimum link height with icons / text only.</td></tr>
+<tr><td><code>--bottom-nav-font-size</code></td><td>.75rem / .8125rem</td><td>Label size with icons / text only.</td></tr>
+<tr><td><code>--bottom-nav-font-weight</code></td><td>500</td><td>Default label weight.</td></tr>
+<tr><td><code>--bottom-nav-active-weight</code></td><td>650</td><td>Current destination weight.</td></tr>
+<tr><td><code>--bottom-nav-icon-size</code></td><td>1.125rem</td><td>Authored icon width and height.</td></tr>
+<tr><td><code>--bottom-nav-active-background</code></td><td><code>--color-surface-raised</code></td><td>Current destination fill. Set to <code>transparent</code> for emphasis without fill.</td></tr>
+</tbody></table>
+<p>Colors and radius follow Mica’s semantic tokens. Custom properties set on the nav override the defaults, including automatic text-only sizing.</p>
+</m-vstack></section>
+<script>
+(() => {
+  const frame = document.querySelector('#bottom-preview');
+  const media = matchMedia('(prefers-color-scheme: dark)');
+  function update() {
+    frame.style.maxInlineSize = document.querySelector('#bottom-small').checked ? '320px' : '390px';
+    frame.contentWindow.postMessage({type:'bottom-preview', text:document.querySelector('#bottom-text').checked, disabled:document.querySelector('#bottom-disabled').checked, scheme:media.matches?'dark':'light'}, location.origin);
+  }
+  frame.addEventListener('load', update);
+  for (const id of ['bottom-text','bottom-small','bottom-disabled']) document.getElementById(id).addEventListener('change', update);
+  media.addEventListener('change', update);
+})();
+</script>

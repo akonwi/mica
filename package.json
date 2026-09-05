@@ -108,6 +108,7 @@
     "snapshot:setup": "playwright install chromium webkit",
     "header:check": "bun tools/header-check.ts",
     "sidebar:check": "bun tools/sidebar-check.ts",
-    "navigation-menu:check": "bun tools/navigation-menu-check.ts"
+    "navigation-menu:check": "bun tools/navigation-menu-check.ts",
+    "bottom-navigation:check": "bun tools/bottom-navigation-check.ts"
   }
 }

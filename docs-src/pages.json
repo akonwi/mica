@@ -228,6 +228,13 @@
     },
     {
       "group": "Navigation",
+      "slug": "bottom-navigation",
+      "title": "bottom navigation",
+      "level": "native",
+      "lead": "Persistent destinations with visible labels, optional authored icons, and a quiet active fill. Native links; no enhancement module."
+    },
+    {
+      "group": "Navigation",
       "slug": "sidebar",
       "title": "sidebar",
       "level": "native",

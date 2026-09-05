@@ -54,7 +54,8 @@ Lives here:
   checkbox, radio, switch (restyled checkbox), range, progress, meter
 - **Select** — `appearance: base-select` where available, graceful native
   select elsewhere
-- **Nav patterns, tables, lists, typography**
+- **Nav patterns, tables, lists, typography** — bottom navigation is native
+  links in `nav[data-bottom-nav]`; CSS adds equal sizing and current-page fill.
 - Sneaky wins people assume need JS: validation styling (`:user-invalid`,
   `:has()`), segmented controls (restyled radio group)
 

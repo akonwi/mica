@@ -2187,6 +2187,68 @@
     border-radius: 0; background: transparent; overflow: visible;
   }
 
+  /* Bottom navigation is ordinary site navigation, not a tab widget.
+     Place it in the last row of an app shell; no fixed positioning or
+     breakpoint is imposed. For emphasis without fill, override
+     --bottom-nav-active-background: transparent on the nav. */
+  :where(nav[data-bottom-nav]) {
+    --bottom-nav-pad: var(--space-xs);
+    --bottom-nav-gap: var(--space-2xs);
+    --bottom-nav-target-height: 3.5rem;
+    --bottom-nav-font-size: .75rem;
+    --bottom-nav-font-weight: 500;
+    --bottom-nav-active-weight: 650;
+    --bottom-nav-icon-size: 1.125rem;
+    --bottom-nav-active-background: var(--color-surface-raised);
+    display: flex;
+    gap: var(--bottom-nav-gap);
+    padding: var(--bottom-nav-pad);
+    padding-block-end: max(var(--bottom-nav-pad), env(safe-area-inset-bottom));
+    /* Safe-area insets are physical, even in an RTL document. */
+    padding-left: max(var(--bottom-nav-pad), env(safe-area-inset-left));
+    padding-right: max(var(--bottom-nav-pad), env(safe-area-inset-right));
+    border-block-start: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+  :where(nav[data-bottom-nav]:not(:has([data-bottom-icon]))) {
+    --bottom-nav-target-height: 2.75rem;
+    --bottom-nav-font-size: .8125rem;
+  }
+  :where(nav[data-bottom-nav] > a) {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--bottom-nav-gap);
+    min-inline-size: 0;
+    min-block-size: var(--bottom-nav-target-height);
+    padding: var(--space-xs) var(--space-2xs);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    font-size: var(--bottom-nav-font-size);
+    font-weight: var(--bottom-nav-font-weight);
+    line-height: 1.25;
+    text-align: center;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  :where(nav[data-bottom-nav] > a):hover:not([aria-disabled="true"]) {
+    background: var(--color-surface-raised);
+    color: var(--color-text);
+  }
+  :where(nav[data-bottom-nav] > a)[aria-current="page"] {
+    background: var(--bottom-nav-active-background);
+    color: var(--color-text);
+    font-weight: var(--bottom-nav-active-weight);
+  }
+  :where(nav[data-bottom-nav] > a)[aria-disabled="true"] { opacity: .45; cursor: default; }
+  :where(nav[data-bottom-nav] [data-bottom-icon]) {
+    inline-size: var(--bottom-nav-icon-size);
+    block-size: var(--bottom-nav-icon-size);
+    flex: none;
+  }
+
   /* --- sidebar: authored navigation, optional sidebar.js shell behavior --- */
   :where(m-sidebar-layout) {
     --sidebar-width: 15.5rem;
