@@ -2011,6 +2011,104 @@
     display: block;
   }
 
+  /* --- header navigation: native links + optional header.js collapse --- */
+  :where(m-header) {
+    container: m-header / inline-size;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--header-gap, var(--space-md));
+    padding: var(--header-pad, var(--space-sm)) var(--header-gutter, var(--space-md));
+    border-block-end: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+  :where(m-header > [data-brand]) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    min-block-size: var(--control-height);
+    color: var(--color-text);
+    font-weight: var(--header-strong-weight, 650);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  :where(m-header > nav) {
+    display: flex;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
+    min-inline-size: 0;
+    justify-content: var(--header-nav-align, start);
+  }
+  :where(m-header[align="end"]) { --header-nav-align: end; }
+  :where(m-header > nav > a) {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--control-height);
+    padding: var(--space-2xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    font-size: var(--header-font-size, .875rem);
+    font-weight: var(--header-font-weight, 500);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  :where(m-header > nav > a):hover:not([aria-disabled="true"]) { background: var(--color-surface-raised); color: var(--color-text); }
+  :where(m-header > nav > a)[aria-current="page"]{ background: var(--color-surface-raised); color: var(--color-text); font-weight: var(--header-strong-weight, 650); }
+  :where(m-header > nav > a)[aria-disabled="true"]{ color: var(--color-text-muted); opacity: .5; }
+  :where(m-header > [data-actions]) { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs); margin-inline-start: auto; }
+  /* A small enhancement switches the same nav between inline and native
+     popover. Without script, all links stay visible in the wrapping header. */
+  :where(m-header > [data-menu]) { display: none; }
+  :where(m-header > nav > [data-compact]) { display: none; }
+  :where(m-header[data-m-header-collapsed]) { flex-wrap: nowrap; }
+  :where(m-header[data-m-header-collapsed] > [data-brand]) { min-inline-size: 0; }
+  :where(m-header[data-m-header-collapsed] > [data-actions]) { display: none; }
+  :where(m-header[data-m-header-collapsed] > [data-menu]) { display: inline-flex; margin-inline-start: auto; flex: none; }
+  :where(m-header > nav[popover]):not(:popover-open) { display: none; }
+  :where(m-header > nav[popover]):popover-open{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: start;
+    align-items: stretch;
+    gap: var(--space-2xs);
+    position: fixed;
+    position-area: none;
+    max-inline-size: none;
+    scale: 1;
+    inset: auto;
+    top: var(--m-header-menu-top);
+    left: var(--m-header-menu-left);
+    width: var(--m-header-menu-width);
+    max-block-size: var(--m-header-menu-height);
+    overflow-y: auto;
+    margin: 0;
+    padding: var(--space-xs);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-overlay);
+    color: var(--color-text);
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+  :where(m-header > nav[popover] > a) { min-block-size: var(--header-target-height, 2.75rem); flex-shrink: 0; }
+  :where(m-header > nav[popover] > [data-compact]) { display: inline-flex; }
+  :where(m-header > nav[popover] > :not([data-compact]) + [data-compact]) { border-block-start: 1px solid var(--color-border); }
+  :where(m-header > [data-menu] svg) { inline-size: 1rem; block-size: 1rem; }
+
+
+  :where(m-header > [data-menu]) { --m-header-collapse: 0; }
+  @container m-header (inline-size < 40rem) {
+    :where(m-header > [data-menu]) { --m-header-collapse: 1; }
+  }
+
+
   /* --- visually hidden: off-screen, still announced ------------------ *
    *
    * The one utility mica ships, and an accessibility primitive rather

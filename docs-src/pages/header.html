@@ -1,0 +1,103 @@
+<section><m-vstack gap="md"><h2>Example</h2>
+<div style="border: 1px solid var(--color-border); "><m-header>
+  <a data-brand href="../index.html">mica</a>
+  <nav id="header-wide" aria-label="Header example">
+    <a href="../index.html">Overview</a>
+    <a href="button.html">Components</a>
+    <a href="header.html" aria-current="page">Navigation</a>
+    <a data-compact href="#usage">Get started</a>
+  </nav>
+  <div data-actions><a class="btn" data-variant="primary" href="#usage">Get started</a></div>
+  <button type="button" data-menu popovertarget="header-wide">Menu</button>
+</m-header>
+<m-box><p>Ordinary links, one quiet header. Try Menu when the container is narrow.</p></m-box></div>
+</m-vstack></section>
+
+<section><m-vstack gap="md"><h2>Right-aligned links</h2>
+<div style="border: 1px solid var(--color-border); "><m-header align="end">
+  <a data-brand href="../index.html">mica</a>
+  <nav id="header-end" aria-label="Right-aligned example">
+    <a href="../index.html">Overview</a>
+    <a href="button.html">Components</a>
+    <a href="header.html" aria-current="page">Navigation</a>
+    <a data-compact href="#usage">Get started</a>
+  </nav>
+  <div data-actions><a class="btn" data-variant="primary" href="#usage">Get started</a></div>
+  <button type="button" data-menu popovertarget="header-end">Menu</button>
+</m-header>
+<m-box><p>Ordinary links, one quiet header. Try Menu when the container is narrow.</p></m-box></div>
+</m-vstack></section>
+
+<section><m-vstack gap="md"><h2>Narrow container</h2>
+<div style="border: 1px solid var(--color-border); max-inline-size: 23.4375rem;"><m-header>
+  <a data-brand href="../index.html">mica</a>
+  <nav id="header-narrow" aria-label="Narrow example">
+    <a href="../index.html">Overview</a>
+    <a href="button.html">Components</a>
+    <a href="header.html" aria-current="page">Navigation</a>
+    <a data-compact href="#usage">Get started</a>
+  </nav>
+  <div data-actions><a class="btn" data-variant="primary" href="#usage">Get started</a></div>
+  <button type="button" data-menu popovertarget="header-narrow">Menu</button>
+</m-header>
+<m-box><p>Ordinary links, one quiet header. Try Menu when the container is narrow.</p></m-box></div>
+</m-vstack></section>
+
+<section id="usage"><m-vstack gap="md">
+<h2>Basic usage</h2>
+<p>Use a native <code>header</code> around <code>m-header</code> for the page banner. The custom element supplies layout and styling. Import the optional module for responsive collapse.</p>
+<pre tabindex="0" aria-label="Header markup"><code>&lt;script type=&quot;module&quot; src=&quot;header.js&quot;&gt;&lt;/script&gt;
+&lt;header&gt;
+&lt;m-header align=&quot;end&quot;&gt;
+  &lt;a data-brand href=&quot;../index.html&quot;&gt;mica&lt;/a&gt;
+  &lt;nav id=&quot;primary-nav&quot; aria-label=&quot;Primary&quot;&gt;
+    &lt;a href=&quot;../index.html&quot;&gt;Overview&lt;/a&gt;
+    &lt;a href=&quot;button.html&quot;&gt;Components&lt;/a&gt;
+    &lt;a href=&quot;header.html&quot; aria-current=&quot;page&quot;&gt;Navigation&lt;/a&gt;
+    &lt;a data-compact href=&quot;#usage&quot;&gt;Get started&lt;/a&gt;
+  &lt;/nav&gt;
+  &lt;div data-actions&gt;&lt;a class=&quot;btn&quot; data-variant=&quot;primary&quot; href=&quot;#usage&quot;&gt;Get started&lt;/a&gt;&lt;/div&gt;
+  &lt;button type=&quot;button&quot; data-menu popovertarget=&quot;primary-nav&quot;&gt;Menu&lt;/button&gt;
+&lt;/m-header&gt;
+&lt;/header&gt;</code></pre>
+</m-vstack></section>
+
+<section id="api"><m-vstack gap="lg">
+<h2>API</h2>
+<div class="api-block"><h3>Content/markup contract</h3>
+<table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Description</th></tr></thead><tbody>
+<tr><td>Brand</td><td>Direct <code>a[data-brand]</code>, optional</td><td>Authored text, image, or logo. Supply an accessible name and a real destination.</td></tr>
+<tr><td>Navigation</td><td>One direct <code>nav</code> containing direct links</td><td>Give it a distinct accessible label. For collapse it needs an ID matching the Menu button's <code>popovertarget</code>.</td></tr>
+<tr><td>Actions</td><td>Direct <code>[data-actions]</code>, optional</td><td>Existing buttons or links, aligned at the end. Hidden when collapsed; author equivalent destinations in the nav with <code>data-compact</code> when they must remain available.</td></tr>
+<tr><td>Compact destination</td><td>Direct <code>nav &gt; a[data-compact]</code>, optional</td><td>Visible only in the collapsed panel. Use for secondary destinations represented by desktop actions. Each instance still needs its own unique IDs, if any.</td></tr>
+<tr><td>Menu trigger</td><td>Direct <code>button[data-menu][popovertarget]</code>, optional</td><td>Use <code>type="button"</code> and a visible Menu label. Hidden until enhancement activates collapse. Without a correctly connected trigger the nav stays inline.</td></tr>
+</tbody></table></div>
+<div class="api-block"><h3>Attributes and state</h3>
+<table class="api-table"><thead><tr><th>Name</th><th>Target</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>align="start | end"</code></td><td><code>m-header</code></td><td><code>start</code></td><td>Aligns desktop links within their flexible region. <code>end</code> means right in LTR and left in RTL. The compact panel starts at the top in both cases.</td></tr>
+<tr><td><code>aria-current="page"</code></td><td>Navigation link</td><td>—</td><td>Application-owned current destination, with neutral fill and stronger text. Navigation uses ordinary Tab and Enter behavior.</td></tr>
+<tr><td><code>aria-disabled="true"</code></td><td>Navigation link</td><td>—</td><td>Dimmed presentation only. Prefer omitting unavailable destinations. If shown, omit <code>href</code> and use <code>role="link"</code>; ARIA alone never prevents navigation.</td></tr>
+</tbody></table></div>
+<div class="api-block"><h3>Styling</h3>
+<table class="api-table"><thead><tr><th>Property</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>--header-pad</code></td><td><code>var(--space-sm)</code></td><td>Block padding.</td></tr>
+<tr><td><code>--header-gutter</code></td><td><code>var(--space-md)</code></td><td>Inline padding.</td></tr>
+<tr><td><code>--header-gap</code></td><td><code>var(--space-md)</code></td><td>Gap between brand, navigation, and actions.</td></tr>
+<tr><td><code>--header-nav-align</code></td><td><code>start</code></td><td>Desktop link alignment; <code>align="end"</code> sets this to <code>end</code>.</td></tr>
+<tr><td><code>--header-font-size</code></td><td><code>0.875rem</code></td><td>Link text size.</td></tr>
+<tr><td><code>--header-font-weight</code></td><td><code>500</code></td><td>Default link weight.</td></tr>
+<tr><td><code>--header-strong-weight</code></td><td><code>650</code></td><td>Brand and current-page weight.</td></tr>
+<tr><td><code>--header-target-height</code></td><td><code>2.75rem</code></td><td>Minimum link height in the compact panel.</td></tr>
+</tbody></table></div>
+</m-vstack></section>
+
+<section><m-vstack gap="md"><h2>Responsive enhancement</h2>
+<p><code>header.js</code> registers <code>m-header</code>. Below a container content width of <code>40rem</code>, it turns the same authored nav into an automatic native popover and exposes the Menu button. The desktop action group moves out of the tab order with its hidden presentation. The module does not create links, clone navigation, choose the current page, or handle routing.</p>
+<p>The panel aligns with the header, opens above when there is more room there, and scrolls internally if necessary. Escape and outside clicks dismiss it through the browser. Following a link also closes it; modified clicks retain normal new-tab behavior. On resize, focus moves out of any content being hidden to the Menu button, or from the disappearing Menu button to the first navigation link.</p>
+<p>Omit the import or the Menu trigger to keep a wrapping inline header. Without JavaScript or Popover support, primary navigation remains visible and native links still work. Keep the nav free of an authored <code>popover</code> attribute; the module manages it only while collapsed. No custom events are emitted.</p>
+</m-vstack></section>
+
+<section><m-vstack gap="md"><h2>Accessibility and composition</h2>
+<p>Use one page-level banner, a labeled <code>nav</code>, and real links. Do not use <code>role="menu"</code> or menu-item roles for site navigation. Preserve brand, navigation, actions, then Menu in DOM order. Compact links should cover the destinations hidden with desktop actions; complex forms or controls are better placed in a separately authored drawer.</p>
+<p>Keep the brand concise and use this pattern for a handful of destinations. For large navigation trees, compose a sidebar or drawer. Sticky positioning is consumer-owned: apply <code>position: sticky; inset-block-start: 0</code> to the native header with a suitable stacking level.</p>
+</m-vstack></section>

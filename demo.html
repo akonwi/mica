@@ -12,6 +12,7 @@
   <script type="module" src="select.js"></script>
   <script type="module" src="toast.js"></script>
   <script type="module" src="tabs.js"></script>
+  <script type="module" src="header.js"></script>
   <script type="module" src="combobox.js"></script>
   <style>
     /* Demo-only styles. Deliberately unlayered: user CSS always wins. */
@@ -767,7 +768,26 @@
         </m-box></m-vstack>
       </m-vstack>
     </section>
-
+<section id="header-demo"><m-vstack gap="md"><h2>Header navigation</h2><m-header align="end">
+  <a data-brand href="index.html">mica</a>
+  <nav id="demo-header-wide" aria-label="Header fallback example">
+    <a href="index.html">Overview</a>
+    <a href="docs/button.html">Components</a>
+    <a href="docs/header.html" aria-current="page">Navigation</a>
+    <a data-compact href="#header-demo">Get started</a>
+  </nav>
+  <div data-actions><a class="btn" data-variant="primary" href="#header-demo">Get started</a></div>
+</m-header><div style="max-inline-size: 23rem"><m-header>
+  <a data-brand href="index.html">mica</a>
+  <nav id="demo-header-nav" aria-label="Header compact example">
+    <a href="index.html">Overview</a>
+    <a href="docs/button.html">Components</a>
+    <a href="docs/header.html" aria-current="page">Navigation</a>
+    <a data-compact href="#header-demo">Get started</a>
+  </nav>
+  <div data-actions><a class="btn" data-variant="primary" href="#header-demo">Get started</a></div>
+  <button type="button" data-menu popovertarget="demo-header-nav">Menu</button>
+</m-header></div></m-vstack></section>
   </m-vstack>
   </main>
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Header navigation: `<m-header>` composes a brand, native links, and optional
+  actions. `align="end"` aligns desktop links toward the actions, including RTL.
+- Optional `header.js` collapses the same authored navigation into a native
+  popover below 40rem container width, with responsive focus handling and
+  viewport-aware placement. Without JavaScript, navigation stays visible.
+- Header reference examples, React types, snapshot probes, and browser checks
+  for keyboard dismissal, resize, reconnect, RTL, and no-JavaScript fallback.
+
 ## v0.10.0 — 2026-08-25
 
 This is an additive release. Existing markup and the default segmented tabs

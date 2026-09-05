@@ -1,5 +1,5 @@
 {
-  "groups": ["Start", "Layout", "Elements", "Forms", "Patterns"],
+  "groups": ["Start", "Layout", "Elements", "Forms", "Navigation", "Patterns"],
   "pages": [
     {
       "group": "Start",
@@ -209,6 +209,14 @@
       "level": "js",
       "lead": "Declarative per-cause errors below the field. No browser bubbles.",
       "scripts": ["field.js"]
+    },
+    {
+      "group": "Navigation",
+      "slug": "header",
+      "title": "header navigation",
+      "level": "native",
+      "lead": "A brand, ordinary navigation links, and optional actions. Add a small enhancement for a single-row mobile menu.",
+      "scripts": ["header.js"]
     },
     {
       "group": "Patterns",

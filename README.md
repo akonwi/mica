@@ -62,8 +62,9 @@ Every component states where its behavior comes from
   tooltips, toasts. Delete the stylesheet and everything still works.
 - **JS-enhanced — script, honestly.** Where accessibility genuinely requires
   JS: `tabs.js`, `combobox.js`, `field.js` (declarative validation),
-  `select.js`, `toast.js`. Each is a tiny standalone module that enhances
-  working markup — never renders it. There is no shared runtime.
+  `select.js`, `toast.js`, `header.js` (responsive navigation). Each is a tiny
+  standalone module that enhances working markup — never renders it. There
+  is no shared runtime.
 
 `m-avatar` accepts authored initials or a direct native `img`, both CSS-only.
 `avatar.js` is a separate opt-in visual enhancement: importing it locally

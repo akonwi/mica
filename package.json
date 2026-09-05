@@ -55,6 +55,10 @@
     },
     "./types/react": {
       "types": "./types/react.d.ts"
+    },
+    "./header.js": {
+      "types": "./header.d.ts",
+      "default": "./header.js"
     }
   },
   "files": [
@@ -76,7 +80,9 @@
     "combobox.js",
     "combobox.d.ts",
     "types/react.d.ts",
-    "THIRD_PARTY_LICENSES.md"
+    "THIRD_PARTY_LICENSES.md",
+    "header.js",
+    "header.d.ts"
   ],
   "sideEffects": true,
   "devDependencies": {
@@ -93,6 +99,7 @@
     "docs:serve": "bun run docs:build && bun tools/serve.ts",
     "snapshot": "bun tools/snapshot.ts",
     "snapshot:check": "bun tools/snapshot.ts --check",
-    "snapshot:setup": "playwright install chromium webkit"
+    "snapshot:setup": "playwright install chromium webkit",
+    "header:check": "bun tools/header-check.ts"
   }
 }

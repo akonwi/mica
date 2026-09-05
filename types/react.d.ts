@@ -51,6 +51,7 @@ declare module 'react' {
 
       // components
       'm-segmented': MicaElement
+      'm-header': MicaElement<{ align?: 'start' | 'end' }>
       'm-stepper': MicaElement
       'm-tabs': MicaElement<{ variant?: 'underline' }>
       'm-badge': MicaElement<{
