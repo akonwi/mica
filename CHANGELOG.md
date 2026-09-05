@@ -4,6 +4,15 @@
 
 ### Added
 
+- Sidebar navigation: `m-sidebar` and `m-sidebar-layout` support docked and
+  inset surfaces with grouped native links, nested disclosures, and a quiet
+  borderless active fill. Icons remain consumer-authored.
+- Optional `sidebar.js` enables explicitly requested icon rails and moves the
+  same panel into a flush native mobile dialog. Includes responsive focus,
+  close/toggle controls, public open/close/toggle methods, and no-JS fallback.
+- Sidebar docs, a standalone app example, module/React types, snapshot probes,
+  and browser coverage for both treatments, RTL, reconnects and fallback.
+
 - Header navigation: `<m-header>` composes a brand, native links, and optional
   actions. `align="end"` aligns desktop links toward the actions, including RTL.
 - Optional `header.js` collapses the same authored navigation into a native

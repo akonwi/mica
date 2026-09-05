@@ -74,6 +74,9 @@ enhancement module is its own opt-in import. There is no shared runtime.
 
 The list must stay embarrassingly short:
 
+- **Sidebar layout** (`sidebar.js`) — optional desktop icon collapse and a
+  native mobile modal. Moves the same authored panel; manages focus and
+  responsive state. Without it, the navigation remains visible.
 - **Header collapse** (`header.js`) — switches authored navigation between inline
   links and a native popover, manages responsive focus and panel placement.
   Without the module, header navigation remains visible and wraps.

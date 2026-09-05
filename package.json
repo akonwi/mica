@@ -59,6 +59,10 @@
     "./header.js": {
       "types": "./header.d.ts",
       "default": "./header.js"
+    },
+    "./sidebar.js": {
+      "types": "./sidebar.d.ts",
+      "default": "./sidebar.js"
     }
   },
   "files": [
@@ -82,7 +86,9 @@
     "types/react.d.ts",
     "THIRD_PARTY_LICENSES.md",
     "header.js",
-    "header.d.ts"
+    "header.d.ts",
+    "sidebar.js",
+    "sidebar.d.ts"
   ],
   "sideEffects": true,
   "devDependencies": {
@@ -100,6 +106,7 @@
     "snapshot": "bun tools/snapshot.ts",
     "snapshot:check": "bun tools/snapshot.ts --check",
     "snapshot:setup": "playwright install chromium webkit",
-    "header:check": "bun tools/header-check.ts"
+    "header:check": "bun tools/header-check.ts",
+    "sidebar:check": "bun tools/sidebar-check.ts"
   }
 }

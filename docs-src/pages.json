@@ -219,6 +219,14 @@
       "scripts": ["header.js"]
     },
     {
+      "group": "Navigation",
+      "slug": "sidebar",
+      "title": "sidebar",
+      "level": "native",
+      "lead": "Grouped navigation with docked and inset treatments. Optional icon collapse and a flush mobile dialog enhance authored markup.",
+      "scripts": ["sidebar.js"]
+    },
+    {
       "group": "Patterns",
       "slug": "stepper",
       "title": "stepper",

@@ -218,6 +218,24 @@
     "background-color": "oklch(0.14 0 263)",
     "border-top-color": "oklch(0.46 0 263)"
    },
+   "sidebar": {
+    "background-color": "oklch(0.17 0 263)",
+    "border-right-width": "1px",
+    "display": "flex",
+    "flex-direction": "column",
+    "padding-top": "8px"
+   },
+   "sidebar.active": {
+    "background-color": "oklch(0.14 0 263)",
+    "border-top-width": "0px",
+    "box-shadow": "none",
+    "color": "oklch(0.96 0 263)",
+    "font-weight": "600"
+   },
+   "sidebar.nav": {
+    "overflow-y": "auto",
+    "padding-top": "16px"
+   },
    "sidecar": {
     "column-gap": "16px",
     "display": "flex",
@@ -923,6 +941,24 @@
     "appearance": "base-select",
     "background-color": "oklch(1 0 263)",
     "border-top-color": "oklch(0.74 0 263)"
+   },
+   "sidebar": {
+    "background-color": "oklch(0.973 0 263)",
+    "border-right-width": "1px",
+    "display": "flex",
+    "flex-direction": "column",
+    "padding-top": "8px"
+   },
+   "sidebar.active": {
+    "background-color": "oklch(1 0 263)",
+    "border-top-width": "0px",
+    "box-shadow": "none",
+    "color": "oklch(0.18 0 263)",
+    "font-weight": "600"
+   },
+   "sidebar.nav": {
+    "overflow-y": "auto",
+    "padding-top": "16px"
    },
    "sidecar": {
     "column-gap": "16px",

@@ -1,0 +1,92 @@
+<section><m-vstack gap="md"><h2>Example</h2>
+<m-hstack gap="md" wrap>
+<fieldset><legend>Surface treatment</legend><m-segmented><label><input type="radio" name="sidebar-variant" value="docked" checked>Docked</label><label><input type="radio" name="sidebar-variant" value="inset">Inset</label></m-segmented></fieldset>
+<fieldset><legend>Preview width</legend><m-segmented><label><input type="radio" name="sidebar-size" value="desktop" checked>Desktop</label><label><input type="radio" name="sidebar-size" value="mobile">Mobile</label></m-segmented></fieldset>
+</m-hstack>
+<div style="display:flex;justify-content:center;background:var(--color-surface-raised);border:1px solid var(--color-border)"><iframe id="sidebar-example" title="Interactive sidebar example" src="../examples/sidebar.html" style="inline-size:100%;block-size:46rem;border:0;margin:0"></iframe></div>
+<p>Try the panel button, nested Projects links, workspace switcher, and account control. Desktop icon collapse is explicitly enabled in this example. On mobile, both treatments use the same flush panel with a compact close control. Icons are authored SVG examples, not a dependency or library requirement.</p>
+<p><a href="../examples/sidebar.html" target="_blank">Open docked example</a> · <a href="../examples/sidebar.html?variant=inset" target="_blank">Open inset example</a></p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Basic usage — no icons required</h2>
+<p>This text-only example stays expanded on desktop and becomes a modal panel on narrow containers. Keep the dialog empty and closed in the source: the enhancement moves the existing sidebar into it.</p>
+<pre tabindex="0" aria-label="Sidebar markup"><code>&lt;script type=&quot;module&quot; src=&quot;sidebar.js&quot;&gt;&lt;/script&gt;
+&lt;m-sidebar-layout variant=&quot;docked&quot;&gt;
+  &lt;m-sidebar id=&quot;app-sidebar&quot;&gt;
+    &lt;header role=&quot;presentation&quot;&gt;
+      &lt;a data-sidebar-item href=&quot;/&quot;&gt;Your app&lt;/a&gt;
+      &lt;button type=&quot;button&quot; data-sidebar-close aria-label=&quot;Close navigation&quot;&gt;×&lt;/button&gt;
+    &lt;/header&gt;
+    &lt;nav aria-label=&quot;Workspace&quot;&gt;
+      &lt;section&gt;
+        &lt;h2&gt;Workspace&lt;/h2&gt;
+        &lt;a data-sidebar-item href=&quot;/overview&quot; aria-current=&quot;page&quot;&gt;Overview&lt;/a&gt;
+        &lt;a data-sidebar-item href=&quot;/projects&quot;&gt;Projects&lt;/a&gt;
+      &lt;/section&gt;
+    &lt;/nav&gt;
+    &lt;footer role=&quot;presentation&quot;&gt;&lt;a data-sidebar-item href=&quot;/account&quot;&gt;Account&lt;/a&gt;&lt;/footer&gt;
+  &lt;/m-sidebar&gt;
+  &lt;div data-sidebar-main&gt;
+    &lt;header&gt;
+      &lt;button type=&quot;button&quot; data-sidebar-toggle
+              aria-controls=&quot;app-sidebar&quot; aria-label=&quot;Toggle navigation&quot;&gt;Navigation&lt;/button&gt;
+    &lt;/header&gt;
+    &lt;main&gt;…page content…&lt;/main&gt;
+  &lt;/div&gt;
+  &lt;dialog data-sidebar-dialog aria-label=&quot;Workspace navigation&quot;&gt;&lt;/dialog&gt;
+&lt;/m-sidebar-layout&gt;</code></pre>
+</m-vstack></section>
+<section><m-vstack gap="lg"><h2>API</h2>
+<div class="api-block"><h3>Layout attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>variant="docked | inset"</code></td><td><code>docked</code></td><td>On <code>m-sidebar-layout</code>. Docked separates panel and content with one edge. Inset puts a thin square frame around the content. Both become flush on mobile.</td></tr>
+<tr><td><code>collapse="icon"</code></td><td>omitted</td><td>Opt-in desktop icon rail. Without it, the desktop panel stays expanded and the trigger appears only on mobile. Requires labeled, authored icons on each top-level item; invalid anatomy falls back to expanded desktop navigation.</td></tr>
+<tr><td><code>aria-current="page"</code></td><td>—</td><td>Application-owned state on the current link. Stronger text and a quiet background, with no border or shadow.</td></tr>
+</tbody></table></div>
+<div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Description</th></tr></thead><tbody>
+<tr><td>Panel</td><td>Direct <code>m-sidebar</code>, first child</td><td>Unique ID. Contains optional header/footer and a named native nav. Header/footer stay fixed; navigation scrolls. The panel itself is inert unless used in an enhanced layout.</td></tr>
+<tr><td>Main surface</td><td>Direct <code>[data-sidebar-main]</code></td><td>Consumer-authored toolbar and main content. Scrolls independently inside the layout's height.</td></tr>
+<tr><td>Mobile dialog</td><td>Direct, empty <code>dialog[data-sidebar-dialog]</code></td><td>Give it an accessible name. The same authored panel is moved here on mobile, then restored on desktop. Do not replace the required children after enhancement.</td></tr>
+<tr><td>Toggle</td><td><code>button[data-sidebar-toggle]</code> in the main surface</td><td>Use <code>type="button"</code>, a stable accessible label, and <code>aria-controls</code> matching the panel ID. The module manages <code>aria-expanded</code>. Multiple matching toggles are supported.</td></tr>
+<tr><td>Close</td><td><code>button[data-sidebar-close]</code> in the panel header</td><td>Author the content and accessible name. Visible beside the workspace control only on mobile.</td></tr>
+<tr><td>Item</td><td><code>[data-sidebar-item]</code> on a native link, button, or summary</td><td>Shared spacing and presentation. Navigation remains ordinary links; controls retain native behavior.</td></tr>
+<tr><td>Group</td><td><code>nav &gt; section &gt; h2</code></td><td>Optional section label. Label each nav region to distinguish it from other navigation.</td></tr>
+<tr><td>Nested links</td><td><code>details &gt; summary[data-sidebar-item]</code> and <code>[data-sidebar-subnav]</code></td><td>Use a subnav wrapper after summary. Direct anchors get the nested style. Clicking a collapsed rail summary expands the panel and opens that details group.</td></tr>
+</tbody></table></div>
+<div class="api-block"><h3>Optional icon-rail anatomy</h3><table class="api-table"><thead><tr><th>Attribute</th><th>Target</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>data-sidebar-icon</code></td><td>Authored icon, image, or text mark</td><td>Only sizes and aligns the supplied content. Mica ships no sidebar icon set. Use <code>aria-hidden="true"</code> for decorative icons.</td></tr>
+<tr><td><code>data-sidebar-label</code></td><td>Item's text wrapper</td><td>Hidden in icon mode. Every top-level item must have its own <code>aria-label</code> or <code>aria-labelledby</code> and an icon marker to enable the rail. A title can supplement discoverability.</td></tr>
+<tr><td><code>data-sidebar-badge</code></td><td>Optional count or metadata</td><td>Aligned at the end; hidden in icon mode.</td></tr>
+<tr><td><code>data-sidebar-chevron</code></td><td>Optional authored disclosure indicator</td><td>Hidden in icon mode. A direct summary indicator rotates when its native details opens.</td></tr>
+</tbody></table></div>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Styling</h2>
+<p>Set these properties on <code>m-sidebar-layout</code>. Semantic surface, text, and border colors come from the normal mica theme.</p>
+<table class="api-table"><thead><tr><th>Property</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>--sidebar-width</code></td><td><code>15.5rem</code></td><td>Expanded desktop panel width.</td></tr>
+<tr><td><code>--sidebar-rail-width</code></td><td><code>3.75rem</code></td><td>Collapsed desktop width.</td></tr>
+<tr><td><code>--sidebar-mobile-width</code></td><td><code>18rem</code></td><td>Mobile dialog width, clamped to leave an outside-dismiss area.</td></tr>
+<tr><td><code>--sidebar-height</code></td><td><code>100svh</code></td><td>Layout height. Set a bounded height for an embedded workspace.</td></tr>
+<tr><td><code>--sidebar-pad</code></td><td><code>var(--space-xs)</code></td><td>Panel padding; mobile safe-area insets are respected.</td></tr>
+<tr><td><code>--sidebar-icon-size</code></td><td><code>1rem</code></td><td>Default icon box. Override individual authored icons for brands or avatars.</td></tr>
+<tr><td><code>--sidebar-font-size</code></td><td><code>0.875rem</code></td><td>Item text.</td></tr>
+<tr><td><code>--sidebar-group-size</code></td><td><code>0.6875rem</code></td><td>Group label text.</td></tr>
+<tr><td><code>--sidebar-subnav-size</code></td><td><code>0.8125rem</code></td><td>Nested link and metadata text.</td></tr>
+<tr><td><code>--sidebar-active-weight</code></td><td><code>600</code></td><td>Current-link text weight.</td></tr>
+<tr><td><code>--sidebar-close-size</code></td><td><code>2.75rem</code></td><td>Mobile close target.</td></tr>
+</tbody></table>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Enhancement and accessibility</h2>
+<p>Import <code>sidebar.js</code> to register <code>m-sidebar-layout</code>. The module enhances valid authored markup, adds no icons or links, and has no shared runtime. Below <code>44rem</code> layout width, it uses a native modal dialog for focus containment and Escape dismissal. Clicking outside or following an ordinary unprevented link also closes the panel. Modified clicks keep their normal behavior.</p>
+<p>The layout exposes <code>open()</code>, <code>close()</code>, and <code>toggle()</code>. On mobile they control the dialog; on desktop they expand/collapse the optional rail. Without icon collapse, desktop <code>close()</code> and <code>toggle()</code> leave the panel expanded. Client-side routers that prevent default link navigation can call <code>layout.close()</code> after routing. Mica does not choose the active page or emit custom navigation events.</p>
+<p>Without the import, the sidebar remains visible, native links and details work, and inert toggle/close buttons stay hidden. At narrow viewport widths the unenhanced layout stacks its sidebar above content. Missing required controls or dialog anatomy also leaves this fallback intact.</p>
+<p>Use a native page header for the banner. Panel header/footer are internal grouping: <code>role="presentation"</code> avoids duplicate page landmarks when they are not nested in a sectioning element. Do not add application-menu roles to navigation links. Keep popovers owned by sidebar controls inside <code>m-sidebar</code> so they move with it and remain usable inside the mobile modal.</p>
+</m-vstack></section>
+<script>
+const preview=document.querySelector('#sidebar-example');
+function updateSidebarExample(){
+ const variant=document.querySelector('[name=sidebar-variant]:checked').value;
+ preview.style.inlineSize=document.querySelector('[name=sidebar-size]:checked').value==='mobile'?'min(100%, 390px)':'100%';
+ preview.contentWindow.postMessage({type:'sidebar.preview',variant,scheme:matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'},location.origin);
+}
+document.querySelectorAll('[name=sidebar-variant],[name=sidebar-size]').forEach(e=>e.addEventListener('change',updateSidebarExample));
+preview.addEventListener('load',updateSidebarExample);
+</script>
