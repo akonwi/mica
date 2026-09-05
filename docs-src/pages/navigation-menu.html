@@ -1,0 +1,66 @@
+<section><m-vstack gap="md"><h2>Example</h2>
+<p>Open Product for a grouped panel or Resources for a compact dropdown. The example includes mobile width, right alignment, and theme controls.</p>
+<iframe title="Interactive navigation menu example" src="../examples/navigation-menu.html" style="inline-size:100%;block-size:54rem;border:1px solid var(--color-border)"></iframe>
+<p><a href="../examples/navigation-menu.html">Open the full example</a></p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Usage</h2>
+<p>Add <code>data-navigation-menu</code> to the header’s direct native <code>nav</code>. Mix ordinary links with native <code>details</code> groups. Import <code>header.js</code> for floating desktop panels and responsive collapse.</p>
+<pre tabindex="0" aria-label="Navigation menu markup"><code>&lt;script type="module" src="header.js"&gt;&lt;/script&gt;
+&lt;header&gt;
+  &lt;m-header align="end"&gt;
+    &lt;a data-brand href="/"&gt;Acme&lt;/a&gt;
+    &lt;nav id="primary" aria-label="Primary" data-navigation-menu&gt;
+      &lt;details&gt;
+        &lt;summary&gt;Product&lt;/summary&gt;
+        &lt;div data-nav-panel style="--nav-panel-width: 17rem"&gt;
+          &lt;a href="/projects" aria-current="page"&gt;
+            &lt;strong&gt;Projects&lt;/strong&gt;
+            &lt;small&gt;Keep every project moving.&lt;/small&gt;
+          &lt;/a&gt;
+          &lt;a href="/teams"&gt;Teams&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/details&gt;
+      &lt;a href="/pricing"&gt;Pricing&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;button type="button" data-menu popovertarget="primary"&gt;Menu&lt;/button&gt;
+  &lt;/m-header&gt;
+&lt;/header&gt;</code></pre>
+<p>The Menu button is optional. Without it the header stays expanded, while nested panels still enhance. The existing <code>align="end"</code>, brand, and action contracts apply unchanged.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Richer panels</h2>
+<p>Panel contents are your HTML: links, descriptions, headings, and layouts. A plain link works without a description. No icons are required or supplied. Use <code>aria-current="page"</code> on the actual destination.</p>
+<p>Compose a responsive <code>m-grid</code> inside a panel, or author a grid that becomes one column when the header collapses. For a native intrinsic grid, set <code>--min</code> to the minimum column width.</p>
+<pre tabindex="0" aria-label="Grouped panel markup"><code>&lt;div data-nav-panel&gt;
+  &lt;m-grid style="--min: 14rem"&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Workspace&lt;/h2&gt;
+      &lt;a href="/projects"&gt;&lt;strong&gt;Projects&lt;/strong&gt;&lt;small&gt;Track your work.&lt;/small&gt;&lt;/a&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Organization&lt;/h2&gt;
+      &lt;a href="/teams"&gt;&lt;strong&gt;Teams&lt;/strong&gt;&lt;small&gt;Work together.&lt;/small&gt;&lt;/a&gt;
+    &lt;/section&gt;
+  &lt;/m-grid&gt;
+&lt;/div&gt;</code></pre>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Behavior and accessibility</h2>
+<ul><li>Click, touch, Enter, or Space toggles a native disclosure. Enhancement keeps one top-level group open.</li><li>Tab and Shift+Tab follow normal link order. Escape closes a group and focuses its summary. A second Escape closes the mobile Menu.</li><li>Clicking outside, moving focus outside the navigation, or following an unprevented link closes the panels. Modified link clicks retain normal browser behavior.</li><li>On desktop, panels align with their trigger, clamp to the viewport, and flip above when space requires it. They use fixed positioning, not the top layer; avoid transformed or clipping ancestors around the header.</li><li>On narrow headers, groups expand inline inside the existing scrollable Menu. Resizing restores focus to a visible control.</li><li>Without JavaScript, groups remain native disclosures in the wrapping header. Optional shared <code>name</code> attributes provide native exclusivity; use a unique name per header.</li></ul>
+<p>These are site navigation links, so do not add <code>role="menu"</code> or <code>menuitem</code>. Cascading fly-out submenus and hover-to-open behavior are outside this pattern. Use grouped panels for another level of organization.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>API</h2>
+<table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>data-navigation-menu</code></td><td>On direct <code>m-header &gt; nav</code></td><td>Opts into disclosure styling and enhancement.</td></tr>
+<tr><td><code>details</code></td><td>Direct child of the navigation</td><td>First child is a native <code>summary</code>; one direct panel follows.</td></tr>
+<tr><td><code>data-nav-panel</code></td><td>Direct child of the disclosure</td><td>Authored panel contents; links can include <code>strong</code> and <code>small</code>. Group labels use <code>h2</code>.</td></tr>
+</tbody></table>
+<table class="api-table"><thead><tr><th>Token</th><th>Default</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>--nav-panel-width</code></td><td>34rem</td><td>Preferred desktop width; set 17rem on a panel for compact links.</td></tr>
+<tr><td><code>--nav-panel-gap</code></td><td><code>--space-xs</code></td><td>Desktop trigger gap and viewport gutter.</td></tr>
+<tr><td><code>--nav-panel-pad</code></td><td><code>--space-xs</code></td><td>Desktop panel padding.</td></tr>
+<tr><td><code>--nav-panel-link-pad</code></td><td><code>--space-sm</code></td><td>Link and group-label padding.</td></tr>
+<tr><td><code>--nav-panel-description-size</code></td><td>.8125rem</td><td>Description size.</td></tr>
+<tr><td><code>--nav-panel-heading-size</code></td><td>.6875rem</td><td>Group-label size.</td></tr>
+<tr><td><code>--nav-panel-z</code></td><td>10</td><td>Desktop stacking level.</td></tr>
+</tbody></table>
+<p>Shared typography uses the header’s font-size, font-weight, and strong-weight tokens. Color and radius follow Mica’s semantic tokens. Internal <code>data-m-*</code> attributes and <code>--m-*</code> properties belong to the enhancement.</p>
+</m-vstack></section>

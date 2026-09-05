@@ -1,0 +1,84 @@
+import { chromium, webkit } from 'playwright';
+import axe from 'axe-core';
+const assert = (value: unknown, message: string) => { if (!value) throw new Error(message); };
+for (const engine of [chromium, webkit]) {
+  const browser = await engine.launch();
+  try {
+    for (const colorScheme of ['light', 'dark'] as const) for (const direction of ['ltr', 'rtl']) {
+      const page = await browser.newPage({ colorScheme, viewport: { width: 1100, height: 950 } });
+      const errors: string[] = [];
+      page.on('pageerror', error => errors.push(error.message));
+      await page.goto('http://localhost:8471/examples/navigation-menu.html');
+      await page.locator('[data-m-navigation-ready]').waitFor();
+      await page.evaluate(dir => { document.documentElement.dir = dir; document.querySelector('m-header')!.setAttribute('align', 'end'); }, direction);
+      const nav = page.locator('#site-nav'), groups = nav.locator(':scope > details'), summary = groups.first().locator('summary');
+      const panel = groups.first().locator('[data-nav-panel]');
+      await summary.press('Enter');
+      await page.waitForTimeout(80);
+      assert(await panel.isVisible(), 'Enter did not open panel');
+      assert(await panel.evaluate(e => { const r = e.getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth && r.bottom <= innerHeight; }), 'Desktop panel escaped viewport');
+      await page.addScriptTag({ content: axe.source });
+      assert(!(await page.evaluate(async () => (await (window as any).axe.run()).violations)).length, 'Desktop axe failure');
+      // Safari defaults to skipping links on Tab; Option+Tab includes them.
+      await page.keyboard.press(engine.name() === 'webkit' ? 'Alt+Tab' : 'Tab');
+      assert(await panel.locator('a').first().evaluate(e => e === document.activeElement), 'Tab did not enter panel');
+      await page.keyboard.press('Escape');
+      assert(await summary.evaluate(e => e === document.activeElement), 'Escape did not restore summary focus');
+      await summary.click();
+      await groups.nth(1).locator('summary').click();
+      assert(await groups.first().getAttribute('open') === null, 'Groups are not exclusive');
+      await page.locator('h1').click();
+      assert(await nav.locator('details[open]').count() === 0, 'Outside click failed');
+      await summary.click();
+      await page.locator('#align').focus();
+      await page.waitForTimeout(30);
+      assert(await nav.locator('details[open]').count() === 0, 'Focus-out failed');
+      await page.setViewportSize({ width: 390, height: 844 });
+      const trigger = page.locator('[data-menu]');
+      await trigger.waitFor({ state: 'visible' });
+      await trigger.click();
+      const closedHeight = await nav.evaluate(e => e.getBoundingClientRect().height);
+      await summary.click();
+      await page.waitForTimeout(80);
+      assert(await panel.evaluate(e => getComputedStyle(e).position === 'static'), 'Mobile panel did not become inline');
+      assert(await nav.evaluate(e => e.getBoundingClientRect().height) > closedHeight, 'Mobile menu did not grow');
+      const mobileViolations = await page.evaluate(async () => (await (window as any).axe.run()).violations.map((v: any) => ({ id: v.id, targets: v.nodes.map((n: any) => n.target) })));
+      assert(!mobileViolations.length, JSON.stringify(mobileViolations));
+      await nav.locator('[data-compact]').focus();
+      await page.waitForTimeout(80);
+      assert(await nav.locator('[data-compact]').evaluate(e => { const r = e.getBoundingClientRect(), n = e.closest('nav')!.getBoundingClientRect(); return r.top >= n.top && r.bottom <= n.bottom; }), 'Last mobile link unreachable');
+      await page.keyboard.press('Escape');
+      assert(await nav.evaluate(e => e.matches(':popover-open')), 'First Escape closed outer Menu');
+      assert(await groups.first().getAttribute('open') === null, 'First Escape did not close group');
+      await page.keyboard.press('Escape');
+      assert(!(await nav.isVisible()), 'Second Escape did not close Menu');
+      await trigger.click(); await summary.click();
+      await panel.locator('a').first().focus();
+      await page.setViewportSize({ width: 1100, height: 950 });
+      await trigger.waitFor({ state: 'hidden' });
+      assert(await summary.evaluate(e => e === document.activeElement), 'Resize left focus in hidden group');
+      await summary.click();
+      await page.evaluate(() => { const h = document.querySelector('m-header')!; const parent = h.parentElement!; h.remove(); parent.append(h); });
+      await page.locator('[data-m-navigation-ready]').waitFor();
+      await summary.click();
+      assert(await panel.isVisible(), 'Reconnect failed');
+      await page.evaluate(() => { const e = document.createElement('m-error'); document.body.append(e); if (getComputedStyle(e).display !== 'none') throw Error('Parse canary failed'); e.remove(); });
+      assert(!errors.length, errors.join('\n'));
+      console.log(`${engine.name()} ${colorScheme} ${direction}: passed`);
+      await page.close();
+    }
+    const standalone = await browser.newPage();
+    await standalone.goto('http://localhost:8471/demo.html');
+    await standalone.locator('#navigation-menu-demo summary').click();
+    await standalone.waitForTimeout(100);
+    assert(await standalone.locator('#navigation-menu-demo details').getAttribute('open') !== null, 'No-toggle enhancement closed group');
+    await standalone.close();
+    const page = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+    await page.goto('http://localhost:8471/examples/navigation-menu.html');
+    await page.locator('summary').first().click();
+    assert(await page.locator('[data-nav-panel]').first().isVisible(), 'No-JS disclosure failed');
+    assert(await page.locator('[data-nav-panel]').first().evaluate(e => getComputedStyle(e).position === 'static'), 'No-JS panel floats');
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'No-JS overflow');
+    await page.close();
+  } finally { await browser.close(); }
+}

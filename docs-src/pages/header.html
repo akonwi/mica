@@ -43,6 +43,8 @@
 <m-box><p>Ordinary links, one quiet header. Try Menu when the container is narrow.</p></m-box></div>
 </m-vstack></section>
 
+<section><h2>Nested navigation</h2><p>Add compact dropdowns or rich link panels using the <a href="navigation-menu.html">navigation menu pattern</a>. The same groups become inline disclosures inside the mobile Menu.</p></section>
+
 <section id="usage"><m-vstack gap="md">
 <h2>Basic usage</h2>
 <p>Use a native <code>header</code> around <code>m-header</code> for the page banner. The custom element supplies layout and styling. Import the optional module for responsive collapse.</p>
@@ -67,7 +69,7 @@
 <div class="api-block"><h3>Content/markup contract</h3>
 <table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Description</th></tr></thead><tbody>
 <tr><td>Brand</td><td>Direct <code>a[data-brand]</code>, optional</td><td>Authored text, image, or logo. Supply an accessible name and a real destination.</td></tr>
-<tr><td>Navigation</td><td>One direct <code>nav</code> containing direct links</td><td>Give it a distinct accessible label. For collapse it needs an ID matching the Menu button's <code>popovertarget</code>.</td></tr>
+<tr><td>Navigation</td><td>One direct <code>nav</code> containing direct links; opt into nested disclosures with <code>data-navigation-menu</code></td><td>Give it a distinct accessible label. For collapse it needs an ID matching the Menu button's <code>popovertarget</code>.</td></tr>
 <tr><td>Actions</td><td>Direct <code>[data-actions]</code>, optional</td><td>Existing buttons or links, aligned at the end. Hidden when collapsed; author equivalent destinations in the nav with <code>data-compact</code> when they must remain available.</td></tr>
 <tr><td>Compact destination</td><td>Direct <code>nav &gt; a[data-compact]</code>, optional</td><td>Visible only in the collapsed panel. Use for secondary destinations represented by desktop actions. Each instance still needs its own unique IDs, if any.</td></tr>
 <tr><td>Menu trigger</td><td>Direct <code>button[data-menu][popovertarget]</code>, optional</td><td>Use <code>type="button"</code> and a visible Menu label. Hidden until enhancement activates collapse. Without a correctly connected trigger the nav stays inline.</td></tr>

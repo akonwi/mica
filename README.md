@@ -97,3 +97,8 @@ Read [VISION.md](VISION.md) for the philosophy and
 ## License
 
 [MIT](LICENSE)
+
+Nested header navigation uses `nav[data-navigation-menu]` with native
+`details`/`summary` groups and authored `[data-nav-panel]` content. Import
+`header.js` for floating desktop panels and inline mobile disclosures. See
+[the navigation menu docs](https://akonwi.io/mica/docs/navigation-menu.html).

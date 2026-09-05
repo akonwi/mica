@@ -220,6 +220,14 @@
     },
     {
       "group": "Navigation",
+      "slug": "navigation-menu",
+      "title": "navigation menu",
+      "level": "native",
+      "lead": "Nested header navigation with compact dropdowns, richer link panels, and inline mobile disclosures.",
+      "scripts": ["header.js"]
+    },
+    {
+      "group": "Navigation",
       "slug": "sidebar",
       "title": "sidebar",
       "level": "native",

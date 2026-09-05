@@ -79,6 +79,8 @@ The list must stay embarrassingly short:
   responsive state. Without it, the navigation remains visible.
 - **Header collapse** (`header.js`) — switches authored navigation between inline
   links and a native popover, manages responsive focus and panel placement.
+  Opt-in navigation disclosures add floating desktop panels, Escape and
+  outside/focus-out dismissal; without JS they remain native details.
   Without the module, header navigation remains visible and wraps.
 - **Tabs** (`tabs.js`) — roving tabindex, arrow keys, `aria-selected`
   wiring. The CSS-only radio hack looks like tabs and is a11y-broken;

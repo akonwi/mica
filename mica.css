@@ -2109,6 +2109,84 @@
   }
 
 
+  /* Navigation disclosures: native details remain usable without header.js.
+     Enhancement adds floating placement; mobile keeps content in flow.
+     Panel contents are authored links and layouts, never ARIA menu widgets. */
+  :where(m-header > nav[data-navigation-menu]) {
+    --nav-panel-width: 34rem;
+    --nav-panel-gap: var(--space-xs);
+    --nav-panel-pad: var(--space-xs);
+    --nav-panel-link-pad: var(--space-sm);
+    --nav-panel-description-size: .8125rem;
+    --nav-panel-heading-size: .6875rem;
+    --nav-panel-z: 10;
+  }
+  :where(m-header > nav[data-navigation-menu] > details) { margin: 0; padding: 0; border: 0; background: none; max-inline-size: 100%; }
+  :where(m-header > nav[data-navigation-menu] > details)::details-content { transition: none; overflow: visible; }
+  :where(m-header > nav[data-navigation-menu] > details > summary) {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    min-block-size: var(--control-height);
+    padding: var(--space-2xs) var(--space-sm);
+    font-size: var(--header-font-size, .875rem);
+    font-weight: var(--header-font-weight, 500);
+    color: var(--color-text-muted);
+    border-radius: var(--radius-md);
+  }
+  :where(m-header > nav[data-navigation-menu] > details > summary):hover {
+    text-decoration: none; color: var(--color-text); background: var(--color-surface-raised);
+  }
+  :where(m-header > nav[data-navigation-menu] > details)[open] > :where(summary) {
+    color: var(--color-text); background: var(--color-surface-raised);
+  }
+  :where(m-header > nav[data-navigation-menu] [data-nav-panel]) {
+    inline-size: min(var(--nav-panel-width), var(--m-nav-max-width, calc(100vw - 2 * var(--nav-panel-gap))));
+    max-inline-size: 100%;
+    max-block-size: var(--m-nav-height, none);
+    margin: 0;
+    padding: var(--nav-panel-pad);
+    row-gap: var(--nav-panel-gap);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-overlay);
+    overflow: auto;
+  }
+  :where(m-header > nav[data-m-navigation-ready] > details > [data-nav-panel]) {
+    position: fixed; z-index: var(--nav-panel-z);
+    left: var(--m-nav-left); top: var(--m-nav-top);
+  }
+  :where(m-header > nav[data-navigation-menu] [data-nav-panel] a) {
+    display: block;
+    padding: var(--nav-panel-link-pad);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: var(--header-font-size, .875rem);
+    overflow-wrap: anywhere;
+  }
+  :where(m-header > nav[data-navigation-menu] [data-nav-panel] a):hover:not([aria-disabled="true"]),
+  :where(m-header > nav[data-navigation-menu] [data-nav-panel] a)[aria-current="page"] { background: var(--color-surface-raised); }
+  :where(m-header > nav[data-navigation-menu] [data-nav-panel] a)[aria-disabled="true"] { opacity: .5; }
+  :where(m-header > nav[data-navigation-menu] [data-nav-panel] strong) { display: block; font-weight: var(--header-strong-weight, 650); }
+  :where(m-header > nav[data-navigation-menu] [data-nav-panel] small) {
+    display: block; margin-block-start: var(--space-2xs);
+    font-size: var(--nav-panel-description-size); color: var(--color-text-muted);
+  }
+  :where(m-header > nav[data-navigation-menu] [data-nav-panel] h2) {
+    margin: 0; padding: var(--nav-panel-link-pad);
+    font-size: var(--nav-panel-heading-size); font-weight: var(--header-font-weight, 500); color: var(--color-text-muted);
+  }
+  :where(m-header[data-m-header-collapsed] > nav[data-navigation-menu] > details) { flex-shrink: 0; }
+  :where(m-header[data-m-header-collapsed] > nav[data-navigation-menu] > details > summary) { min-block-size: var(--header-target-height, 2.75rem); }
+  :where(m-header[data-m-header-collapsed] > nav[data-navigation-menu] > details > [data-nav-panel]) {
+    position: static; inline-size: auto; max-block-size: none;
+    margin: var(--space-xs) var(--space-sm); padding: 0 0 0 var(--space-xs);
+    padding-inline: var(--space-xs) 0;
+    border: 0; border-inline-start: 1px solid var(--color-border);
+    border-radius: 0; background: transparent; overflow: visible;
+  }
+
   /* --- sidebar: authored navigation, optional sidebar.js shell behavior --- */
   :where(m-sidebar-layout) {
     --sidebar-width: 15.5rem;

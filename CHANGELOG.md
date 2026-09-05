@@ -4,6 +4,11 @@
 
 ### Added
 
+- Nested header navigation: `nav[data-navigation-menu]` composes native
+  disclosures and authored `[data-nav-panel]` link panels. `header.js` adds
+  floating placement and dismissal; mobile groups expand in the Menu panel.
+  Includes compact/rich examples, no-JS fallback, and browser coverage.
+
 - Sidebar navigation: `m-sidebar` and `m-sidebar-layout` support docked and
   inset surfaces with grouped native links, nested disclosures, and a quiet
   borderless active fill. Icons remain consumer-authored.
