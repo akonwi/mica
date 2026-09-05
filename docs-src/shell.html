@@ -11,19 +11,22 @@
 </head>
 <body>
   <a class="skip" href="#main" data-visually-hidden="focusable">Skip to content</a>
-  <header class="topbar">
-    <details>
-      <summary>mica</summary>
-      <nav class="docnav" aria-label="docs">
+  <m-sidebar-layout variant="docked">
+    <m-sidebar id="docs-navigation" role="complementary" aria-label="Documentation sidebar">
+      <header role="presentation">
+        <a class="brand" data-sidebar-item href="{{HOME_HREF}}">mica</a>
+        <button data-variant="ghost" type="button" data-sidebar-close aria-label="Close navigation">×</button>
+      </header>
+      <nav aria-label="Documentation">
         {{NAV}}
       </nav>
-    </details>
-  </header>
-  <m-sidecar side-width="xs">
-    <nav class="rail docnav" aria-label="docs">
-      {{NAV}}
-    </nav>
-    <article id="main">
+    </m-sidebar>
+    <div data-sidebar-main>
+      <header class="docs-toolbar">
+        <a class="brand" href="{{HOME_HREF}}">mica</a>
+        <button data-variant="ghost" type="button" data-sidebar-toggle aria-controls="docs-navigation" aria-expanded="false">Navigation</button>
+      </header>
+      <main id="main" class="docs-content" tabindex="-1">
       <m-center style="--max: 62rem">
         <m-vstack gap="xl">
           <header class="page-header">
@@ -35,7 +38,27 @@
 {{BODY}}{{PAGER}}
         </m-vstack>
       </m-center>
-    </article>
-  </m-sidecar>
+      </main>
+    </div>
+    <dialog data-sidebar-dialog aria-label="Documentation navigation"></dialog>
+  </m-sidebar-layout>
+  <script type="module">
+    await customElements.whenDefined('m-sidebar-layout');
+    const navigation = document.querySelector('#docs-navigation > nav');
+    const current = navigation.querySelector('[aria-current="page"]');
+    const revealCurrent = () => requestAnimationFrame(() => {
+      if (!current || !navigation.getClientRects().length) return;
+      const navRect = navigation.getBoundingClientRect();
+      const linkRect = current.getBoundingClientRect();
+      if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+        navigation.scrollTop += linkRect.top - navRect.top - (navRect.height - linkRect.height) / 2;
+      }
+    });
+    revealCurrent();
+    new MutationObserver(revealCurrent).observe(
+      document.querySelector('dialog[data-sidebar-dialog]'),
+      { attributes: true, attributeFilter: ['open'] },
+    );
+  </script>
 </body>
 </html>

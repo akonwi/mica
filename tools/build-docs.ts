@@ -38,20 +38,19 @@ function hrefFor(slug: string, fromRoot: boolean): string {
 }
 
 function navHtml(current: string, fromRoot: boolean): string {
-  const parts = [
-    `<a class="brand" href="${hrefFor("index", fromRoot)}">mica</a>`,
-  ];
+  const parts: string[] = [];
   for (const group of manifest.groups) {
-    parts.push(`<h2>${escapeHtml(group)}</h2>`);
+    parts.push(`<section><h2>${escapeHtml(group)}</h2>`);
     for (const page of manifest.pages.filter((candidate) => candidate.group === group)) {
       const currentAttribute = page.slug === current ? ' aria-current="page"' : "";
       parts.push(
-        `<a href="${hrefFor(page.slug, fromRoot)}"${currentAttribute}>${escapeHtml(page.title)}</a>`,
+        `<a data-sidebar-item href="${hrefFor(page.slug, fromRoot)}"${currentAttribute}>${escapeHtml(page.title)}</a>`,
       );
     }
     if (group === "Start") {
-      parts.push(`<a href="${fromRoot ? "llms.txt" : "../llms.txt"}">llms.txt</a>`);
+      parts.push(`<a data-sidebar-item href="${fromRoot ? "llms.txt" : "../llms.txt"}">llms.txt</a>`);
     }
+    parts.push("</section>");
   }
   return parts.join("\n      ");
 }
@@ -73,7 +72,7 @@ function pagerHtml(index: number, fromRoot: boolean): string {
 async function pageHtml(page: Page, index: number): Promise<string> {
   const fromRoot = page.slug === "index";
   const body = (await Bun.file(join(SOURCE, "pages", `${page.slug}.html`)).text()).trim();
-  const scripts = (page.scripts ?? [])
+  const scripts = [...new Set(["sidebar.js", ...(page.scripts ?? [])])]
     .map((script) => `  <script type="module" src="${fromRoot ? script : `../${script}`}"></script>`)
     .join("\n");
   const replacements: Record<string, string> = {
@@ -81,6 +80,7 @@ async function pageHtml(page: Page, index: number): Promise<string> {
     MICA_CSS: fromRoot ? "mica.css" : "../mica.css",
     SITE_CSS: fromRoot ? "docs/site.css" : "site.css",
     SCRIPTS: scripts,
+    HOME_HREF: hrefFor("index", fromRoot),
     NAV: navHtml(page.slug, fromRoot),
     PAGE_TITLE: escapeHtml(page.title),
     LEAD: escapeHtml(page.lead),
