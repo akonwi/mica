@@ -12,16 +12,15 @@
  *   bun tools/snapshot.ts           # (re)write the baseline ("bless")
  *   bun tools/snapshot.ts --check   # diff against baseline; exit 1 on drift
  *
- * The baseline is committed; `git diff` is the regression report. Pixels
- * are never compared — values are text (oklch strings, px), so a diff says
- * exactly what changed. Notes:
+ * Baselines are committed; `git diff` is the regression report. They
+ * include computed values and element-crop PNGs for drawn controls. Notes:
  *   - reduced-motion is emulated; under the preset's kill-switch EVERY
  *     element carries an `all 0.01ms` transition, so probes use a fresh
  *     element per read (a reused element reads stale mid-transition
  *     values, in oklab form).
  *   - the parse-error canary is a hard assert, not a snapshot entry.
  *   - baseline values can be font/platform-sensitive in places; the
- *     baseline is blessed on macOS — regenerate rather than hand-edit.
+ *     capture environment is recorded in snapshots/environment.json.
  */
 
 import { chromium, webkit } from "playwright";
@@ -29,6 +28,9 @@ import type { Browser } from "playwright";
 import { join, dirname } from "node:path";
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
+import { release } from "node:os";
+import { captureVisual } from "./snapshot-capture";
+import { version as playwrightVersion } from "playwright/package.json";
 
 const ROOT = dirname(import.meta.dir);
 const BASELINE = join(import.meta.dir, "snapshots", "demo.json");
@@ -456,10 +458,19 @@ async function assertTabsOverflowRuntime(browser: Browser, engine: string) {
 
 const result: Record<string, unknown> = {};
 const visuals = new Map<string, Uint8Array>();
+const environment = {
+  capture: "pixel-aligned-v1",
+  platform: process.platform, arch: process.arch, osRelease: release(),
+  playwright: playwrightVersion,
+  viewport: { width: 1280, height: 800 }, deviceScaleFactor: 2,
+  browsers: {} as Record<string, string>,
+};
+const environmentPath = join(import.meta.dir, "snapshots", "environment.json");
 let browser;
 try {
   try {
     browser = await chromium.launch();
+    environment.browsers.chromium = browser.version();
   } catch (e) {
     console.error("chromium launch failed — first run? bunx playwright install chromium");
     throw e;
@@ -826,8 +837,7 @@ try {
 
       // ---- visual probes (element crops, PNG baselines) ----
       for (const [name, sel] of VISUAL_PROBES) {
-        const shot = await page.locator(sel).first()
-          .screenshot({ animations: "disabled" });
+        const shot = await captureVisual(page.locator(sel).first());
         visuals.set(`${name}.${scheme}`, shot);
       }
 
@@ -860,6 +870,7 @@ try {
   await browser.close();
   try {
     browser = await webkit.launch();
+    environment.browsers.webkit = browser.version();
   } catch (e) {
     console.error("webkit launch failed — first run? bunx playwright install webkit");
     throw e;
@@ -885,8 +896,7 @@ try {
       if (canary !== "none")
         throw new Error("PARSE CANARY FAILED in webkit: mica.css did not parse to the end");
       for (const [name, sel] of VISUAL_PROBES) {
-        const shot = await page.locator(sel).first()
-          .screenshot({ animations: "disabled" });
+        const shot = await captureVisual(page.locator(sel).first());
         visuals.set(`${name}.${scheme}.webkit`, shot);
       }
     } finally {
@@ -912,7 +922,7 @@ const count = Object.values(result as any)
   .reduce((n: number, v: any) => n + Object.keys(v.tokens).length + Object.keys(v.elements).length, 0);
 
 // visual compare: exact-size match required; pixelmatch reports diffs.
-// Baselines are same-machine artifacts (macOS-blessed, like the JSON).
+// Compare in the recorded capture environment; OS/browser differences can paint differently.
 async function compareVisuals(): Promise<string[]> {
   const failures: string[] = [];
   for (const [key, buf] of visuals) {
@@ -941,6 +951,13 @@ async function compareVisuals(): Promise<string[]> {
 
 const check = process.argv.includes("--check");
 if (check) {
+  const recordedEnvironment = Bun.file(environmentPath);
+  if (!(await recordedEnvironment.exists())) {
+    console.warn("Baseline capture environment is unknown (no environment.json).");
+  } else if (JSON.stringify(sortKeys(await recordedEnvironment.json())) !== JSON.stringify(sortKeys(environment))) {
+    console.warn("Capture environment differs from tools/snapshots/environment.json; rendering may differ. This does not waive snapshot failures.");
+    console.warn(JSON.stringify(environment));
+  }
   const baseline = Bun.file(BASELINE);
   if (!(await baseline.exists())) {
     console.error("no baseline; run without --check first");
@@ -965,6 +982,7 @@ if (check) {
   process.exit(1);
 } else {
   await Bun.write(BASELINE, text);
+  await Bun.write(environmentPath, JSON.stringify(environment, null, 2) + "\n");
   for (const [key, buf] of visuals)
     await Bun.write(join(VISUAL_DIR, `${key}.png`), buf);
   // stale artifacts from previous failed checks
