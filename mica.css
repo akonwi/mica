@@ -2187,6 +2187,86 @@
     border-radius: 0; background: transparent; overflow: visible;
   }
 
+  /* Data collections: application-owned rows and state, native table semantics.
+     Column widths and sticky offsets are authored for the application's schema.
+     Selection actions replace filters; keep filters inert while selection is active.
+     For a taller action set, increase --table-toolbar-min-height to reserve space. */
+  :where(:root) {
+    --table-font-size: .8125rem;
+    --table-padding: var(--space-lg);
+    --table-cell-padding: var(--space-sm);
+    --table-min-width: 54rem;
+    --table-toolbar-min-height: 0px;
+    --table-selected-background: var(--color-surface-raised);
+    --table-edge-width: var(--space-md);
+    --table-edge-color: color-mix(in oklch, var(--color-text) 14%, transparent);
+    --table-state-padding: var(--space-2xl);
+  }
+  :where([data-data-table]) { container: mica-table / inline-size; background: var(--color-surface); border: 1px solid var(--color-border); min-inline-size: 0; }
+  :where([data-table-heading]) { display:flex; justify-content:space-between; align-items:center; gap:var(--space-md); padding:var(--table-padding) var(--table-padding) var(--space-sm); }
+  :where([data-table-heading] > button) { flex-shrink:0; white-space:nowrap; }
+  :where([data-table-heading] h2) { margin:0; font-size:var(--table-heading-size, 1.375rem); }
+  :where([data-table-heading] p) { margin:var(--space-2xs) 0 0; color:var(--color-text-muted); font-size:var(--table-font-size); }
+  :where([data-table-toolbar]) { position:relative; min-block-size:var(--table-toolbar-min-height); }
+  :where([data-table-filters], [data-table-selection]) { display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-xs); padding:var(--space-sm) var(--table-padding); }
+  :where([data-table-filters] [data-table-search]) { flex:1; min-inline-size:12rem; }
+  :where([data-table-search] input) { inline-size:100%; }
+  :where([data-table-filters] select) { max-inline-size:11rem; }
+  :where([data-table-filters] button) { white-space:nowrap; }
+  :where([data-table-selection]) { position:absolute; inset:0; align-content:center; gap:var(--space-sm); font-size:var(--table-font-size); }
+  :where([data-table-toolbar]):has(> [data-table-selection]:not([hidden])) > :where([data-table-filters]) { visibility:hidden; }
+  :where([data-table-selection] [data-table-clear]) { margin-inline-start:auto; }
+  :where([data-data-table] [hidden], [data-pagination] [hidden], [data-table-selection][hidden], [data-table-filters] [hidden], [data-table] [hidden]) { display:none; }
+  :where(m-table-scroll) { display:block; position:relative; min-inline-size:0; }
+  :where(m-table-scroll)::before, :where(m-table-scroll)::after { content:''; position:absolute; inset-block:1px; inline-size:var(--table-edge-width); z-index:4; pointer-events:none; opacity:0; }
+  :where(m-table-scroll)::before { left:var(--m-table-edge-left, 0px); background:linear-gradient(to right,var(--table-edge-color),transparent); }
+  :where(m-table-scroll)::after { right:var(--m-table-edge-right, 0px); background:linear-gradient(to left,var(--table-edge-color),transparent); }
+  :where(m-table-scroll[data-m-overflow-left])::before, :where(m-table-scroll[data-m-overflow-right])::after { opacity:1; }
+  :where([data-table-region]) { position:relative; overflow:auto; overscroll-behavior:contain; border-block:1px solid var(--color-border); }
+  :where(table[data-table]) { margin:0; inline-size:100%; min-inline-size:var(--table-min-width, 54rem); border-collapse:separate; border-spacing:0; table-layout:fixed; }
+  :where([data-table] th, [data-table] td) { padding:var(--table-cell-padding, var(--space-sm)); vertical-align:middle; font-size:var(--table-font-size, .8125rem); }
+  :where([data-table] thead th) { background:var(--color-surface-raised); color:var(--color-text-muted); font-weight:500; border-block-end:1px solid var(--color-border); }
+  :where([data-table] th button) { display:inline-flex; align-items:center; gap:var(--space-xs); padding:0; min-block-size:var(--table-sort-target, 2rem); border:0; background:none; color:inherit; font:inherit; text-align:inherit; white-space:nowrap; }
+  :where([data-table] th[aria-sort]) button { color:var(--color-text); }
+  :where([data-table] td a) { color:var(--color-text); font-weight:600; text-decoration:none; }
+  :where([data-table] td) a:hover { text-decoration:underline; }
+  :where([data-table-description]) { display:block; color:var(--color-text-muted); margin-block-start:var(--space-2xs); font-size:var(--table-description-size, .75rem); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  :where([data-table] tbody tr:last-child td) { border-block-end:0; }
+  :where([data-table] tbody tr[data-selected]) > td { background:var(--table-selected-background, var(--color-surface-raised)); }
+  :where([data-table-state]) { padding:var(--table-state-padding, var(--space-2xl)) var(--table-padding, var(--space-lg)); text-align:center; white-space:normal; }
+  :where([data-table-state] strong) { display:block; color:var(--color-text); font-size:var(--table-state-font-size, 1rem); }
+  :where([data-table-state] p) { margin-block:var(--space-xs) var(--space-md); color:var(--color-text-muted); }
+  :where([data-table-region][data-state] table) { min-inline-size:100%; table-layout:auto; }
+  :where([data-table-region][data-state] thead) { display:none; }
+  :where([data-table-footer]) { container: mica-pagination / inline-size; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-md); padding:var(--space-md) var(--table-padding); font-size:var(--table-font-size); }
+  :where([data-page-meta]) { display:flex; align-items:center; gap:var(--space-md); flex-wrap:wrap; color:var(--color-text-muted); }
+  :where([data-page-size]) { display:flex; align-items:center; gap:var(--space-xs); }
+  :where([data-page-size] select) { inline-size:auto; min-block-size:2rem; padding-block:var(--space-2xs); font-size:1rem; }
+  :where(nav[data-pagination]) { --pagination-target:2.125rem; --pagination-font-size:.8125rem; display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-2xs); }
+  :where([data-pagination] > a, [data-pagination] > button, [data-pagination] > [aria-disabled]) { display:inline-flex; justify-content:center; align-items:center; min-inline-size:var(--pagination-target); min-block-size:var(--pagination-target); padding:var(--space-2xs) var(--space-xs); border:0; background:transparent; color:var(--color-text); font-size:var(--pagination-font-size); text-decoration:none; }
+  :where([data-pagination]) > a:hover { background:var(--color-surface-raised); }
+  :where([data-pagination]) > [aria-current=page] { background:var(--color-surface-raised); font-weight:650; color:var(--color-text); }
+  :where([data-pagination]) > :is([aria-disabled=true], :disabled) { color:var(--color-text-muted); cursor:default; }
+  :where([data-page-status]) { display:none; color:var(--color-text-muted); font-size:var(--pagination-font-size); }
+  @container mica-table (max-width:44rem) {
+    :where([data-table-heading]) { padding:var(--space-md); }
+    :where([data-table-filters]) { padding:0 var(--space-md) var(--space-sm); }
+    :where([data-table-search]) { flex-basis:100%; }
+    :where([data-table-filters] select) { flex:1; min-inline-size:0; max-inline-size:none; }
+    :where([data-table-selection]) { padding-inline:var(--space-md); }
+    :where([data-table-footer]) { padding:var(--space-md); gap:var(--space-sm); }
+    :where([data-table] [data-table-sticky]) { position:sticky; inset-inline-start:var(--table-sticky-offset, 0px); background:var(--color-surface); z-index:1; }
+    :where([data-table] thead [data-table-sticky]) { background:var(--color-surface-raised); z-index:3; }
+  }
+  /* A compact status is opt-in: include data-page-status to let numbered
+     links collapse. Without it, every authored page link remains visible. */
+  @container mica-pagination (max-width:40rem) {
+    :where([data-page-meta]) { inline-size:100%; justify-content:space-between; gap:var(--space-xs); }
+    :where([data-pagination]):has([data-page-status]) { inline-size:100%; justify-content:space-between; }
+    :where([data-pagination]):has([data-page-status]) > :is([data-page-number], [data-page-ellipsis]) { display:none; }
+    :where([data-pagination] [data-page-status]) { display:block; }
+  }
+
   /* Breadcrumbs: native hierarchy with decorative separators. The current
      page is plain text; nothing is automatically removed on narrow screens.
      Override --breadcrumb-current-weight or --breadcrumb-separator-color

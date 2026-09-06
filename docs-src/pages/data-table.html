@@ -1,0 +1,77 @@
+<section><m-vstack gap="md"><h2>One collection, composed from small pieces</h2>
+<p>Mica styles a native table, a filter/selection toolbar, a scroll region, and a pagination footer. Your app owns the rows, query, sort order, visible columns, selection, and current page. There is no table engine, renderer, or framework dependency.</p>
+<iframe title="Interactive project collection" src="../examples/data-table.html" style="inline-size:100%;block-size:64rem;border:1px solid var(--color-border)"></iframe>
+<p><a href="../examples/data-table.html">Open the complete example</a>. Try filtering, sorting, selecting a page, column visibility, row actions, and empty/loading/error states. Its <a href="../examples/data-table.js">application script</a> is example code, not part of the Mica module.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Start with a native table</h2>
+<pre tabindex="0" aria-label="Collection markup"><code>&lt;section data-data-table aria-labelledby="projects-title"&gt;
+  &lt;header data-table-heading&gt;
+    &lt;div&gt;&lt;h2 id="projects-title"&gt;Projects&lt;/h2&gt;&lt;p&gt;Keep the work in motion.&lt;/p&gt;&lt;/div&gt;
+    &lt;a href="/projects/new"&gt;New project&lt;/a&gt;
+  &lt;/header&gt;
+  &lt;m-table-scroll style="--table-min-width: 36rem"&gt;
+    &lt;div data-table-region role="region" aria-label="Projects table" tabindex="0"&gt;
+      &lt;table data-table&gt;
+        &lt;caption data-visually-hidden&gt;Projects and their owners&lt;/caption&gt;
+        &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Project&lt;/th&gt;&lt;th scope="col"&gt;Owner&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+        &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;a href="/projects/website"&gt;Website refresh&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Alex Morgan&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/m-table-scroll&gt;
+&lt;/section&gt;
+&lt;!-- Optional visual overflow indicators; scrolling already works. --&gt;
+&lt;script type="module" src="table.js"&gt;&lt;/script&gt;</code></pre>
+<p>Use a caption and column headers with <code>scope="col"</code>. This remains a table, not an ARIA grid: Tab visits controls and links, while assistive technology provides table navigation. Author real links for row destinations and explicit buttons for actions; do not make the whole row a fake button.</p>
+<p>The scroll region is keyboard focusable and named. It scrolls horizontally; rows flow vertically with the page. The optional <code>table.js</code> import only measures overflow and paints edge indicators. It observes resizing and authored content changes, supports RTL, and cleans up when disconnected. It adds no rows, controls, data behavior, or events.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Filters and selection share one space</h2>
+<pre tabindex="0" aria-label="Selection toolbar markup"><code>&lt;div data-table-toolbar&gt;
+  &lt;form data-table-filters action="/projects" method="get"&gt;
+    &lt;label data-table-search&gt;Search projects &lt;input type="search" name="q"&gt;&lt;/label&gt;
+    &lt;button&gt;Search&lt;/button&gt;
+  &lt;/form&gt;
+  &lt;div data-table-selection role="group" aria-label="Selected project actions" hidden&gt;
+    &lt;strong role="status"&gt;2 selected on this page&lt;/strong&gt;
+    &lt;button type="button"&gt;Archive&lt;/button&gt;
+    &lt;button type="button" data-table-clear&gt;Clear selection&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>The two panels must be direct children of <code>data-table-toolbar</code>. When selection exists, your app removes <code>hidden</code> from the selection panel and sets <code>inert</code> on the filters. CSS hides the filters while retaining their layout space, so selecting a row does not move the table. Clear selection reverses both changes. Keep the actions short; reserve additional height with <code>--table-toolbar-min-height</code> if your action set needs more space than the filters.</p>
+<pre tabindex="0" aria-label="Application selection state"><code>// Application code, scoped to this collection:
+selectionPanel.hidden = selectedIds.size === 0;
+filters.inert = selectedIds.size &gt; 0;
+pageCheckbox.checked = rows.length &gt; 0 &amp;&amp; selectedIds.size === rows.length;
+pageCheckbox.indeterminate = selectedIds.size &gt; 0 &amp;&amp; selectedIds.size &lt; rows.length;
+// Update each row checkbox and toggle data-selected on its tr.</code></pre>
+<p>Give each checkbox a record-specific accessible name. Keep focus on the checkbox when selection changes. After a bulk action or Clear selection, restore focus to a surviving control. Set a concise live selection count. Native checkbox <code>indeterminate</code> is a JavaScript property; CSS does not implement selection logic.</p>
+<p>The example selects only the current page, and clears selection on page, filter, search, page-size, or sort changes. Say so in the select-all label and action count. An application that selects across pages must explicitly explain that larger scope and handle records not loaded in the browser.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Sort, find, and act</h2>
+<p>Put a native button inside each sortable header and set <code>aria-sort="ascending"</code> or <code>"descending"</code> on the currently sorted <code>th</code>. Remove the attribute from other headers. Keep any arrow decorative with <code>aria-hidden="true"</code>. The application reorders records and maintains focus; Mica styles the header state.</p>
+<p>Search and filters determine results; sorting orders them; pagination slices them. Reset to page one when the query or page size changes. Clamp the page after deletions. For server data, store these values in the URL, send them with the request, discard stale responses, and render the returned total and rows together.</p>
+<p>Column visibility and row actions can use native popovers with labeled checkboxes and buttons. Hide both header and body cells for a column; update any state cell’s <code>colspan</code>. The example keeps selection, project names, and row actions available. If the sorted column is hidden, it returns to Project sorting.</p>
+<p>Show the result range once, in the footer. Offer Clear filters only while filters are active. Use a separate result announcement after bulk actions. Mica imposes no icons, column schema, request library, or mutation API.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Narrow viewports and collection states</h2>
+<p>Within <code>data-data-table</code>, columns marked <code>data-table-sticky</code> stick to the inline start below 44rem. Set <code>--table-sticky-offset</code> on each pinned cell (including its header) to the combined width of earlier pinned columns. Author column widths so the pinned region leaves space to discover other columns. The example sets <code>--table-min-width:0px</code> and gives every column an explicit width, so hiding a column does not redistribute a larger minimum width into the pinned cells. The example freezes selection and project names; scroll indicators sit at the frozen-column boundary.</p>
+<p>Use a full-width <code>td data-table-state</code> for first-use empty, no matches, or request failure. Include an appropriate next action: create, clear filters, or retry. Set <code>data-state</code> on the scroll region for a compact state table with hidden headers, and supply a <code>colspan</code> matching visible columns.</p>
+<p>For loading, set <code>aria-busy="true"</code> on the table region and use decorative skeleton rows with <code>aria-hidden="true"</code>. Keep “Loading…” in a live status outside that busy region. Disable paging while the result is unknown. Loading, empty, no matches, and failure should have distinct messages.</p>
+<p>Compose the footer with <a href="pagination.html">pagination</a>. It contains the only result range, an optional rows-per-page select, and page navigation. Narrow footers can replace numeric links with an authored “Page 2 of 6” status while preserving Previous and Next.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>API and customization</h2>
+<table class="api-table"><thead><tr><th>Hook</th><th>Contract</th></tr></thead><tbody>
+<tr><td><code>data-data-table</code></td><td>Collection container, usually a named section. Establishes responsive layout.</td></tr>
+<tr><td><code>data-table-heading</code></td><td>Heading/description and optional creation action.</td></tr>
+<tr><td><code>data-table-toolbar</code></td><td>Direct filter and selection panels; preserves filter height.</td></tr>
+<tr><td><code>data-table-filters</code>, <code>data-table-search</code></td><td>Wrapping controls and an expanding search label.</td></tr>
+<tr><td><code>data-table-selection</code>, <code>data-table-clear</code></td><td>Hidden until app selection exists; clear action aligns to the end.</td></tr>
+<tr><td><code>m-table-scroll</code></td><td>One direct <code>data-table-region</code> child containing a native table. Optional module measures edges.</td></tr>
+<tr><td><code>data-table</code></td><td>Native table with authored caption, headers, and rows.</td></tr>
+<tr><td><code>data-table-sticky</code></td><td>Optional narrow-screen pinned header/body cells, with explicit offsets.</td></tr>
+<tr><td><code>data-selected</code></td><td>Application-owned presence attribute on a selected <code>tr</code>; quiet fill.</td></tr>
+<tr><td><code>data-table-description</code></td><td>Secondary cell text; visual ellipsis preserves the full text in the DOM.</td></tr>
+<tr><td><code>data-table-state</code>, <code>data-state</code></td><td>State cell and optional state-mode scroll region.</td></tr>
+</tbody></table>
+<p>Set <code>--table-min-width</code> on <code>m-table-scroll</code> (default 54rem), and <code>--table-sticky-offset</code> on cells (default 0). Collection spacing uses <code>--table-padding</code> (space-lg), <code>--table-cell-padding</code> (space-sm), and <code>--table-font-size</code> (.8125rem). Set overrides directly on the collection, scroll wrapper, or footer that needs them. Native text fields remain at least 16px.</p>
+<p>Other knobs: <code>--table-heading-size</code> (1.375rem), <code>--table-toolbar-min-height</code> (0px), <code>--table-selected-background</code> (surface-raised), <code>--table-edge-width</code> (space-md), <code>--table-edge-color</code> (14% text color), <code>--table-description-size</code> (.75rem), <code>--table-sort-target</code> (2rem), <code>--table-state-padding</code> (space-2xl), and <code>--table-state-font-size</code> (1rem). Internal <code>data-m-*</code> attributes and <code>--m-*</code> properties belong to the edge enhancement.</p>
+</m-vstack></section>

@@ -1,0 +1,38 @@
+<section><m-vstack gap="md"><h2>Page navigation</h2>
+<div data-table-footer><span data-page-meta>11–20 of 54</span><nav data-pagination aria-label="Pagination example"><a href="?page=1" aria-label="Previous page">← Previous</a><span data-page-status>Page 2 of 6</span><a data-page-number href="?page=1" aria-label="Page 1">1</a><a data-page-number href="?page=2" aria-current="page" aria-label="Page 2">2</a><a data-page-number href="?page=3" aria-label="Page 3">3</a><span data-page-ellipsis aria-hidden="true">…</span><a data-page-number href="?page=6" aria-label="Page 6">6</a><a href="?page=3" aria-label="Next page">Next →</a></nav></div>
+<p>Native links with a quiet current-page fill. Use real destination URLs for server navigation, or native buttons with your application’s page-change handlers. No Mica script is needed.</p>
+<p><a href="../examples/data-table.html">Try pagination in the complete collection example</a>, including result counts, rows per page, search, sorting, and selection. See <a href="data-table.html">data tables</a> for how these pieces work together.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Markup</h2>
+<pre tabindex="0" aria-label="Pagination markup"><code>&lt;footer data-table-footer&gt;
+  &lt;div data-page-meta&gt;
+    &lt;span role="status" aria-atomic="true"&gt;1–10 of 54&lt;/span&gt;
+    &lt;label data-page-size&gt;Rows per page
+      &lt;select name="size"&gt;&lt;option selected&gt;10&lt;/option&gt;&lt;option&gt;20&lt;/option&gt;&lt;/select&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+  &lt;nav data-pagination aria-label="Project pages"&gt;
+    &lt;span aria-disabled="true"&gt;← Previous&lt;/span&gt;
+    &lt;span data-page-status&gt;Page 1 of 6&lt;/span&gt;
+    &lt;a data-page-number href="?page=1" aria-current="page" aria-label="Page 1"&gt;1&lt;/a&gt;
+    &lt;a data-page-number href="?page=2" aria-label="Page 2"&gt;2&lt;/a&gt;
+    &lt;span data-page-ellipsis aria-hidden="true"&gt;…&lt;/span&gt;
+    &lt;a data-page-number href="?page=6" aria-label="Page 6"&gt;6&lt;/a&gt;
+    &lt;a href="?page=2" aria-label="Next page"&gt;Next →&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/footer&gt;</code></pre>
+<p>The optional footer lays out result metadata and navigation. It is a container: below 40rem of available content width, an authored <code>data-page-status</code> replaces <code>data-page-number</code> and <code>data-page-ellipsis</code> items. Without that status, numbers remain visible and the footer wraps. The navigation also works alone, retaining its full set of links.</p>
+<p>Mark exactly one destination <code>aria-current="page"</code>. Ellipses are decorative gaps, not buttons. For unavailable destinations, use a <code>span aria-disabled="true"</code>, or a <code>button disabled</code> in client-driven examples. Setting <code>aria-disabled</code> on an anchor alone does not disable navigation.</p>
+<p>For client updates, keep focus on the activated paging control when it remains available. If it disappears or becomes disabled, focus the result status with <code>tabindex="-1"</code>. Announce the updated range once. At zero results, use “0 results” and “No pages,” with both directions disabled. If the total is unknown, omit numeric totals and expose only the directions the server supports.</p>
+<p>Mica does not calculate page ranges, fetch records, update URLs, change page size, or synchronize multiple pagers. Your app owns those operations; a server-rendered form can submit the page-size choice without JavaScript.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>API</h2>
+<table class="api-table"><thead><tr><th>Hook</th><th>Purpose</th></tr></thead><tbody>
+<tr><td><code>nav[data-pagination]</code></td><td>Direct native page links/buttons and optional decorative/status spans.</td></tr>
+<tr><td><code>data-table-footer</code></td><td>Optional responsive container for metadata and navigation.</td></tr>
+<tr><td><code>data-page-meta</code>, <code>data-page-size</code></td><td>Result range grouping and labeled native size select.</td></tr>
+<tr><td><code>data-page-number</code>, <code>data-page-ellipsis</code></td><td>Items hidden in compact mode only when a page status exists.</td></tr>
+<tr><td><code>data-page-status</code></td><td>Application-authored compact page position.</td></tr>
+</tbody></table>
+<p>On the navigation, override <code>--pagination-target</code> (2.125rem) and <code>--pagination-font-size</code> (.8125rem). The footer uses <code>--table-padding</code> (space-lg) and <code>--table-font-size</code> (.8125rem); colors use the shared text, muted-text, and raised-surface roles.</p>
+</m-vstack></section>

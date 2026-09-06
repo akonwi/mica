@@ -236,6 +236,13 @@
     },
     {
       "group": "Navigation",
+      "slug": "pagination",
+      "title": "pagination",
+      "level": "native",
+      "lead": "Page links, a quiet current-page fill, and compact navigation for narrow collections. Application-owned paging; no module required."
+    },
+    {
+      "group": "Navigation",
       "slug": "bottom-navigation",
       "title": "bottom navigation",
       "level": "native",
@@ -248,6 +255,13 @@
       "level": "native",
       "lead": "Grouped navigation with docked and inset treatments. Optional icon collapse and a flush mobile dialog enhance authored markup.",
       "scripts": ["sidebar.js"]
+    },
+    {
+      "group": "Patterns",
+      "slug": "data-table",
+      "title": "data table",
+      "level": "native",
+      "lead": "A complete collection pattern: filters, sorting, selection, row actions, states, and pagination. Native markup; application-owned data."
     },
     {
       "group": "Patterns",

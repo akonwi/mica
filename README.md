@@ -111,3 +111,9 @@ for a shell that keeps content clear of the bar.
 Breadcrumbs use `nav[data-breadcrumbs]` with an ordered list of links and a
 current-page label. Optional `breadcrumbs.js` enhances an authored ancestor
 disclosure. See [the breadcrumbs docs](https://akonwi.io/mica/docs/breadcrumbs.html).
+
+Data collections compose native `table[data-table]`, a stable filter/selection
+toolbar, and `nav[data-pagination]`. The app owns all data operations; optional
+`table.js` only adds overflow indicators to `m-table-scroll`. See the
+[data table](https://akonwi.io/mica/docs/data-table.html) and
+[pagination](https://akonwi.io/mica/docs/pagination.html) docs.

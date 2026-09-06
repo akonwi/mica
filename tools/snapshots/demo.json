@@ -228,6 +228,15 @@
     "font-size": "14px",
     "padding-top": "4px"
    },
+   "pagination.current": {
+    "background-color": "oklch(0.17 0 263)",
+    "font-weight": "650",
+    "min-height": "34px"
+   },
+   "pagination.nav": {
+    "display": "flex",
+    "gap": "4px"
+   },
    "popover": {
     "background-color": "oklch(0.17 0 263)",
     "border-top-color": "oklch(0.96 0 263 / 0.12)"
@@ -394,6 +403,27 @@
    },
    "table": {
     "border-collapse": "collapse"
+   },
+   "table.cell": {
+    "font-size": "13px",
+    "padding-top": "12px"
+   },
+   "table.native": {
+    "border-collapse": "separate",
+    "min-width": "480px",
+    "table-layout": "fixed"
+   },
+   "table.region": {
+    "overflow-x": "auto",
+    "position": "relative"
+   },
+   "table.selected": {
+    "background-color": "oklch(0.17 0 263)"
+   },
+   "table.shell": {
+    "background-color": "oklch(0.14 0 263)",
+    "border-top-width": "1px",
+    "container-type": "inline-size"
    },
    "tabs.default.rail": {
     "background-color": "oklch(0.2 0 263)",
@@ -1002,6 +1032,15 @@
     "font-size": "14px",
     "padding-top": "4px"
    },
+   "pagination.current": {
+    "background-color": "oklch(0.973 0 263)",
+    "font-weight": "650",
+    "min-height": "34px"
+   },
+   "pagination.nav": {
+    "display": "flex",
+    "gap": "4px"
+   },
    "popover": {
     "background-color": "oklch(1 0 263)",
     "border-top-color": "oklch(0.18 0 263 / 0.12)"
@@ -1168,6 +1207,27 @@
    },
    "table": {
     "border-collapse": "collapse"
+   },
+   "table.cell": {
+    "font-size": "13px",
+    "padding-top": "12px"
+   },
+   "table.native": {
+    "border-collapse": "separate",
+    "min-width": "480px",
+    "table-layout": "fixed"
+   },
+   "table.region": {
+    "overflow-x": "auto",
+    "position": "relative"
+   },
+   "table.selected": {
+    "background-color": "oklch(0.973 0 263)"
+   },
+   "table.shell": {
+    "background-color": "oklch(1 0 263)",
+    "border-top-width": "1px",
+    "container-type": "inline-size"
    },
    "tabs.default.rail": {
     "background-color": "oklch(0.952 0 263)",

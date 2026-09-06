@@ -793,6 +793,15 @@
 <li><a href="#header-demo">Workspace</a></li><li><a href="#sidebar-demo">Projects</a></li><li><span aria-current="page">Website refresh</span></li>
 </ol></nav></m-vstack></section>
 
+<section id="data-table-demo"><m-vstack gap="md"><h2>Data table &amp; pagination</h2>
+<section data-data-table aria-label="Example project collection">
+<header data-table-heading><div><h3>Projects</h3><p>Native rows, application-owned state.</p></div></header>
+<div data-table-toolbar><form data-table-filters action="#data-table-demo"><label data-table-search>Search projects <input type="search" name="q"></label><button>Search</button></form><div data-table-selection hidden>Selection actions</div></div>
+<m-table-scroll style="--table-min-width:30rem"><div data-table-region role="region" aria-label="Example projects" tabindex="0"><table data-table>
+<caption data-visually-hidden>Project collection example</caption><thead><tr><th scope="col">Project</th><th scope="col">Owner</th></tr></thead><tbody><tr data-selected><td><a href="#data-table-demo">Website refresh</a><span data-table-description>Customer experience</span></td><td>Alex Morgan</td></tr><tr><td>Mobile app</td><td>Sam Rivera</td></tr></tbody></table></div></m-table-scroll>
+<footer data-table-footer><span data-page-meta>1–2 of 4</span><nav data-pagination aria-label="Example project pages"><span aria-disabled="true">← Previous</span><span data-page-status>Page 1 of 2</span><a data-page-number href="#data-table-demo" aria-current="page" aria-label="Page 1">1</a><a data-page-number href="#data-table-demo" aria-label="Page 2">2</a><a href="#data-table-demo" aria-label="Next page">Next →</a></nav></footer>
+</section></m-vstack></section>
+
 <section id="bottom-navigation-demo"><m-vstack gap="md"><h2>Bottom navigation</h2>
 <nav data-bottom-nav aria-label="Bottom navigation example">
 <a href="#header-demo">Home</a><a href="#bottom-navigation-demo" aria-current="page">Projects</a>
