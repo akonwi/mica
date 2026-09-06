@@ -9,3 +9,5 @@ tools/snapshots/.current.json
 /llms.txt
 /docs/*.html
 /docs/site.css
+
+/docs/appearance.js

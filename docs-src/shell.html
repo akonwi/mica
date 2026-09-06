@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{DOCUMENT_TITLE}}</title>
+  <script src="{{APPEARANCE_JS}}"></script>
   <link rel="stylesheet" href="{{MICA_CSS}}" />
 {{SCRIPTS}}
   <link rel="stylesheet" href="{{SITE_CSS}}" />
@@ -20,6 +21,13 @@
       <nav aria-label="Documentation">
         {{NAV}}
       </nav>
+      <footer class="docs-sidebar-footer">
+        <button type="button" class="docs-appearance-toggle" data-variant="ghost" data-appearance-toggle hidden aria-label="Appearance: System. Switch to Light" title="Appearance: System. Switch to Light">
+          <svg data-mode="system" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          <svg data-mode="light" hidden aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+          <svg data-mode="dark" hidden aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/></svg>
+        </button>
+      </footer>
     </m-sidebar>
     <div data-sidebar-main>
       <header class="docs-toolbar">

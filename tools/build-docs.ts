@@ -78,6 +78,7 @@ async function pageHtml(page: Page, index: number): Promise<string> {
   const replacements: Record<string, string> = {
     DOCUMENT_TITLE: escapeHtml(fromRoot ? "mica" : `${page.title} — mica`),
     MICA_CSS: fromRoot ? "mica.css" : "../mica.css",
+    APPEARANCE_JS: fromRoot ? "docs/appearance.js" : "appearance.js",
     SITE_CSS: fromRoot ? "docs/site.css" : "site.css",
     SCRIPTS: scripts,
     HOME_HREF: hrefFor("index", fromRoot),
@@ -137,6 +138,7 @@ for (const [index, page] of manifest.pages.entries()) {
   outputs.set(output, await pageHtml(page, index));
 }
 outputs.set("docs/site.css", await Bun.file(join(SOURCE, "site.css")).text());
+outputs.set("docs/appearance.js", await Bun.file(join(SOURCE, "appearance.js")).text());
 outputs.set("llms.txt", llmsTxt());
 
 const checkOnly = process.argv.includes("--check");

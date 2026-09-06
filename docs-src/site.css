@@ -249,3 +249,13 @@ m-sidebar-layout[data-m-sidebar-mobile] .docs-toolbar {
   .api-table td:nth-child(3)::before { content: "Default" / ""; }
   .api-table td:nth-child(4)::before { content: "Description" / ""; }
 }
+
+.docs-sidebar-footer { padding-block-start: var(--space-xs); }
+.docs-appearance-toggle {
+  inline-size: var(--control-height-sm);
+  block-size: var(--control-height-sm);
+  min-block-size: var(--control-height-sm);
+  padding: 0;
+  color: var(--color-text-muted);
+}
+.docs-appearance-toggle [hidden] { display: none; }
