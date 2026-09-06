@@ -597,29 +597,43 @@
     }
   }
 
-  /* radio: "square target" — a solid pip in every state. muted pip
-     unchecked, bright pip on the primary fill when checked. the round
-     radio is a theme:
-       input[type="radio"] {
-         border-radius: var(--radius-full);
-         background-image: radial-gradient(circle closest-side,
-           var(--color-on-primary) 40%, transparent 46%);
-       } */
-  :where(input[type="radio"]) {
-    background-image: linear-gradient(
-      var(--color-border-strong),
-      var(--color-border-strong)
-    );
-    background-position: center;
-    background-size: 8px 8px;
+  /* Rounded inner marks, drawn as backgrounds because pseudo-elements on
+     native inputs are not portable. Four quarter circles and two center
+     strips form a rounded rectangle; radius 0 keeps the square default. */
+  :where(input[type="radio"], input[type="checkbox"][role="switch"]) {
+    --m-mark-size: 8px;
+    --m-mark-radius: min(var(--radius-sm), calc(var(--m-mark-size) / 2));
+    --m-mark-color: var(--color-border-strong);
+    --m-mark-align: .5;
+    --m-mark-inset: 0px;
+    --m-mark-left: calc(var(--m-mark-align) * (100% - var(--m-mark-size) + var(--m-mark-radius)) + var(--m-mark-inset));
+    --m-mark-top: calc(50% - (var(--m-mark-size) - var(--m-mark-radius)) / 2);
+    background-image:
+      radial-gradient(circle var(--m-mark-radius) at 100% 100%, var(--m-mark-color) 99%, transparent 100%),
+      radial-gradient(circle var(--m-mark-radius) at 0 100%, var(--m-mark-color) 99%, transparent 100%),
+      radial-gradient(circle var(--m-mark-radius) at 100% 0, var(--m-mark-color) 99%, transparent 100%),
+      radial-gradient(circle var(--m-mark-radius) at 0 0, var(--m-mark-color) 99%, transparent 100%),
+      linear-gradient(var(--m-mark-color), var(--m-mark-color)),
+      linear-gradient(var(--m-mark-color), var(--m-mark-color));
+    background-size:
+      var(--m-mark-radius) var(--m-mark-radius),
+      var(--m-mark-radius) var(--m-mark-radius),
+      var(--m-mark-radius) var(--m-mark-radius),
+      var(--m-mark-radius) var(--m-mark-radius),
+      calc(var(--m-mark-size) - 2 * var(--m-mark-radius)) var(--m-mark-size),
+      var(--m-mark-size) calc(var(--m-mark-size) - 2 * var(--m-mark-radius));
+    /* Account for each image's size: percentage positions resolve against
+       the positioning area minus that image, not the whole input. */
+    background-position:
+      left var(--m-mark-left) top var(--m-mark-top),
+      left calc(var(--m-mark-left) + var(--m-mark-size) - var(--m-mark-radius)) top var(--m-mark-top),
+      left var(--m-mark-left) top calc(var(--m-mark-top) + var(--m-mark-size) - var(--m-mark-radius)),
+      left calc(var(--m-mark-left) + var(--m-mark-size) - var(--m-mark-radius)) top calc(var(--m-mark-top) + var(--m-mark-size) - var(--m-mark-radius)),
+      left calc(var(--m-mark-align) * (100% - 2 * var(--m-mark-radius)) + var(--m-mark-inset) + var(--m-mark-radius)) top 50%,
+      left calc(var(--m-mark-align) * 100% + var(--m-mark-inset)) top 50%;
     background-repeat: no-repeat;
 
-    &:checked {
-      background-image: linear-gradient(
-        var(--color-on-primary),
-        var(--color-on-primary)
-      );
-    }
+    &:checked { --m-mark-color: var(--color-on-primary); }
   }
 
   /* segmented control: native radios fused into one control. The input
@@ -672,26 +686,24 @@
     opacity: 0.55;
   }
 
-  /* switch: a checkbox wearing a track; the thumb is a positioned
-     gradient (pseudo-elements don't render on inputs). square, per the
-     design language — a solid linear-gradient block. */
+  /* Switch: square by default; the track and thumb follow --radius-sm.
+     Set --radius-sm: var(--radius-full) for circular inner marks and a
+     pill track. Keep the thumb square by overriding --m-mark-radius: 0px. */
   :where(input[type="checkbox"][role="switch"]) {
+    --m-mark-size: 14px;
+    --m-mark-align: 0;
+    --m-mark-inset: 2px;
+    --m-mark-color: light-dark(var(--color-surface), var(--color-text));
     inline-size: 2.25rem;
     border-color: transparent;
     border-radius: var(--radius-sm);
     background-color: var(--neutral-7);
-    background-image: linear-gradient(white, white);
-    background-size: 1rem calc(100% - 4px);
-    background-position: 2px 50%;
-    background-repeat: no-repeat;
 
     &:checked {
+      --m-mark-align: 1;
+      --m-mark-inset: -2px;
+      --m-mark-color: var(--color-on-primary);
       background-color: var(--color-primary);
-      background-position: calc(100% - 2px) 50%;
-      background-image: linear-gradient(
-        var(--color-on-primary),
-        var(--color-on-primary)
-      );
     }
   }
 

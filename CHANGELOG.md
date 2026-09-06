@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Fixed
+
+- Radio pips and switch thumbs now follow `--radius-sm`, including circular
+  inner marks in fully rounded themes. Switch thumbs are now square 14px marks
+  by default (previously 16×14px), and their off-state color uses semantic
+  surface/text colors. Native input behavior is unchanged.
+
 ### Added
 
 - CSS-only `m-card`, `m-card-header`, `m-card-body`, and `m-card-footer`.

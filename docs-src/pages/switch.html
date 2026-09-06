@@ -6,3 +6,5 @@
 <div class="api-block"><h3>Styling</h3><table class="api-table"><thead><tr><th>State</th><th>Native source</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Off</td><td>unchecked checkbox</td><td>initial</td><td>Muted track with the block at the start edge.</td></tr><tr><td>On</td><td><code>checked</code></td><td><code>false</code></td><td>Primary fill with the block at the end edge.</td></tr></tbody></table></div>
 </m-vstack></section>
 <section><m-vstack gap="sm"><h2>Accessibility</h2><p>The checkbox's native <code>checked</code> state supplies the accessible state — do not duplicate it with <code>aria-checked</code>. Safari is prototyping a native <code>switch</code> attribute; if it standardizes, this component will need even less.</p></m-vstack></section>
+
+<section><m-vstack gap="sm"><h2>Rounded themes</h2><p>The track and thumb both follow <code>--radius-sm</code>. Set <code>:root { --radius-sm: var(--radius-full); }</code> for a pill track with a circular thumb. The default token value of zero keeps both square.</p></m-vstack></section>

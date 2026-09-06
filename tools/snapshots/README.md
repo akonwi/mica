@@ -1,6 +1,6 @@
 # Snapshot baselines
 
-`bun run snapshot:check` compares computed styles and 40 element crops in
+`bun run snapshot:check` compares computed styles and 60 element crops in
 Chromium and WebKit, across light and dark schemes. It also checks interactive
 behavior, accessibility, and the CSS parse canary.
 
@@ -36,7 +36,8 @@ Run `bun run snapshot:check` first. Inspect the reported JSON differences and
 the `*.current.png` / `*.diff.png` artifacts. For intended changes, run
 `bun run snapshot`, review the baseline diff, then run `bun run snapshot:check`
 again to verify repeatability. Commit the PNGs, JSON, and environment metadata
-with the change that required them. Do not hand-edit baseline values.
+with the change that required them. Rounded checkbox, radio, and switch
+crops additionally verify `--radius-sm: 9999px` in both schemes and engines. Do not hand-edit baseline values.
 
 The pixel-alignment migration replaces mixed historical macOS/Linux image
 baselines with a single recorded macOS capture environment. Some crops lose

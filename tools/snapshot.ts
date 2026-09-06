@@ -24,7 +24,7 @@
  */
 
 import { chromium, webkit } from "playwright";
-import type { Browser } from "playwright";
+import type { Browser, Page } from "playwright";
 import { join, dirname } from "node:path";
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
@@ -253,6 +253,21 @@ const VISUAL_PROBES: [string, string][] = [
   ["avatar.contained", "m-avatar[blobatar][contained]"],
 ];
 const VISUAL_DIR = join(import.meta.dir, "snapshots", "visual");
+
+// Theme coverage catches inner glyphs that ignore the radius token.
+async function captureRoundedControls(page: Page, scheme: string, suffix = "") {
+  const original = await page.locator("html").getAttribute("style");
+  try {
+    await page.locator("html").evaluate(el => el.style.setProperty("--radius-sm", "9999px"));
+    for (const [name, selector] of VISUAL_PROBES.filter(([name]) => /^(checkbox|radio|switch)\./.test(name))) {
+      visuals.set(`${name}.rounded.${scheme}${suffix}`, await captureVisual(page.locator(selector).first()));
+    }
+  } finally {
+    await page.locator("html").evaluate((el, style) => {
+      if (style === null) el.removeAttribute("style"); else el.setAttribute("style", style);
+    }, original);
+  }
+}
 
 // runs in the browser
 function collectInPage([tokens, probes]: [Record<string, string>, [string, string, string[]][]]) {
@@ -841,6 +856,8 @@ try {
         visuals.set(`${name}.${scheme}`, shot);
       }
 
+      await captureRoundedControls(page, scheme);
+
       // ---- axe pass (hard assert, not a snapshot) ----
       await page.addScriptTag({ path: join(ROOT, "node_modules/axe-core/axe.min.js") });
       const axe = await page.evaluate(async () => {
@@ -899,6 +916,7 @@ try {
         const shot = await captureVisual(page.locator(sel).first());
         visuals.set(`${name}.${scheme}.webkit`, shot);
       }
+      await captureRoundedControls(page, scheme, ".webkit");
     } finally {
       await ctx.close();
     }
