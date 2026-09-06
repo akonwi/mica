@@ -117,3 +117,7 @@ toolbar, and `nav[data-pagination]`. The app owns all data operations; optional
 `table.js` only adds overflow indicators to `m-table-scroll`. See the
 [data table](https://akonwi.io/mica/docs/data-table.html) and
 [pagination](https://akonwi.io/mica/docs/pagination.html) docs.
+
+Inline alerts and guidance use CSS-only `m-callout` with neutral, success,
+warning, and danger treatments. Icons and actions are optional authored
+content; see [callout docs](https://akonwi.io/mica/docs/callout.html).

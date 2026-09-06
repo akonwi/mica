@@ -29,6 +29,9 @@ Lives here:
   "a styled box"
 - Boundary note: `m-reel` scrolls and snaps, which *feels* behavioral —
   but scrolling is the browser's and snap is CSS. CSS-only.
+- **Callouts** (`m-callout`) — static inline messages with status tints.
+  Icons, actions, dismissal, and live announcements are authored by the app;
+  variants add no behavior or ARIA roles.
 - Avatar initials and native images are complete CSS-only content. The
   optional `avatar.js` module changes initials paint to a locally generated,
   seed-deterministic face; it adds no behavior or semantics, so it does not

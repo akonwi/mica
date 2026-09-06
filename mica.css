@@ -764,6 +764,68 @@
     --m-badge-color: var(--color-danger-text);
   }
 
+  /* Callouts are CSS-only content. Variants never imply role=alert.
+     Optional icons and dismissal controls are authored, not generated.
+     For a neutral panel with colored emphasis, override --callout-background
+     and --callout-border to the shared surface and border roles. */
+  :where(m-callout) {
+    --callout-background: var(--color-surface-raised);
+    --callout-border: var(--color-border);
+    --callout-emphasis: var(--color-text);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--callout-gap, var(--space-sm));
+    padding: var(--callout-padding, var(--space-md));
+    border: 1px solid var(--callout-border);
+    border-radius: var(--radius-md);
+    background: var(--callout-background);
+    color: var(--color-text);
+    font-size: var(--callout-font-size, .875rem);
+    line-height: var(--callout-line-height, 1.5);
+  }
+  :where(m-callout[variant="success"]) {
+    --callout-background: var(--color-success-surface);
+    --callout-border: var(--color-success-border);
+    --callout-emphasis: var(--color-success-text);
+  }
+  :where(m-callout[variant="warning"]) {
+    --callout-background: var(--color-warn-surface);
+    --callout-border: var(--color-warn-border);
+    --callout-emphasis: var(--color-warn-text);
+  }
+  :where(m-callout[variant="danger"]) {
+    --callout-background: var(--color-danger-surface);
+    --callout-border: var(--color-danger-border);
+    --callout-emphasis: var(--color-danger-text);
+  }
+  :where(m-callout[hidden]) { display: none; }
+  :where(m-callout > [data-callout-body]) { flex: 1; min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(m-callout [data-callout-title]) {
+    margin: 0 0 var(--space-2xs);
+    color: var(--callout-emphasis);
+    font: inherit;
+    font-weight: var(--callout-title-weight, 600);
+  }
+  :where(m-callout > [data-callout-body] > p:not([data-callout-title])) { margin: 0; }
+  :where(m-callout > [data-callout-body] > p + p) { margin-block-start: var(--space-xs); }
+  :where(m-callout a) { color: var(--callout-emphasis); }
+  :where(m-callout > [data-callout-icon]) {
+    inline-size: var(--callout-icon-size, 1.125rem);
+    block-size: var(--callout-icon-size, 1.125rem);
+    flex: 0 0 auto;
+    margin-block-start: var(--callout-icon-offset, .125rem);
+    color: var(--callout-emphasis);
+  }
+  :where(m-callout [data-callout-actions]) { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-block-start: var(--space-sm); }
+  :where(m-callout > button[data-callout-dismiss]) {
+    flex: 0 0 auto;
+    inline-size: var(--callout-dismiss-size, 2rem);
+    block-size: var(--callout-dismiss-size, 2rem);
+    padding: 0;
+    margin-block-start: calc(-1 * var(--space-2xs));
+    margin-inline-end: calc(-1 * var(--space-2xs));
+  }
+
   :where(m-badge[count]) {
     --m-badge-min-width: 1.5rem;
     --m-badge-padding: var(--space-2xs);

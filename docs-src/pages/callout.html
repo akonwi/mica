@@ -1,0 +1,64 @@
+<section><m-vstack gap="md"><h2>Example</h2>
+<m-callout variant="warning"><div data-callout-body><h3 data-callout-title>Your trial ends in 3 days</h3><p>Choose a plan to keep your team’s projects available.</p></div></m-callout>
+<p>Soft surfaces and borders carry the status; titles and optional icons add emphasis. Messages remain in the page flow, near the content they explain.</p>
+<iframe title="Callout examples" src="../examples/callout.html" style="inline-size:100%;block-size:60rem;border:1px solid var(--color-border)"></iframe>
+<p><a href="../examples/callout.html">Open the complete example</a> to try dark mode, narrow width, optional icons, actions, and dismissal.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Usage</h2>
+<pre tabindex="0" aria-label="Callout markup"><code>&lt;m-callout variant="warning"&gt;
+  &lt;div data-callout-body&gt;
+    &lt;h3 data-callout-title&gt;Your trial ends in 3 days&lt;/h3&gt;
+    &lt;p&gt;Choose a plan to keep your projects available.&lt;/p&gt;
+    &lt;div data-callout-actions&gt;
+      &lt;a href="/billing"&gt;View plans&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/m-callout&gt;</code></pre>
+<p><code>m-callout</code> is an unregistered, CSS-only element. No module or build step is needed. Use one direct <code>data-callout-body</code> child. The title and actions are optional; a single paragraph is enough for a short message. Choose the heading level appropriate to the surrounding document, or use a paragraph with <code>data-callout-title</code> if no heading is appropriate.</p>
+<p>Use the neutral default for guidance, <code>success</code> for confirmation, <code>warning</code> for something to consider, and <code>danger</code> for a problem. State the meaning in the text so color is never the only signal. Field-specific validation belongs with its field; a callout can summarize a broader problem.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Optional icons and dismissal</h2>
+<pre tabindex="0" aria-label="Authored icon and dismiss button"><code>&lt;m-callout id="confirmation" variant="success"&gt;
+  &lt;svg data-callout-icon viewBox="0 0 24 24" aria-hidden="true"
+       fill="none" stroke="currentColor" stroke-width="1.5"&gt;
+    &lt;path d="m5 12 4 4L19 6" /&gt;
+  &lt;/svg&gt;
+  &lt;div data-callout-body&gt;
+    &lt;p&gt;Your domain is verified and ready to use.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;button type="button" data-callout-dismiss data-variant="ghost"
+          aria-label="Dismiss domain confirmation"&gt;×&lt;/button&gt;
+&lt;/m-callout&gt;</code></pre>
+<p>The app supplies its own icon artwork. Mica only sizes and colors the direct <code>data-callout-icon</code> child. Decorative icons should be hidden from assistive technology; the message conveys the status.</p>
+<p>The optional dismiss button is a compact trailing control. It has no built-in behavior. Your app handles its click, sets <code>hidden</code> on the callout, and moves focus to an appropriate surviving control if focus was inside it. Omit the button unless you implement dismissal. Keep essential instructions and unresolved errors visible while they remain relevant.</p>
+<p>Actions are ordinary links or buttons with application-owned behavior. They wrap within <code>data-callout-actions</code>. Neither actions nor dismissal require a Mica enhancement.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Announcements are an application decision</h2>
+<p>Static guidance is ordinary content. Variants never add <code>role="alert"</code>, a live region, or focus behavior automatically.</p>
+<p>For a newly appearing, nonurgent confirmation, update an existing <code>role="status"</code> region. For an urgent dynamically updated error, use <code>role="alert"</code> where an interruption is justified. Do not announce every callout on page load, move focus merely to announce a message, or announce the same update in multiple live regions. Keep action buttons outside a dedicated live-message region when practical.</p>
+<p>The working example uses a separate status region for its Save and Try again actions. That small script belongs to the example application; the callouts themselves work without JavaScript.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>API</h2>
+<table class="api-table"><thead><tr><th>Part</th><th>Contract</th></tr></thead><tbody>
+<tr><td><code>variant</code></td><td><code>neutral | success | warning | danger</code>. Omitted or neutral uses the neutral treatment.</td></tr>
+<tr><td><code>data-callout-body</code></td><td>One direct content child; title, paragraphs, links, and optional actions.</td></tr>
+<tr><td><code>data-callout-title</code></td><td>Optional title inside the body. Uses the variant emphasis color.</td></tr>
+<tr><td><code>data-callout-icon</code></td><td>Optional direct child before the body; authored icon.</td></tr>
+<tr><td><code>data-callout-actions</code></td><td>Optional wrapping action group inside the body.</td></tr>
+<tr><td><code>data-callout-dismiss</code></td><td>Optional direct native button after the body; app-owned behavior.</td></tr>
+<tr><td><code>hidden</code></td><td>Native presence attribute hides the entire callout.</td></tr>
+</tbody></table>
+<table class="api-table"><thead><tr><th>Property</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>--callout-background</code>, <code>--callout-border</code>, <code>--callout-emphasis</code></td><td>Shared neutral or variant surface, border, and text roles.</td></tr>
+<tr><td><code>--callout-padding</code>, <code>--callout-gap</code></td><td><code>--space-md</code>, <code>--space-sm</code>.</td></tr>
+<tr><td><code>--callout-font-size</code>, <code>--callout-line-height</code></td><td>.875rem, 1.5.</td></tr>
+<tr><td><code>--callout-title-weight</code></td><td>600.</td></tr>
+<tr><td><code>--callout-icon-size</code>, <code>--callout-icon-offset</code></td><td>1.125rem, .125rem top offset.</td></tr>
+<tr><td><code>--callout-dismiss-size</code></td><td>2rem.</td></tr>
+</tbody></table>
+<p>The shared <code>--radius-md</code> applies; the default theme stays square. For a neutral panel with colored emphasis, override these properties in unlayered application CSS:</p>
+<pre tabindex="0" aria-label="Neutral surface customization"><code>m-callout {
+  --callout-background: var(--color-surface);
+  --callout-border: var(--color-border);
+}</code></pre>
+</m-vstack></section>

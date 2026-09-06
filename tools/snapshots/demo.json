@@ -126,6 +126,31 @@
     "font-size": "14px",
     "padding-left": "12px"
    },
+   "callout": {
+    "background-color": "oklch(0.17 0 263)",
+    "border-top-color": "oklch(0.3 0 263)",
+    "display": "flex",
+    "font-size": "14px",
+    "gap": "12px",
+    "padding-top": "16px"
+   },
+   "callout.danger": {
+    "background-color": "oklch(0.27 0.063 25)",
+    "border-top-color": "oklch(0.46 0.144 25)"
+   },
+   "callout.success": {
+    "background-color": "oklch(0.27 0.063 150)",
+    "border-top-color": "oklch(0.46 0.144 150)"
+   },
+   "callout.title": {
+    "color": "oklch(0.8 0.162 48)",
+    "font-size": "14px",
+    "font-weight": "600"
+   },
+   "callout.warning": {
+    "background-color": "oklch(0.27 0.063 48)",
+    "border-top-color": "oklch(0.46 0.144 48)"
+   },
    "checkbox": {
     "appearance": "none",
     "block-size": "20px",
@@ -929,6 +954,31 @@
    "button.small": {
     "font-size": "14px",
     "padding-left": "12px"
+   },
+   "callout": {
+    "background-color": "oklch(0.973 0 263)",
+    "border-top-color": "oklch(0.89 0 263)",
+    "display": "flex",
+    "font-size": "14px",
+    "gap": "12px",
+    "padding-top": "16px"
+   },
+   "callout.danger": {
+    "background-color": "oklch(0.95 0.045 25)",
+    "border-top-color": "oklch(0.79 0.117 25)"
+   },
+   "callout.success": {
+    "background-color": "oklch(0.95 0.045 150)",
+    "border-top-color": "oklch(0.79 0.117 150)"
+   },
+   "callout.title": {
+    "color": "oklch(0.42 0.162 48)",
+    "font-size": "14px",
+    "font-weight": "600"
+   },
+   "callout.warning": {
+    "background-color": "oklch(0.95 0.045 48)",
+    "border-top-color": "oklch(0.79 0.117 48)"
    },
    "checkbox": {
     "appearance": "none",

@@ -118,6 +118,13 @@
     },
     {
       "group": "Elements",
+      "slug": "callout",
+      "title": "callout",
+      "level": "css",
+      "lead": "Persistent inline messages with soft status tints. Optional authored icons and actions; no JavaScript required."
+    },
+    {
+      "group": "Elements",
       "slug": "avatar",
       "title": "avatar",
       "level": "css",
