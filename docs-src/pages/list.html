@@ -1,0 +1,45 @@
+<section><m-vstack gap="md"><h2>Example</h2>
+<ul data-list role="list"><li><div data-list-body><span data-list-title>Opposition report</span><span data-list-description>PDF · Updated today</span></div><span data-list-trailing>2.4 MB</span></li><li><div data-list-body><span data-list-title>Second-half clips</span><span data-list-description>Video · 8 clips</span></div></li></ul>
+<p>Entries share a list rather than each receiving a card. Dividers separate rows by default; metadata, leading visuals, and actions are optional.</p>
+<iframe title="Interactive list examples" src="../examples/lists.html" style="inline-size:100%;block-size:60rem;border:1px solid var(--color-border)"></iframe>
+<p><a href="../examples/lists.html">Open the complete example</a> for editable sample notes, files, and people. See <a href="card.html">cards</a> for the same list inside a shared surface.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Usage</h2>
+<pre tabindex="0" aria-label="List markup"><code>&lt;ol data-list role="list"&gt;
+  &lt;li&gt;
+    &lt;div data-list-body&gt;
+      &lt;p&gt;The midfield stayed compact after the break.&lt;/p&gt;
+      &lt;div data-list-meta&gt;
+        &lt;time datetime="2026-09-06T16:42:00"&gt;Today, 4:42 PM&lt;/time&gt;
+        &lt;div data-list-actions&gt;
+          &lt;button type="button" aria-label="Edit note from 4:42 PM"&gt;Edit&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+<p>Use a native <code>ul</code> or <code>ol</code> with direct <code>li</code> children. Explicit <code>role="list"</code> preserves list semantics when markers are removed in Safari. Use <code>ol</code> when ordering matters. If visible rank matters, author it as leading content; Mica does not generate numbers.</p>
+<p>Rows may contain an optional leading visual, a flexible <code>data-list-body</code>, and optional trailing information or controls. For long notes, put metadata and actions beneath the body text so they can wrap naturally. Use an app-specific rule such as <code>white-space:pre-wrap</code> when notes need to preserve line breaks.</p>
+<p>These are ordinary lists, not listboxes, menus, or grids. There is no row-wide click target, hover fill, keyboard controller, selection state, or generated icon. Author native links and buttons for actions. Give repeated action buttons record-specific accessible names; keep decorative icons hidden from assistive technology.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Dividers and composition</h2>
+<pre tabindex="0" aria-label="Divider opt-out"><code>&lt;ul data-list role="list"&gt;…&lt;/ul&gt;
+&lt;ul data-list data-dividers="none" role="list"&gt;…&lt;/ul&gt;</code></pre>
+<p>Inset dividers are the default. Opt out with <code>data-dividers="none"</code>; only their paint changes, preserving row spacing. Omit the attribute to restore dividers. The list has no outer border or background.</p>
+<p>Set <code>--list-inset</code> on the list to inset both its rows and dividers. Its default is zero, suitable for a page or an already-padded parent. Inside a direct <code>m-card-body flush</code>, Mica uses the card’s <code>--card-pad</code> automatically. Dividers remain aligned with content rather than spanning the outer card.</p>
+<p>An empty collection can use an ordinary paragraph next to the list. Loading and errors can compose with <a href="skeleton.html">skeletons</a> and <a href="callout.html">callouts</a>. Application code owns data, editing, deletion, focus restoration, and any live announcements. The list presentation requires no JavaScript module.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>API</h2>
+<table class="api-table"><thead><tr><th>Hook</th><th>Contract</th></tr></thead><tbody>
+<tr><td><code>ul/ol[data-list]</code></td><td>Native list containing direct list items.</td></tr>
+<tr><td><code>data-dividers="none"</code></td><td>Optional on the list; hides row divider paint.</td></tr>
+<tr><td><code>data-list-leading</code></td><td>Optional direct row child for an authored icon, avatar, or rank.</td></tr>
+<tr><td><code>data-list-body</code></td><td>Flexible row child containing text, links, and optional metadata.</td></tr>
+<tr><td><code>data-list-title</code>, <code>data-list-description</code></td><td>Optional emphasis and secondary-text hooks; use an appropriate native element.</td></tr>
+<tr><td><code>data-list-meta</code></td><td>Wrapping secondary information below the main content.</td></tr>
+<tr><td><code>data-list-actions</code></td><td>Wrapping native action buttons, usually within metadata.</td></tr>
+<tr><td><code>data-list-trailing</code></td><td>Optional direct row child for metadata or controls at the inline end.</td></tr>
+</tbody></table>
+<p>Defaults: <code>--list-inset</code> 0px; <code>--list-divider-color</code> border role; <code>--list-row-padding</code> space-md; <code>--list-gap</code> space-sm; <code>--list-align</code> flex-start; <code>--list-leading-size</code> 2rem; <code>--list-font-size</code> .875rem; <code>--list-line-height</code> 1.55; <code>--list-title-weight</code> 600; <code>--list-description-size</code> .8125rem; <code>--list-meta-size</code> .75rem.</p>
+<p>Set <code>--list-align:center</code> for compact file or people rows. Change leading size for your artwork. Theme properties can be overridden in ordinary unlayered CSS; list dividers and the containing card border remain independent.</p>
+</m-vstack></section>

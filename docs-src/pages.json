@@ -110,6 +110,14 @@
       "lead": "The native element, styled directly. Variants and sizes are data attributes; behavior remains native."
     },
     {
+      "group": "Elements", "slug": "card", "title": "card", "level": "css",
+      "lead": "A quiet surface with optional header, body, and footer. Flush bodies compose with lists and other content that owns its spacing."
+    },
+    {
+      "group": "Elements", "slug": "list", "title": "list", "level": "native",
+      "lead": "Native lists with inset dividers, flexible content, and optional metadata and actions. No item cards or imposed interaction."
+    },
+    {
       "group": "Elements",
       "slug": "badge",
       "title": "badge",

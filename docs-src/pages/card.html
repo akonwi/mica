@@ -1,0 +1,57 @@
+<section><m-vstack gap="md"><h2>Example</h2>
+<m-card><m-card-header><div><h3>Match observations</h3><p>Private notes</p></div></m-card-header><m-card-body flush divider><ul data-list role="list"><li><div data-list-body><p>The midfield stayed compact after the break.</p></div></li><li><div data-list-body><p>Watch second-ball positioning on corners.</p></div></li></ul></m-card-body><m-card-footer divider><p>Only visible to you</p></m-card-footer></m-card>
+<p>One surface around a collection. Cards provide structure and spacing; their contents keep native links, controls, and semantics.</p>
+<iframe title="Card and list examples" src="../examples/cards.html" style="inline-size:100%;block-size:60rem;border:1px solid var(--color-border)"></iframe>
+<p><a href="../examples/cards.html">Open the complete example</a> for notes, standings, prose, forms, and a body-only card, in both themes and narrow layouts.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Usage</h2>
+<pre tabindex="0" aria-label="Card anatomy"><code>&lt;m-card&gt;
+  &lt;m-card-header&gt;
+    &lt;div&gt;&lt;h3&gt;Match observations&lt;/h3&gt;&lt;p&gt;Private notes&lt;/p&gt;&lt;/div&gt;
+    &lt;button type="button"&gt;Add note&lt;/button&gt;
+  &lt;/m-card-header&gt;
+  &lt;m-card-body divider&gt;&lt;p&gt;Your observations…&lt;/p&gt;&lt;/m-card-body&gt;
+  &lt;m-card-footer divider&gt;
+    &lt;p&gt;Only visible to you&lt;/p&gt;
+    &lt;a href="/notes"&gt;View all notes&lt;/a&gt;
+  &lt;/m-card-footer&gt;
+&lt;/m-card&gt;</code></pre>
+<p>All parts are unregistered custom elements, styled by CSS. No module is needed. Header, body, and footer are optional direct children. Use an ordinary heading at the level appropriate to your document; group title and description in a <code>div</code> when the header also has an action.</p>
+<p>Custom card tags add no landmark or article semantics, click target, focus behavior, or accessible name. Use a surrounding native <code>article</code> or named <code>section</code> when the content warrants one. A form can wrap the card; native controls still submit normally. Do not turn a card containing buttons or links into another nested click target.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Padded and flush bodies</h2>
+<p><code>m-card-body</code> adds padding for prose, fields, and other inset content. <code>m-card-body flush</code> removes that padding so the child owns spacing. Use it for lists, tables, tab groups, or full-width media.</p>
+<pre tabindex="0" aria-label="Flush list composition"><code>&lt;m-card&gt;
+  &lt;m-card-header&gt;&lt;h3&gt;My notes&lt;/h3&gt;&lt;/m-card-header&gt;
+  &lt;m-card-body flush divider&gt;
+    &lt;ol data-list role="list"&gt;
+      &lt;li&gt;&lt;div data-list-body&gt;&lt;p&gt;First observation…&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;div data-list-body&gt;&lt;p&gt;Second observation…&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/m-card-body&gt;
+&lt;/m-card&gt;</code></pre>
+<p>A direct <code>data-list</code> child of a flush body inherits the card’s horizontal inset through <code>--list-inset</code>. The list owns that inset, leaving the body flush. List dividers align with row content and headings; there is no doubled padding. A list in a padded body already gets its inset from the body.</p>
+<p><code>divider</code> adds a border at the beginning of a card section. It is independent of the list’s default row dividers. Omit it for continuous sections; set <code>data-dividers="none"</code> on the list to hide only the row dividers. The outer card border is independent of both.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>API and theming</h2>
+<table class="api-table"><thead><tr><th>Element</th><th>Attributes</th><th>Purpose</th></tr></thead><tbody>
+<tr><td><code>m-card</code></td><td>Native <code>hidden</code> supported</td><td>Surface, border, and shared padding token.</td></tr>
+<tr><td><code>m-card-header</code></td><td><code>divider</code></td><td>Title/description and optional trailing action.</td></tr>
+<tr><td><code>m-card-body</code></td><td><code>flush</code>, <code>divider</code></td><td>Padded content by default; flush delegates spacing.</td></tr>
+<tr><td><code>m-card-footer</code></td><td><code>divider</code></td><td>Wrapping supplementary content and actions.</td></tr>
+</tbody></table>
+<p>Boolean attributes are presence-based: omit <code>flush</code> to restore padding; <code>flush="false"</code> still enables it. The same applies to <code>divider</code>. Attributes set custom properties; structural rules read them.</p>
+<table class="api-table"><thead><tr><th>Token</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>--card-pad</code></td><td><code>--space-lg</code>; shared header/body/footer and composed-list inset.</td></tr>
+<tr><td><code>--card-background</code>, <code>--card-border</code></td><td><code>--color-surface</code>, <code>--color-border</code>.</td></tr>
+<tr><td><code>--card-divider-color</code></td><td><code>--color-border</code>.</td></tr>
+<tr><td><code>--card-gap</code>, <code>--card-footer-gap</code></td><td><code>--space-md</code>, <code>--space-sm</code>.</td></tr>
+<tr><td><code>--card-title-size</code>, <code>--card-description-size</code>, <code>--card-footer-size</code></td><td>1rem, .8125rem, .75rem.</td></tr>
+</tbody></table>
+<pre tabindex="0" aria-label="Borderless card theme"><code>m-card {
+  --card-border: transparent;
+  --card-background: transparent;
+  --card-pad: var(--space-md);
+}</code></pre>
+<p>The shared <code>--radius-md</code> controls the corner shape. Cards do not clip overflowing children; menus, focus rings, and authored media retain their own behavior. Override part layouts in ordinary application CSS, for example a grid body for a form.</p>
+</m-vstack></section>

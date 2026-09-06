@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+### Added
+
+- CSS-only `m-card`, `m-card-header`, `m-card-body`, and `m-card-footer`.
+  Optional `flush` bodies delegate spacing; explicit `divider` attributes
+  separate card sections. Native lists compose without double padding.
+- Native `ul/ol[data-list]` with inset dividers by default and
+  `data-dividers="none"` to opt out without changing row spacing. Optional
+  leading/body/trailing parts, metadata, and actions preserve native semantics.
+- Card/list documentation, interactive examples, React typings, and browser
+  and computed-style coverage. No JavaScript enhancement module is required.
+
 ## v0.11.0 — 2026-09-05
 
 This is an additive release. Existing markup and module imports continue to

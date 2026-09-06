@@ -66,6 +66,10 @@ declare module 'react' {
         blobatar?: string
         contained?: boolean
       }>
+      'm-card': MicaElement
+      'm-card-header': MicaElement<{ divider?: boolean }>
+      'm-card-body': MicaElement<{ flush?: boolean; divider?: boolean }>
+      'm-card-footer': MicaElement<{ divider?: boolean }>
       'm-callout': MicaElement<{ variant?: 'neutral' | 'success' | 'warning' | 'danger' }>
       'm-skeleton': MicaElement
       'm-toast': MicaElement<{

@@ -121,3 +121,9 @@ toolbar, and `nav[data-pagination]`. The app owns all data operations; optional
 Inline alerts and guidance use CSS-only `m-callout` with neutral, success,
 warning, and danger treatments. Icons and actions are optional authored
 content; see [callout docs](https://akonwi.io/mica/docs/callout.html).
+
+Cards use CSS-only `m-card` with optional `m-card-header`, `m-card-body`,
+and `m-card-footer` parts. A `flush` body composes with native `ul/ol[data-list]`
+without double padding. Lists use inset dividers by default;
+`data-dividers="none"` opts out. See [cards](https://akonwi.io/mica/docs/card.html)
+and [lists](https://akonwi.io/mica/docs/list.html).

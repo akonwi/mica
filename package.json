@@ -124,6 +124,7 @@
     "bottom-navigation:check": "bun tools/bottom-navigation-check.ts",
     "breadcrumbs:check": "bun tools/breadcrumbs-check.ts",
     "data-table:check": "bun tools/data-table-check.ts",
-    "callout:check": "bun tools/callout-check.ts"
+    "callout:check": "bun tools/callout-check.ts",
+    "card-list:check": "bun tools/card-list-check.ts"
   }
 }

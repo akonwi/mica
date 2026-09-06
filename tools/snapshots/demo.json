@@ -151,6 +151,29 @@
     "background-color": "oklch(0.27 0.063 48)",
     "border-top-color": "oklch(0.46 0.144 48)"
    },
+   "card.body": {
+    "display": "block",
+    "padding-left": "24px"
+   },
+   "card.flush": {
+    "border-top-width": "1px",
+    "padding-left": "0px"
+   },
+   "card.footer": {
+    "border-top-width": "1px",
+    "display": "flex",
+    "flex-wrap": "wrap"
+   },
+   "card.header": {
+    "display": "flex",
+    "gap": "16px",
+    "padding-left": "24px"
+   },
+   "card.shell": {
+    "background-color": "oklch(0.14 0 263)",
+    "border-top-width": "1px",
+    "display": "block"
+   },
    "checkbox": {
     "appearance": "none",
     "block-size": "20px",
@@ -235,6 +258,19 @@
    "link": {
     "color": "oklch(0.96 0 263)",
     "text-decoration-line": "none"
+   },
+   "list.inset": {
+    "list-style-type": "none",
+    "padding-left": "24px"
+   },
+   "list.row": {
+    "border-top-color": "oklch(0.3 0 263)",
+    "display": "flex",
+    "padding-top": "16px"
+   },
+   "list.undivided": {
+    "border-top-color": "rgba(0, 0, 0, 0)",
+    "padding-top": "16px"
    },
    "navigation.link": {
     "display": "block",
@@ -980,6 +1016,29 @@
     "background-color": "oklch(0.95 0.045 48)",
     "border-top-color": "oklch(0.79 0.117 48)"
    },
+   "card.body": {
+    "display": "block",
+    "padding-left": "24px"
+   },
+   "card.flush": {
+    "border-top-width": "1px",
+    "padding-left": "0px"
+   },
+   "card.footer": {
+    "border-top-width": "1px",
+    "display": "flex",
+    "flex-wrap": "wrap"
+   },
+   "card.header": {
+    "display": "flex",
+    "gap": "16px",
+    "padding-left": "24px"
+   },
+   "card.shell": {
+    "background-color": "oklch(1 0 263)",
+    "border-top-width": "1px",
+    "display": "block"
+   },
    "checkbox": {
     "appearance": "none",
     "block-size": "20px",
@@ -1064,6 +1123,19 @@
    "link": {
     "color": "oklch(0.18 0 263)",
     "text-decoration-line": "none"
+   },
+   "list.inset": {
+    "list-style-type": "none",
+    "padding-left": "24px"
+   },
+   "list.row": {
+    "border-top-color": "oklch(0.89 0 263)",
+    "display": "flex",
+    "padding-top": "16px"
+   },
+   "list.undivided": {
+    "border-top-color": "rgba(0, 0, 0, 0)",
+    "padding-top": "16px"
    },
    "navigation.link": {
     "display": "block",

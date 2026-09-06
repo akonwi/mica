@@ -29,6 +29,9 @@ Lives here:
   "a styled box"
 - Boundary note: `m-reel` scrolls and snaps, which *feels* behavioral —
   but scrolling is the browser's and snap is CSS. CSS-only.
+- **Cards** (`m-card` and header/body/footer parts) — CSS-only shells.
+  Native `ul/ol[data-list]` retains list semantics, with optional authored
+  links and controls. Neither pattern owns interaction or data behavior.
 - **Callouts** (`m-callout`) — static inline messages with status tints.
   Icons, actions, dismissal, and live announcements are authored by the app;
   variants add no behavior or ARIA roles.
