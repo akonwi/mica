@@ -2,38 +2,49 @@
 
 ## Unreleased
 
+## v0.11.0 — 2026-09-05
+
+This is an additive release. Existing markup and module imports continue to
+work; no migration is required. New patterns use native HTML and CSS, with
+optional per-component enhancements where needed.
+
 ### Added
 
-- Breadcrumbs: native `nav[data-breadcrumbs]` with decorative separators,
-  plain current-page emphasis, and natural wrapping. Optional
-  `m-breadcrumb-overflow` / `breadcrumbs.js` enhances an authored ancestor
-  disclosure with placement and dismissal. Includes docs and browser checks.
+- **Header navigation** — `m-header` composes a brand, native links, and
+  optional actions. `align="end"` supports right-aligned desktop links.
+  Optional `header.js` collapses the same authored navigation into a
+  single-row mobile menu; without it, links remain visible and wrap.
+- **Nested navigation menus** — `nav[data-navigation-menu]` uses native
+  disclosures and authored link panels. `header.js` adds desktop placement
+  and dismissal; mobile groups expand inside the header menu.
+- **Sidebar** — `m-sidebar` and `m-sidebar-layout` support docked and inset
+  layouts, grouped links, and quiet active fills. Optional `sidebar.js`
+  enables icon rails and a flush native mobile dialog using the same panel.
+  Icons remain application-authored.
+- **Bottom navigation** — `nav[data-bottom-nav]` provides equal-width native
+  links, quiet active fill, optional icons, and safe-area padding. No module.
+- **Breadcrumbs** — `nav[data-breadcrumbs]` styles an ordered hierarchy with
+  decorative separators and natural wrapping. Optional `breadcrumbs.js`
+  enhances an authored ancestor disclosure with placement and dismissal.
+- **Data tables and pagination** — native `table[data-table]`, a stable
+  filter/selection toolbar, optional pinned columns, collection states, and
+  responsive `nav[data-pagination]`. The application owns sorting, filtering,
+  selection, and paging. Optional `table.js` adds scroll-edge indicators only.
+- **Callouts** — CSS-only `m-callout` with neutral, success, warning, and
+  danger soft-tint treatments. Titles, icons, actions, dismissal, and live
+  announcements are optional authored content or application behavior.
 
-- Bottom navigation: native `nav[data-bottom-nav]` with equal-width links,
-  quiet active fill, optional authored icons, compact text-only sizing,
-  and safe-area padding. Includes an app-shell recipe and browser checks.
+### Docs
 
-- Nested header navigation: `nav[data-navigation-menu]` composes native
-  disclosures and authored `[data-nav-panel]` link panels. `header.js` adds
-  floating placement and dismissal; mobile groups expand in the Menu panel.
-  Includes compact/rich examples, no-JS fallback, and browser coverage.
+- Refactored documentation navigation to use Mica's sidebar.
+- Added API docs and complete interactive examples for the new patterns,
+  including narrow layouts, dark mode, accessibility, and no-JavaScript paths.
+- Aligned data-table filter buttons with the default input/select height.
 
-- Sidebar navigation: `m-sidebar` and `m-sidebar-layout` support docked and
-  inset surfaces with grouped native links, nested disclosures, and a quiet
-  borderless active fill. Icons remain consumer-authored.
-- Optional `sidebar.js` enables explicitly requested icon rails and moves the
-  same panel into a flush native mobile dialog. Includes responsive focus,
-  close/toggle controls, public open/close/toggle methods, and no-JS fallback.
-- Sidebar docs, a standalone app example, module/React types, snapshot probes,
-  and browser coverage for both treatments, RTL, reconnects and fallback.
+### Infrastructure
 
-- Header navigation: `<m-header>` composes a brand, native links, and optional
-  actions. `align="end"` aligns desktop links toward the actions, including RTL.
-- Optional `header.js` collapses the same authored navigation into a native
-  popover below 40rem container width, with responsive focus handling and
-  viewport-aware placement. Without JavaScript, navigation stays visible.
-- Header reference examples, React types, snapshot probes, and browser checks
-  for keyboard dismissal, resize, reconnect, RTL, and no-JavaScript fallback.
+- Added module exports and declarations, React JSX types, computed-style
+  snapshots, and Chromium/WebKit checks for the new components.
 
 ## v0.10.0 — 2026-08-25
 
