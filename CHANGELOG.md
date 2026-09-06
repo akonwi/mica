@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## v0.12.0 — 2026-09-06
+
+Additive release; existing markup and module imports continue to work. No
+migration is required. The default switch thumb has a small visual change.
+
 ### Fixed
 
 - Radio pips and switch thumbs now follow `--radius-sm`, including circular
@@ -11,9 +16,6 @@
 
 ### Added
 
-- Docs theme builder with live component previews, four presets, token controls,
-  mobile preview sizing, and copyable CSS.
-
 - CSS-only `m-card`, `m-card-header`, `m-card-body`, and `m-card-footer`.
   Optional `flush` bodies delegate spacing; explicit `divider` attributes
   separate card sections. Native lists compose without double padding.
@@ -22,6 +24,14 @@
   leading/body/trailing parts, metadata, and actions preserve native semantics.
 - Card/list documentation, interactive examples, React typings, and browser
   and computed-style coverage. No JavaScript enhancement module is required.
+
+### Docs and tooling
+
+- Theme builder with live component previews, four presets, token controls,
+  mobile preview sizing, and copyable CSS.
+- Persistent Light/Dark/System appearance toggle in the docs sidebar.
+- Pixel-aligned visual snapshots with recorded capture environment and rounded
+  control coverage, reducing fractional-position noise without relaxing diffs.
 
 ## v0.11.0 — 2026-09-05
 
