@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{{MICA_CSS}}" />
 {{SCRIPTS}}
   <link rel="stylesheet" href="{{SITE_CSS}}" />
+{{PAGE_ASSETS}}
 </head>
 <body>
   <a class="skip" href="#main" data-visually-hidden="focusable">Skip to content</a>
@@ -35,7 +36,7 @@
         <button data-variant="ghost" type="button" data-sidebar-toggle aria-controls="docs-navigation" aria-expanded="false">Navigation</button>
       </header>
       <main id="main" class="docs-content" tabindex="-1">
-      <m-center style="--max: 62rem">
+      <m-center style="--max: {{CONTENT_WIDTH}}">
         <m-vstack gap="xl">
           <header class="page-header">
             <m-vstack gap="2xs">

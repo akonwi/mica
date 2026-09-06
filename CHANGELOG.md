@@ -11,6 +11,9 @@
 
 ### Added
 
+- Docs theme builder with live component previews, four presets, token controls,
+  mobile preview sizing, and copyable CSS.
+
 - CSS-only `m-card`, `m-card-header`, `m-card-body`, and `m-card-footer`.
   Optional `flush` bodies delegate spacing; explicit `divider` attributes
   separate card sections. Native lists compose without double padding.

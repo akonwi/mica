@@ -11,3 +11,6 @@ tools/snapshots/.current.json
 /docs/site.css
 
 /docs/appearance.js
+
+/docs/theme-builder.css
+/docs/theme-builder.js

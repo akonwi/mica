@@ -11,6 +11,9 @@ type Page = {
   lead: string;
   level?: Level;
   scripts?: string[];
+  siteStyles?: string[];
+  siteScripts?: string[];
+  wide?: boolean;
 };
 type Manifest = { groups: string[]; pages: Page[] };
 
@@ -81,6 +84,11 @@ async function pageHtml(page: Page, index: number): Promise<string> {
     APPEARANCE_JS: fromRoot ? "docs/appearance.js" : "appearance.js",
     SITE_CSS: fromRoot ? "docs/site.css" : "site.css",
     SCRIPTS: scripts,
+    CONTENT_WIDTH: page.wide ? "92rem" : "62rem",
+    PAGE_ASSETS: [
+      ...(page.siteStyles ?? []).map(file => `  <link rel="stylesheet" href="${fromRoot ? "docs/" : ""}${file}" />`),
+      ...(page.siteScripts ?? []).map(file => `  <script type="module" src="${fromRoot ? "docs/" : ""}${file}"></script>`),
+    ].join("\n"),
     HOME_HREF: hrefFor("index", fromRoot),
     NAV: navHtml(page.slug, fromRoot),
     PAGE_TITLE: escapeHtml(page.title),
@@ -139,6 +147,9 @@ for (const [index, page] of manifest.pages.entries()) {
 }
 outputs.set("docs/site.css", await Bun.file(join(SOURCE, "site.css")).text());
 outputs.set("docs/appearance.js", await Bun.file(join(SOURCE, "appearance.js")).text());
+for (const asset of ["theme-builder.css", "theme-builder.js", "theme-preview.html"]) {
+  outputs.set(`docs/${asset}`, await Bun.file(join(SOURCE, asset)).text());
+}
 outputs.set("llms.txt", llmsTxt());
 
 const checkOnly = process.argv.includes("--check");
@@ -146,7 +157,7 @@ const docsDirectory = join(ROOT, "docs");
 if (!checkOnly) await mkdir(docsDirectory, { recursive: true });
 
 const expectedDocs = new Set(
-  manifest.pages.filter((page) => page.slug !== "index").map((page) => `${page.slug}.html`),
+  manifest.pages.filter((page) => page.slug !== "index").map((page) => `${page.slug}.html`).concat("theme-preview.html"),
 );
 const staleDocs = [...new Bun.Glob("*.html").scanSync(docsDirectory)]
   .filter((file) => !expectedDocs.has(file));

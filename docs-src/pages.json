@@ -1,5 +1,12 @@
 {
-  "groups": ["Start", "Layout", "Elements", "Forms", "Navigation", "Patterns"],
+  "groups": [
+    "Start",
+    "Layout",
+    "Elements",
+    "Forms",
+    "Navigation",
+    "Patterns"
+  ],
   "pages": [
     {
       "group": "Start",
@@ -11,7 +18,20 @@
       "group": "Start",
       "slug": "tokens",
       "title": "Tokens & theming",
-      "lead": "Knobs → scales → roles. Theming is swapping token values, never overriding component CSS."
+      "lead": "Knobs \u2192 scales \u2192 roles. Theming is swapping token values, never overriding component CSS."
+    },
+    {
+      "group": "Start",
+      "slug": "theme-builder",
+      "title": "Theme builder",
+      "lead": "Start with a feeling. Fine-tune the details. Take the CSS.",
+      "wide": true,
+      "siteStyles": [
+        "theme-builder.css"
+      ],
+      "siteScripts": [
+        "theme-builder.js"
+      ]
     },
     {
       "group": "Start",
@@ -110,11 +130,17 @@
       "lead": "The native element, styled directly. Variants and sizes are data attributes; behavior remains native."
     },
     {
-      "group": "Elements", "slug": "card", "title": "card", "level": "css",
+      "group": "Elements",
+      "slug": "card",
+      "title": "card",
+      "level": "css",
       "lead": "A quiet surface with optional header, body, and footer. Flush bodies compose with lists and other content that owns its spacing."
     },
     {
-      "group": "Elements", "slug": "list", "title": "list", "level": "native",
+      "group": "Elements",
+      "slug": "list",
+      "title": "list",
+      "level": "native",
       "lead": "Native lists with inset dividers, flexible content, and optional metadata and actions. No item cards or imposed interaction."
     },
     {
@@ -137,7 +163,9 @@
       "title": "avatar",
       "level": "css",
       "lead": "Initials or an image; optional deterministic color and features based on a string.",
-      "scripts": ["avatar.js"]
+      "scripts": [
+        "avatar.js"
+      ]
     },
     {
       "group": "Elements",
@@ -158,14 +186,14 @@
       "slug": "content",
       "title": "content",
       "level": "native",
-      "lead": "Tables, lists, code, quotes — prose-adjacent elements that just work."
+      "lead": "Tables, lists, code, quotes \u2014 prose-adjacent elements that just work."
     },
     {
       "group": "Elements",
       "slug": "progress",
       "title": "progress & meter",
       "level": "native",
-      "lead": "Thin square bars. Meter grades through the status roles — the browser decides which."
+      "lead": "Thin square bars. Meter grades through the status roles \u2014 the browser decides which."
     },
     {
       "group": "Forms",
@@ -180,7 +208,9 @@
       "title": "select",
       "level": "native",
       "lead": "Custom picker where the platform allows (base-select); native picker elsewhere. Zero JS either way.",
-      "scripts": ["select.js"]
+      "scripts": [
+        "select.js"
+      ]
     },
     {
       "group": "Forms",
@@ -223,7 +253,9 @@
       "title": "field validation",
       "level": "js",
       "lead": "Declarative per-cause errors below the field. No browser bubbles.",
-      "scripts": ["field.js"]
+      "scripts": [
+        "field.js"
+      ]
     },
     {
       "group": "Navigation",
@@ -231,7 +263,9 @@
       "title": "header navigation",
       "level": "native",
       "lead": "A brand, ordinary navigation links, and optional actions. Add a small enhancement for a single-row mobile menu.",
-      "scripts": ["header.js"]
+      "scripts": [
+        "header.js"
+      ]
     },
     {
       "group": "Navigation",
@@ -239,7 +273,9 @@
       "title": "navigation menu",
       "level": "native",
       "lead": "Nested header navigation with compact dropdowns, richer link panels, and inline mobile disclosures.",
-      "scripts": ["header.js"]
+      "scripts": [
+        "header.js"
+      ]
     },
     {
       "group": "Navigation",
@@ -247,7 +283,9 @@
       "title": "breadcrumbs",
       "level": "native",
       "lead": "A quiet trail through the page hierarchy. Natural wrapping and an optional ancestor disclosure preserve every destination.",
-      "scripts": ["breadcrumbs.js"]
+      "scripts": [
+        "breadcrumbs.js"
+      ]
     },
     {
       "group": "Navigation",
@@ -269,7 +307,9 @@
       "title": "sidebar",
       "level": "native",
       "lead": "Grouped navigation with docked and inset treatments. Optional icon collapse and a flush mobile dialog enhance authored markup.",
-      "scripts": ["sidebar.js"]
+      "scripts": [
+        "sidebar.js"
+      ]
     },
     {
       "group": "Patterns",
@@ -290,22 +330,25 @@
       "slug": "dialog",
       "title": "dialog",
       "level": "native",
-      "lead": "Modal and drawer. Focus trap, Esc, and top layer — the browser's. Open/close — invoker commands (shimmed while support spreads).",
-      "scripts": ["invoker.js", "drawer.js"]
+      "lead": "Modal and drawer. Focus trap, Esc, and top layer \u2014 the browser's. Open/close \u2014 invoker commands (shimmed while support spreads).",
+      "scripts": [
+        "invoker.js",
+        "drawer.js"
+      ]
     },
     {
       "group": "Patterns",
       "slug": "accordion",
       "title": "accordion",
       "level": "native",
-      "lead": "details + summary. Exclusivity, keyboard, and semantics are the browser's — the shared name attribute does the grouping."
+      "lead": "details + summary. Exclusivity, keyboard, and semantics are the browser's \u2014 the shared name attribute does the grouping."
     },
     {
       "group": "Patterns",
       "slug": "popover",
       "title": "popover & tooltip",
       "level": "native",
-      "lead": "popover attribute + popovertarget invokers. Toggle, light dismiss, Esc, top layer — the browser's. Zero JS."
+      "lead": "popover attribute + popovertarget invokers. Toggle, light dismiss, Esc, top layer \u2014 the browser's. Zero JS."
     },
     {
       "group": "Patterns",
@@ -313,15 +356,19 @@
       "title": "toast",
       "level": "native",
       "lead": "A custom element around a native manual popover. Display, dismissal, and announcement are declarative; queueing and auto-dismiss are an opt-in JS enhancement.",
-      "scripts": ["toast.js"]
+      "scripts": [
+        "toast.js"
+      ]
     },
     {
       "group": "Patterns",
       "slug": "tabs",
       "title": "tabs",
       "level": "js",
-      "lead": "The one pattern the platform still can't do accessibly without script. m-tabs enhances working markup — it never renders it.",
-      "scripts": ["tabs.js"]
+      "lead": "The one pattern the platform still can't do accessibly without script. m-tabs enhances working markup \u2014 it never renders it.",
+      "scripts": [
+        "tabs.js"
+      ]
     },
     {
       "group": "Forms",
@@ -329,7 +376,9 @@
       "title": "combobox",
       "level": "js",
       "lead": "A native datalist, upgraded. Without the module: functional autocomplete. With it: styled listbox, filtering, active-descendant keys.",
-      "scripts": ["combobox.js"]
+      "scripts": [
+        "combobox.js"
+      ]
     }
   ]
 }
