@@ -189,6 +189,23 @@
     "background-color": "oklch(0.17 0 263)",
     "font-family": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
    },
+   "command.divider": {
+    "border-top-width": "1px"
+   },
+   "command.item": {
+    "background-color": "oklch(0.2332 0 263)",
+    "display": "flex",
+    "font-size": "14px"
+   },
+   "command.list": {
+    "display": "block",
+    "overflow-y": "auto"
+   },
+   "command.shell": {
+    "background-color": "oklch(0.17 0 263)",
+    "border-top-width": "1px",
+    "display": "block"
+   },
    "cover": {
     "display": "flex",
     "flex-direction": "column",
@@ -1053,6 +1070,23 @@
    "code": {
     "background-color": "oklch(0.973 0 263)",
     "font-family": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+   },
+   "command.divider": {
+    "border-top-width": "1px"
+   },
+   "command.item": {
+    "background-color": "oklch(0.9344 0 263)",
+    "display": "flex",
+    "font-size": "14px"
+   },
+   "command.list": {
+    "display": "block",
+    "overflow-y": "auto"
+   },
+   "command.shell": {
+    "background-color": "oklch(1 0 263)",
+    "border-top-width": "1px",
+    "display": "block"
    },
    "cover": {
     "display": "flex",

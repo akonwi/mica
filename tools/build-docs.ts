@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 
+import { indexPage, type SearchEntry } from "./docs-search-index";
 import { mkdir, rm } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
 
@@ -26,6 +27,7 @@ const LEVEL_LABEL: Record<Level, string> = {
   native: "native behavior",
   js: "JS-enhanced",
 };
+const searchEntries: SearchEntry[] = [];
 const DOCS_URL = "https://akonwi.io/mica/";
 
 function escapeHtml(value: string): string {
@@ -74,13 +76,16 @@ function pagerHtml(index: number, fromRoot: boolean): string {
 
 async function pageHtml(page: Page, index: number): Promise<string> {
   const fromRoot = page.slug === "index";
-  const body = (await Bun.file(join(SOURCE, "pages", `${page.slug}.html`)).text()).trim();
+  const indexed = indexPage((await Bun.file(join(SOURCE, "pages", `${page.slug}.html`)).text()).trim(), page);
+  const body = indexed.html;
+  searchEntries.push(...indexed.entries);
   const scripts = [...new Set(["sidebar.js", ...(page.scripts ?? [])])]
     .map((script) => `  <script type="module" src="${fromRoot ? script : `../${script}`}"></script>`)
     .join("\n");
   const replacements: Record<string, string> = {
     DOCUMENT_TITLE: escapeHtml(fromRoot ? "mica" : `${page.title} — mica`),
     MICA_CSS: fromRoot ? "mica.css" : "../mica.css",
+    SEARCH_JS: fromRoot ? "docs/search.js" : "search.js",
     APPEARANCE_JS: fromRoot ? "docs/appearance.js" : "appearance.js",
     SITE_CSS: fromRoot ? "docs/site.css" : "site.css",
     SCRIPTS: scripts,
@@ -150,6 +155,8 @@ outputs.set("docs/appearance.js", await Bun.file(join(SOURCE, "appearance.js")).
 for (const asset of ["theme-builder.css", "theme-builder.js", "theme-preview.html"]) {
   outputs.set(`docs/${asset}`, await Bun.file(join(SOURCE, asset)).text());
 }
+outputs.set("docs/search.js", await Bun.file(join(SOURCE, "search.js")).text());
+outputs.set("docs/search-index.json", JSON.stringify(searchEntries) + "\n");
 outputs.set("llms.txt", llmsTxt());
 
 const checkOnly = process.argv.includes("--check");

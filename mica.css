@@ -2749,6 +2749,64 @@
     clip-path: inset(50%);
     white-space: nowrap;
   }
+  /* --- command: authored actions, optionally enhanced by command.js --- */
+  :where(m-command-palette) {
+    display: block;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-overlay);
+    overflow: hidden;
+  }
+  :where(m-command-palette > header) {
+    display: flex; align-items: center; gap: var(--space-sm);
+    padding: var(--space-sm); border-block-end: 1px solid var(--color-border);
+  }
+  :where(m-command-palette [data-command-input]) {
+    flex: 1; min-inline-size: 0; font-size: 1rem; border: 0; background: transparent;
+  }
+  :where(m-command-list) {
+    display: block; max-block-size: var(--command-list-height, 23rem);
+    overflow: auto; overscroll-behavior: contain; padding: var(--space-xs);
+  }
+  :where(m-command-list[dividers]) {
+    --command-group-border: 1px;
+    --command-group-gap: var(--space-xs);
+    --command-group-pad: var(--space-xs);
+  }
+  :where(m-command-group) { display: block; }
+  :where(m-command-group + m-command-group) {
+    margin-block-start: var(--command-group-gap, var(--space-md));
+    padding-block-start: var(--command-group-pad, 0);
+    border-block-start: var(--command-group-border, 0) solid var(--color-border);
+  }
+  :where(m-command-group > :is(h2,h3,h4,h5,h6)) {
+    margin: var(--space-xs); font-size: .6875rem; font-weight: 500; color: var(--color-text-muted);
+  }
+  :where(m-command-palette [data-command-item]) {
+    display: flex; align-items: center; gap: var(--space-sm); inline-size: 100%;
+    padding: var(--space-sm); block-size: auto; min-block-size: var(--control-height);
+    border: 0; background: transparent; color: var(--color-text);
+    border-radius: var(--radius-sm); text-align: start; text-decoration: none;
+    font-size: .875rem; font-weight: 400; cursor: pointer;
+  }
+  :where(m-command-palette [data-command-item]):is(:hover:not([aria-selected]), [aria-selected="true"]) {
+    background: var(--command-active-background, color-mix(in oklch, var(--color-text) 8%, var(--color-surface-overlay)));
+    color: var(--color-text);
+  }
+  :where(m-command-palette [data-command-item] > span) { flex: 1; min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(m-command-palette [data-command-item] > svg) { inline-size: 1rem; block-size: 1rem; flex: none; color: var(--color-text-muted); }
+  :where(m-command-palette [data-command-item] small) { display: block; color: var(--color-text-muted); font-size: .75rem; }
+  :where(m-command-palette [data-command-item] kbd) { font: .6875rem var(--font-mono); color: var(--color-text-muted); }
+  :where(m-command-palette [data-command-item]):is(:disabled, [aria-disabled="true"]) { opacity: .45; cursor: not-allowed; }
+  :where(m-command-palette > footer) {
+    padding: var(--space-xs) var(--space-md); border-block-start: 1px solid var(--color-border);
+    font-size: .6875rem; color: var(--color-text-muted);
+  }
+  :where(m-command-palette [data-command-empty]) { margin: 0; padding: var(--space-lg); color: var(--color-text-muted); font-size: .875rem; }
+  /* Native button display rules must not override the hidden state. */
+  :where(m-command-palette) [hidden] { display: none; }
+  /* A command is already a complete surface; don't add dialog body padding. */
+  :where(dialog > m-command-palette) { border: 0; padding: 0; font-size: inherit; }
 }
 
 /* ------------------------------------------------------------------ *

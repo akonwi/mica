@@ -71,6 +71,10 @@
     "./table.js": {
       "types": "./table.d.ts",
       "default": "./table.js"
+    },
+    "./command.js": {
+      "types": "./command.d.ts",
+      "default": "./command.js"
     }
   },
   "files": [
@@ -100,7 +104,9 @@
     "breadcrumbs.js",
     "breadcrumbs.d.ts",
     "table.js",
-    "table.d.ts"
+    "table.d.ts",
+    "command.js",
+    "command.d.ts"
   ],
   "sideEffects": true,
   "devDependencies": {
@@ -114,6 +120,7 @@
     "build:avatar": "bun tools/build-avatar.ts",
     "docs:build": "bun tools/build-docs.ts",
     "docs:check": "bun tools/build-docs.ts --check",
+    "docs-search:check": "bun tools/docs-search-check.ts",
     "docs:serve": "bun run docs:build && bun tools/serve.ts",
     "snapshot": "bun tools/snapshot.ts",
     "snapshot:check": "bun tools/snapshot.ts --check",
@@ -125,6 +132,7 @@
     "breadcrumbs:check": "bun tools/breadcrumbs-check.ts",
     "data-table:check": "bun tools/data-table-check.ts",
     "callout:check": "bun tools/callout-check.ts",
-    "card-list:check": "bun tools/card-list-check.ts"
+    "card-list:check": "bun tools/card-list-check.ts",
+    "command:check": "bun tools/command-check.ts"
   }
 }

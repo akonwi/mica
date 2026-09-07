@@ -379,6 +379,16 @@
       "scripts": [
         "combobox.js"
       ]
+    },
+    {
+      "group": "Patterns",
+      "slug": "command",
+      "title": "command palette",
+      "lead": "Find an action or destination, inline or in a dialog.",
+      "level": "js",
+      "scripts": [
+        "command.js"
+      ]
     }
   ]
 }

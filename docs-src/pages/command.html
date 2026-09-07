@@ -1,0 +1,39 @@
+<section><m-vstack gap="md"><h2>Example</h2>
+<m-command-palette><header><input data-command-input hidden aria-label="Find a page" placeholder="Find a page…"></header><m-command-list dividers aria-label="Pages"><m-command-group><h3>Design</h3><a data-command-item href="theme-builder.html" data-keywords="colors radius appearance"><span>Theme builder<small>Make Mica your own.</small></span></a></m-command-group><m-command-group><h3>Components</h3><a data-command-item href="list.html"><span>Lists</span></a><a data-command-item href="dialog.html"><span>Dialogs</span></a></m-command-group></m-command-list><p data-command-empty role="status" hidden>No matching commands.</p><footer>↑ ↓ to move · Enter to open</footer></m-command-palette>
+<p><a href="../examples/command.html">Try the full interactive example</a>: inline and modal, descriptions, group dividers, empty results, and application-owned actions.</p>
+</m-vstack></section>
+<section><m-vstack gap="md"><h2>Usage</h2>
+<pre tabindex="0"><code>&lt;script type="module" src="command.js"&gt;&lt;/script&gt;
+&lt;m-command-palette&gt;
+  &lt;header&gt;
+    &lt;input data-command-input hidden aria-label="Find a command"&gt;
+  &lt;/header&gt;
+  &lt;m-command-list dividers aria-label="Commands"&gt;
+    &lt;m-command-group&gt;
+      &lt;h3&gt;Workspace&lt;/h3&gt;
+      &lt;button type="button" data-command-item data-keywords="add new"&gt;
+        &lt;span&gt;Create project&lt;small&gt;Start something new.&lt;/small&gt;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;a data-command-item href="/settings"&gt;&lt;span&gt;Settings&lt;/span&gt;&lt;/a&gt;
+    &lt;/m-command-group&gt;
+  &lt;/m-command-list&gt;
+  &lt;p data-command-empty role="status" hidden&gt;No matching commands.&lt;/p&gt;
+&lt;/m-command-palette&gt;</code></pre>
+<p>Use one labeled input and list per command, native buttons for actions, and anchors for destinations. Groups and their heading (h2–h6) are optional. Without JavaScript, links and buttons remain usable; the hidden search input appears after enhancement. Do not nest other interactive controls inside a command item.</p>
+<h2>Content and separators</h2>
+<p>Descriptions are optional <code>small</code> content inside the label <code>span</code>. Omit them for single-line rows. An optional decorative SVG before the label receives icon sizing; Mica bundles no icons. A trailing <code>kbd</code> can describe an application shortcut, but does not register one.</p>
+<p>Groups use whitespace by default. Add <code>dividers</code> to <code>m-command-list</code> for separators. Override <code>--command-list-height</code> to change the scroll limit or <code>--command-active-background</code> to change the quiet selected fill.</p>
+<h2>Behavior</h2>
+<p>Importing <code>command.js</code> registers <code>m-command-palette</code>. It filters case-insensitively by all query words in item text and <code>data-keywords</code>, hides empty groups, and selects the first available match. Arrow keys wrap through enabled results; Enter clicks the authored item. Focus stays in the input using combobox/listbox semantics and <code>aria-activedescendant</code>. Native <code>disabled</code> buttons and <code>aria-disabled="true"</code> items are skipped. Application click handlers own the action.</p>
+<h2>Application-managed search</h2>
+<p>Use <code>&lt;m-command-palette filter="manual"&gt;</code> when your application owns ranking, remote requests, loading, and result markup. Mica does not filter or hide groups in this mode. DOM updates are observed automatically; call <code>command.refresh()</code> to reconcile synchronously after replacing results. Keep a stable input and list, and use the same item markup. Docs search uses this mode.</p>
+<h2>Dialog composition</h2>
+<pre tabindex="0"><code>&lt;dialog id="palette" closedby="any" aria-label="Commands"&gt;
+  &lt;m-command-palette&gt;…&lt;/m-command-palette&gt;
+&lt;/dialog&gt;
+&lt;script&gt;
+  const palette = document.querySelector('#palette');
+  document.querySelector('#open').onclick = () =&gt; palette.showModal();
+&lt;/script&gt;</code></pre>
+<p>The command surface keeps its spacing inside a dialog. The application owns the opening button, global shortcuts, and closing after activation. The browser supplies modal focus containment and Escape dismissal. Use a text input to avoid a search input consuming Escape to clear its value. <code>closedby="any"</code> enables backdrop dismissal where supported; older browsers still close with Escape and can use an application-provided close control. Mica does not add a close button to the command surface.</p>
+</m-vstack></section>

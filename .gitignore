@@ -14,3 +14,6 @@ tools/snapshots/.current.json
 
 /docs/theme-builder.css
 /docs/theme-builder.js
+
+/docs/search.js
+/docs/search-index.json

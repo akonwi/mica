@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### Added
+
+- Command surfaces (`m-command-palette`, `m-command-list`, `m-command-group`) with optional descriptions, icons, and group dividers. The opt-in `command.js` module enhances authored actions and links with filtering, keyboard selection, and application-managed results.
+
+### Docs
+
+- Local documentation search with a lazy-loaded page/section index, intent
+  aliases, keyboard navigation, and a responsive search dialog.
+
 ## v0.12.0 — 2026-09-06
 
 Additive release; existing markup and module imports continue to work. No

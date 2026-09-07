@@ -55,6 +55,7 @@
     }
     footer { padding-block: var(--space-2xl); color: var(--color-text-muted); }
   </style>
+<script type="module" src="command.js"></script>
 </head>
 <body>
 
@@ -845,6 +846,7 @@
     </m-vstack></section>
 
   </m-vstack>
+<section id="command-demo"><h2>Command</h2><m-command-palette><header><input data-command-input hidden aria-label="Find demo commands" placeholder="Find a command…"></header><m-command-list dividers aria-label="Demo commands"><m-command-group><h3>Documentation</h3><a data-command-item href="docs/command.html"><span>Command<small>Actions and destinations.</small></span></a></m-command-group><m-command-group><h3>Workspace</h3><button data-command-item disabled><span>Invite people</span></button></m-command-group></m-command-list><p data-command-empty role="status" hidden>No matching commands.</p></m-command-palette></section>
   </main>
 
   <footer>

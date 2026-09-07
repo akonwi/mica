@@ -8,6 +8,7 @@
   <script src="{{APPEARANCE_JS}}"></script>
   <link rel="stylesheet" href="{{MICA_CSS}}" />
 {{SCRIPTS}}
+  <script type="module" src="{{SEARCH_JS}}"></script>
   <link rel="stylesheet" href="{{SITE_CSS}}" />
 {{PAGE_ASSETS}}
 </head>
@@ -19,6 +20,7 @@
         <a class="brand" data-sidebar-item href="{{HOME_HREF}}">mica</a>
         <button data-variant="ghost" type="button" data-sidebar-close aria-label="Close navigation">×</button>
       </header>
+      <button type="button" class="docs-search-trigger" data-search-open hidden><span>Search docs…</span><kbd data-search-shortcut>⌘ K</kbd></button>
       <nav aria-label="Documentation">
         {{NAV}}
       </nav>
@@ -51,6 +53,17 @@
     </div>
     <dialog data-sidebar-dialog aria-label="Documentation navigation"></dialog>
   </m-sidebar-layout>
+  <dialog id="docs-search" closedby="any" aria-label="Search documentation">
+    <m-command-palette filter="manual">
+    <div class="docs-search-input-row">
+      <input id="docs-search-input" data-command-input type="text" placeholder="Search docs…" aria-label="Search documentation" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="docs-search-results" autocomplete="off" spellcheck="false" />
+    </div>
+    <p id="docs-search-status" role="status" aria-live="polite"></p>
+    <m-command-list id="docs-search-results" aria-label="Search results"></m-command-list>
+    <button id="docs-search-retry" type="button" hidden>Retry search</button>
+    <footer class="docs-search-help">↑ ↓ to move · Enter to open</footer>
+    </m-command-palette>
+  </dialog>
   <script type="module">
     await customElements.whenDefined('m-sidebar-layout');
     const navigation = document.querySelector('#docs-navigation > nav');
