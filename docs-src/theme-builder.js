@@ -8,11 +8,32 @@ const presets = {
 const fonts = {system:'system-ui, sans-serif',serif:'Georgia, "Times New Roman", serif',mono:'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'};
 const fields = ids.map(id => document.getElementById(id));
 const frame = document.getElementById('preview');
+const accentColor = document.getElementById('accent-color');
+const accentHex = document.getElementById('accent-hex');
+const swatches = {'263':'#306bef','170':'#008a65','310':'#8356ac','10':'#b5516e'};
+// Convert the native picker's sRGB color to OKLCH hue/chroma. The existing
+// Mica ramp owns lightness, keeping light and dark shades paired.
+function accentTokens(hex) {
+ const [r,g,b] = hex.match(/[a-f0-9]{2}/gi).map(pair => {
+  const value = parseInt(pair,16)/255;
+  return value <= .04045 ? value/12.92 : ((value+.055)/1.055)**2.4;
+ });
+ const l=Math.cbrt(.4122214708*r+.5363325363*g+.0514459929*b);
+ const m=Math.cbrt(.2119034982*r+.6806995451*g+.1073969566*b);
+ const s=Math.cbrt(.0883024619*r+.2817188376*g+.6299787005*b);
+ const a=1.9779984951*l-2.428592205*m+.4505937099*s;
+ const bb=.0259040371*l+.7827717662*m-.808675766*s;
+ const chroma=Math.hypot(a,bb);
+ return {hue:chroma < .0001 ? '0' : ((Math.atan2(bb,a)*180/Math.PI+360)%360).toFixed(3),chroma:chroma.toFixed(5)};
+}
 let css = '';
 function update() {
  const [accent,primary,neutral,radius,density,font] = fields.map(field => field.value);
+ if(accent !== 'custom') accentColor.value=swatches[accent];
+ accentHex.value=accentColor.value.toUpperCase();
+ const custom=accent === 'custom' ? accentTokens(accentColor.value) : null;
  const properties = {
-  '--hue':accent, '--chroma':accent === '263' ? '0.21' : '0.14', '--neutral-chroma':neutral,
+  '--hue':custom?.hue ?? accent, '--chroma':custom?.chroma ?? (accent === '263' ? '0.21' : '0.14'), '--neutral-chroma':neutral,
   '--color-primary':primary === 'accent' ? 'var(--accent-10)' : 'var(--neutral-12)',
   '--color-primary-hover':primary === 'accent' ? 'var(--accent-11)' : 'color-mix(in oklch, var(--color-primary) 90%, var(--color-surface))',
   '--color-primary-active':primary === 'accent' ? 'var(--accent-11)' : 'color-mix(in oklch, var(--color-primary) 80%, var(--color-surface))',
@@ -35,6 +56,7 @@ function update() {
 function preset(name){presets[name].forEach((value,i)=>fields[i].value=value);update();}
 document.querySelectorAll('[data-preset]').forEach(button=>button.addEventListener('click',()=>preset(button.dataset.preset)));
 fields.forEach(field=>field.addEventListener('change',update));
+accentColor.addEventListener('input',()=>{document.getElementById('accent').value='custom';update();});
 frame.addEventListener('load',update);
 document.getElementById('reset').addEventListener('click',()=>preset('mica'));
 document.getElementById('narrow').addEventListener('change',event=>document.getElementById('canvas').dataset.narrow=String(event.target.checked));

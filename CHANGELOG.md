@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Docs
+
+- Theme builder custom accent color picker, with hue/chroma conversion for live previews and exported theme CSS.
+
 ## v0.13.0 — 2026-09-06
 
 Additive release; existing markup and imports continue to work. No migration is required. The preset now styles scrollbars; restore native defaults with `:root { --scrollbar-color: auto; --scrollbar-width: auto; }`.
