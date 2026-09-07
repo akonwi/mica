@@ -2,11 +2,15 @@
 
 ## Unreleased
 
+## v0.14.0 — 2026-09-07
+
+Additive release; existing markup and module imports remain supported. No migration is required. Mobile drawers now avoid the software keyboard automatically when using `drawer.js`; set `data-avoid-keyboard="false"` if your application handles positioning.
+
 ### Fixed
 
 - Mobile sidebars start with quiet dialog focus instead of highlighting the first action. The form-drawer example likewise keeps its initial title focus unoutlined; keyboard focus on controls remains visible.
 
-- Mobile drawers using `drawer.js` fit above the software keyboard and keep focused fields visible. Set `data-avoid-keyboard="false"` to manage positioning in application code.
+- Mobile drawers using `drawer.js` fit above the software keyboard and keep focused fields visible. Drawer text fields have a 1rem minimum to avoid Safari focus zoom. Set `data-avoid-keyboard="false"` to manage positioning in application code.
 
 - Field validation preserves authored `aria-describedby` helper references and removes only its own error description when errors change or clear.
 
