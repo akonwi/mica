@@ -255,7 +255,8 @@
       "lead": "Declarative per-cause errors below the field. No browser bubbles.",
       "scripts": [
         "field.js"
-      ]
+      ],
+      "siteScripts": ["field-examples.js"]
     },
     {
       "group": "Navigation",

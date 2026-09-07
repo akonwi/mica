@@ -17,3 +17,5 @@ tools/snapshots/.current.json
 
 /docs/search.js
 /docs/search-index.json
+
+/docs/field-examples.js

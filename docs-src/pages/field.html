@@ -11,5 +11,110 @@
 <section><m-vstack gap="lg"><h2>API</h2><p class="lead"><code>m-field</code> groups one native field with declarative <code>m-error</code> messages. Native constraints remain the source of validity.</p>
 <div class="api-block"><h3>Mica-specific attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>match</code></td><td>validity cause</td><td>catch-all</td><td>On <code>m-error</code>, matches <code>value-missing</code>, <code>type-mismatch</code>, <code>pattern-mismatch</code>, <code>too-long</code>, <code>too-short</code>, <code>range-underflow</code>, <code>range-overflow</code>, <code>step-mismatch</code>, <code>bad-input</code>, or <code>custom-error</code>.</td></tr></tbody></table></div>
 <div class="api-block"><h3>Content/markup contracts</h3><table class="api-table"><thead><tr><th>Content</th><th>Contract</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>Field</td><td>one <code>input</code>, <code>textarea</code>, or <code>select</code></td><td>—</td><td>The first matching descendant is validated and wired to the active error.</td></tr><tr><td><code>m-error</code></td><td>one or more messages</td><td>hidden</td><td>The first matching error is activated; a matchless error is the fallback. An empty fallback receives the browser's validation message.</td></tr></tbody></table></div>
-<div class="module-note"><h3><code>field.js</code></h3><p>Optional. Suppresses native validation bubbles while preserving blocked submission, focuses the first invalid field, activates the first applicable error, and wires <code>aria-invalid</code> and <code>aria-describedby</code>. Once shown, an error revalidates on input and clears when fixed.</p><p>Without the module, a matchless <code>m-error</code> still shows through <code>:user-invalid</code> and submits fall back to native bubbles. Working markup, enhanced — never rendered.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/field.js&quot;&gt;&lt;/script&gt;</code></pre></div>
+<m-callout><div data-callout-body><header><h3>field.js</h3></header><p>Optional. Suppresses native validation bubbles while preserving blocked submission, focuses the first invalid field, activates the first applicable error, and wires <code>aria-invalid</code> and <code>aria-describedby</code>. Once shown, an error revalidates on input and clears when fixed.</p><p>Without the module, a matchless <code>m-error</code> still shows through <code>:user-invalid</code> and submits fall back to native bubbles. Working markup, enhanced — never rendered.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/field.js&quot;&gt;&lt;/script&gt;</code></pre></div></m-callout>
 </m-vstack></section>
+<section><m-vstack gap="md"><h2>Helper text and errors</h2><pre><code>&lt;m-field&gt;
+  &lt;label for="handle"&gt;Public handle&lt;/label&gt;
+  &lt;input id="handle" required aria-describedby="handle-help"&gt;
+  &lt;p id="handle-help"&gt;Shown on your public profile.&lt;/p&gt;
+  &lt;m-error id="handle-error" match="custom-error"&gt;&lt;/m-error&gt;
+  &lt;m-error match="value-missing"&gt;Choose a handle.&lt;/m-error&gt;
+&lt;/m-field&gt;</code></pre><p>Keep labels connected with <code>for</code> and helper text connected with <code>aria-describedby</code>. While the custom error is active, Mica adds <code>handle-error</code> alongside <code>handle-help</code>. Clearing it removes only Mica's error reference; helper descriptions remain associated.</p></m-vstack></section>
+<section><m-vstack gap="md"><h2>Custom validation</h2><div class="specimen"><form id="custom-form">
+<m-vstack gap="md">
+<m-field>
+<label for="handle">Public handle</label>
+<input id="handle" required aria-describedby="handle-help">
+<small id="handle-help">“admin” is reserved. Try it, submit, then change the value.</small>
+<m-error match="value-missing">Choose a handle.</m-error>
+<m-error match="custom-error">
+</m-error>
+</m-field>
+<m-hstack><button>Check handle</button></m-hstack>
+<p role="status" id="custom-status">
+</p>
+</m-vstack>
+</form></div><p>Use native <code>setCustomValidity(message)</code> for application rules. A nonempty message makes the field invalid; <code>setCustomValidity('')</code> clears that custom rule, while native constraints such as <code>required</code> still apply. An empty <code>m-error match="custom-error"</code> displays the current validation message.</p><pre><code>const handle = document.querySelector('#handle');
+function validateHandle() {
+  handle.setCustomValidity(
+    handle.value.trim().toLowerCase() === 'admin'
+      ? 'That handle is reserved. Choose another.'
+      : ''
+  );
+}
+handle.addEventListener('input', validateHandle);
+validateHandle();</code></pre><p>Attach rule listeners to the input so they run before the event bubbles to <code>m-field</code>. Compute validity when values change and once for initial values: native form validation runs before the <code>submit</code> event. After a submit attempt, Mica updates an already visible error as the user types.</p><p>Setting custom validity alone does not display an error. Call <code>form.reportValidity()</code> when you deliberately want to reveal errors and focus the first invalid field, such as after a server response. After a programmatic correction, clear or recompute validity and dispatch a bubbling input event to refresh an already displayed error:</p><pre><code>handle.value = correctedHandle;
+validateHandle();
+handle.dispatchEvent(new Event('input', { bubbles: true }));</code></pre></m-vstack></section>
+<section><m-vstack gap="md"><h2>Dependent fields</h2><div class="specimen"><form id="dates-form">
+<m-vstack gap="md">
+<m-field>
+<label for="start">Start date</label>
+<input id="start" type="date" required>
+<m-error>Choose a start date.</m-error>
+</m-field>
+<m-field>
+<label for="end">End date</label>
+<input id="end" type="date" required aria-describedby="end-help">
+<small id="end-help">The end must be on or after the start. Changing either date recomputes the rule.</small>
+<m-error match="value-missing">Choose an end date.</m-error>
+<m-error match="custom-error">
+</m-error>
+</m-field>
+<m-hstack><button>Check dates</button></m-hstack>
+<p role="status" id="dates-status">
+</p>
+</m-vstack>
+</form></div><p>Recompute a rule whenever any value it depends on changes. For two native date inputs, the end date's validity depends on both values:</p><pre><code>const start = document.querySelector('#start');
+const end = document.querySelector('#end');
+function validateDates() {
+  end.setCustomValidity(
+    start.value &amp;&amp; end.value &amp;&amp; end.value &lt; start.value
+      ? 'End date must be on or after the start date.'
+      : ''
+  );
+}
+end.addEventListener('input', validateDates);
+start.addEventListener('input', () =&gt; {
+  validateDates();
+  end.dispatchEvent(new Event('input', { bubbles: true }));
+});
+validateDates();</code></pre><p>The forwarded input event refreshes an existing end-date error without moving focus away from the start date. A new error is revealed by the next validation attempt. Keep <code>required</code> and a value-missing message on each field; give the end field an empty <code>m-error match="custom-error"</code> for this rule.</p></m-vstack></section>
+<section><m-vstack gap="md"><h2>Server-returned errors</h2><div class="specimen"><p>This example simulates a server response with a short delay.</p><form id="server-form">
+<m-vstack gap="md">
+<m-field>
+<label for="email">Email</label>
+<input id="email" type="email" required aria-describedby="email-help">
+<small id="email-help">Use taken@example.com to receive a field error. Editing while a response is pending discards it.</small>
+<m-error match="value-missing">Enter your email.</m-error>
+<m-error match="type-mismatch">Enter a valid email address.</m-error>
+<m-error match="custom-error">
+</m-error>
+</m-field>
+<m-hstack><button id="save">Save email</button></m-hstack>
+<p role="status" id="server-status">
+</p>
+</m-vstack>
+</form></div><p>Map server field errors to their native inputs. For an email field with an empty custom-error message, set the returned text as custom validity, then ask the form to display it:</p><pre><code>email.setCustomValidity(errors.email);
+form.reportValidity();</code></pre><p>Mica displays the message as text, sets <code>aria-invalid</code>, and associates the error alongside existing helper descriptions. Clear a server error when its relevant input changes, before that event reaches Mica. If the field also has local custom rules, recompute those rather than unconditionally clearing all custom validity.</p><pre><code>let revision = 0;
+email.addEventListener('input', () =&gt; {
+  ++revision;
+  email.setCustomValidity('');
+});
+form.addEventListener('submit', async (event) =&gt; {
+  event.preventDefault();
+  const requestRevision = ++revision;
+  const submittedEmail = email.value;
+  try {
+    const errors = await saveEmail(submittedEmail); // Application function.
+    if (requestRevision !== revision) return; // Ignore stale responses.
+    if (errors.email) {
+      email.setCustomValidity(errors.email);
+      form.reportValidity();
+    }
+  } catch {
+    if (requestRevision === revision) {
+      saveStatus.textContent = 'Could not save. Please try again.';
+    }
+  }
+});</code></pre><p>Here <code>saveEmail</code> returns a field-error object (empty on success), and <code>saveStatus</code> references an authored <code>p role="status"</code> for request feedback. For several fields, assign all returned errors before calling <code>form.reportValidity()</code> once. Invalidate pending responses when any submitted value is edited. Handle request failures at form level instead of marking otherwise valid fields invalid.</p><p>Application code owns rules and requests; Mica presents their validity.</p></m-vstack></section>

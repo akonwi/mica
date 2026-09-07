@@ -151,6 +151,7 @@ for (const [index, page] of manifest.pages.entries()) {
   outputs.set(output, await pageHtml(page, index));
 }
 outputs.set("docs/site.css", await Bun.file(join(SOURCE, "site.css")).text());
+outputs.set("docs/field-examples.js", await Bun.file(join(SOURCE, "field-examples.js")).text());
 outputs.set("docs/appearance.js", await Bun.file(join(SOURCE, "appearance.js")).text());
 const themeAssets = ["theme-builder.css", "theme-builder.js", "theme-preview.html", "recipe-overview.html", "recipe-projects.html", "recipe-settings.html", "recipe-detail.html"];
 for (const asset of themeAssets) {

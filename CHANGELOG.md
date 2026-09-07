@@ -14,6 +14,8 @@
 
 ### Docs
 
+- Field validation recipes cover helper descriptions, custom rules, dependent fields, and accessible server errors with stale-response handling.
+
 - Theme builder custom accent color picker, with hue/chroma conversion for live previews and exported theme CSS.
 
 ## v0.13.0 — 2026-09-06
