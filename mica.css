@@ -1433,6 +1433,15 @@
     }
   }
 
+  /* The compact sheet typography must not trigger iOS input-focus zoom.
+     Consumers can override this floor in their own CSS layer. */
+  :where(dialog[data-drawer] input:not([type="checkbox"], [type="radio"],
+    [type="range"], [type="color"], [type="file"], [type="button"],
+    [type="submit"], [type="reset"], [type="image"], [type="hidden"]),
+    dialog[data-drawer] textarea, dialog[data-drawer] select) {
+    font-size: max(1em, 1rem);
+  }
+
   :where(dialog[data-drawer]) > :where(header) {
     border-block-end: 0;
   }

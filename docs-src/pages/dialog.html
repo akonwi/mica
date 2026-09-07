@@ -2,6 +2,24 @@
   <section><m-vstack gap="md"><h2>Example</h2>
     <div class="specimen"><m-hstack gap="sm" wrap><button commandfor="dd-modal" command="show-modal">Open modal</button><button commandfor="dd-drawer" command="show-modal">Open drawer</button></m-hstack><dialog id="dd-modal"><button class="close" commandfor="dd-modal" command="close" aria-label="Close">&#x2715;</button><header><h2>Confirm</h2><p>This is a description.</p></header><p>Body content sits between header and footer.</p><footer><form method="dialog"><button>Cancel</button><button data-variant="primary" value="ok">Confirm</button></form></footer></dialog><dialog id="dd-drawer" data-drawer><button class="close" commandfor="dd-drawer" command="close" aria-label="Close">&#x2715;</button><header><h2>Drawer</h2><p>The same native dialog dressed as a drawer.</p></header><p>Body content; the footer pins to the bottom with stacked actions.</p><footer><button data-variant="primary" commandfor="dd-drawer" command="close">Save changes</button><button commandfor="dd-drawer" command="close">Cancel</button></footer></dialog></div>
   </m-vstack></section>
+  <section><m-vstack gap="md"><h2>Form drawer</h2>
+    <p>On mobile, open the keyboard and move between fields. The body scrolls while the footer stays available.</p>
+    <div class="specimen"><button commandfor="dd-form" command="show-modal">Open form drawer</button>
+      <dialog id="dd-form" data-drawer aria-labelledby="dd-form-title">
+        <header><h2 id="dd-form-title" tabindex="-1" autofocus>Project details</h2></header>
+        <form id="dd-project" method="dialog"><m-vstack gap="md">
+          <m-field><label for="dd-name">Project name</label><input id="dd-name" name="name" type="text"></m-field>
+          <m-field><label for="dd-owner">Owner</label><input id="dd-owner" name="owner" type="text"></m-field>
+          <m-field><label for="dd-email">Contact email</label><input id="dd-email" name="email" type="email"></m-field>
+          <m-field><label for="dd-team">Team</label><input id="dd-team" name="team" type="text"></m-field>
+          <m-field><label for="dd-location">Location</label><input id="dd-location" name="location" type="text"></m-field>
+          <m-field><label for="dd-reference">Reference</label><input id="dd-reference" name="reference" type="text"></m-field>
+          <m-field><label for="dd-notes">Notes</label><textarea id="dd-notes" name="notes" rows="4"></textarea></m-field>
+        </m-vstack></form>
+        <footer><button data-variant="primary" type="submit" form="dd-project">Save changes</button><button commandfor="dd-form" command="close">Cancel</button></footer>
+      </dialog>
+    </div>
+  </m-vstack></section>
   <section><m-vstack gap="md"><h2>Basic usage</h2>
     <pre><code>&lt;button commandfor=&quot;confirm&quot; command=&quot;show-modal&quot;&gt;Open&lt;/button&gt;  &lt;!-- trigger --&gt;
 
@@ -24,6 +42,7 @@
   </m-vstack></section>
   <section><m-vstack gap="lg"><h2>API</h2>
     <div class="api-block"><h3>Attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody>
+      <tr><td><code>data-avoid-keyboard</code></td><td><code>false</code></td><td>automatic</td><td>On a drawer, disables the optional module’s keyboard positioning when your application manages it.</td></tr>
       <tr><td><code>data-drawer</code></td><td>boolean</td><td><code>false</code></td><td>Turns the dialog into a responsive desktop side sheet and mobile bottom sheet.</td></tr>
       <tr><td><code>open</code></td><td>native boolean</td><td><code>false</code></td><td>Reflects whether the native dialog is open. Prefer <code>showModal()</code> to open a modal.</td></tr>
     </tbody></table></div>
@@ -38,7 +57,7 @@
       <tr><td><code>close()</code></td><td>method</td><td>—</td><td>Closes the dialog.</td></tr>
       <tr><td><code>returnValue</code></td><td>string property</td><td><code>""</code></td><td>Carries the value of the button that submitted a <code>method="dialog"</code> form.</td></tr>
     </tbody></table></div>
-    <div class="module-note"><h3><code>drawer.js</code></h3><p>Optional. Below 40rem the drawer is a content-height, full-width bottom sheet. The module adds a grab handle and swipe-to-dismiss from the handle/header strip: downward drags follow the pointer, upward drags resist, and the sheet closes past one third of its height or on a flick. It also manages the mobile scrim, lightening it during drag and fading it on close, including on iOS. Without the module, open/close, Esc, and the CSS-only scrim still work; no handle appears.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/drawer.js&quot;&gt;&lt;/script&gt;</code></pre><p>On mobile the handle is the dismiss affordance, so you may hide the redundant corner close button:</p><pre><code>@media (max-width: 40rem) {
+    <div class="module-note"><h3><code>drawer.js</code></h3><p>Optional. Below 40rem the drawer is a content-height, full-width bottom sheet. The module adds a grab handle and swipe-to-dismiss from the handle/header strip: downward drags follow the pointer, upward drags resist, and the sheet closes past one third of its height or on a flick. It also manages the mobile scrim, lightening it during drag and fading it on close, including on iOS. Without the module, open/close, Esc, and the CSS-only scrim still work; no handle appears.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/drawer.js&quot;&gt;&lt;/script&gt;</code></pre><p>While editing in a mobile drawer, the module fits the sheet above the software keyboard, keeps its body scrollable, and reveals the focused field. It restores authored positioning when the keyboard closes and leaves pinch zoom to the browser. Use <code>data-avoid-keyboard="false"</code> if your application already manages keyboard positioning. This requires the browser’s Visual Viewport API; without it, native behavior remains.</p><p>On mobile the handle is the dismiss affordance, so you may hide the redundant corner close button:</p><pre><code>@media (max-width: 40rem) {
   dialog[data-drawer] &gt; button.close { display: none; }
 }</code></pre></div>
     <div class="module-note"><h3><code>invoker.js</code></h3><p>Temporary optional shim for the recipe's <code>show-modal</code> and <code>close</code> invoker commands. It installs nothing when commands are native.</p><pre><code>&lt;script type=&quot;module&quot; src=&quot;mica/invoker.js&quot;&gt;&lt;/script&gt;</code></pre></div>

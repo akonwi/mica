@@ -1,4 +1,4 @@
-/* mica/drawer.js — JS-enhanced: swipe-to-dismiss and a managed scrim for
+/* mica/drawer.js — JS-enhanced: keyboard avoidance, swipe-to-dismiss, and a managed scrim for
  * dialog[data-drawer] bottom sheets on small screens.
  *
  * Enhances working markup, never replaces it: without this module the
@@ -53,14 +53,104 @@ const syncOverlay = () => {
   setOverlayOpacity(openDrawer ? 1 : 0);
 };
 
-new MutationObserver(syncOverlay).observe(document.documentElement, {
+// Keyboard avoidance is scoped to open mobile sheets. Native dialogs keep their
+// layout-viewport size on iOS when only the visual viewport shrinks.
+const keyboardSheets = new Map();
+const EDITABLE = 'textarea, input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="hidden"]), [contenteditable]:not([contenteditable="false"])';
+
+function followKeyboard(dialog) {
+  const viewport = window.visualViewport;
+  let frame = 0;
+  let adjusted = false;
+  let saved;
+  const properties = ["bottom", "max-height"];
+  const restore = () => {
+    if (!saved) return;
+    for (const [property, value, priority] of saved) {
+      if (value) dialog.style.setProperty(property, value, priority);
+      else dialog.style.removeProperty(property);
+    }
+  };
+  const update = () => {
+    frame = 0;
+    const active = document.activeElement;
+    const editing = dialog.contains(active) && active.matches(EDITABLE) &&
+      !active.disabled && !active.readOnly;
+    // Pinch zoom changes the visual viewport too; leave zoom/panning to Safari.
+    const obscured = document.documentElement.clientHeight - viewport.height;
+    if (Math.abs(viewport.scale - 1) > 0.01 || obscured <= 1 || (!editing && !adjusted)) {
+      restore();
+      saved = undefined;
+      adjusted = false;
+      return;
+    }
+    if (!saved) saved = properties.map(property => [property,
+      dialog.style.getPropertyValue(property), dialog.style.getPropertyPriority(property)]);
+    restore();
+    const configuredMax = parseFloat(getComputedStyle(dialog).maxHeight);
+    // clientHeight remains the layout viewport on iOS; innerHeight can itself
+    // change as Safari pans to a lower input, so it is not a stable reference.
+    const bottom = Math.max(0, document.documentElement.clientHeight -
+      viewport.height - viewport.offsetTop);
+    dialog.style.bottom = `${bottom}px`;
+    dialog.style.maxHeight = `${Math.min(viewport.height,
+      Number.isFinite(configuredMax) ? configuredMax : viewport.height)}px`;
+    adjusted = true;
+    // Scroll only the body containing the field, never the document (which can
+    // fight Safari's own focus pan) or a pinned header/footer.
+    if (editing) {
+      const body = [...dialog.children].find(child =>
+        !child.matches('header, footer, button.close') && child.contains(active));
+      if (body) {
+        const fieldRect = active.getBoundingClientRect();
+        const bodyRect = body.getBoundingClientRect();
+        const padding = getComputedStyle(body);
+        const top = bodyRect.top + parseFloat(padding.paddingTop);
+        const bottom = bodyRect.bottom - parseFloat(padding.paddingBottom);
+        if (fieldRect.height > bottom - top || fieldRect.top < top) {
+          body.scrollTop += fieldRect.top - top;
+        } else if (fieldRect.bottom > bottom) body.scrollTop += fieldRect.bottom - bottom;
+      }
+    }
+  };
+  const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+  viewport.addEventListener("resize", schedule);
+  viewport.addEventListener("scroll", schedule);
+  window.addEventListener("resize", schedule);
+  dialog.addEventListener("focusin", schedule);
+  schedule();
+  return () => {
+    cancelAnimationFrame(frame);
+    viewport.removeEventListener("resize", schedule);
+    viewport.removeEventListener("scroll", schedule);
+    window.removeEventListener("resize", schedule);
+    dialog.removeEventListener("focusin", schedule);
+    restore();
+  };
+}
+
+const syncDrawers = () => {
+  syncOverlay();
+  const eligible = new Set(SHEET.matches && window.visualViewport
+    ? document.querySelectorAll(`${DRAWER}[open]:not([data-avoid-keyboard="false"])`)
+    : []);
+  for (const [dialog, cleanup] of keyboardSheets) {
+    if (!eligible.has(dialog)) { cleanup(); keyboardSheets.delete(dialog); }
+  }
+  for (const dialog of eligible) {
+    if (!keyboardSheets.has(dialog)) keyboardSheets.set(dialog, followKeyboard(dialog));
+  }
+};
+new MutationObserver(syncDrawers).observe(document.documentElement, {
   attributes: true,
-  attributeFilter: ["open"],
+  attributeFilter: ["open", "data-drawer", "data-avoid-keyboard"],
+  childList: true,
   subtree: true,
 });
+SHEET.addEventListener("change", syncDrawers);
 
 document.documentElement.setAttribute("data-drawer-gestures", "");
-syncOverlay();
+syncDrawers();
 
 document.addEventListener("pointerdown", (down) => {
   if (!SHEET.matches) return;

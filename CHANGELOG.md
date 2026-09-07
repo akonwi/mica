@@ -4,6 +4,8 @@
 
 ### Fixed
 
+- Mobile drawers using `drawer.js` fit above the software keyboard and keep focused fields visible. Set `data-avoid-keyboard="false"` to manage positioning in application code.
+
 - Field validation preserves authored `aria-describedby` helper references and removes only its own error description when errors change or clear.
 
 ### Added
