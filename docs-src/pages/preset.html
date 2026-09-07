@@ -5,3 +5,29 @@ from <code>@layer mica.preset</code> — zero-specificity, trivially overridable
 <p>Because it isn't a first child. Inside a stack, rhythm yields to
 <code>gap</code> — the stack owns spacing. Tab to this
 <a href="#main">link</a> or any control to see the tokenized focus ring.</p>
+
+<section id="scrollbar-demo"><h2>Scrollbars</h2><div tabindex="0" role="region" aria-label="Scrollable example" style="overflow:auto;max-block-size:10rem;border:1px solid var(--color-border);padding:var(--space-md)"><div style="min-inline-size:30rem"><p>Scroll in either direction. The thumb follows the theme.</p><p>Native scrolling, with a quieter appearance.</p><p>Use the arrow keys when this region has focus.</p><p>Override the scrollbar tokens for one region or the whole app.</p><p>The browser still controls scrollbar visibility and shape.</p></div></div></section>
+<h2>Scrollbar styling and opt-out</h2>
+<p>The preset uses a thin scrollbar with a muted thumb and transparent track. Standard CSS properties preserve native scrolling; browsers and operating systems still control the exact shape and when overlay scrollbars appear. Browsers without support retain native styling. Forced-colors mode uses native colors and width.</p>
+<pre tabindex="0"><code>/* App layer declared after Mica’s layers, or ordinary unlayered CSS. */
+@layer app {
+  :root {
+    --scrollbar-color: var(--color-text-muted) transparent;
+    --scrollbar-width: thin;
+  }
+
+  /* Native scrollbars throughout this subtree. */
+  .native-scrollbars {
+    --scrollbar-color: auto;
+    --scrollbar-width: auto;
+  }
+}</code></pre>
+<p>Set both tokens to <code>auto</code> on <code>:root</code> to opt out globally. The color token accepts <code>auto</code> or a thumb/track color pair. Width accepts the standard CSS values; prefer <code>auto</code> when a wider drag target is useful. Component-specific rules, such as tabs hiding a scrollbar when overflow controls are available, remain independent.</p>
+<pre tabindex="0"><code>/* Override every scrollbar, including component-specific widths. */
+@layer app {
+  :where(*) {
+    scrollbar-color: auto;
+    scrollbar-width: auto;
+  }
+}</code></pre>
+<p>Declare the app layer after <code>mica.layout</code>, or use unlayered CSS, which takes precedence over all Mica layers. Standard scrollbar colors and widths are documented by <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scrollbar-color">MDN</a>.</p>

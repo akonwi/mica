@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Styling
+
+- Theme-aware thin scrollbars in the preset, with `--scrollbar-color` and `--scrollbar-width` overrides, native opt-out, and forced-colors defaults.
+
 ### Added
 
 - Command surfaces (`m-command-palette`, `m-command-list`, `m-command-group`) with optional descriptions, icons, and group dividers. The opt-in `command.js` module enhances authored actions and links with filtering, keyboard selection, and application-managed results.

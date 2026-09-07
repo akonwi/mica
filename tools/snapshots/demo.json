@@ -335,6 +335,10 @@
     "overflow-x": "auto",
     "scroll-snap-type": "inline"
    },
+   "scrollbar": {
+    "scrollbar-color": "oklch(0.71 0 263) rgba(0, 0, 0, 0)",
+    "scrollbar-width": "thin"
+   },
    "segmented": {
     "border-radius": "0px",
     "border-top-color": "oklch(0.46 0 263)",
@@ -863,6 +867,8 @@
    "--radius-lg": "0px",
    "--radius-md": "0px",
    "--radius-sm": "0px",
+   "--scrollbar-color": "light-dark(oklch(44%   0 263), oklch(71% 0 263)) transparent",
+   "--scrollbar-width": "thin",
    "--size-lg": "480px",
    "--size-md": "320px",
    "--size-sm": "240px",
@@ -1216,6 +1222,10 @@
     "display": "flex",
     "overflow-x": "auto",
     "scroll-snap-type": "inline"
+   },
+   "scrollbar": {
+    "scrollbar-color": "oklch(0.44 0 263) rgba(0, 0, 0, 0)",
+    "scrollbar-width": "thin"
    },
    "segmented": {
     "border-radius": "0px",
@@ -1745,6 +1755,8 @@
    "--radius-lg": "0px",
    "--radius-md": "0px",
    "--radius-sm": "0px",
+   "--scrollbar-color": "light-dark(oklch(44%   0 263), oklch(71% 0 263)) transparent",
+   "--scrollbar-width": "thin",
    "--size-lg": "480px",
    "--size-md": "320px",
    "--size-sm": "240px",

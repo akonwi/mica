@@ -47,6 +47,12 @@
        2026-05); browsers without them keep the bottom-right default. */
     --toast-position: bottom-right;
 
+    /* Standard scrollbars; native rendering is an inherited theme override:
+       :root { --scrollbar-color: auto; --scrollbar-width: auto; }
+       Unsupported properties are ignored, retaining the browser scrollbar. */
+    --scrollbar-color: var(--color-text-muted) transparent;
+    --scrollbar-width: thin;
+
     --focus-ring-width: 2px;
     --focus-ring-offset: 2px;
     --focus-ring-color: var(--color-accent);
@@ -180,6 +186,18 @@
  * (:where) inside a layer: doubly overridable.
  * ------------------------------------------------------------------ */
 @layer mica.preset {
+  /* Width does not inherit, so resolve the inherited token on every box.
+     A client layer after mica can also override the standard properties
+     directly: :where(*) { scrollbar-color: auto; scrollbar-width: auto; }
+     No vendor pseudo-elements: preserve platform behavior and easy opt-out. */
+  :where(*) {
+    scrollbar-color: var(--scrollbar-color);
+    scrollbar-width: var(--scrollbar-width);
+  }
+  @media (forced-colors: active) {
+    :where(*) { scrollbar-color: auto; scrollbar-width: auto; }
+  }
+
   *,
   *::before,
   *::after {
