@@ -389,6 +389,16 @@
       "scripts": [
         "command.js"
       ]
+    },
+    {
+      "group": "Patterns",
+      "slug": "menu",
+      "title": "action menu",
+      "lead": "Actions from a button or context gesture, with optional nested menus.",
+      "level": "js",
+      "scripts": [
+        "menu.js"
+      ]
     }
   ]
 }

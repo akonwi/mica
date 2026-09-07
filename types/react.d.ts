@@ -79,6 +79,7 @@ declare module 'react' {
       }>
       'm-field': MicaElement
       'm-error': MicaElement<{ active?: boolean }>
+      'm-menu': MicaElement<{ align?: 'start' | 'end' }>
       'm-command-palette': MicaElement<{ filter?: 'manual' }>
       'm-command-list': MicaElement<{ dividers?: boolean }>
       'm-command-group': MicaElement

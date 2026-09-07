@@ -289,6 +289,16 @@
     "border-top-color": "rgba(0, 0, 0, 0)",
     "padding-top": "16px"
    },
+   "menu.item": {
+    "font-size": "14px",
+    "min-height": "36px",
+    "padding-left": "8px"
+   },
+   "menu.shell": {
+    "background-color": "oklch(0.17 0 263)",
+    "border-top-width": "1px",
+    "padding-top": "4px"
+   },
    "navigation.link": {
     "display": "block",
     "font-size": "14px",
@@ -1176,6 +1186,16 @@
    "list.undivided": {
     "border-top-color": "rgba(0, 0, 0, 0)",
     "padding-top": "16px"
+   },
+   "menu.item": {
+    "font-size": "14px",
+    "min-height": "36px",
+    "padding-left": "8px"
+   },
+   "menu.shell": {
+    "background-color": "oklch(1 0 263)",
+    "border-top-width": "1px",
+    "padding-top": "4px"
    },
    "navigation.link": {
     "display": "block",

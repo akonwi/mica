@@ -56,6 +56,7 @@
     footer { padding-block: var(--space-2xl); color: var(--color-text-muted); }
   </style>
 <script type="module" src="command.js"></script>
+<script type="module" src="menu.js"></script>
 </head>
 <body>
 
@@ -848,6 +849,7 @@
   </m-vstack>
 <section id="command-demo"><h2>Command</h2><m-command-palette><header><input data-command-input hidden aria-label="Find demo commands" placeholder="Find a command…"></header><m-command-list dividers aria-label="Demo commands"><m-command-group><h3>Documentation</h3><a data-command-item href="docs/command.html"><span>Command<small>Actions and destinations.</small></span></a></m-command-group><m-command-group><h3>Workspace</h3><button data-command-item disabled><span>Invite people</span></button></m-command-group></m-command-list><p data-command-empty role="status" hidden>No matching commands.</p></m-command-palette></section>
 <section id="scrollbar-demo"><h2>Scrollbars</h2><div tabindex="0" role="region" aria-label="Scrollable example" style="overflow:auto;max-block-size:10rem;border:1px solid var(--color-border);padding:var(--space-md)"><div style="min-inline-size:30rem"><p>Scroll in either direction. The thumb follows the theme.</p><p>Native scrolling, with a quieter appearance.</p><p>Use the arrow keys when this region has focus.</p><p>Override the scrollbar tokens for one region or the whole app.</p><p>The browser still controls scrollbar visibility and shape.</p></div></div></section>
+<section id="menu-demo"><h2>Action menu</h2><button popovertarget="demo-action-menu">More actions</button><m-menu id="demo-action-menu" popover aria-label="Demo actions"><button>Open</button><hr><button disabled>Unavailable</button></m-menu></section>
   </main>
 
   <footer>

@@ -73,6 +73,8 @@ const TOKENS: Record<string, string> = Object.fromEntries(
 // selector snapshots as "MISSING": demo restructuring shows up as a diff
 // instead of silently shrinking coverage.
 const PROBES: [string, string, string[]][] = [
+  ["menu.shell", "#demo-action-menu", ["background-color", "border-top-width", "padding-top"]],
+  ["menu.item", "#demo-action-menu > button", ["font-size", "min-height", "padding-left"]],
   ["scrollbar", "#scrollbar-demo [role=region]", ["scrollbar-color", "scrollbar-width"]],
   ["header", "#header-demo m-header", ["display", "background-color", "border-bottom-color", "padding-top"]],
   ["header.end", "#demo-header-wide", ["display", "justify-content"]],

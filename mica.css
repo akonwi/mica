@@ -2825,6 +2825,69 @@
   :where(m-command-palette) [hidden] { display: none; }
   /* A command is already a complete surface; don't add dialog body padding. */
   :where(dialog > m-command-palette) { border: 0; padding: 0; font-size: inherit; }
+  /* --- m-menu: authored action popovers, optionally enhanced by menu.js --- */
+  /* Enhancement marks context surfaces before a touch starts. Native callout
+     and text selection compete with long press; leave ordinary markup alone.
+     For selectable content, use a separate More button instead of a context surface. */
+  :where([data-m-menu-context]) {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  :where([data-m-menu-context] :is(input, textarea, select, a[href], [contenteditable]:not([contenteditable="false"]))) {
+    -webkit-touch-callout: default;
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  :where(m-menu) {
+    --menu-gap: var(--space-2xs);
+    row-gap: var(--menu-gap); /* resolved length for enhancement positioning */
+    background: var(--color-surface-overlay); color: var(--color-text);
+    border: 1px solid var(--color-border); border-radius: var(--radius-md);
+    padding: var(--space-2xs); inline-size: var(--menu-width, 14rem); font-size: .875rem;
+  }
+  :where(m-menu:not([popover])) { display: block; }
+  :where(m-menu[data-m-menu-enhanced]) {
+    position: fixed; inset: auto; margin: 0; position-area: none;
+    left: var(--m-menu-x, 0px); top: var(--m-menu-y, 0px);
+    max-inline-size: calc(100vw - 1rem); max-block-size: calc(100dvh - 1rem);
+    overflow: auto;
+  }
+  /* The container receives pointer-open focus; item focus supplies keyboard feedback. */
+  :where(m-menu[data-m-menu-enhanced]):focus { outline: none; }
+  :where(m-menu > button, m-menu > a) {
+    display: flex; align-items: center; justify-content: flex-start; gap: var(--space-sm); inline-size: 100%;
+    min-block-size: var(--control-height); block-size: auto; padding: var(--space-xs);
+    border: 0; background: transparent; color: var(--color-text);
+    border-radius: var(--radius-sm); font-size: .875rem; font-weight: 400;
+    text-align: start; text-decoration: none;
+  }
+  :where(m-menu > button > span:first-of-type, m-menu > a > span:first-of-type) { flex: 1; }
+  /* Match native button hover specificity; enhanced menus use focus as the pointer target. */
+  :where(m-menu[data-m-menu-enhanced] > button, m-menu[data-m-menu-enhanced] > a):hover:not(:disabled, [aria-disabled="true"]):where(:not(:focus, [aria-expanded="true"])) {
+    background: transparent;
+  }
+  :where(m-menu > button, m-menu > a):is(:focus, [aria-expanded="true"]) {
+    background: var(--menu-active-background, color-mix(in oklch, var(--color-text) 8%, var(--color-surface-overlay)));
+    outline: 0;
+  }
+  :where(m-menu:not([data-m-menu-enhanced]) > button, m-menu:not([data-m-menu-enhanced]) > a):hover {
+    background: var(--menu-active-background, color-mix(in oklch, var(--color-text) 8%, var(--color-surface-overlay)));
+  }
+  :where(m-menu > [data-variant="danger"]) { color: var(--color-danger-text); }
+  :where(m-menu > button):is(:disabled, [aria-disabled="true"]), :where(m-menu > a)[aria-disabled="true"] { opacity: .45; }
+  :where(m-menu svg) { inline-size: 1rem; block-size: 1rem; flex: none; }
+  :where(m-menu kbd) { font: .6875rem var(--font-mono); color: var(--color-text-muted); }
+  :where(m-menu > hr) { margin: var(--space-2xs) var(--space-xs); border: 0; border-block-start: 1px solid var(--color-border); }
+  :where(m-menu > [data-menu-heading]) { margin: var(--space-xs); font-size: .6875rem; color: var(--color-text-muted); }
+  :where(m-menu > [data-menu-back]) { display: none; }
+  :where(m-menu) [hidden] { display: none; }
+  @media (max-width: 600px) {
+    :where(m-menu > button, m-menu > a) { min-block-size: var(--menu-touch-height, 2.75rem); }
+    :where(m-menu[data-m-menu-enhanced] > [data-menu-back]) { display: flex; }
+    :where(m-menu[data-m-menu-enhanced] > m-menu:popover-open) { visibility: visible; }
+    :where(m-menu[data-m-menu-enhanced]:has(> m-menu:popover-open)) { visibility: hidden; }
+  }
 }
 
 /* ------------------------------------------------------------------ *

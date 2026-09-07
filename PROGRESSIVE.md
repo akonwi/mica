@@ -99,6 +99,7 @@ The list must stay embarrassingly short:
 - **Tabs** (`tabs.js`) — roving tabindex, arrow keys, `aria-selected`
   wiring. The CSS-only radio hack looks like tabs and is a11y-broken;
   that is exactly the fake we refuse.
+- **Action menu** (`menu.js`) — native popover content enhanced with menu keyboard navigation, context invocation, positioning, and nested menu focus. Authored native More buttons remain usable without JavaScript.
 - **Command** (`command.js`) — filtering, grouped results, active-descendant keyboard selection, and native action activation. Authored links and buttons work without the enhancement; dialog opening and search data belong to applications.
 - **Combobox** (`combobox.js`) — filtering, active-descendant,
   announcements

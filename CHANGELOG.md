@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- `m-menu` action menus and opt-in `menu.js`: dropdown/context invocation with touch long press, keyboard navigation and typeahead, disabled actions, nested submenus, viewport-aware placement, and a mobile Back treatment. Existing `.menu` popovers remain unchanged.
+
 ### Docs
 
 - Theme builder custom accent color picker, with hue/chroma conversion for live previews and exported theme CSS.

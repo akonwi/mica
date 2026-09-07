@@ -75,6 +75,10 @@
     "./command.js": {
       "types": "./command.d.ts",
       "default": "./command.js"
+    },
+    "./menu.js": {
+      "types": "./menu.d.ts",
+      "default": "./menu.js"
     }
   },
   "files": [
@@ -106,7 +110,9 @@
     "table.js",
     "table.d.ts",
     "command.js",
-    "command.d.ts"
+    "command.d.ts",
+    "menu.js",
+    "menu.d.ts"
   ],
   "sideEffects": true,
   "devDependencies": {
@@ -133,6 +139,7 @@
     "data-table:check": "bun tools/data-table-check.ts",
     "callout:check": "bun tools/callout-check.ts",
     "card-list:check": "bun tools/card-list-check.ts",
-    "command:check": "bun tools/command-check.ts"
+    "command:check": "bun tools/command-check.ts",
+    "menu:check": "bun tools/menu-check.ts && bun tools/menu-touch-check.ts"
   }
 }
