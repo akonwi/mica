@@ -2640,6 +2640,9 @@
     border-inline-end: var(--sidebar-edge, 1px) solid var(--color-border);
     background: var(--color-surface-raised);
   }
+  /* Initial modal focus belongs to the named container, not a nav action.
+     Controls retain their ordinary keyboard focus indicators. */
+  :where(dialog[data-sidebar-dialog]):focus-visible { outline: none; }
   :where(m-sidebar > header, m-sidebar > footer) { flex: none; }
   :where(m-sidebar > header) { display: flex; align-items: center; }
   :where(m-sidebar > nav) {

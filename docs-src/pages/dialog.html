@@ -6,7 +6,9 @@
     <p>On mobile, open the keyboard and move between fields. The body scrolls while the footer stays available.</p>
     <div class="specimen"><button commandfor="dd-form" command="show-modal">Open form drawer</button>
       <dialog id="dd-form" data-drawer aria-labelledby="dd-form-title">
-        <header><h2 id="dd-form-title" tabindex="-1" autofocus>Project details</h2></header>
+        <!-- Focus the static title on open so Safari does not open the keyboard.
+             It is not an interactive control, so it needs no focus ring. -->
+        <header><h2 id="dd-form-title" tabindex="-1" autofocus style="outline: none">Project details</h2></header>
         <form id="dd-project" method="dialog"><m-vstack gap="md">
           <m-field><label for="dd-name">Project name</label><input id="dd-name" name="name" type="text"></m-field>
           <m-field><label for="dd-owner">Owner</label><input id="dd-owner" name="owner" type="text"></m-field>

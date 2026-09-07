@@ -36,6 +36,11 @@ for (const engine of [chromium, webkit]) {
       assert(await trigger.evaluate(e => document.activeElement === e), 'Resize hid focused navigation');
       await trigger.click();
       assert(await dialog.evaluate((e: HTMLDialogElement) => e.open), 'Mobile panel did not open');
+      assert(await dialog.evaluate(e => document.activeElement === e), 'Opening focused an action instead of the dialog');
+      assert(await dialog.evaluate(e => getComputedStyle(e).outlineStyle === 'none'), 'Initial container focus has a ring');
+      await page.keyboard.press('Tab');
+      assert(await dialog.evaluate(e => e.contains(document.activeElement) && document.activeElement !== e), 'Tab did not enter sidebar controls');
+      assert(await page.evaluate(() => getComputedStyle(document.activeElement!).outlineStyle !== 'none'), 'Keyboard control focus ring missing');
       assert(await dialog.evaluate(e => { const r = e.getBoundingClientRect(); return r.top === 0 && r.bottom <= innerHeight + 1 && r.left >= 0 && r.right <= innerWidth + 1; }), 'Mobile bounds overflow');
       assert(await dialog.locator('m-sidebar').evaluate(e => getComputedStyle(e).paddingTop === '8px'), 'Dialog introduced inset padding');
       assert(!(await page.evaluate(async () => (await (window as any).axe.run()).violations)).length, 'Mobile accessibility failure');

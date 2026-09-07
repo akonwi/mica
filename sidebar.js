@@ -45,7 +45,18 @@ class MSidebarLayout extends HTMLElement {
       };
       const open = () => {
         if (mobile) {
-          if (!dialog.open) dialog.showModal();
+          if (!dialog.open) {
+            // Start at the named dialog, not the first navigation action.
+            // Preserve an explicitly authored autofocus target.
+            const focusContainer = !dialog.hasAttribute('autofocus') && !sidebar.querySelector('[autofocus]');
+            if (focusContainer) dialog.setAttribute('autofocus', '');
+            try {
+              dialog.showModal();
+              // Some engines still choose a descendant during showModal().
+              if (focusContainer) dialog.focus({ preventScroll: true });
+            }
+            finally { if (focusContainer) dialog.removeAttribute('autofocus'); }
+          }
           update();
         } else setRail(false);
       };
