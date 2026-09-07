@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.13.0 — 2026-09-06
+
+Additive release; existing markup and imports continue to work. No migration is required. The preset now styles scrollbars; restore native defaults with `:root { --scrollbar-color: auto; --scrollbar-width: auto; }`.
+
 ### Styling
 
 - Theme-aware thin scrollbars in the preset, with `--scrollbar-color` and `--scrollbar-width` overrides, native opt-out, and forced-colors defaults.
