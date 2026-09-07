@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Field validation preserves authored `aria-describedby` helper references and removes only its own error description when errors change or clear.
+
 ### Added
 
 - Combobox manual filtering, keyed options with secondary labels, `m-on-change` selection events, and authored `role="status"` feedback. Popup styling now uses quiet fills and an input-width surface separated by an 8px gap; touch selects on completed taps.

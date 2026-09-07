@@ -140,6 +140,7 @@
     "callout:check": "bun tools/callout-check.ts",
     "card-list:check": "bun tools/card-list-check.ts",
     "command:check": "bun tools/command-check.ts",
+    "field:check": "bun tools/field-check.ts",
     "combobox:check": "bun tools/combobox-check.ts",
     "menu:check": "bun tools/menu-check.ts && bun tools/menu-touch-check.ts"
   }

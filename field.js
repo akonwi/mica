@@ -38,6 +38,7 @@ const CAUSES = {
 
 class MField extends HTMLElement {
   #uid;
+  #errorDescriptions = new WeakMap();
 
   connectedCallback() {
     this.addEventListener("invalid", this.#onInvalid, true);
@@ -72,6 +73,21 @@ class MField extends HTMLElement {
     if (this.hasAttribute("invalid")) this.#update(true);
   };
 
+  #describeError(field, errorId) {
+    const owned = this.#errorDescriptions.get(field);
+    const descriptions = (field.getAttribute("aria-describedby") ?? "")
+      .split(/\s+/).filter(Boolean).filter(id => id !== owned);
+    this.#errorDescriptions.delete(field);
+    // Only own IDs we add. An authored reference to this same error must
+    // survive clearing, just like persistent helper-text descriptions.
+    if (errorId && !descriptions.includes(errorId)) {
+      descriptions.push(errorId);
+      this.#errorDescriptions.set(field, errorId);
+    }
+    if (descriptions.length) field.setAttribute("aria-describedby", descriptions.join(" "));
+    else field.removeAttribute("aria-describedby");
+  }
+
   #update(show) {
     const field = this.field;
     if (!field) return;
@@ -80,7 +96,7 @@ class MField extends HTMLElement {
     if (field.validity.valid) {
       this.removeAttribute("invalid");
       field.removeAttribute("aria-invalid");
-      field.removeAttribute("aria-describedby");
+      this.#describeError(field);
       for (const el of errors) el.removeAttribute("active");
       return;
     }
@@ -102,8 +118,10 @@ class MField extends HTMLElement {
       active.id ||=
         `m-error-${(this.#uid ??= Math.random().toString(36).slice(2, 8))}` +
         `-${errors.indexOf(active)}`;
-      field.setAttribute("aria-describedby", active.id);
+      this.#describeError(field, active.id);
       field.setAttribute("aria-invalid", "true");
+    } else {
+      this.#describeError(field);
     }
   }
 }
