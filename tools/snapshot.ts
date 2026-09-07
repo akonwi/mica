@@ -73,6 +73,8 @@ const TOKENS: Record<string, string> = Object.fromEntries(
 // selector snapshots as "MISSING": demo restructuring shows up as a diff
 // instead of silently shrinking coverage.
 const PROBES: [string, string, string[]][] = [
+  ["combobox.shell", "m-combobox [data-combobox-popup]", ["background-color", "border-top-width", "padding-top", "inset-block-start"]],
+  ["combobox.option", "m-combobox [role=option]", ["font-size", "padding-top", "border-radius"]],
   ["menu.shell", "#demo-action-menu", ["background-color", "border-top-width", "padding-top"]],
   ["menu.item", "#demo-action-menu > button", ["font-size", "min-height", "padding-left"]],
   ["scrollbar", "#scrollbar-demo [role=region]", ["scrollbar-color", "scrollbar-width"]],

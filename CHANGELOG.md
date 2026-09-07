@@ -4,6 +4,8 @@
 
 ### Added
 
+- Combobox manual filtering, keyed options with secondary labels, `m-on-change` selection events, and authored `role="status"` feedback. Popup styling now uses quiet fills and an input-width surface separated by an 8px gap; touch selects on completed taps.
+
 - `m-menu` action menus and opt-in `menu.js`: dropdown/context invocation with touch long press, keyboard navigation and typeahead, disabled actions, nested submenus, viewport-aware placement, and a mobile Back treatment. Existing `.menu` popovers remain unchanged.
 
 ### Docs

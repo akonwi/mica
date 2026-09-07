@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Location search — Mica</title><link rel="stylesheet" href="../mica.css">
+<style>
+body{margin:0;background:var(--color-surface);color:var(--color-text)}main{max-width:1000px;margin:auto;padding:clamp(20px,5vw,56px)}h1{font-size:clamp(28px,4vw,40px);margin:12px 0}p{color:var(--color-text-muted)}.layout{display:grid;grid-template-columns:1.15fr 1fr;gap:40px;margin:32px 0}.surface{border:1px solid var(--color-border);padding:24px;min-height:410px}.surface h2{margin:0 0 8px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.chips button{font-size:12px;padding:0 12px}.reference{border-top:1px solid var(--color-border);padding-top:24px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}.reference select{width:180px}pre{padding:16px;white-space:pre-wrap;background:var(--color-surface-raised);font-size:13px}label{display:block;margin:20px 0 8px}#receipt{color:var(--color-text);min-height:48px}.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase}.explain{font-size:14px;line-height:1.6}@media(max-width:700px){.layout{grid-template-columns:1fr;gap:24px}.surface{min-height:0}}@media(prefers-color-scheme:dark){:root{color-scheme:dark}}
+</style><main><span class="eyebrow">Mica / combobox example</span><h1>Search for a place. Choose an exact location.</h1><p>The same text field, with suggestions supplied by an app’s search service.</p>
+<div class="layout"><section class="surface"><h2>Weather location</h2><p>Choose where to show your forecast.</p><label for="city">City or place</label><m-combobox id="search" filter="manual"><input id="city" list="locations" aria-describedby="hint" autocomplete="off" placeholder="Try Paris or NYC"><datalist id="locations"></datalist><p id="status" role="status" hidden>Type at least 2 characters to search.</p></m-combobox><div class="chips" aria-label="Example searches"><button data-query="Paris">Try Paris</button><button data-query="NYC">Try NYC</button><button data-query="zzzz">No matches</button><button data-query="error">Search error</button></div><p id="hint" class="explain">Illustrative local results with a simulated delay. No location service is contacted.</p><button id="reset">Clear</button></section>
+<section><h2>What the app knows</h2><p id="receipt" role="status">No location chosen yet.</p><pre id="payload">selection: null</pre><div class="explain"><p><strong>Typing is not selecting.</strong> Writing “Paris” changes the query. Choosing a row identifies one particular Paris.</p><p><strong>The name is not the ID.</strong> Both cities display “Paris,” but their keys identify different locations. The app uses that key to look up coordinates.</p><p><strong>The service decides what matches.</strong> Try “NYC.” A service can return “New York,” even though that label does not contain “NYC.” Mica’s current substring filter would hide it.</p></div></section></div>
+<div class="reference"><strong>Existing Mica controls</strong><input aria-label="Reference text input" placeholder="Ordinary text input" style="max-width:220px"><select aria-label="Reference select"><option>New York</option><option>Paris</option></select><button>Save</button></div>
+<details style="margin-top:32px"><summary>API</summary><p> The app fetches results and supplies keys, labels, and status text.</p><pre>&lt;m-combobox filter="manual"&gt;
+  &lt;input list="locations" aria-label="Location"&gt;
+  &lt;datalist id="locations"&gt;
+    &lt;option value="Paris" data-key="paris-fr" label="Île-de-France, France"&gt;&lt;/option&gt;
+    &lt;option value="Paris" data-key="paris-tx" label="Texas, United States"&gt;&lt;/option&gt;
+  &lt;/datalist&gt;
+  &lt;p role="status"&gt;Searching…&lt;/p&gt;
+&lt;/m-combobox&gt;
+
+// Choosing a result; typing still uses the input event.
+combobox.addEventListener('m-on-change', ({ detail }) =&gt; {
+  const location = resultsByKey.get(detail.key);
+  // The application owns coordinates, fetching, and saving.
+});</pre></details></main><script type="module" src="location-search.js"></script></html>

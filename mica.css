@@ -1741,9 +1741,9 @@
     position: relative;
   }
 
-  :where(m-combobox) > :where([role="listbox"]) {
+  :where(m-combobox) > :where([data-combobox-popup]) {
     position: absolute;
-    inset-block-start: calc(100% + var(--space-2xs));
+    inset-block-start: calc(100% + var(--space-xs));
     inset-inline: 0;
     z-index: 50;
     max-block-size: 15rem;
@@ -1763,10 +1763,16 @@
 
     &:hover,
     &[aria-selected="true"] {
-      background: var(--color-accent);
-      color: var(--color-on-accent);
+      background: color-mix(in oklch, var(--color-text) 8%, var(--color-surface-overlay));
+      color: var(--color-text);
     }
   }
+
+  :where(m-combobox > input) { display: block; inline-size: 100%; }
+  :where(m-combobox [role="option"] > small) { display: block; color: var(--color-text-muted); font-size: .75rem; }
+  :where(m-combobox [role="option"][aria-disabled="true"]) { opacity: .45; }
+  :where(m-combobox [data-combobox-popup] > [role="status"]) { margin: 0; padding: var(--space-sm); font-size: .875rem; color: var(--color-text-muted); }
+  :where(m-combobox) [hidden] { display: none; }
 
   /* --- tabs: m-tabs + tabs.js (JS-enhanced) ------------------------------ *
    * without the module: inert nav, all panels visible in order —
