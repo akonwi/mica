@@ -13,7 +13,9 @@ function update() {
  const [accent,primary,neutral,radius,density,font] = fields.map(field => field.value);
  const properties = {
   '--hue':accent, '--chroma':accent === '263' ? '0.21' : '0.14', '--neutral-chroma':neutral,
-  '--color-primary':primary === 'accent' ? 'var(--accent-9)' : 'var(--neutral-12)',
+  '--color-primary':primary === 'accent' ? 'var(--accent-10)' : 'var(--neutral-12)',
+  '--color-primary-hover':primary === 'accent' ? 'var(--accent-11)' : 'color-mix(in oklch, var(--color-primary) 90%, var(--color-surface))',
+  '--color-primary-active':primary === 'accent' ? 'var(--accent-11)' : 'color-mix(in oklch, var(--color-primary) 80%, var(--color-surface))',
   '--color-on-primary':primary === 'accent' ? 'var(--color-on-accent)' : 'var(--neutral-1)',
   '--radius-sm':radius === '0.75' ? 'var(--radius-full)' : `${Number(radius)/2}rem`, '--radius-md':`${radius}rem`, '--radius-lg':`${Number(radius)*2}rem`,
   '--font-body':fonts[font],
@@ -44,3 +46,17 @@ document.getElementById('copy').addEventListener('click',async()=>{
  catch{document.getElementById('css-output').select();document.getElementById('copy-status').textContent='Select and copy the CSS above.';}
 });
 update();
+
+// Recipe selection and source export belong to the documentation site.
+{
+const picker=document.getElementById('recipe'), recipeFrame=document.getElementById('preview');
+const captions={overview:'Sidebar · cards · activity list',projects:'Filters · table · bulk actions · pagination',settings:'Cards · fields · switches · save actions',detail:'Breadcrumbs · notes list · progress · callout',components:'The original component sampler'};
+const urls={components:'theme-preview.html'};
+picker.onchange=()=>{recipeFrame.src=urls[picker.value]??`recipe-${picker.value}.html`;document.getElementById('recipe-caption').textContent=captions[picker.value];};
+recipeFrame.addEventListener('load',()=>{const key=new URL(recipeFrame.contentWindow.location.href).pathname.match(/recipe-(\w+)\.html/)?.[1];if(key){picker.value=key;document.getElementById('recipe-caption').textContent=captions[key];}});
+const dialog=document.getElementById('html-dialog'),output=document.getElementById('html-output'),status=document.getElementById('html-status');
+document.getElementById('view-html').onclick=async()=>{status.textContent='';output.value='Loading…';document.getElementById('copy-html').disabled=true;dialog.showModal();try{const response=await fetch(recipeFrame.contentWindow.location.href);if(!response.ok)throw Error();const doc=new DOMParser().parseFromString(await response.text(),'text/html');doc.querySelector('script[src$="appearance.js"]')?.remove();doc.querySelectorAll('[src],[href]').forEach(el=>{for(const attr of ['src','href'])if(el.getAttribute(attr)?.startsWith('../'))el.setAttribute(attr,el.getAttribute(attr).slice(3));});output.value='<!doctype html>\n'+doc.documentElement.outerHTML;document.getElementById('copy-html').disabled=false;status.textContent='Place beside mica.css and sidebar.js. Recipe links refer to companion recipe files; replace them with your app routes.';}catch{output.value='';status.textContent='Could not load recipe markup. Please try again.'}};
+document.getElementById('close-html').onclick=()=>dialog.close();
+document.getElementById('copy-html').onclick=async()=>{try{await navigator.clipboard.writeText(output.value);status.textContent='Copied recipe HTML.';}catch{output.select();status.textContent='Select and copy the HTML above.'}};
+
+}

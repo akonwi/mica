@@ -8,6 +8,8 @@
 
 ### Docs
 
+- Theme builder recipes for overview, projects, settings, and project detail, alongside the component sampler. Shared theme controls, mobile previews, and portable HTML export. Accent-primary theme exports use stronger colors for readable button text and hover states.
+
 - Local documentation search with a lazy-loaded page/section index, intent
   aliases, keyboard navigation, and a responsive search dialog.
 

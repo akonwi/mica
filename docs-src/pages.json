@@ -24,7 +24,7 @@
       "group": "Start",
       "slug": "theme-builder",
       "title": "Theme builder",
-      "lead": "Start with a feeling. Fine-tune the details. Take the CSS.",
+      "lead": "Build a look. Try it across an app. Take the CSS and recipe markup.",
       "wide": true,
       "siteStyles": [
         "theme-builder.css"

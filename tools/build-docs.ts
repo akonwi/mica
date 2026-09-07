@@ -152,7 +152,8 @@ for (const [index, page] of manifest.pages.entries()) {
 }
 outputs.set("docs/site.css", await Bun.file(join(SOURCE, "site.css")).text());
 outputs.set("docs/appearance.js", await Bun.file(join(SOURCE, "appearance.js")).text());
-for (const asset of ["theme-builder.css", "theme-builder.js", "theme-preview.html"]) {
+const themeAssets = ["theme-builder.css", "theme-builder.js", "theme-preview.html", "recipe-overview.html", "recipe-projects.html", "recipe-settings.html", "recipe-detail.html"];
+for (const asset of themeAssets) {
   outputs.set(`docs/${asset}`, await Bun.file(join(SOURCE, asset)).text());
 }
 outputs.set("docs/search.js", await Bun.file(join(SOURCE, "search.js")).text());
@@ -164,7 +165,7 @@ const docsDirectory = join(ROOT, "docs");
 if (!checkOnly) await mkdir(docsDirectory, { recursive: true });
 
 const expectedDocs = new Set(
-  manifest.pages.filter((page) => page.slug !== "index").map((page) => `${page.slug}.html`).concat("theme-preview.html"),
+  manifest.pages.filter((page) => page.slug !== "index").map((page) => `${page.slug}.html`).concat(themeAssets.filter(asset => asset.endsWith(".html"))),
 );
 const staleDocs = [...new Bun.Glob("*.html").scanSync(docsDirectory)]
   .filter((file) => !expectedDocs.has(file));
