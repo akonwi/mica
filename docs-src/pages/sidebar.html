@@ -38,7 +38,7 @@
 <section><m-vstack gap="lg"><h2>API</h2>
 <div class="api-block"><h3>Layout attributes</h3><table class="api-table"><thead><tr><th>Name</th><th>Default</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>variant="docked | inset"</code></td><td><code>docked</code></td><td>On <code>m-sidebar-layout</code>. Docked separates panel and content with one edge. Inset puts a thin square frame around the content. Both become flush on mobile.</td></tr>
-<tr><td><code>collapse="icon"</code></td><td>omitted</td><td>Opt-in desktop icon rail. Without it, the desktop panel stays expanded and the trigger appears only on mobile. Requires labeled, authored icons on each top-level item; invalid anatomy falls back to expanded desktop navigation.</td></tr>
+<tr><td><code>collapse="icon"</code></td><td>omitted</td><td>Opt-in desktop icon rail. Without it, the desktop panel stays expanded and the trigger appears only on mobile. Requires a named icon or avatar on each top-level item. Invalid anatomy keeps the panel expanded and the desktop toggle visible but unavailable, with an explanatory title and console diagnostic. Mobile navigation remains available.</td></tr>
 <tr><td><code>aria-current="page"</code></td><td>—</td><td>Application-owned state on the current link. Stronger text and a quiet background, with no border or shadow.</td></tr>
 </tbody></table></div>
 <div class="api-block"><h3>Content/markup contract</h3><table class="api-table"><thead><tr><th>Part</th><th>Contract</th><th>Description</th></tr></thead><tbody>
@@ -51,9 +51,10 @@
 <tr><td>Group</td><td><code>nav &gt; section &gt; h2</code></td><td>Optional section label. Label each nav region to distinguish it from other navigation.</td></tr>
 <tr><td>Nested links</td><td><code>details &gt; summary[data-sidebar-item]</code> and <code>[data-sidebar-subnav]</code></td><td>Use a subnav wrapper after summary. Direct anchors get the nested style. Clicking a collapsed rail summary expands the panel and opens that details group.</td></tr>
 </tbody></table></div>
+<p>An <code>m-avatar</code> inside a named sidebar item counts as its collapsed visual without <code>data-sidebar-icon</code>. Set <code>--avatar-size</code> on the avatar to size it; keep the accompanying text in <code>data-sidebar-label</code>.</p>
 <div class="api-block"><h3>Optional icon-rail anatomy</h3><table class="api-table"><thead><tr><th>Attribute</th><th>Target</th><th>Description</th></tr></thead><tbody>
 <tr><td><code>data-sidebar-icon</code></td><td>Authored icon, image, or text mark</td><td>Only sizes and aligns the supplied content. Mica ships no sidebar icon set. Use <code>aria-hidden="true"</code> for decorative icons.</td></tr>
-<tr><td><code>data-sidebar-label</code></td><td>Item's text wrapper</td><td>Hidden in icon mode. Every top-level item must have its own <code>aria-label</code> or <code>aria-labelledby</code> and an icon marker to enable the rail. A title can supplement discoverability.</td></tr>
+<tr><td><code>data-sidebar-label</code></td><td>Item's text wrapper</td><td>Hidden in icon mode. Every top-level item must have its own <code>aria-label</code> or <code>aria-labelledby</code> and either a <code>data-sidebar-icon</code> visual or <code>m-avatar</code> outside its hidden label to enable the rail. A title can supplement discoverability.</td></tr>
 <tr><td><code>data-sidebar-badge</code></td><td>Optional count or metadata</td><td>Aligned at the end; hidden in icon mode.</td></tr>
 <tr><td><code>data-sidebar-chevron</code></td><td>Optional authored disclosure indicator</td><td>Hidden in icon mode. A direct summary indicator rotates when its native details opens.</td></tr>
 </tbody></table></div>
@@ -66,7 +67,7 @@
 <tr><td><code>--sidebar-mobile-width</code></td><td><code>18rem</code></td><td>Mobile dialog width, clamped to leave an outside-dismiss area.</td></tr>
 <tr><td><code>--sidebar-height</code></td><td><code>100svh</code></td><td>Layout height. Set a bounded height for an embedded workspace.</td></tr>
 <tr><td><code>--sidebar-pad</code></td><td><code>var(--space-xs)</code></td><td>Panel padding; mobile safe-area insets are respected.</td></tr>
-<tr><td><code>--sidebar-icon-size</code></td><td><code>1rem</code></td><td>Default icon box. Override individual authored icons for brands or avatars.</td></tr>
+<tr><td><code>--sidebar-icon-size</code></td><td><code>1rem</code></td><td>Default icon box. Avatars retain their own <code>--avatar-size</code>, including when marked with <code>data-sidebar-icon</code>.</td></tr>
 <tr><td><code>--sidebar-font-size</code></td><td><code>0.875rem</code></td><td>Item text.</td></tr>
 <tr><td><code>--sidebar-group-size</code></td><td><code>0.6875rem</code></td><td>Group label text.</td></tr>
 <tr><td><code>--sidebar-subnav-size</code></td><td><code>0.8125rem</code></td><td>Nested link and metadata text.</td></tr>

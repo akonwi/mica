@@ -97,8 +97,52 @@ for (const engine of [chromium, webkit]) {
       });
       await page.goto(`${origin}/examples/sidebar.html`);
       await page.locator('m-sidebar-layout[data-m-sidebar-ready]').waitFor();
-      assert(!(await page.locator('[data-sidebar-toggle]').isVisible()), 'Invalid/unrequested rail exposed');
+      const toggle = page.locator('[data-sidebar-toggle]');
+      assert(await toggle.isVisible() === (mode === 'missing-icon'), 'Invalid collapse must keep the toggle discoverable');
+      if (mode === 'missing-icon') {
+        assert(await toggle.getAttribute('aria-disabled') === 'true', 'Invalid collapse toggle must be unavailable');
+        await toggle.click({ force: true });
+        assert(!(await page.locator('m-sidebar-layout').getAttribute('data-m-sidebar-rail')), 'Invalid anatomy collapsed');
+        await page.setViewportSize({width:390,height:850});
+        await page.locator('m-sidebar-layout[data-m-sidebar-mobile]').waitFor();
+        assert(await toggle.getAttribute('aria-disabled') === null, 'Mobile navigation must remain enabled');
+        await toggle.click();
+        assert(await page.locator('dialog').evaluate((el:HTMLDialogElement)=>el.open), 'Invalid desktop anatomy blocked mobile');
+      }
       assert(await page.locator('m-sidebar > nav').isVisible(), 'Text-only nav hidden');
+      await page.close();
+    }
+    // Avatars are visual content with their own sizing, with or without a marker.
+    for (const marked of [false, true]) {
+      const page = await browser.newPage({ viewport: { width: 1200, height: 850 } });
+      const warnings: string[] = [];
+      page.on('console', msg => { if(msg.type()==='warning') warnings.push(msg.text()); });
+      await page.goto(`${origin}/examples/sidebar.html`);
+      await page.locator('m-sidebar-layout[data-m-sidebar-ready]').waitFor();
+      await page.locator('footer .avatar').evaluate((el, marked) => {
+        const avatar = document.createElement('m-avatar');
+        avatar.textContent = 'AN'; avatar.style.setProperty('--avatar-size','32px');
+        if(marked) avatar.setAttribute('data-sidebar-icon','');
+        el.replaceWith(avatar);
+      }, marked);
+      await page.waitForFunction(()=>document.querySelector('m-sidebar-layout')!.hasAttribute('data-m-sidebar-can-rail'));
+      assert(await page.locator('m-avatar').evaluate(el=>getComputedStyle(el).width)==='32px', 'Sidebar overrides avatar size');
+      const toggle = page.locator('[data-sidebar-toggle]');
+      await toggle.click();
+      assert(await page.locator('m-sidebar-layout').getAttribute('data-m-sidebar-rail') !== null, 'Avatar blocked rail');
+      assert(await page.locator('m-avatar').isVisible(), 'Collapsed avatar hidden');
+      await page.locator('m-avatar').evaluate(el=>el.remove());
+      await page.waitForFunction(()=>document.querySelector('[data-sidebar-toggle]')!.getAttribute('aria-disabled')==='true');
+      assert(await page.locator('footer [data-sidebar-label]').isVisible(), 'Invalidation did not expand labels');
+      assert(warnings.some(text=>text.includes('Icon collapse unavailable')), 'Missing actionable diagnostic');
+      const count=warnings.length;
+      await page.evaluate(()=>window.dispatchEvent(new Event('resize')));
+      await page.waitForTimeout(50);
+      assert(warnings.length===count,'Repeated measurements spam diagnostics');
+      await page.locator('footer [data-sidebar-item]').evaluate(el=>el.insertAdjacentHTML('afterbegin','<m-avatar>AN</m-avatar>'));
+      await page.waitForFunction(()=>document.querySelector('[data-sidebar-toggle]')!.getAttribute('aria-disabled')===null);
+      await toggle.click();
+      assert(await page.locator('m-sidebar-layout').getAttribute('data-m-sidebar-rail')!==null,'Repaired anatomy did not recover');
       await page.close();
     }
     const page = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 320, height: 850 } });

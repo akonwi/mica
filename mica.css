@@ -2687,7 +2687,7 @@
     box-shadow: none;
   }
   :where(m-sidebar [data-sidebar-item])[aria-disabled="true"] { opacity: .45; }
-  :where(m-sidebar [data-sidebar-icon]) {
+  :where(m-sidebar [data-sidebar-icon]:not(m-avatar)) {
     inline-size: var(--sidebar-icon-size, 1rem);
     block-size: var(--sidebar-icon-size, 1rem);
     flex: none;
@@ -2715,7 +2715,7 @@
   :where(m-sidebar-layout[data-m-sidebar-rail] m-sidebar) :where([data-sidebar-label], [data-sidebar-badge], h2, [data-sidebar-chevron], [data-sidebar-subnav]) { display: none; }
   :where(m-sidebar-layout[data-m-sidebar-rail] m-sidebar [data-sidebar-item]) { justify-content: center; }
   :where(m-sidebar-layout[data-m-sidebar-rail] m-sidebar details:has([aria-current="page"]) > summary) { color: var(--color-text); background: var(--color-surface); }
-  :where(m-sidebar-layout[data-m-sidebar-can-rail] [data-sidebar-toggle], m-sidebar-layout[data-m-sidebar-mobile] [data-sidebar-toggle]) { display: inline-flex; }
+  :where(m-sidebar-layout[data-m-sidebar-collapse-blocked] [data-sidebar-toggle], m-sidebar-layout[data-m-sidebar-can-rail] [data-sidebar-toggle], m-sidebar-layout[data-m-sidebar-mobile] [data-sidebar-toggle]) { display: inline-flex; }
   :where(m-sidebar-layout[data-m-sidebar-mobile]) { grid-template-columns: minmax(0, 1fr); --sidebar-inset: 0px; --sidebar-content-border: 0px; }
   :where(dialog[data-sidebar-dialog]) {
     position: fixed;

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Sidebar icon collapse accepts avatars without an icon marker and preserves `--avatar-size`. Invalid anatomy keeps an unavailable desktop toggle visible with an explanation and actionable console diagnostic; fixing the markup restores collapse automatically. Mobile navigation stays usable.
+
 ### Docs
 
 - Build-time syntax highlighting for HTML, CSS, and JavaScript snippets, using Mica’s semantic theme colors and following light/dark appearance without browser JavaScript.

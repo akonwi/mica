@@ -21,6 +21,9 @@ class MSidebarLayout extends HTMLElement {
       const triggers = [...main.querySelectorAll('button[data-sidebar-toggle]')].filter(b => b.getAttribute('aria-controls') === sidebar.id);
       const closers = [...sidebar.querySelectorAll('button[data-sidebar-close]')];
       if (!triggers.length || !closers.length) return;
+      const originalToggleHints = new Map();
+      let blocked = false;
+      let warned = new Set();
       const originalExpanded = triggers.map(b => b.getAttribute('aria-expanded'));
       const controller = new AbortController();
       const { signal } = controller;
@@ -34,7 +37,21 @@ class MSidebarLayout extends HTMLElement {
         this.toggleAttribute('data-m-sidebar-mobile', mobile);
         this.toggleAttribute('data-m-sidebar-rail', rail && canRail && !mobile);
         this.toggleAttribute('data-m-sidebar-can-rail', canRail && !mobile);
-        for (const button of triggers) button.setAttribute('aria-expanded', String(mobile ? dialog.open : !(rail && canRail)));
+        this.toggleAttribute('data-m-sidebar-collapse-blocked', blocked && !mobile);
+        triggers.forEach(button => {
+          button.setAttribute('aria-expanded', String(mobile ? dialog.open : !(rail && canRail)));
+          if (blocked && !mobile) {
+            if (!originalToggleHints.has(button)) originalToggleHints.set(button, ['aria-disabled', 'title'].map(name => [name, button.getAttribute(name)]));
+            button.setAttribute('aria-disabled', 'true');
+            button.title = 'Sidebar collapse is unavailable: each item needs a named icon or avatar.';
+          } else if (originalToggleHints.has(button)) {
+            for (const [name, value] of originalToggleHints.get(button)) {
+              if (value === null) button.removeAttribute(name);
+              else button.setAttribute(name, value);
+            }
+            originalToggleHints.delete(button);
+          }
+        });
       };
       const setRail = value => {
         closePopovers();
@@ -67,13 +84,26 @@ class MSidebarLayout extends HTMLElement {
           update();
         } else setRail(true);
       };
-      const toggle = () => mobile ? (dialog.open ? close() : open()) : setRail(!rail);
+      const toggle = () => blocked && !mobile ? undefined : mobile ? (dialog.open ? close() : open()) : setRail(!rail);
       const measure = () => {
         const active = document.activeElement;
-        // Icon collapse is explicitly requested and requires named, authored
-        // icons. Invalid icon anatomy falls back to the expanded desktop panel.
+        const requested = this.getAttribute('collapse') === 'icon';
         const items = [...sidebar.querySelectorAll('[data-sidebar-item]')].filter(e => !e.closest('[data-sidebar-subnav], [popover]'));
-        canRail = this.getAttribute('collapse') === 'icon' && items.length > 0 && items.every(e => e.querySelector('[data-sidebar-icon]') && (e.hasAttribute('aria-label') || e.hasAttribute('aria-labelledby')));
+        const invalid = requested ? items.filter(item => {
+          const visual = [...item.querySelectorAll('[data-sidebar-icon], m-avatar')].some(el =>
+            !el.closest('[data-sidebar-label], [data-sidebar-badge], [data-sidebar-subnav], h2'));
+          const named = item.getAttribute('aria-label')?.trim() ||
+            item.getAttribute('aria-labelledby')?.trim().split(/\s+/).some(id => document.getElementById(id)?.textContent?.trim());
+          return !visual || !named;
+        }) : [];
+        canRail = requested && items.length > 0 && invalid.length === 0;
+        blocked = requested && !canRail;
+        if (blocked) rail = false;
+        for (const item of invalid) {
+          if (!warned.has(item)) console.warn('[mica sidebar] Icon collapse unavailable. Give this item a [data-sidebar-icon] or m-avatar outside its hidden label, and a nonempty aria-label or aria-labelledby referencing label text. Keeping the sidebar expanded.', item);
+        }
+        if (blocked && !items.length && !warned.has(sidebar)) console.warn('[mica sidebar] Icon collapse unavailable: no [data-sidebar-item] elements found. Keeping the sidebar expanded.', sidebar);
+        warned = new Set(invalid.length ? invalid : blocked ? [sidebar] : []);
         const nextMobile = this.getBoundingClientRect().width < 44 * parseFloat(getComputedStyle(document.documentElement).fontSize);
         if (nextMobile !== mobile || sidebar.parentElement !== (nextMobile ? dialog : this)) {
           const hadSidebarFocus = sidebar.contains(active);
@@ -120,16 +150,25 @@ class MSidebarLayout extends HTMLElement {
       }, { signal });
       const observer = new ResizeObserver(measure);
       observer.observe(this);
+      const anatomyObserver = new MutationObserver(measure);
+      anatomyObserver.observe(sidebar, { subtree: true, childList: true, characterData: true,
+        attributes: true, attributeFilter: ['data-sidebar-item', 'data-sidebar-icon', 'data-sidebar-label', 'data-sidebar-badge', 'aria-label', 'aria-labelledby', 'id'] });
       window.addEventListener('resize', measure, { signal, passive: true });
       this.#actions = { open, close, toggle };
       this.#refresh = measure;
       this.#cleanup = () => {
         controller.abort();
         observer.disconnect();
+        anatomyObserver.disconnect();
         closePopovers();
         if (dialog.open) dialog.close();
         this.insertBefore(sidebar, main);
-        for (const name of ['ready', 'mobile', 'rail', 'can-rail']) this.removeAttribute(`data-m-sidebar-${name}`);
+        for (const name of ['ready', 'mobile', 'rail', 'can-rail', 'collapse-blocked']) this.removeAttribute(`data-m-sidebar-${name}`);
+        for (const [button, attributes] of originalToggleHints) {
+          for (const [name, value] of attributes) {
+            if (value === null) button.removeAttribute(name); else button.setAttribute(name, value);
+          }
+        }
         triggers.forEach((b, i) => originalExpanded[i] === null ? b.removeAttribute('aria-expanded') : b.setAttribute('aria-expanded', originalExpanded[i]));
       };
       this.setAttribute('data-m-sidebar-ready', '');
