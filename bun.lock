@@ -7,6 +7,8 @@
       "devDependencies": {
         "axe-core": "^4.12.1",
         "blobatar": "2.4.0",
+        "entities": "^8.1.0",
+        "highlight.js": "^11.12.0",
         "pixelmatch": "^7.2.0",
         "playwright": "^1.61.1",
         "pngjs": "^7.0.0",
@@ -18,7 +20,11 @@
 
     "blobatar": ["blobatar@2.4.0", "", { "peerDependencies": { "react": ">=18", "vue": ">=3" }, "optionalPeers": ["react", "vue"] }, "sha512-eLXuYUW+Xr1FvB+ThFPxR3gjAArkhS6Z1OJnOFCqsoh8phkmHlcnZtzl/Mqi1VT6Ii+IuZ2bdCzmQhysOR2+kA=="],
 
+    "entities": ["entities@8.1.0", "", {}, "sha512-kxL7msIffSuh9aaFAMD7rxAIuTRMAHMeBtgHW2yUdWw732ZNh4MehkF2gdjvtdmikkaIP9bFDDJOPlsvm7avrA=="],
+
     "fsevents": ["fsevents@2.3.2", "", { "os": "darwin" }, "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="],
+
+    "highlight.js": ["highlight.js@11.12.0", "", {}, "sha512-nbfWpyRMcMrPMmDwJB+dhX/eiaPKtc2RB+0QZskqJ3WjRA/FDS0e9hZrx8EC/lbEv8gXy98FcDbNa/dspAaJMg=="],
 
     "pixelmatch": ["pixelmatch@7.2.0", "", { "dependencies": { "pngjs": "^7.0.0" }, "bin": { "pixelmatch": "bin/pixelmatch" } }, "sha512-xhcb4yHu9sM/G7foGzoLtXYcC0zHEaOXXjRKhGup0fw78Nf2Tkiapv4EQyMzrbcmQPsllAI7DbFY2UT7PlI9Pg=="],
 

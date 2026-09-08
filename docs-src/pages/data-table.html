@@ -37,7 +37,7 @@
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 <p>The two panels must be direct children of <code>data-table-toolbar</code>. When selection exists, your app removes <code>hidden</code> from the selection panel and sets <code>inert</code> on the filters. CSS hides the filters while retaining their layout space, so selecting a row does not move the table. Clear selection reverses both changes. Keep the actions short; reserve additional height with <code>--table-toolbar-min-height</code> if your action set needs more space than the filters.</p>
-<pre tabindex="0" aria-label="Application selection state"><code>// Application code, scoped to this collection:
+<pre tabindex="0" aria-label="Application selection state"><code class="language-javascript">// Application code, scoped to this collection:
 selectionPanel.hidden = selectedIds.size === 0;
 filters.inert = selectedIds.size &gt; 0;
 pageCheckbox.checked = rows.length &gt; 0 &amp;&amp; selectedIds.size === rows.length;

@@ -296,3 +296,21 @@ m-sidebar-layout[data-m-sidebar-mobile] .docs-toolbar {
 @media(max-width:600px) { #docs-search { margin-block-start: var(--space-sm); max-block-size: calc(100dvh - 1rem); } #docs-search-results { max-block-size: 50dvh; } }
 
 .docs-search-trigger[hidden], #docs-search-retry[hidden] { display: none; }
+
+/* Build-time snippet highlighting uses Mica’s semantic theme colors.
+   Status text roles keep strings and attributes readable in both schemes. */
+:root {
+  --docs-code-comment: var(--color-text-muted);
+  --docs-code-keyword: var(--color-accent);
+  --docs-code-name: var(--color-accent);
+  --docs-code-attribute: var(--color-warn-text);
+  --docs-code-string: var(--color-success-text);
+}
+pre .hljs-comment { color: var(--docs-code-comment); }
+pre :is(.hljs-keyword, .hljs-selector-tag, .hljs-doctag, .hljs-meta) { color: var(--docs-code-keyword); }
+pre :is(.hljs-name, .hljs-title, .hljs-built_in, .hljs-selector-class, .hljs-selector-id, .hljs-selector-pseudo) { color: var(--docs-code-name); }
+pre :is(.hljs-attr, .hljs-attribute, .hljs-number, .hljs-literal) { color: var(--docs-code-attribute); }
+pre :is(.hljs-string, .hljs-selector-attr) { color: var(--docs-code-string); }
+@media (forced-colors: active) {
+  pre [class^="hljs-"] { color: CanvasText; }
+}

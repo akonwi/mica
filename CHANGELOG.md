@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Docs
+
+- Build-time syntax highlighting for HTML, CSS, and JavaScript snippets, using Mica’s semantic theme colors and following light/dark appearance without browser JavaScript.
+
 ## v0.14.0 — 2026-09-07
 
 Additive release; existing markup and module imports remain supported. No migration is required. Mobile drawers now avoid the software keyboard automatically when using `drawer.js`; set `data-avoid-keyboard="false"` if your application handles positioning.

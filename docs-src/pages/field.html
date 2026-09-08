@@ -4,7 +4,7 @@
   &lt;input id=&quot;email&quot; type=&quot;email&quot; required /&gt;
   &lt;m-error match=&quot;value-missing&quot;&gt;Email is required.&lt;/m-error&gt;
   &lt;m-error match=&quot;type-mismatch&quot;&gt;Not a valid email.&lt;/m-error&gt;
-  &lt;m-error&gt;&lt;/m-error&gt;  &lt;!-- catch-all: browser&amp;#39;s own message --&gt;
+  &lt;m-error&gt;&lt;/m-error&gt;  &lt;!-- catch-all: browser&#39;s own message --&gt;
 &lt;/m-field&gt;
 
 &lt;script type=&quot;module&quot; src=&quot;mica/field.js&quot;&gt;&lt;/script&gt;</code></pre></m-vstack></section>
@@ -34,7 +34,7 @@
 <p role="status" id="custom-status">
 </p>
 </m-vstack>
-</form></div><p>Use native <code>setCustomValidity(message)</code> for application rules. A nonempty message makes the field invalid; <code>setCustomValidity('')</code> clears that custom rule, while native constraints such as <code>required</code> still apply. An empty <code>m-error match="custom-error"</code> displays the current validation message.</p><pre><code>const handle = document.querySelector('#handle');
+</form></div><p>Use native <code>setCustomValidity(message)</code> for application rules. A nonempty message makes the field invalid; <code>setCustomValidity('')</code> clears that custom rule, while native constraints such as <code>required</code> still apply. An empty <code>m-error match="custom-error"</code> displays the current validation message.</p><pre><code class="language-javascript">const handle = document.querySelector('#handle');
 function validateHandle() {
   handle.setCustomValidity(
     handle.value.trim().toLowerCase() === 'admin'
@@ -43,7 +43,7 @@ function validateHandle() {
   );
 }
 handle.addEventListener('input', validateHandle);
-validateHandle();</code></pre><p>Attach rule listeners to the input so they run before the event bubbles to <code>m-field</code>. Compute validity when values change and once for initial values: native form validation runs before the <code>submit</code> event. After a submit attempt, Mica updates an already visible error as the user types.</p><p>Setting custom validity alone does not display an error. Call <code>form.reportValidity()</code> when you deliberately want to reveal errors and focus the first invalid field, such as after a server response. After a programmatic correction, clear or recompute validity and dispatch a bubbling input event to refresh an already displayed error:</p><pre><code>handle.value = correctedHandle;
+validateHandle();</code></pre><p>Attach rule listeners to the input so they run before the event bubbles to <code>m-field</code>. Compute validity when values change and once for initial values: native form validation runs before the <code>submit</code> event. After a submit attempt, Mica updates an already visible error as the user types.</p><p>Setting custom validity alone does not display an error. Call <code>form.reportValidity()</code> when you deliberately want to reveal errors and focus the first invalid field, such as after a server response. After a programmatic correction, clear or recompute validity and dispatch a bubbling input event to refresh an already displayed error:</p><pre><code class="language-javascript">handle.value = correctedHandle;
 validateHandle();
 handle.dispatchEvent(new Event('input', { bubbles: true }));</code></pre></m-vstack></section>
 <section><m-vstack gap="md"><h2>Dependent fields</h2><div class="specimen"><form id="dates-form">
@@ -65,7 +65,7 @@ handle.dispatchEvent(new Event('input', { bubbles: true }));</code></pre></m-vst
 <p role="status" id="dates-status">
 </p>
 </m-vstack>
-</form></div><p>Recompute a rule whenever any value it depends on changes. For two native date inputs, the end date's validity depends on both values:</p><pre><code>const start = document.querySelector('#start');
+</form></div><p>Recompute a rule whenever any value it depends on changes. For two native date inputs, the end date's validity depends on both values:</p><pre><code class="language-javascript">const start = document.querySelector('#start');
 const end = document.querySelector('#end');
 function validateDates() {
   end.setCustomValidity(
@@ -95,8 +95,8 @@ validateDates();</code></pre><p>The forwarded input event refreshes an existing 
 <p role="status" id="server-status">
 </p>
 </m-vstack>
-</form></div><p>Map server field errors to their native inputs. For an email field with an empty custom-error message, set the returned text as custom validity, then ask the form to display it:</p><pre><code>email.setCustomValidity(errors.email);
-form.reportValidity();</code></pre><p>Mica displays the message as text, sets <code>aria-invalid</code>, and associates the error alongside existing helper descriptions. Clear a server error when its relevant input changes, before that event reaches Mica. If the field also has local custom rules, recompute those rather than unconditionally clearing all custom validity.</p><pre><code>let revision = 0;
+</form></div><p>Map server field errors to their native inputs. For an email field with an empty custom-error message, set the returned text as custom validity, then ask the form to display it:</p><pre><code class="language-javascript">email.setCustomValidity(errors.email);
+form.reportValidity();</code></pre><p>Mica displays the message as text, sets <code>aria-invalid</code>, and associates the error alongside existing helper descriptions. Clear a server error when its relevant input changes, before that event reaches Mica. If the field also has local custom rules, recompute those rather than unconditionally clearing all custom validity.</p><pre><code class="language-javascript">let revision = 0;
 email.addEventListener('input', () =&gt; {
   ++revision;
   email.setCustomValidity('');

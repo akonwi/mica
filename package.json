@@ -118,6 +118,8 @@
   "devDependencies": {
     "axe-core": "^4.12.1",
     "blobatar": "2.4.0",
+    "entities": "^8.1.0",
+    "highlight.js": "^11.12.0",
     "pixelmatch": "^7.2.0",
     "playwright": "^1.61.1",
     "pngjs": "^7.0.0"
@@ -125,6 +127,7 @@
   "scripts": {
     "build:avatar": "bun tools/build-avatar.ts",
     "docs:build": "bun tools/build-docs.ts",
+    "docs-highlight:check": "bun test tools/docs-highlight.test.ts",
     "docs:check": "bun tools/build-docs.ts --check",
     "docs-search:check": "bun tools/docs-search-check.ts",
     "docs:serve": "bun run docs:build && bun tools/serve.ts",

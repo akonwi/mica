@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 
+import { highlightCodeBlocks } from "./docs-highlight";
 import { indexPage, type SearchEntry } from "./docs-search-index";
 import { mkdir, rm } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
@@ -77,7 +78,7 @@ function pagerHtml(index: number, fromRoot: boolean): string {
 async function pageHtml(page: Page, index: number): Promise<string> {
   const fromRoot = page.slug === "index";
   const indexed = indexPage((await Bun.file(join(SOURCE, "pages", `${page.slug}.html`)).text()).trim(), page);
-  const body = indexed.html;
+  const body = highlightCodeBlocks(indexed.html);
   searchEntries.push(...indexed.entries);
   const scripts = [...new Set(["sidebar.js", ...(page.scripts ?? [])])]
     .map((script) => `  <script type="module" src="${fromRoot ? script : `../${script}`}"></script>`)
