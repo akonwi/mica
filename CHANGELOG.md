@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Infrastructure
+
+- Unified `bun run test` command discovers behavior and unit checks, supports suite filters, and manages a local test server when needed.
+
 ### Fixed
 
 - Sidebar icon collapse accepts avatars without an icon marker and preserves `--avatar-size`. Invalid anatomy keeps an unavailable desktop toggle visible with an explanation and actionable console diagnostic; fixing the markup restores collapse automatically. Mobile navigation stays usable.

@@ -127,25 +127,11 @@
   "scripts": {
     "build:avatar": "bun tools/build-avatar.ts",
     "docs:build": "bun tools/build-docs.ts",
-    "docs-highlight:check": "bun test tools/docs-highlight.test.ts",
     "docs:check": "bun tools/build-docs.ts --check",
-    "docs-search:check": "bun tools/docs-search-check.ts",
     "docs:serve": "bun run docs:build && bun tools/serve.ts",
     "snapshot": "bun tools/snapshot.ts",
     "snapshot:check": "bun tools/snapshot.ts --check",
     "snapshot:setup": "playwright install chromium webkit",
-    "header:check": "bun tools/header-check.ts",
-    "sidebar:check": "bun tools/sidebar-check.ts",
-    "navigation-menu:check": "bun tools/navigation-menu-check.ts",
-    "bottom-navigation:check": "bun tools/bottom-navigation-check.ts",
-    "breadcrumbs:check": "bun tools/breadcrumbs-check.ts",
-    "data-table:check": "bun tools/data-table-check.ts",
-    "callout:check": "bun tools/callout-check.ts",
-    "card-list:check": "bun tools/card-list-check.ts",
-    "command:check": "bun tools/command-check.ts",
-    "drawer:check": "bun tools/drawer-check.ts",
-    "field:check": "bun tools/field-check.ts",
-    "combobox:check": "bun tools/combobox-check.ts",
-    "menu:check": "bun tools/menu-check.ts && bun tools/menu-touch-check.ts"
+    "test": "bun tools/test.ts"
   }
 }

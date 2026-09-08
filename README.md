@@ -127,3 +127,23 @@ and `m-card-footer` parts. A `flush` body composes with native `ul/ol[data-list]
 without double padding. Lists use inset dividers by default;
 `data-dividers="none"` opts out. See [cards](https://akonwi.io/mica/docs/card.html)
 and [lists](https://akonwi.io/mica/docs/list.html).
+
+
+## Running tests
+
+Install development dependencies with `bun install` and browser engines with
+`bun run snapshot:setup`, then run:
+
+```sh
+bun run test                  # all behavior, docs, and snapshot checks
+bun run test -- sidebar       # one component
+bun run test -- menu          # menu and menu-touch
+bun run test -- field drawer  # multiple suites
+bun run test -- --list        # available suites
+```
+
+The runner discovers `tools/*-check.ts` and `tools/*.test.ts`, builds the docs
+for browser checks, and starts a temporary server on port 8471 when needed.
+An existing server serving this checkout is reused and left running. Failures
+are collected and return a nonzero exit status. Snapshot baselines are never
+updated by tests; use `bun run snapshot` explicitly to accept intentional changes.
