@@ -39,13 +39,16 @@ plausibly depend on. When in doubt about a ramp tweak: it's breaking.
 - ROADMAP.md reflects reality.
 - **CHANGELOG.md drafted and committed.** Move the `[Unreleased]` section
   under the new version heading with today's date; categorize broadly
-  (Fixes / Added / Docs / Infrastructure). The changelog is for humans
-  migrating between versions — prioritize what they need to know (API
-  changes, deprecations, behavioral fixes) over internal refactors.
+  (Changed / Added / Fixed). Keep the changelog focused on library changes
+  that affect consumers: API changes, migration instructions, deprecations,
+  behavior, and rendered output. Omit documentation-site improvements
+  (such as syntax highlighting), tests, tooling, and infrastructure changes.
+  Those belong in commit history, not the package changelog.
 
 ## 3. Draft release notes
 
-Before tagging, draft GitHub Release text from the CHANGELOG entry.
+Before tagging, draft GitHub Release text from the CHANGELOG entry. Apply
+the same library-only scope; do not add docs-site or test/tooling updates.
 Emphasize: API changes and migration notes, new components, fixes that
 change rendered output (color retuning, dialog layout). For visual
 changes, link to the relevant PR or demo section.
