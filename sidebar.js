@@ -28,7 +28,19 @@ class MSidebarLayout extends HTMLElement {
       const controller = new AbortController();
       const { signal } = controller;
       let mobile = false;
+      const cookieName = `mica-sidebar-${encodeURIComponent(sidebar.id)}`;
+      const persists = () => this.getAttribute('persist') !== 'false';
       let rail = false;
+      if (persists()) {
+        try { rail = document.cookie.split(';').some(part => part.trim() === `${cookieName}=collapsed`); }
+        catch { /* Storage restrictions must not prevent enhancement. */ }
+      }
+      const saveRail = () => {
+        if (!persists()) return;
+        try {
+          document.cookie = `${cookieName}=${rail ? 'collapsed' : 'expanded'}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
+        } catch { /* The sidebar still works when cookies are unavailable. */ }
+      };
       let canRail = false;
       let opener = triggers[0];
       const focusable = 'a[href],button:not(:disabled),summary';
@@ -56,7 +68,9 @@ class MSidebarLayout extends HTMLElement {
       const setRail = value => {
         closePopovers();
         const active = document.activeElement;
+        const previous = rail;
         rail = value && canRail;
+        if (canRail && rail !== previous) saveRail();
         update();
         if (sidebar.contains(active) && active instanceof HTMLElement && !active.getClientRects().length) triggers[0].focus();
       };

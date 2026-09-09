@@ -145,6 +145,79 @@ for (const engine of [chromium, webkit]) {
       assert(await page.locator('m-sidebar-layout').getAttribute('data-m-sidebar-rail')!==null,'Repaired anatomy did not recover');
       await page.close();
     }
+    // Persistence follows the desktop preference, never the mobile dialog.
+    {
+      const context = await browser.newContext({ viewport: { width: 1200, height: 850 } });
+      const page = await context.newPage();
+      const visit = async () => {
+        await page.goto(`${origin}/examples/sidebar.html`);
+        await page.locator('m-sidebar-layout[data-m-sidebar-ready]').waitFor();
+      };
+      await visit();
+      const layout = page.locator('m-sidebar-layout');
+      const toggle = page.locator('[data-sidebar-toggle]');
+      const id = await page.locator('m-sidebar').getAttribute('id');
+      const name = `mica-sidebar-${encodeURIComponent(id!)}`;
+      const saved = async () => (await context.cookies()).find(cookie => cookie.name === name);
+      const collapsed = async () => await layout.getAttribute('data-m-sidebar-rail') !== null;
+      assert(!(await saved()), 'Initialization should not write cookies');
+      await toggle.click();
+      const cookie = await saved();
+      assert(cookie?.value === 'collapsed' && cookie.path === '/' && cookie.sameSite === 'Lax' && cookie.expires > Date.now()/1000 + 300*86400, 'Collapse preference cookie missing or incorrectly scoped');
+      await visit();
+      assert(await collapsed(), 'Reload did not restore collapse');
+      assert(await page.locator('m-sidebar').evaluate(el => el.getBoundingClientRect().width < 100), 'Restored rail did not render collapsed');
+      await layout.evaluate(el => { el.remove(); document.body.prepend(el); });
+      await page.locator('m-sidebar-layout[data-m-sidebar-ready]').waitFor();
+      assert(await collapsed(), 'Reconnect lost preference');
+      await page.setViewportSize({ width: 390, height: 850 });
+      await visit();
+      const dialog = page.locator('dialog[data-sidebar-dialog]');
+      assert(!(await dialog.evaluate((el: HTMLDialogElement) => el.open)), 'Saved collapse opened mobile drawer');
+      await toggle.click();
+      await page.locator('[data-sidebar-close]').click();
+      assert((await saved())?.value === 'collapsed', 'Mobile actions overwrote desktop preference');
+      await page.setViewportSize({ width: 1200, height: 850 });
+      await page.locator('m-sidebar-layout[data-m-sidebar-rail]').waitFor();
+      await toggle.click();
+      assert((await saved())?.value === 'expanded', 'Expansion was not saved');
+      await visit();
+      assert(!await collapsed(), 'Expanded preference was not restored');
+      await toggle.click();
+      await page.route('**/examples/sidebar.html', async route => {
+        const response = await route.fetch();
+        await route.fulfill({ response, body: (await response.text()).replace('collapse="icon"', 'collapse="icon" persist="false"') });
+      });
+      await visit();
+      assert(!await collapsed(), 'Opt-out read saved preference');
+      await toggle.click(); await toggle.click();
+      assert((await saved())?.value === 'collapsed', 'Opt-out overwrote saved cookie');
+      await page.unroute('**/examples/sidebar.html');
+      await page.route('**/examples/sidebar.html', async route => {
+        const response = await route.fetch();
+        await route.fulfill({ response, body: (await response.text()).replace(`id="${id}"`, 'id="independent-panel"').replace(`aria-controls="${id}"`, 'aria-controls="independent-panel"') });
+      });
+      await visit();
+      assert(!await collapsed(), 'Different sidebar ID reused preference');
+      await page.unroute('**/examples/sidebar.html');
+      await page.route('**/examples/sidebar.html', async route => {
+        const response = await route.fetch();
+        await route.fulfill({ response, body: (await response.text()).replace('data-sidebar-icon', 'data-example-icon') });
+      });
+      await visit();
+      assert(!await collapsed(), 'Invalid anatomy restored unsafe rail');
+      assert((await saved())?.value === 'collapsed', 'Invalid anatomy erased preference');
+      await page.unroute('**/examples/sidebar.html');
+      await context.addInitScript(() => Object.defineProperty(document, 'cookie', {
+        get() { throw new DOMException('Blocked', 'SecurityError'); },
+        set() { throw new DOMException('Blocked', 'SecurityError'); },
+      }));
+      await visit();
+      await toggle.click();
+      assert(await collapsed(), 'Blocked cookies broke collapse');
+      await context.close();
+      console.log(`${engine.name()} cookie restore, opt-out, identity, mobile isolation, reconnect, and unavailable storage: PASS`);
+    }
     const page = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 320, height: 850 } });
     await page.goto(`${origin}/examples/sidebar.html`);
     assert(await page.locator('m-sidebar > nav').isVisible(), 'No-JS sidebar hidden');

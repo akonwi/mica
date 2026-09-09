@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Changed
+
+- Sidebar desktop collapse state now persists by default in a cookie keyed by the panel ID. Set `persist="false"` on `m-sidebar-layout` to retain the previous nonpersistent behavior. Mobile drawer state is not saved.
+
 ### Infrastructure
 
 - Unified `bun run test` command discovers behavior and unit checks, supports suite filters, and manages a local test server when needed.
