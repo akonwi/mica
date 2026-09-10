@@ -33,6 +33,40 @@ for (const engine of [chromium, webkit]) {
           assert(await page.locator('#notes li').count() === 2, 'List deletion');
         }
       }
+      // List rows own their spacing, including consumer-padded full-row links.
+      await page.evaluate(() => {
+        const fixture = document.createElement('section');
+        fixture.id = 'list-spacing-check';
+        fixture.innerHTML = `<style>
+          #list-spacing-check .row { display:block; width:100%; padding:1rem; }
+          #list-spacing-check .row:hover { background:var(--color-surface-raised); }
+        </style>
+        <ul data-list role="list" style="--list-row-padding:0px">
+          <li><a class="row" href="#one">First item</a></li>
+          <li><a class="row" href="#two">Second item</a></li>
+        </ul>
+        <ol data-list role="list"><li>First static row</li><li>Second static row</li></ol>
+        <ul class="prose"><li>Ordinary prose</li><li>More prose</li></ul>`;
+        document.body.append(fixture);
+      });
+      const spacing = await page.locator('#list-spacing-check').evaluate(root => {
+        const rows = [...root.querySelectorAll('[data-list] > li')];
+        const [first, second] = rows.map(row => row.getBoundingClientRect());
+        const link = rows[0].querySelector('a')!.getBoundingClientRect();
+        return {
+          reset: rows.every(row => {
+            const style = getComputedStyle(row);
+            return ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'].every(name => style[name as any] === '0px');
+          }),
+          adjacent: Math.abs(first.bottom - second.top) < .1,
+          fills: Math.abs(link.top - first.top) < .1 && Math.abs(link.bottom - first.bottom) < .1,
+          prose: parseFloat(getComputedStyle(root.querySelector('.prose li')!).marginBlockStart),
+        };
+      });
+      assert(spacing.reset && spacing.adjacent && spacing.fills, 'List row margins leave gaps around full-row links');
+      assert(spacing.prose > 0, 'Ordinary prose lost its preset spacing');
+      await page.locator('#list-spacing-check a').first().hover();
+      assert(await page.locator('#list-spacing-check a').first().evaluate(el => getComputedStyle(el).backgroundColor !== 'rgba(0, 0, 0, 0)'), 'Full-row hover is not painted');
       assert(!errors.length, errors.join('\n'));
       await page.close();
       const plain = await browser.newPage({ javaScriptEnabled: false, colorScheme, viewport: { width: 390, height: 1000 } });

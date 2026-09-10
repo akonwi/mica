@@ -294,6 +294,8 @@
    "list.row": {
     "border-top-color": "oklch(0.3 0 263)",
     "display": "flex",
+    "margin-bottom": "0px",
+    "margin-top": "0px",
     "padding-top": "16px"
    },
    "list.undivided": {
@@ -1203,6 +1205,8 @@
    "list.row": {
     "border-top-color": "oklch(0.89 0 263)",
     "display": "flex",
+    "margin-bottom": "0px",
+    "margin-top": "0px",
     "padding-top": "16px"
    },
    "list.undivided": {

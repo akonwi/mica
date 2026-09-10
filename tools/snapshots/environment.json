@@ -2,7 +2,7 @@
   "capture": "pixel-aligned-v1",
   "platform": "darwin",
   "arch": "arm64",
-  "osRelease": "25.5.0",
+  "osRelease": "25.6.0",
   "playwright": "1.61.1",
   "viewport": {
     "width": 1280,

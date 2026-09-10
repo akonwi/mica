@@ -153,7 +153,7 @@ const PROBES: [string, string, string[]][] = [
   ["card.flush", "#card-list-demo m-card-body[flush]", ["padding-left", "border-top-width"]],
   ["card.footer", "#card-list-demo m-card-footer", ["display", "flex-wrap", "border-top-width"]],
   ["list.inset", "#card-list-demo ol", ["padding-left", "list-style-type"]],
-  ["list.row", "#card-list-demo ol > li + li", ["display", "padding-top", "border-top-color"]],
+  ["list.row", "#card-list-demo ol > li + li", ["display", "padding-top", "border-top-color", "margin-top", "margin-bottom"]],
   ["list.undivided", "#card-list-demo ul > li + li", ["border-top-color", "padding-top"]],
   ["callout", "#callout-demo m-callout", ["display", "padding-top", "gap", "font-size", "background-color", "border-top-color"]],
   ["callout.success", '#callout-demo [variant="success"]', ["background-color", "border-top-color"]],

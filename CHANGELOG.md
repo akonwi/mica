@@ -8,6 +8,8 @@
 
 ### Fixed
 
+- Native `[data-list]` rows reset preset prose margins, removing unintended spacing and gaps around full-row hover backgrounds. Ordinary lists retain their prose spacing.
+
 - Sidebar icon collapse accepts avatars without an icon marker and preserves `--avatar-size`. Invalid anatomy keeps an unavailable desktop toggle visible with an explanation and actionable console diagnostic; fixing the markup restores collapse automatically. Mobile navigation stays usable.
 
 ## v0.14.0 — 2026-09-07
