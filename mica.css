@@ -682,9 +682,59 @@
     &:checked { --m-mark-color: var(--color-on-primary); }
   }
 
+  /* Switch: square by default; the track and thumb follow --radius-sm.
+     Set --radius-sm: var(--radius-full) for circular inner marks and a
+     pill track. Keep the thumb square by overriding --m-mark-radius: 0px. */
+  :where(input[type="checkbox"][role="switch"]) {
+    --m-mark-size: 14px;
+    --m-mark-align: 0;
+    --m-mark-inset: 2px;
+    --m-mark-color: light-dark(var(--color-surface), var(--color-text));
+    inline-size: 2.25rem;
+    border-color: transparent;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-fill-strong);
+
+    &:checked {
+      --m-mark-align: 1;
+      --m-mark-inset: -2px;
+      --m-mark-color: var(--color-on-primary);
+      background-color: var(--color-primary);
+    }
+  }
+
+  /* disabled + on: desaturate toward neutral, same recipe as disabled
+     data-variant="primary" buttons — inert, not just faded (placed after
+     the switch block so it wins its background-color at equal specificity).
+     :indeterminate is checkbox-only here: a radio matches :indeterminate
+     whenever its group has nothing checked, which would paint a disabled,
+     unselected radio as disabled + on. Split (not [type] inside :is()) to
+     keep both branches at the same specificity as before. */
+  :where(input[type="checkbox"]):disabled:is(:checked, :indeterminate),
+  :where(input[type="radio"]):disabled:checked {
+    border-color: transparent;
+    background-color: color-mix(in oklch, var(--color-primary) 40%, var(--color-border));
+  }
+
+  /* labels that wrap a check control become the click target */
+  :where(label:has(> input:is([type="checkbox"], [type="radio"]))) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    cursor: pointer;
+  }
+
+  /* a disabled control dims its whole label, not just itself */
+  :where(label:has(> input:disabled)) {
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+  }
+
   /* segmented control: native radios fused into one control. The input
      remains the form/keyboard/AT primitive; the label carries the visual
-     state because inputs cannot safely own pseudo-elements. */
+     state because inputs cannot safely own pseudo-elements. Lives after
+     the generic label:has(> radio) rules so its zero-specificity
+     display: grid / place-items: center wins by source order. */
   :where(m-segmented) {
     display: inline-flex;
     inline-size: fit-content;
@@ -732,52 +782,12 @@
     opacity: 0.55;
   }
 
-  /* Switch: square by default; the track and thumb follow --radius-sm.
-     Set --radius-sm: var(--radius-full) for circular inner marks and a
-     pill track. Keep the thumb square by overriding --m-mark-radius: 0px. */
-  :where(input[type="checkbox"][role="switch"]) {
-    --m-mark-size: 14px;
-    --m-mark-align: 0;
-    --m-mark-inset: 2px;
-    --m-mark-color: light-dark(var(--color-surface), var(--color-text));
-    inline-size: 2.25rem;
-    border-color: transparent;
-    border-radius: var(--radius-sm);
-    background-color: var(--color-fill-strong);
-
-    &:checked {
-      --m-mark-align: 1;
-      --m-mark-inset: -2px;
-      --m-mark-color: var(--color-on-primary);
-      background-color: var(--color-primary);
-    }
-  }
-
-  /* disabled + on: desaturate toward neutral, same recipe as disabled
-     data-variant="primary" buttons — inert, not just faded (placed after
-     the switch block so it wins its background-color at equal specificity).
-     :indeterminate is checkbox-only here: a radio matches :indeterminate
-     whenever its group has nothing checked, which would paint a disabled,
-     unselected radio as disabled + on. Split (not [type] inside :is()) to
-     keep both branches at the same specificity as before. */
-  :where(input[type="checkbox"]):disabled:is(:checked, :indeterminate),
-  :where(input[type="radio"]):disabled:checked {
-    border-color: transparent;
-    background-color: color-mix(in oklch, var(--color-primary) 40%, var(--color-border));
-  }
-
-  /* labels that wrap a check control become the click target */
-  :where(label:has(> input:is([type="checkbox"], [type="radio"]))) {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-xs);
-    cursor: pointer;
-  }
-
-  /* a disabled control dims its whole label, not just itself */
-  :where(label:has(> input:disabled)) {
-    color: var(--color-text-muted);
-    cursor: not-allowed;
+  /* checked + disabled: the selection still reads, only dimmed. Without
+     this the :disabled color above wins (same specificity, later) and
+     paints muted text on the primary fill (~1.6:1). The checkbox family's
+     desaturated fill was tried: with the 0.55 opacity, text drops to ~2:1. */
+  :where(m-segmented) > :where(label):has(> input:checked:disabled) {
+    color: var(--color-on-primary);
   }
 
   /* --- badge: quiet metadata, not a control ------------------------ */

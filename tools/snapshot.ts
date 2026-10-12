@@ -133,6 +133,12 @@ const PROBES: [string, string, string[]][] = [
     ["background-color", "color", "font-weight"]],
   ["segmented.disabled", "m-segmented label:has(input:disabled)",
     ["color", "cursor", "opacity"]],
+  // the segment's own grid centering must beat the generic label:has(radio)
+  // inline-flex rule (source order); it shows once segments get a width
+  ["segmented.label", "m-segmented > label", ["display", "justify-items", "align-items"]],
+  // checked + disabled keeps on-primary text over the primary fill
+  ["segmented.checked-disabled", "m-segmented label:has(input:checked:disabled)",
+    ["background-color", "color", "opacity"]],
   ["stepper", "m-stepper",
     ["display", "overflow-x", "border-top-color", "border-radius", "background-color"]],
   ["stepper.value", "m-stepper > :nth-child(2)",
