@@ -123,7 +123,9 @@ new attribute) + deprecation note over mutation.
 ## Design language (the default theme)
 
 Square (radius tokens = 0), pure neutral grays, near-black `--color-primary`
-(inverts in dark), one blue accent reserved for focus/selection/checkmarks,
+(inverts in dark), one blue accent reserved for focus/selection (focus ring, highlights,
+selected-tab rule, the select picker's `::checkmark`; checkbox/radio/
+switch checked fills ride primary, not accent),
 orange warning. Dark mode is `light-dark()` + `color-scheme` — no classes.
 Checked-state grammar: checkbox = fill + glyph, radio = fill + pip,
 switch = fill + block. Field text never drops below 16px (iOS zoom).
