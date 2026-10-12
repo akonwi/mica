@@ -308,6 +308,12 @@
     "color": "oklch(0.96 0 263)",
     "text-decoration-line": "none"
    },
+   "list.avatar": {
+    "color": "oklch(0.96 0 263)",
+    "font-size": "16px",
+    "height": "32px",
+    "width": "32px"
+   },
    "list.inset": {
     "list-style-type": "none",
     "padding-left": "24px"
@@ -1270,6 +1276,12 @@
    "link": {
     "color": "oklch(0.18 0 263)",
     "text-decoration-line": "none"
+   },
+   "list.avatar": {
+    "color": "oklch(0.18 0 263)",
+    "font-size": "16px",
+    "height": "32px",
+    "width": "32px"
    },
    "list.inset": {
     "list-style-type": "none",

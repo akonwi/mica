@@ -2426,6 +2426,12 @@
     flex: 0 0 auto; inline-size: var(--list-leading-size, 2rem); block-size: var(--list-leading-size, 2rem);
     display: grid; place-items: center; color: var(--color-text-muted);
   }
+  /* An avatar leading sizes its initials from the leading box (not its own
+     3rem default) and keeps its own text colour, not the icon-muted one. */
+  :where(m-avatar[data-list-leading]) {
+    --avatar-size: var(--list-leading-size, 2rem);
+    color: var(--m-avatar-content-color, var(--color-text));
+  }
   :where([data-list-trailing]) {
     flex: 0 1 auto; min-inline-size: 0; overflow-wrap: anywhere;
     display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm);

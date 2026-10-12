@@ -161,6 +161,7 @@ const PROBES: [string, string, string[]][] = [
   ["list.inset", "#card-list-demo ol", ["padding-left", "list-style-type"]],
   ["list.row", "#card-list-demo ol > li + li", ["display", "padding-top", "border-top-color", "margin-top", "margin-bottom"]],
   ["list.undivided", "#card-list-demo ul > li + li", ["border-top-color", "padding-top"]],
+  ["list.avatar", "#list-people m-avatar", ["width", "height", "font-size", "color"]],
   ["callout", "#callout-demo m-callout", ["display", "padding-top", "gap", "font-size", "background-color", "border-top-color"]],
   ["callout.success", '#callout-demo [variant="success"]', ["background-color", "border-top-color"]],
   ["callout.warning", '#callout-demo [variant="warning"]', ["background-color", "border-top-color"]],
