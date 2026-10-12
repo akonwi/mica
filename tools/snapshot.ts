@@ -213,6 +213,11 @@ const PROBES: [string, string, string[]][] = [
     ["position", "inline-size", "block-size", "overflow", "clip-path", "white-space"]],
   ["visually-hidden.focusable", '[data-visually-hidden="focusable"]',
     ["position", "inline-size", "clip-path"]],
+  // a disabled m-field dims its sibling label + helper (fieldset recipe);
+  // an enabled one keeps full-strength text
+  ["field.disabled", "m-field:has(> #f-handle)", ["color"]],
+  ["field.disabled.label", "m-field:has(> #f-handle) > label", ["color", "cursor"]],
+  ["field.label", "m-field:has(> #f-email) > label", ["color", "cursor"]],
   ["select", "select", ["appearance", "background-color", "border-top-color"]],
   // options inherit the picker's color (UA default: CanvasText), even closed
   ["select.option", "#f-role option", ["color"]],

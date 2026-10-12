@@ -231,6 +231,17 @@
     "border-radius": "0px",
     "border-top-color": "oklch(0.3 0 263)"
    },
+   "field.disabled": {
+    "color": "oklch(0.71 0 263)"
+   },
+   "field.disabled.label": {
+    "color": "oklch(0.71 0 263)",
+    "cursor": "not-allowed"
+   },
+   "field.label": {
+    "color": "oklch(0.96 0 263)",
+    "cursor": "default"
+   },
    "frame.img": {
     "object-fit": "cover"
    },
@@ -1172,6 +1183,17 @@
     "background-color": "oklch(1 0 263)",
     "border-radius": "0px",
     "border-top-color": "oklch(0.89 0 263)"
+   },
+   "field.disabled": {
+    "color": "oklch(0.44 0 263)"
+   },
+   "field.disabled.label": {
+    "color": "oklch(0.44 0 263)",
+    "cursor": "not-allowed"
+   },
+   "field.label": {
+    "color": "oklch(0.18 0 263)",
+    "cursor": "default"
    },
    "frame.img": {
     "object-fit": "cover"

@@ -281,6 +281,11 @@
               <m-error match="value-missing">Email is required.</m-error>
               <m-error match="type-mismatch">That doesn't look like an email address.</m-error>
             </m-field>
+            <m-field>
+              <label for="f-handle">Handle (disabled — label and helper dim with it)</label>
+              <input id="f-handle" type="text" disabled value="ada" aria-describedby="f-handle-help" />
+              <small id="f-handle-help">Set by your organization.</small>
+            </m-field>
             <m-vstack gap="2xs">
               <label for="f-bio">Bio (grows as you type — field-sizing, zero JS)</label>
               <textarea id="f-bio" placeholder="A few lines about you…"></textarea>

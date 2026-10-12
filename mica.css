@@ -2137,6 +2137,18 @@
     gap: var(--space-2xs);
   }
 
+  /* a disabled field dims its label and helper, like a disabled
+     fieldset: the label is a sibling (for=), so the wrapping-label
+     rule never reaches it */
+  :where(m-field:has(:is(input, textarea, select):disabled)) {
+    color: var(--color-text-muted);
+
+    & :where(label) {
+      color: var(--color-text-muted);
+      cursor: not-allowed;
+    }
+  }
+
   /* every rule here is zero-specificity: source order alone resolves */
   :where(m-error) {
     display: none;
