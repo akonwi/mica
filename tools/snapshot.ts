@@ -208,6 +208,8 @@ const PROBES: [string, string, string[]][] = [
   ["visually-hidden.focusable", '[data-visually-hidden="focusable"]',
     ["position", "inline-size", "clip-path"]],
   ["select", "select", ["appearance", "background-color", "border-top-color"]],
+  // options inherit the picker's color (UA default: CanvasText), even closed
+  ["select.option", "#f-role option", ["color"]],
   ["progress", "progress", ["block-size", "inline-size"]],
   ["dialog", "dialog", ["background-color", "border-top-color", "border-radius"]],
   ["popover", "[popover]", ["background-color", "border-top-color"]],
