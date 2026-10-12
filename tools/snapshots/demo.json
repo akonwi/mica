@@ -138,6 +138,16 @@
     "background-color": "oklch(0.27 0.063 25)",
     "border-top-color": "oklch(0.46 0.144 25)"
    },
+   "callout.dismiss.icon": {
+    "height": "16px",
+    "width": "16px"
+   },
+   "callout.p-title.next": {
+    "margin-top": "0px"
+   },
+   "callout.p.p": {
+    "margin-top": "8px"
+   },
    "callout.success": {
     "background-color": "oklch(0.27 0.063 150)",
     "border-top-color": "oklch(0.46 0.144 150)"
@@ -1090,6 +1100,16 @@
    "callout.danger": {
     "background-color": "oklch(0.95 0.045 25)",
     "border-top-color": "oklch(0.79 0.117 25)"
+   },
+   "callout.dismiss.icon": {
+    "height": "16px",
+    "width": "16px"
+   },
+   "callout.p-title.next": {
+    "margin-top": "0px"
+   },
+   "callout.p.p": {
+    "margin-top": "8px"
    },
    "callout.success": {
     "background-color": "oklch(0.95 0.045 150)",

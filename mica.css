@@ -877,7 +877,9 @@
     font-weight: var(--callout-title-weight, 600);
   }
   :where(m-callout > [data-callout-body] > p:not([data-callout-title])) { margin: 0; }
-  :where(m-callout > [data-callout-body] > p + p) { margin-block-start: var(--space-xs); }
+  /* the title keeps its own --space-2xs whatever its element: a
+     p[data-callout-title] must not pick up the p + p gap */
+  :where(m-callout > [data-callout-body] > p:not([data-callout-title]) + p) { margin-block-start: var(--space-xs); }
   :where(m-callout a) { color: var(--callout-emphasis); }
   :where(m-callout > [data-callout-icon]) {
     inline-size: var(--callout-icon-size, 1.125rem);
@@ -894,6 +896,11 @@
     padding: 0;
     margin-block-start: calc(-1 * var(--space-2xs));
     margin-inline-end: calc(-1 * var(--space-2xs));
+  }
+  /* an authored dismiss icon is sized, not stretched to the button */
+  :where(m-callout > button[data-callout-dismiss] > svg) {
+    inline-size: 1rem;
+    block-size: 1rem;
   }
 
   :where(m-badge[count]) {

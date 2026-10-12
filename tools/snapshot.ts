@@ -166,6 +166,12 @@ const PROBES: [string, string, string[]][] = [
   ["callout.warning", '#callout-demo [variant="warning"]', ["background-color", "border-top-color"]],
   ["callout.danger", '#callout-demo [variant="danger"]', ["background-color", "border-top-color"]],
   ["callout.title", '#callout-demo [variant="warning"] [data-callout-title]', ["color", "font-size", "font-weight"]],
+  // a p title gets the title's own --space-2xs, not the p + p gap;
+  // body paragraphs keep --space-xs between them
+  ["callout.p-title.next", "#callout-ptitle [data-callout-title] + p", ["margin-top"]],
+  ["callout.p.p", "#callout-ptitle p:not([data-callout-title]) + p", ["margin-top"]],
+  // an authored dismiss icon is sized, not stretched to the 2rem button
+  ["callout.dismiss.icon", "#callout-dismiss [data-callout-dismiss] > svg", ["width", "height"]],
   ["badge", "m-badge:not([variant]):not([count])",
     ["display", "border-top-color", "color", "font-size", "border-radius"]],
   ["badge.primary", 'm-badge[variant="primary"]', ["background-color", "color", "border-top-color"]],

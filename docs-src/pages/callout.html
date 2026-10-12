@@ -27,9 +27,14 @@
     &lt;p&gt;Your domain is verified and ready to use.&lt;/p&gt;
   &lt;/div&gt;
   &lt;button type="button" data-callout-dismiss data-variant="ghost"
-          aria-label="Dismiss domain confirmation"&gt;×&lt;/button&gt;
+          aria-label="Dismiss domain confirmation"&gt;
+    &lt;svg viewBox="0 0 24 24" aria-hidden="true"
+         fill="none" stroke="currentColor" stroke-width="1.5"&gt;
+      &lt;path d="m6 6 12 12M18 6 6 18" /&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
 &lt;/m-callout&gt;</code></pre>
-<p>The app supplies its own icon artwork. Mica only sizes and colors the direct <code>data-callout-icon</code> child. Decorative icons should be hidden from assistive technology; the message conveys the status.</p>
+<p>The app supplies its own icon artwork. Mica only sizes and colors the direct <code>data-callout-icon</code> child, and sizes an SVG inside the dismiss button. Decorative icons should be hidden from assistive technology; the message conveys the status.</p>
 <p>The optional dismiss button is a compact trailing control. It has no built-in behavior. Your app handles its click, sets <code>hidden</code> on the callout, and moves focus to an appropriate surviving control if focus was inside it. Omit the button unless you implement dismissal. Keep essential instructions and unresolved errors visible while they remain relevant.</p>
 <p>Actions are ordinary links or buttons with application-owned behavior. They wrap within <code>data-callout-actions</code>. Neither actions nor dismissal require a Mica enhancement.</p>
 </m-vstack></section>
@@ -45,7 +50,7 @@
 <tr><td><code>data-callout-title</code></td><td>Optional title inside the body. Uses the variant emphasis color.</td></tr>
 <tr><td><code>data-callout-icon</code></td><td>Optional direct child before the body; authored icon.</td></tr>
 <tr><td><code>data-callout-actions</code></td><td>Optional wrapping action group inside the body.</td></tr>
-<tr><td><code>data-callout-dismiss</code></td><td>Optional direct native button after the body; app-owned behavior.</td></tr>
+<tr><td><code>data-callout-dismiss</code></td><td>Optional direct native button after the body; app-owned behavior. An SVG inside it is sized to 1rem.</td></tr>
 <tr><td><code>hidden</code></td><td>Native presence attribute hides the entire callout.</td></tr>
 </tbody></table>
 <table class="api-table"><thead><tr><th>Property</th><th>Default</th></tr></thead><tbody>
