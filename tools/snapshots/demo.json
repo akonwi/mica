@@ -353,6 +353,14 @@
    "radio.checked": {
     "background-color": "oklch(0.96 0 263)"
    },
+   "radio.disabled": {
+    "background-color": "oklch(0.14 0 263)",
+    "border-top-color": "oklch(0.46 0 263)"
+   },
+   "radio.disabled.empty-group": {
+    "background-color": "oklch(0.14 0 263)",
+    "border-top-color": "oklch(0.46 0 263)"
+   },
    "reel": {
     "display": "flex",
     "overflow-x": "auto",
@@ -1273,6 +1281,14 @@
    },
    "radio.checked": {
     "background-color": "oklch(0.18 0 263)"
+   },
+   "radio.disabled": {
+    "background-color": "oklch(1 0 263)",
+    "border-top-color": "oklch(0.74 0 263)"
+   },
+   "radio.disabled.empty-group": {
+    "background-color": "oklch(1 0 263)",
+    "border-top-color": "oklch(0.74 0 263)"
    },
    "reel": {
     "display": "flex",

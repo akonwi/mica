@@ -224,6 +224,12 @@ const PROBES: [string, string, string[]][] = [
   ["checkbox.checked", 'input[type="checkbox"]:not([role="switch"]):checked',
     ["background-color", "border-top-color"]],
   ["radio.checked", 'input[type="radio"]:checked', ["background-color"]],
+  // disabled radios stay unselected-looking whether or not their group has a
+  // selection (a radio matches :indeterminate when its group is empty)
+  ["radio.disabled", 'input[type="radio"][name="demo-r"]:disabled',
+    ["background-color", "border-top-color"]],
+  ["radio.disabled.empty-group", 'input[type="radio"][name="demo-r-none"]:disabled',
+    ["background-color", "border-top-color"]],
   ["switch.checked", 'input[type="checkbox"][role="switch"]:checked', ["background-color"]],
 ];
 

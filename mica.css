@@ -751,11 +751,13 @@
 
   /* disabled + on: desaturate toward neutral, same recipe as disabled
      data-variant="primary" buttons — inert, not just faded (placed after
-     the switch block so it wins its background-color at equal specificity) */
-  :where(input:is([type="checkbox"], [type="radio"])):disabled:is(
-      :checked,
-      :indeterminate
-    ) {
+     the switch block so it wins its background-color at equal specificity).
+     :indeterminate is checkbox-only here: a radio matches :indeterminate
+     whenever its group has nothing checked, which would paint a disabled,
+     unselected radio as disabled + on. Split (not [type] inside :is()) to
+     keep both branches at the same specificity as before. */
+  :where(input[type="checkbox"]):disabled:is(:checked, :indeterminate),
+  :where(input[type="radio"]):disabled:checked {
     border-color: transparent;
     background-color: color-mix(in oklch, var(--color-primary) 40%, var(--color-border));
   }
