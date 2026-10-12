@@ -305,8 +305,22 @@
               <m-vstack gap="md">
                 <m-vstack gap="2xs">
                   <label for="f-locked">Card number</label>
-                  <input id="f-locked" type="text" value="4242 4242 4242 4242" />
+                  <input id="f-locked" type="text" inputmode="numeric" autocomplete="cc-number" value="4242 4242 4242 4242" />
                 </m-vstack>
+                <m-switcher threshold="sm">
+                  <m-vstack gap="2xs">
+                    <label for="f-exp">Expiration</label>
+                    <input id="f-exp" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" value="12 / 28" />
+                  </m-vstack>
+                  <m-vstack gap="2xs">
+                    <label for="f-cvv">CVV</label>
+                    <input id="f-cvv" type="text" inputmode="numeric" autocomplete="cc-csc" value="123" />
+                  </m-vstack>
+                  <m-vstack gap="2xs">
+                    <label for="f-zip">ZIP code</label>
+                    <input id="f-zip" type="text" inputmode="numeric" autocomplete="postal-code" value="94107" />
+                  </m-vstack>
+                </m-switcher>
                 <label><input type="checkbox" checked /> Save card</label>
               </m-vstack>
             </fieldset>
