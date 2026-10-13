@@ -178,6 +178,11 @@
     "display": "flex",
     "flex-wrap": "wrap"
    },
+   "card.footer.btn": {
+    "background-color": "oklch(0.17 0 263)",
+    "font-size": "14px",
+    "text-decoration-line": "none"
+   },
    "card.footer.link": {
     "color": "oklch(0.96 0 263)",
     "font-size": "12px"
@@ -186,6 +191,12 @@
     "display": "flex",
     "gap": "16px",
     "padding-left": "24px"
+   },
+   "card.header.button": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "block-size": "36px",
+    "border-top-color": "rgba(0, 0, 0, 0)",
+    "font-size": "14px"
    },
    "card.header.link": {
     "color": "oklch(0.96 0 263)",
@@ -706,6 +717,9 @@
    "button.primary.hover": {
     "background-color": "oklch(0.878 0 263)"
    },
+   "card.header.button.hover": {
+    "background-color": "oklch(0.2 0 263)"
+   },
    "dialog.backdrop": {
     "background-color": "oklch(0 0 0 / 0.4)"
    },
@@ -1175,6 +1189,11 @@
     "display": "flex",
     "flex-wrap": "wrap"
    },
+   "card.footer.btn": {
+    "background-color": "oklch(0.973 0 263)",
+    "font-size": "14px",
+    "text-decoration-line": "none"
+   },
    "card.footer.link": {
     "color": "oklch(0.18 0 263)",
     "font-size": "12px"
@@ -1183,6 +1202,12 @@
     "display": "flex",
     "gap": "16px",
     "padding-left": "24px"
+   },
+   "card.header.button": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "block-size": "36px",
+    "border-top-color": "rgba(0, 0, 0, 0)",
+    "font-size": "14px"
    },
    "card.header.link": {
     "color": "oklch(0.18 0 263)",
@@ -1702,6 +1727,9 @@
    },
    "button.primary.hover": {
     "background-color": "oklch(0.262 0 263)"
+   },
+   "card.header.button.hover": {
+    "background-color": "oklch(0.952 0 263)"
    },
    "dialog.backdrop": {
     "background-color": "oklch(0 0 0 / 0.4)"

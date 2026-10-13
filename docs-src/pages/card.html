@@ -17,6 +17,7 @@
   &lt;/m-card-footer&gt;
 &lt;/m-card&gt;</code></pre>
 <p>All parts are unregistered custom elements, styled by CSS. No module is needed. Header, body, and footer are optional direct children. Use an ordinary heading at the level appropriate to your document; group title and description in a <code>div</code> when the header also has an action.</p>
+<p>Header actions stay quiet. A header button without a <code>data-variant</code> renders as a ghost button, and a header link takes the description’s size. Set <code>data-variant="primary"</code> when the action should stand out.</p>
 <p>Custom card tags add no landmark or article semantics, click target, focus behavior, or accessible name. Use a surrounding native <code>article</code> or named <code>section</code> when the content warrants one. A form can wrap the card; native controls still submit normally. Do not turn a card containing buttons or links into another nested click target.</p>
 </m-vstack></section>
 <section><m-vstack gap="md"><h2>Padded and flush bodies</h2>
@@ -36,7 +37,7 @@
 <section><m-vstack gap="md"><h2>API and theming</h2>
 <table class="api-table"><thead><tr><th>Element</th><th>Attributes</th><th>Purpose</th></tr></thead><tbody>
 <tr><td><code>m-card</code></td><td>Native <code>hidden</code> supported</td><td>Surface, border, and shared padding token.</td></tr>
-<tr><td><code>m-card-header</code></td><td><code>divider</code></td><td>Title/description and optional trailing action.</td></tr>
+<tr><td><code>m-card-header</code></td><td><code>divider</code></td><td>Title/description and optional trailing action. A button without <code>data-variant</code> is ghost; a link matches the description size.</td></tr>
 <tr><td><code>m-card-body</code></td><td><code>flush</code>, <code>divider</code></td><td>Padded content by default; flush delegates spacing.</td></tr>
 <tr><td><code>m-card-footer</code></td><td><code>divider</code></td><td>Wrapping supplementary content and actions.</td></tr>
 </tbody></table>
