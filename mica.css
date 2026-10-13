@@ -2542,7 +2542,14 @@
   :where([data-table-footer]) { container: mica-pagination / inline-size; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-md); padding:var(--space-md) var(--table-padding); font-size:var(--table-font-size); }
   :where([data-page-meta]) { display:flex; align-items:center; gap:var(--space-md); flex-wrap:wrap; color:var(--color-text-muted); }
   :where([data-page-size]) { display:flex; align-items:center; gap:var(--space-xs); }
-  :where([data-page-size] select) { inline-size:auto; block-size:var(--control-height-sm); padding-block:var(--space-2xs); font-size:1rem; /* iOS field floor */ }
+  /* The value inherits the footer text size so the row reads as one line of
+     metadata. Touch pointers keep the 16px floor: iOS zooms the page when a
+     smaller field is focused. Theme snippet for 16px everywhere:
+     :where([data-page-size] select) { font-size: 1rem } */
+  :where([data-page-size] select) { inline-size:auto; block-size:var(--control-height-sm); padding-block:var(--space-2xs); font-size:inherit; }
+  @media (pointer: coarse) {
+    :where([data-page-size] select) { font-size:1rem; /* iOS field floor */ }
+  }
   /* font-size on the nav reaches the ellipsis and status spans too. */
   :where(nav[data-pagination]) { --pagination-target:2.125rem; --pagination-font-size:var(--text-sm); display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-2xs); font-size:var(--pagination-font-size); }
   /* block-size, weight and radius undo the button preset so button pages

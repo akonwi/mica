@@ -456,7 +456,7 @@
     "gap": "4px"
    },
    "pagination.page-size": {
-    "font-size": "16px",
+    "font-size": "13px",
     "height": "32px"
    },
    "popover": {
@@ -1541,7 +1541,7 @@
     "gap": "4px"
    },
    "pagination.page-size": {
-    "font-size": "16px",
+    "font-size": "13px",
     "height": "32px"
    },
    "popover": {

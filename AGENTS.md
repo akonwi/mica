@@ -128,7 +128,9 @@ selected-tab rule, the select picker's `::checkmark`; checkbox/radio/
 switch checked fills ride primary, not accent),
 orange warning. Dark mode is `light-dark()` + `color-scheme` — no classes.
 Checked-state grammar: checkbox = fill + glyph, radio = fill + pip,
-switch = fill + block. Field text never drops below 16px (iOS zoom).
+switch = fill + block. Field text never drops below 16px (iOS zoom) on touch
+pointers; the footer's rows-per-page select is the one fine-pointer exception
+(inherits the footer size, back to 1rem under `pointer: coarse`).
 
 ## Gotchas that already cost time
 
