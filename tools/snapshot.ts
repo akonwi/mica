@@ -254,6 +254,7 @@ const PROBES: [string, string, string[]][] = [
   ["toast.success", 'm-toast[variant="success"]',
     ["border-inline-start-color", "border-inline-start-width"]],
   ["details", "details", ["border-top-color"]],
+  ["details.stacked", 'details[name="demo-faq"]', ["margin-bottom", "border-bottom-width"]],
   ["link", "a[href]", ["color", "text-decoration-line"]],
   ["code", "code", ["font-family", "background-color"]],
   ["h1", "h1", ["margin-block-start", "margin-block-end", "line-height"]],
