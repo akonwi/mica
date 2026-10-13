@@ -60,6 +60,15 @@
     "border-top-color": "oklch(0.46 0.144 48)",
     "color": "oklch(0.8 0.162 48)"
    },
+   "blockquote": {
+    "border-inline-start-color": "oklch(0.46 0 263)",
+    "border-inline-start-style": "solid",
+    "border-inline-start-width": "2px",
+    "color": "oklch(0.71 0 263)",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "0px",
+    "padding-inline-start": "16px"
+   },
    "body": {
     "background-color": "oklch(0.14 0 263)",
     "color": "oklch(0.96 0 263)",
@@ -1074,6 +1083,15 @@
     "background-color": "oklch(0.95 0.045 48)",
     "border-top-color": "oklch(0.79 0.117 48)",
     "color": "oklch(0.42 0.162 48)"
+   },
+   "blockquote": {
+    "border-inline-start-color": "oklch(0.74 0 263)",
+    "border-inline-start-style": "solid",
+    "border-inline-start-width": "2px",
+    "color": "oklch(0.44 0 263)",
+    "margin-inline-end": "0px",
+    "margin-inline-start": "0px",
+    "padding-inline-start": "16px"
    },
    "body": {
     "background-color": "oklch(1 0 263)",

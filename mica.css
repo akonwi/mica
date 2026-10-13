@@ -1160,6 +1160,7 @@
   }
 
   :where(blockquote) {
+    margin-inline: 0;
     border-inline-start: 2px solid var(--color-border-strong);
     padding-inline-start: var(--space-md);
     color: var(--color-text-muted);

@@ -211,6 +211,8 @@ const PROBES: [string, string, string[]][] = [
     ["color", "font-size", "font-weight", "font-variant-numeric", "line-height", "overflow-wrap"]],
   ["stat-grid.support", "dl.stat-grid > div.stat > dd > small",
     ["margin-block-start", "color", "font-size", "line-height"]],
+  ["blockquote", "blockquote",
+    ["margin-inline-start", "margin-inline-end", "border-inline-start-width", "border-inline-start-style", "border-inline-start-color", "padding-inline-start", "color"]],
   ["tabs.default.rail", "m-tabs:not([variant]) > nav",
     ["display", "gap", "padding", "border-block-end-width", "border-block-end-style", "border-radius", "background-color", "overflow-x", "scrollbar-width"]],
   ["tabs.default.selected", 'm-tabs:not([variant]) > nav > button[aria-selected="true"]',
