@@ -2409,11 +2409,17 @@
        m-card-header > :is(button, .btn):not([data-variant]) {
          background: var(--color-fill);
          border-color: var(--color-border-strong);
+         margin-inline-end: 0;
        } */
+  /* With no visible box, the label (not the box) aligns with the
+     content edge: pull the button out by its own inline padding. */
   :where(m-card-header > :is(button, .btn):not([data-variant])) {
     background: transparent;
     border-color: transparent;
+    margin-inline-end: calc(-1 * var(--space-md));
   }
+  :where(m-card-header > :is(button, .btn):not([data-variant])[data-size="small"]) { margin-inline-end: calc(-1 * var(--space-sm)); }
+  :where(m-card-header > :is(button, .btn):not([data-variant])[data-size="large"]) { margin-inline-end: calc(-1 * var(--space-lg)); }
   :where(m-card-body) { --m-card-body-padding: var(--card-pad, var(--space-lg)); display: block; padding: var(--m-card-body-padding); }
   :where(m-card-body[flush]) { --m-card-body-padding: 0px; }
   :where(m-card-body > :first-child) { margin-block-start: 0; }

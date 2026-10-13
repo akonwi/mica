@@ -160,7 +160,7 @@ const PROBES: [string, string, string[]][] = [
   ["card.footer", "#card-list-demo m-card-footer", ["display", "flex-wrap", "border-top-width"]],
   ["card.header.link", "#card-list-demo m-card-header > a", ["font-size", "color"]],
   ["card.footer.link", "#card-list-demo m-card-footer > a", ["font-size", "color"]],
-  ["card.header.button", "#card-actions m-card-header > button", ["background-color", "border-top-color", "font-size", "block-size"]],
+  ["card.header.button", "#card-actions m-card-header > button", ["background-color", "border-top-color", "font-size", "block-size", "margin-inline-end"]],
   ["card.footer.btn", "#card-actions m-card-footer > a.btn", ["font-size", "background-color", "text-decoration-line"]],
   ["link.prose", "#preset-link", ["color", "text-decoration-line", "text-decoration-color", "text-decoration-thickness", "text-underline-offset"]],
   ["link.muted", "#card-list-demo m-card-footer > p > a", ["color", "font-size", "text-decoration-color"]],

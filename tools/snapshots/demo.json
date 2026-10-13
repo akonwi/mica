@@ -196,7 +196,8 @@
     "background-color": "rgba(0, 0, 0, 0)",
     "block-size": "36px",
     "border-top-color": "rgba(0, 0, 0, 0)",
-    "font-size": "14px"
+    "font-size": "14px",
+    "margin-inline-end": "-16px"
    },
    "card.header.link": {
     "color": "oklch(0.96 0 263)",
@@ -1207,7 +1208,8 @@
     "background-color": "rgba(0, 0, 0, 0)",
     "block-size": "36px",
     "border-top-color": "rgba(0, 0, 0, 0)",
-    "font-size": "14px"
+    "font-size": "14px",
+    "margin-inline-end": "-16px"
    },
    "card.header.link": {
     "color": "oklch(0.18 0 263)",
