@@ -782,7 +782,7 @@
       <p>This section is plain HTML flow content. The spacing between these
       paragraphs, the heading margins, and the line length wrapping come from
       <code>@layer mica.preset</code> — constructive defaults, not a blank slate.</p>
-      <p>Tab to this <a href="#main">link</a> to see the tokenized focus ring —
+      <p>Tab to this <a id="preset-link" href="#main">link</a> to see the tokenized focus ring —
       buttons (above) get the same ring from the same tokens.</p>
       <h3>A following heading gets breathing room above</h3>
       <p>Because it isn't a first child. Inside a stack, all of this rhythm
@@ -822,9 +822,9 @@
   <button type="button" data-menu popovertarget="demo-header-nav">Menu</button>
 </m-header></div></m-vstack></section>
     <section id="card-list-demo"><m-vstack gap="md"><h2>Cards and lists</h2>
-<m-card><m-card-header><div><h3>Match observations</h3><p>Private notes</p></div></m-card-header>
+<m-card><m-card-header><div><h3>Match observations</h3><p>Private notes</p></div><a href="docs/card.html">Card docs</a></m-card-header>
 <m-card-body flush divider><ol data-list role="list"><li><div data-list-body><p>The midfield stayed compact after the break.</p><div data-list-meta><span>Today · Edited</span></div></div></li><li><div data-list-body><p>Watch second-ball positioning on corners.</p><div data-list-meta><span>Yesterday</span></div></div></li></ol></m-card-body>
-<m-card-footer divider><p>Only visible to you</p><a href="docs/list.html">List documentation</a></m-card-footer></m-card>
+<m-card-footer divider><p>Only visible to you · <a href="docs/card.html">Who can see this?</a></p><a href="docs/list.html">List documentation</a></m-card-footer></m-card>
 <m-card><m-card-body><p>A body-only card for a short explanation.</p></m-card-body></m-card>
 <ul data-list data-dividers="none" role="list"><li><div data-list-body><span data-list-title>Opposition report</span><span data-list-description>PDF · Updated today</span></div></li><li><div data-list-body><span data-list-title>Second-half clips</span></div></li></ul>
 <ul id="list-people" data-list role="list" style="--list-align:center"><li><m-avatar data-list-leading aria-hidden="true">MW</m-avatar><div data-list-body><span data-list-title>Morgan Wells</span><span data-list-description>morgan@example.com</span></div><span data-list-trailing>Viewer</span></li></ul>

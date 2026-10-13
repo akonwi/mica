@@ -142,6 +142,10 @@
     "height": "16px",
     "width": "16px"
    },
+   "callout.link": {
+    "color": "oklch(0.8 0.162 48)",
+    "text-decoration-color": "oklch(0.46 0 263)"
+   },
    "callout.p-title.next": {
     "margin-top": "0px"
    },
@@ -174,10 +178,18 @@
     "display": "flex",
     "flex-wrap": "wrap"
    },
+   "card.footer.link": {
+    "color": "oklch(0.96 0 263)",
+    "font-size": "12px"
+   },
    "card.header": {
     "display": "flex",
     "gap": "16px",
     "padding-left": "24px"
+   },
+   "card.header.link": {
+    "color": "oklch(0.96 0 263)",
+    "font-size": "13px"
    },
    "card.shell": {
     "background-color": "oklch(0.14 0 263)",
@@ -307,6 +319,18 @@
    "link": {
     "color": "oklch(0.96 0 263)",
     "text-decoration-line": "none"
+   },
+   "link.muted": {
+    "color": "oklch(0.71 0 263)",
+    "font-size": "12px",
+    "text-decoration-color": "oklch(0.46 0 263)"
+   },
+   "link.prose": {
+    "color": "oklch(0.96 0 263)",
+    "text-decoration-color": "oklch(0.46 0 263)",
+    "text-decoration-line": "underline",
+    "text-decoration-thickness": "1px",
+    "text-underline-offset": "3.2px"
    },
    "list.avatar": {
     "color": "oklch(0.96 0 263)",
@@ -716,6 +740,10 @@
     "outline-style": "solid",
     "outline-width": "2px"
    },
+   "link.hover": {
+    "color": "oklch(0.96 0 263)",
+    "text-decoration-color": "oklch(0.96 0 263)"
+   },
    "popover.open": {
     "background-color": "oklch(0.17 0 263)",
     "border-top-color": "oklch(0.96 0 263 / 0.12)"
@@ -1111,6 +1139,10 @@
     "height": "16px",
     "width": "16px"
    },
+   "callout.link": {
+    "color": "oklch(0.42 0.162 48)",
+    "text-decoration-color": "oklch(0.74 0 263)"
+   },
    "callout.p-title.next": {
     "margin-top": "0px"
    },
@@ -1143,10 +1175,18 @@
     "display": "flex",
     "flex-wrap": "wrap"
    },
+   "card.footer.link": {
+    "color": "oklch(0.18 0 263)",
+    "font-size": "12px"
+   },
    "card.header": {
     "display": "flex",
     "gap": "16px",
     "padding-left": "24px"
+   },
+   "card.header.link": {
+    "color": "oklch(0.18 0 263)",
+    "font-size": "13px"
    },
    "card.shell": {
     "background-color": "oklch(1 0 263)",
@@ -1276,6 +1316,18 @@
    "link": {
     "color": "oklch(0.18 0 263)",
     "text-decoration-line": "none"
+   },
+   "link.muted": {
+    "color": "oklch(0.44 0 263)",
+    "font-size": "12px",
+    "text-decoration-color": "oklch(0.74 0 263)"
+   },
+   "link.prose": {
+    "color": "oklch(0.18 0 263)",
+    "text-decoration-color": "oklch(0.74 0 263)",
+    "text-decoration-line": "underline",
+    "text-decoration-thickness": "1px",
+    "text-underline-offset": "3.2px"
    },
    "list.avatar": {
     "color": "oklch(0.18 0 263)",
@@ -1684,6 +1736,10 @@
     "outline-offset": "2px",
     "outline-style": "solid",
     "outline-width": "2px"
+   },
+   "link.hover": {
+    "color": "oklch(0.18 0 263)",
+    "text-decoration-color": "oklch(0.18 0 263)"
    },
    "popover.open": {
     "background-color": "oklch(1 0 263)",

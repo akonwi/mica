@@ -1,10 +1,20 @@
 <p>This paragraph and everything around it is unstyled flow content. Rhythm,
-heading margins, media behavior, focus rings, and reduced-motion guards come
+heading margins, media behavior, links, focus rings, and reduced-motion guards come
 from <code>@layer mica.preset</code> — zero-specificity, trivially overridable.</p>
 <h3>A following heading gets breathing room</h3>
 <p>Because it isn't a first child. Inside a stack, rhythm yields to
 <code>gap</code> — the stack owns spacing. Tab to this
 <a href="#main">link</a> or any control to see the tokenized focus ring.</p>
+
+<h2>Links</h2>
+<p>Links take the colour of the text around them, so a link in muted copy stays muted. A quiet
+<code>--color-border-strong</code> underline marks them and firms up to the text colour on hover.
+The accent stays reserved for focus, selection, and checkmarks. Components that style their own
+links, such as callouts, navigation, and pagination, keep their look.</p>
+<pre tabindex="0"><code class="language-css">/* Accent-coloured links, as a theme choice. */
+@layer app {
+  :where(a:any-link) { color: var(--color-accent); }
+}</code></pre>
 
 <section id="scrollbar-demo"><h2>Scrollbars</h2><div tabindex="0" role="region" aria-label="Scrollable example" style="overflow:auto;max-block-size:10rem;border:1px solid var(--color-border);padding:var(--space-md)"><div style="min-inline-size:30rem"><p>Scroll in either direction. The thumb follows the theme.</p><p>Native scrolling, with a quieter appearance.</p><p>Use the arrow keys when this region has focus.</p><p>Override the scrollbar tokens for one region or the whole app.</p><p>The browser still controls scrollbar visibility and shape.</p></div></div></section>
 <h2>Scrollbar styling and opt-out</h2>

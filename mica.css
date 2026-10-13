@@ -284,6 +284,24 @@
     font-family: var(--font-mono);
   }
 
+  /* Links take the colour of the text around them (muted copy keeps
+     muted links) and mark themselves with a quiet underline that firms
+     up on hover. The accent stays reserved for focus, selection and
+     checkmarks. Component links (callout emphasis, nav, pagination…)
+     are styled in mica.elements and win over this.
+     Accent links are a theme snippet:
+       :where(a:any-link) { color: var(--color-accent); } */
+  :where(a:any-link) {
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--color-border-strong);
+    text-underline-offset: .2em;
+  }
+  :where(a:any-link):hover {
+    text-decoration-color: currentColor;
+  }
+
   /* opt in to animating to/from intrinsic sizes (details, etc.) */
   :where(html) {
     interpolate-size: allow-keywords;
@@ -2380,6 +2398,9 @@
   :where(m-card-header :is(h1,h2,h3,h4,h5,h6)) { margin: 0; font-size: var(--card-title-size, var(--text-lg)); }
   :where(m-card-header p) { margin: var(--space-2xs) 0 0; font-size: var(--card-description-size, var(--text-sm)); color: var(--color-text-muted); }
   :where(m-card-header > button, m-card-header > a) { flex-shrink: 0; }
+  /* A bare header link sits at the description's size, a footer link at
+     the footer text's size; body-size links read as louder than either. */
+  :where(m-card-header > a) { font-size: var(--card-description-size, var(--text-sm)); }
   :where(m-card-body) { --m-card-body-padding: var(--card-pad, var(--space-lg)); display: block; padding: var(--m-card-body-padding); }
   :where(m-card-body[flush]) { --m-card-body-padding: 0px; }
   :where(m-card-body > :first-child) { margin-block-start: 0; }
@@ -2389,6 +2410,7 @@
     gap: var(--card-footer-gap, var(--space-sm)); padding: var(--space-md) var(--card-pad, var(--space-lg));
   }
   :where(m-card-footer > p) { margin: 0; font-size: var(--card-footer-size, var(--text-xs)); color: var(--color-text-muted); }
+  :where(m-card-footer > a) { font-size: var(--card-footer-size, var(--text-xs)); }
   :where(m-card[hidden], m-card-header[hidden], m-card-body[hidden], m-card-footer[hidden]) { display: none; }
 
   /* Native lists retain their semantics with role=list (Safari marker reset).
