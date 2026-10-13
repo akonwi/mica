@@ -88,13 +88,16 @@ class MTabs extends HTMLElement {
     const initial = this.#tabs.findIndex(
       (t) => t.hasAttribute("selected") || t.getAttribute("aria-selected") === "true",
     );
-    this.select(initial === -1 ? 0 : initial);
+    const selected = initial === -1 ? 0 : initial;
+    this.select(selected);
 
     nav.addEventListener("scroll", this.#onScroll, { passive: true });
     this.#resizeObserver = new ResizeObserver(() => this.#measureOverflow());
     this.#resizeObserver.observe(nav);
     this.#tabs.forEach((tab) => this.#resizeObserver.observe(tab));
     this.#measureOverflow();
+    // An initial selection past the rail's edge would load hidden.
+    this.#reveal(selected);
   }
 
   disconnectedCallback() {
@@ -179,7 +182,13 @@ class MTabs extends HTMLElement {
       const rtl = getComputedStyle(nav).direction === "rtl";
       const left = navRect.left + (rtl ? after : before);
       const right = navRect.right - (rtl ? before : after);
-      if (tabRect.left < left) nav.scrollBy({ left: tabRect.left - left });
+      // Edge tabs scroll all the way: the rail's padding and gap sit
+      // beyond them, and stopping at the gutter would keep a marker
+      // pointing at nothing.
+      if (index === 0) nav.scrollLeft = 0;
+      else if (index === this.#tabs.length - 1) {
+        nav.scrollLeft = (rtl ? -1 : 1) * nav.scrollWidth;
+      } else if (tabRect.left < left) nav.scrollBy({ left: tabRect.left - left });
       else if (tabRect.right > right) nav.scrollBy({ left: tabRect.right - right });
       if (firstFrame) {
         this.#syncOverflow();

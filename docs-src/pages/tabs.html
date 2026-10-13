@@ -99,7 +99,7 @@
   <section>
     <m-vstack gap="md">
       <h2>Horizontal overflow</h2>
-      <p>Tab labels never wrap. When the rail is narrower than its tabs, the nav scrolls horizontally with contained overscroll. With <code>tabs.js</code>, a direction marker fades in only on a side with more tabs, and selecting a partially visible tab brings it fully into view. The scrollbar stays hidden, but touch, wheel, and keyboard scrolling still work.</p>
+      <p>Tab labels never wrap. When the rail is narrower than its tabs, the nav scrolls horizontally with contained overscroll. With <code>tabs.js</code>, a direction marker fades in only on a side with more tabs, selecting a partially visible tab brings it fully into view, and an initial <code>selected</code> tab past the edge is scrolled into view on load. The scrollbar stays hidden, but touch, wheel, and keyboard scrolling still work.</p>
       <div class="specimen">
         <m-tabs variant="underline" style="max-inline-size: 20rem">
           <nav aria-label="Constrained leader category">

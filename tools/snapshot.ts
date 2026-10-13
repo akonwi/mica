@@ -501,9 +501,30 @@ async function assertTabsOverflowRuntime(browser: Browser, engine: string) {
           await wait(reduced ? 50 : 220);
           const userScrollWins = rail.scrollLeft === 0;
 
+          // An initial `selected` past the rail's edge is revealed on
+          // connect, and an edge tab scrolls fully home (the rail's
+          // padding and gap lie beyond it) so no marker points at nothing.
+          const initialHost = document.createElement("div");
+          initialHost.innerHTML = component.outerHTML;
+          const initialTabs = initialHost.firstElementChild as HTMLElement;
+          initialTabs.querySelectorAll("button").forEach((tab, i, all) => {
+            tab.removeAttribute("aria-selected");
+            tab.toggleAttribute("selected", i === all.length - 1);
+          });
+          component.after(initialHost);
+          await wait(reduced ? 50 : 300);
+          const initialRail = initialTabs.querySelector(":scope > nav") as HTMLElement;
+          const initialAfter = getComputedStyle(initialRail, "::after");
+          const initialSelected = {
+            atEnd: Math.abs(initialRail.scrollLeft) >=
+              initialRail.scrollWidth - initialRail.clientWidth - 1,
+            endMarkerHidden: Number(initialAfter.opacity) < 0.001,
+          };
+          initialHost.remove();
+
           return {
             initialStationary, fadeIn, shown, fadeOut, hidden, reveal,
-            reconnectSelectsOneStep, userScrollWins,
+            reconnectSelectsOneStep, userScrollWins, initialSelected,
             scrollbarContract: enhancedScrollbar === "none" && fallbackScrollbar === "thin",
           };
         }, [direction, reducedMotion] as const);
@@ -518,7 +539,8 @@ async function assertTabsOverflowRuntime(browser: Browser, engine: string) {
           Math.abs(state.shown.gutter - 16) < 0.01 &&
           state.hidden.opacity < 0.001 && state.hidden.gutter < 0.01 &&
           state.reveal.selected && state.reveal.fullyVisible &&
-          state.reconnectSelectsOneStep && state.userScrollWins && state.scrollbarContract;
+          state.reconnectSelectsOneStep && state.userScrollWins && state.scrollbarContract &&
+          state.initialSelected.atEnd && state.initialSelected.endMarkerHidden;
         if (!passed)
           throw new Error(`${engine} ${direction} ${reducedMotion} tabs runtime failed: ${JSON.stringify(state)}`);
       } finally {
@@ -672,8 +694,14 @@ try {
 
       const markerProperties = [
         "opacity", "inline-size", "margin-inline-start", "margin-inline-end",
-        "background-image", "background-color", "transition-property", "transition-duration",
+        "inset-inline-start", "inset-inline-end", "background-image", "background-color", "transition-property", "transition-duration",
       ];
+      // Default rail markers stick to the rail's outer edge, past its
+      // padding, so scrolled labels can't show through beside them.
+      states["tabs.default.marker.before"] = await probe(
+        "m-tabs:not([variant]) > nav", ["inset-inline-start"], "::before");
+      states["tabs.default.marker.after"] = await probe(
+        "m-tabs:not([variant]) > nav", ["inset-inline-end"], "::after");
       states["tabs.underline.marker.start.before"] = await probe(
         'm-tabs[variant="underline"] > nav', markerProperties, "::before");
       states["tabs.underline.marker.start.after"] = await probe(

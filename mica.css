@@ -1889,7 +1889,7 @@
 
   :where(m-tabs[variant="underline"]) {
     --m-tabs-rail-gap: 0;
-    --m-tabs-rail-padding: 0;
+    --m-tabs-rail-padding: 0px; /* a length: the markers negate it */
     --m-tabs-rail-border: 1px solid var(--color-border);
     --m-tabs-rail-radius: 0;
     --m-tabs-rail-background: transparent;
@@ -1924,6 +1924,10 @@
       scrollbar-width: none;
     }
 
+    /* Sticky insets resolve against the padding-deflated scrollport;
+       the negative rail padding pins each marker to the rail's outer
+       edge so scrolled labels can't show through the padding strip —
+       and the marker covers exactly the gutter #reveal clears. */
     &::before,
     &::after {
       content: "";
@@ -1938,7 +1942,7 @@
     }
 
     &::before {
-      inset-inline-start: 0;
+      inset-inline-start: calc(-1 * var(--m-tabs-rail-padding));
       flex: 0 0 var(--space-md);
       margin-inline-end: calc(var(--m-tabs-overflow-start-gutter) - var(--space-md));
       opacity: var(--m-tabs-overflow-start);
@@ -1950,7 +1954,7 @@
     }
 
     &::after {
-      inset-inline-end: 0;
+      inset-inline-end: calc(-1 * var(--m-tabs-rail-padding));
       flex: 0 0 var(--space-md);
       margin-inline-start: calc(var(--m-tabs-overflow-end-gutter) - var(--space-md));
       opacity: var(--m-tabs-overflow-end);
