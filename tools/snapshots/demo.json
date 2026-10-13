@@ -507,11 +507,14 @@
    "stat-grid": {
     "background-color": "oklch(0.3 0 263)",
     "border-radius": "0px",
+    "border-top-color": "oklch(0.3 0 263)",
+    "border-top-style": "solid",
+    "border-top-width": "1px",
     "display": "flex",
     "flex-wrap": "wrap",
     "gap": "1px",
     "overflow-x": "hidden",
-    "padding": "1px"
+    "padding": "0px"
    },
    "stat-grid.description": {
     "display": "flex",
@@ -1519,11 +1522,14 @@
    "stat-grid": {
     "background-color": "oklch(0.89 0 263)",
     "border-radius": "0px",
+    "border-top-color": "oklch(0.89 0 263)",
+    "border-top-style": "solid",
+    "border-top-width": "1px",
     "display": "flex",
     "flex-wrap": "wrap",
     "gap": "1px",
     "overflow-x": "hidden",
-    "padding": "1px"
+    "padding": "0px"
    },
    "stat-grid.description": {
     "display": "flex",

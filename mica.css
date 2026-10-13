@@ -1030,12 +1030,18 @@
   }
 
   /* --- stat grid: semantic summaries in a fused frame -------------- */
+  /* The 1px gaps show the frame background as separators; the outer edge
+     is a real border, not 1px padding, so overflow clips the stats to the
+     inner radius (outer minus border) and the edge stays a full 1px on
+     rounded corners. Padding + overflow clipped at the outer radius and
+     the corner stats' surfaces covered the edge along the curve. */
   :where(dl.stat-grid) {
     display: flex;
     flex-wrap: wrap;
     gap: 1px;
     margin-block: 0;
-    padding: 1px;
+    padding: 0;
+    border: 1px solid var(--color-border);
     overflow: hidden;
     border-radius: var(--radius-md);
     background: var(--color-border);

@@ -200,7 +200,7 @@ const PROBES: [string, string, string[]][] = [
   ["skeleton.sized", "m-skeleton[style]",
     ["inline-size", "block-size", "border-radius"]],
   ["stat-grid", "dl.stat-grid",
-    ["display", "flex-wrap", "gap", "padding", "overflow-x", "border-radius", "background-color"]],
+    ["display", "flex-wrap", "gap", "padding", "border-top-width", "border-top-style", "border-top-color", "overflow-x", "border-radius", "background-color"]],
   ["stat-grid.stat", "dl.stat-grid > div.stat",
     ["display", "flex-direction", "flex", "gap", "min-inline-size", "padding", "background-color"]],
   ["stat-grid.term", "dl.stat-grid > div.stat > dt",
