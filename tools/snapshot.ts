@@ -227,7 +227,7 @@ const PROBES: [string, string, string[]][] = [
   ["tabs.default.selected", 'm-tabs:not([variant]) > nav > button[aria-selected="true"]',
     ["background-color", "color", "box-shadow", "border-radius", "padding-inline-start", "white-space"]],
   ["tabs.underline.rail", 'm-tabs[variant="underline"] > nav',
-    ["display", "gap", "padding", "border-block-end-width", "border-block-end-style", "border-block-end-color", "border-radius", "background-color", "overflow-x", "scrollbar-width"]],
+    ["display", "gap", "padding", "border-block-end-width", "border-block-end-style", "border-block-end-color", "border-radius", "background-color", "background-image", "background-position", "background-size", "overflow-x", "scrollbar-width"]],
   ["tabs.underline.selected", 'm-tabs[variant="underline"] > nav > button[aria-selected="true"]',
     ["background-color", "color", "box-shadow", "border-radius", "padding-inline-start", "padding-inline-end", "white-space"]],
   ["tabs.underline.last", 'm-tabs[variant="underline"] > nav > button:last-of-type',
@@ -701,7 +701,7 @@ try {
         throw new Error(`underline tabs overflow failed: ${JSON.stringify(tabsOverflow)}`);
 
       const markerProperties = [
-        "opacity", "inline-size", "margin-inline-start", "margin-inline-end",
+        "opacity", "inline-size", "margin-inline-start", "margin-inline-end", "margin-block-end",
         "inset-inline-start", "inset-inline-end", "background-image", "background-color", "transition-property", "transition-duration",
       ];
       // Default rail markers stick to the rail's outer edge, past its
