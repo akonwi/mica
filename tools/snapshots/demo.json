@@ -100,6 +100,10 @@
     "color": "oklch(0.96 0 263)",
     "font-weight": "500"
    },
+   "breadcrumbs.item": {
+    "margin-bottom": "0px",
+    "margin-top": "0px"
+   },
    "breadcrumbs.link": {
     "color": "oklch(0.71 0 263)",
     "font-size": "13px",
@@ -110,6 +114,31 @@
     "display": "flex",
     "flex-wrap": "wrap",
     "row-gap": "4px"
+   },
+   "breadcrumbs.overflow.item": {
+    "margin-bottom": "0px",
+    "margin-top": "0px"
+   },
+   "breadcrumbs.overflow.link": {
+    "color": "oklch(0.71 0 263)",
+    "font-size": "13px",
+    "min-height": "36px",
+    "padding-top": "8px"
+   },
+   "breadcrumbs.overflow.menu": {
+    "background-color": "oklch(0.17 0 263)",
+    "border-top-width": "1px",
+    "font-size": "13px",
+    "padding-top": "8px"
+   },
+   "breadcrumbs.overflow.trigger": {
+    "align-items": "center",
+    "color": "oklch(0.71 0 263)",
+    "display": "grid",
+    "font-size": "16px",
+    "justify-content": "center",
+    "min-height": "36px",
+    "width": "36px"
    },
    "button": {
     "background-color": "oklch(0.17 0 263)",
@@ -1124,6 +1153,10 @@
     "color": "oklch(0.18 0 263)",
     "font-weight": "500"
    },
+   "breadcrumbs.item": {
+    "margin-bottom": "0px",
+    "margin-top": "0px"
+   },
    "breadcrumbs.link": {
     "color": "oklch(0.44 0 263)",
     "font-size": "13px",
@@ -1134,6 +1167,31 @@
     "display": "flex",
     "flex-wrap": "wrap",
     "row-gap": "4px"
+   },
+   "breadcrumbs.overflow.item": {
+    "margin-bottom": "0px",
+    "margin-top": "0px"
+   },
+   "breadcrumbs.overflow.link": {
+    "color": "oklch(0.44 0 263)",
+    "font-size": "13px",
+    "min-height": "36px",
+    "padding-top": "8px"
+   },
+   "breadcrumbs.overflow.menu": {
+    "background-color": "oklch(1 0 263)",
+    "border-top-width": "1px",
+    "font-size": "13px",
+    "padding-top": "8px"
+   },
+   "breadcrumbs.overflow.trigger": {
+    "align-items": "center",
+    "color": "oklch(0.44 0 263)",
+    "display": "grid",
+    "font-size": "16px",
+    "justify-content": "center",
+    "min-height": "36px",
+    "width": "36px"
    },
    "button": {
     "background-color": "oklch(0.973 0 263)",

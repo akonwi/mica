@@ -2592,8 +2592,9 @@
     list-style: none; margin: 0; padding: 0;
     column-gap: var(--breadcrumb-gap); row-gap: var(--breadcrumb-row-gap);
   }
+  /* margin resets the prose li rhythm in both the trail and the menu. */
   :where(nav[data-breadcrumbs] li) {
-    display: flex; align-items: center; gap: var(--breadcrumb-gap);
+    display: flex; align-items: center; gap: var(--breadcrumb-gap); margin: 0;
     min-inline-size: 0; max-inline-size: 100%;
   }
   :where(nav[data-breadcrumbs] > ol > li + li)::before {
@@ -2614,8 +2615,10 @@
   }
   :where(m-breadcrumb-overflow) { display: block; min-inline-size: 0; }
   :where(nav[data-breadcrumbs] details) { position: relative; margin: 0; border: 0; padding: 0; flex: none; }
+  /* justify-content resets the accordion summary's space-between, which
+     a single-track grid resolves to start (glyph pinned left). */
   :where(nav[data-breadcrumbs] summary) {
-    display: grid; place-items: center;
+    display: grid; place-items: center; justify-content: center;
     inline-size: var(--breadcrumb-menu-target); min-block-size: var(--breadcrumb-menu-target);
     padding: 0; list-style: none; font-size: var(--breadcrumb-overflow-font-size);
     font-weight: var(--breadcrumb-current-weight); border-radius: var(--radius-md);
@@ -2637,6 +2640,8 @@
     margin: var(--space-2xs) 0 0; padding: var(--space-xs);
     border: 1px solid var(--color-border); border-radius: var(--radius-md);
     background: var(--color-surface-overlay);
+    /* Restates the trail size over the accordion's content font-size. */
+    font-size: var(--breadcrumb-font-size);
   }
   :where(m-breadcrumb-overflow[data-m-breadcrumb-ready] [data-breadcrumb-menu]) {
     position: fixed; inset: auto; left: var(--m-breadcrumb-left); top: var(--m-breadcrumb-top);
