@@ -391,6 +391,13 @@ async function assertTabsOverflowRuntime(browser: Browser, engine: string) {
         if (!resp?.ok())
           throw new Error(`demo.html: HTTP ${resp?.status()} (${engine} tabs runtime)`);
         const state = await page.evaluate(async ([direction, reducedMotion]) => {
+          // A rail with room for its tabs must not overflow. WebKit sized
+          // the shrink-to-fit rail from each marker's content width plus
+          // its -16px margin (ignoring flex-basis), so every rail came out
+          // 32px short and tabs.js kept an end marker over clipped tabs.
+          const roomy = document.querySelector("m-tabs:not([variant]) > nav") as HTMLElement;
+          const shortRailFits = roomy.scrollWidth - roomy.clientWidth <= 1 &&
+            Number(getComputedStyle(roomy, "::after").opacity) < 0.001;
           const component = document.querySelector('m-tabs[variant="underline"]')!;
           component.setAttribute("dir", direction);
           const rail = component.querySelector(":scope > nav") as HTMLElement;
@@ -524,7 +531,7 @@ async function assertTabsOverflowRuntime(browser: Browser, engine: string) {
 
           return {
             initialStationary, fadeIn, shown, fadeOut, hidden, reveal,
-            reconnectSelectsOneStep, userScrollWins, initialSelected,
+            reconnectSelectsOneStep, userScrollWins, initialSelected, shortRailFits,
             scrollbarContract: enhancedScrollbar === "none" && fallbackScrollbar === "thin",
           };
         }, [direction, reducedMotion] as const);
@@ -540,7 +547,8 @@ async function assertTabsOverflowRuntime(browser: Browser, engine: string) {
           state.hidden.opacity < 0.001 && state.hidden.gutter < 0.01 &&
           state.reveal.selected && state.reveal.fullyVisible &&
           state.reconnectSelectsOneStep && state.userScrollWins && state.scrollbarContract &&
-          state.initialSelected.atEnd && state.initialSelected.endMarkerHidden;
+          state.initialSelected.atEnd && state.initialSelected.endMarkerHidden &&
+          state.shortRailFits;
         if (!passed)
           throw new Error(`${engine} ${direction} ${reducedMotion} tabs runtime failed: ${JSON.stringify(state)}`);
       } finally {

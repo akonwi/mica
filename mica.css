@@ -1944,6 +1944,7 @@
     &::before {
       inset-inline-start: calc(-1 * var(--m-tabs-rail-padding));
       flex: 0 0 var(--space-md);
+      inline-size: var(--space-md); /* WebKit sizes the rail from this, not flex-basis */
       margin-inline-end: calc(var(--m-tabs-overflow-start-gutter) - var(--space-md));
       opacity: var(--m-tabs-overflow-start);
       background-image: conic-gradient(from 45deg at left center,
@@ -1956,6 +1957,7 @@
     &::after {
       inset-inline-end: calc(-1 * var(--m-tabs-rail-padding));
       flex: 0 0 var(--space-md);
+      inline-size: var(--space-md);
       margin-inline-start: calc(var(--m-tabs-overflow-end-gutter) - var(--space-md));
       opacity: var(--m-tabs-overflow-end);
       background-image: conic-gradient(from 225deg at right center,
