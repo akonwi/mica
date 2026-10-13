@@ -609,6 +609,23 @@ try {
       }
       await page.mouse.move(0, 0);
 
+      // Breadcrumb ancestor menu: open the native disclosure, hover a row.
+      // Opened by script, not click: a mouse click would flip the
+      // :focus-visible modality the focus-ring probes below rely on.
+      const toggleCrumbs = () => page.evaluate(() => {
+        const d = document.querySelector("#breadcrumbs-demo details") as HTMLDetailsElement;
+        d.open = !d.open;
+      });
+      await toggleCrumbs();
+      await page.hover("#breadcrumbs-demo [data-breadcrumb-menu] a");
+      await page.waitForTimeout(50);
+      states["breadcrumbs.overflow.link.hover"] = await probe(
+        "#breadcrumbs-demo [data-breadcrumb-menu] a", ["background-color", "color", "text-decoration-line"]);
+      states["breadcrumbs.overflow.trigger.open"] = await probe(
+        "#breadcrumbs-demo summary", ["background-color", "color"]);
+      await toggleCrumbs();
+      await page.mouse.move(0, 0);
+
       const tabsOverflow = await page.evaluate(() => {
         const rail = document.querySelector('m-tabs[variant="underline"] > nav') as HTMLElement;
         const tabs = [...rail.querySelectorAll("button")];

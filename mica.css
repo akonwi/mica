@@ -2650,7 +2650,11 @@
   :where(nav[data-breadcrumbs] [data-breadcrumb-menu] a) {
     display: block; padding: var(--space-xs); min-block-size: var(--breadcrumb-menu-target);
   }
-  :where(nav[data-breadcrumbs] [data-breadcrumb-menu] a):hover { background: var(--color-surface-raised); text-decoration: none; }
+  /* Shared overlay-row hover (select, menu, command): surface-raised equals
+     surface-overlay in dark and would leave the row unfilled. */
+  :where(nav[data-breadcrumbs] [data-breadcrumb-menu] a):hover {
+    background: color-mix(in oklch, var(--color-text) 8%, var(--color-surface-overlay)); text-decoration: none;
+  }
 
   /* Bottom navigation is ordinary site navigation, not a tab widget.
      Place it in the last row of an app shell; no fixed positioning or

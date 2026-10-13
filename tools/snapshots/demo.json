@@ -750,6 +750,15 @@
     "background-color": "rgb(56, 134, 231)",
     "inset-block-start": "6.70312px"
    },
+   "breadcrumbs.overflow.link.hover": {
+    "background-color": "oklch(0.2332 0 263)",
+    "color": "oklch(0.96 0 263)",
+    "text-decoration-line": "none"
+   },
+   "breadcrumbs.overflow.trigger.open": {
+    "background-color": "oklch(0.17 0 263)",
+    "color": "oklch(0.96 0 263)"
+   },
    "button.danger.hover": {
     "background-color": "oklch(0.7312 0.1584 10.36)"
    },
@@ -1802,6 +1811,15 @@
    "avatar.contained.body": {
     "background-color": "rgb(56, 134, 231)",
     "inset-block-start": "6.70312px"
+   },
+   "breadcrumbs.overflow.link.hover": {
+    "background-color": "oklch(0.9344 0 263)",
+    "color": "oklch(0.18 0 263)",
+    "text-decoration-line": "none"
+   },
+   "breadcrumbs.overflow.trigger.open": {
+    "background-color": "oklch(0.973 0 263)",
+    "color": "oklch(0.18 0 263)"
    },
    "button.danger.hover": {
     "background-color": "oklch(0.4792 0.1584 10.36)"
