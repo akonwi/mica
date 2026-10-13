@@ -430,14 +430,34 @@
     "font-size": "14px",
     "padding-top": "4px"
    },
+   "pagination.button": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "border-radius": "0px",
+    "border-top-width": "0px",
+    "font-weight": "400",
+    "height": "34px"
+   },
+   "pagination.button.disabled": {
+    "color": "oklch(0.71 0 263)",
+    "opacity": "1"
+   },
    "pagination.current": {
     "background-color": "oklch(0.17 0 263)",
     "font-weight": "650",
     "min-height": "34px"
    },
+   "pagination.ellipsis": {
+    "color": "oklch(0.71 0 263)",
+    "font-size": "13px"
+   },
    "pagination.nav": {
     "display": "flex",
+    "font-size": "13px",
     "gap": "4px"
+   },
+   "pagination.page-size": {
+    "font-size": "16px",
+    "height": "32px"
    },
    "popover": {
     "background-color": "oklch(0.17 0 263)",
@@ -808,6 +828,9 @@
    "link.hover": {
     "color": "oklch(0.96 0 263)",
     "text-decoration-color": "oklch(0.96 0 263)"
+   },
+   "pagination.button.hover": {
+    "background-color": "oklch(0.17 0 263)"
    },
    "popover.open": {
     "background-color": "oklch(0.17 0 263)",
@@ -1492,14 +1515,34 @@
     "font-size": "14px",
     "padding-top": "4px"
    },
+   "pagination.button": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "border-radius": "0px",
+    "border-top-width": "0px",
+    "font-weight": "400",
+    "height": "34px"
+   },
+   "pagination.button.disabled": {
+    "color": "oklch(0.44 0 263)",
+    "opacity": "1"
+   },
    "pagination.current": {
     "background-color": "oklch(0.973 0 263)",
     "font-weight": "650",
     "min-height": "34px"
    },
+   "pagination.ellipsis": {
+    "color": "oklch(0.44 0 263)",
+    "font-size": "13px"
+   },
    "pagination.nav": {
     "display": "flex",
+    "font-size": "13px",
     "gap": "4px"
+   },
+   "pagination.page-size": {
+    "font-size": "16px",
+    "height": "32px"
    },
    "popover": {
     "background-color": "oklch(1 0 263)",
@@ -1870,6 +1913,9 @@
    "link.hover": {
     "color": "oklch(0.18 0 263)",
     "text-decoration-color": "oklch(0.18 0 263)"
+   },
+   "pagination.button.hover": {
+    "background-color": "oklch(0.973 0 263)"
    },
    "popover.open": {
     "background-color": "oklch(1 0 263)",

@@ -2542,12 +2542,18 @@
   :where([data-table-footer]) { container: mica-pagination / inline-size; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-md); padding:var(--space-md) var(--table-padding); font-size:var(--table-font-size); }
   :where([data-page-meta]) { display:flex; align-items:center; gap:var(--space-md); flex-wrap:wrap; color:var(--color-text-muted); }
   :where([data-page-size]) { display:flex; align-items:center; gap:var(--space-xs); }
-  :where([data-page-size] select) { inline-size:auto; min-block-size:2rem; padding-block:var(--space-2xs); font-size:1rem; /* iOS field floor */ }
-  :where(nav[data-pagination]) { --pagination-target:2.125rem; --pagination-font-size:var(--text-sm); display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-2xs); }
-  :where([data-pagination] > a, [data-pagination] > button, [data-pagination] > [aria-disabled]) { display:inline-flex; justify-content:center; align-items:center; min-inline-size:var(--pagination-target); min-block-size:var(--pagination-target); padding:var(--space-2xs) var(--space-xs); border:0; background:transparent; color:var(--color-text); font-size:var(--pagination-font-size); text-decoration:none; }
+  :where([data-page-size] select) { inline-size:auto; block-size:var(--control-height-sm); padding-block:var(--space-2xs); font-size:1rem; /* iOS field floor */ }
+  /* font-size on the nav reaches the ellipsis and status spans too. */
+  :where(nav[data-pagination]) { --pagination-target:2.125rem; --pagination-font-size:var(--text-sm); display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-2xs); font-size:var(--pagination-font-size); }
+  /* block-size, weight and radius undo the button preset so button pages
+     match link pages. */
+  :where([data-pagination] > a, [data-pagination] > button, [data-pagination] > [aria-disabled]) { display:inline-flex; justify-content:center; align-items:center; min-inline-size:var(--pagination-target); min-block-size:var(--pagination-target); block-size:auto; padding:var(--space-2xs) var(--space-xs); border:0; border-radius:0; background:transparent; color:var(--color-text); font-size:var(--pagination-font-size); font-weight:inherit; text-decoration:none; }
   :where([data-pagination]) > a:hover { background:var(--color-surface-raised); }
+  /* Outranks the button preset's :hover/:active:not(:disabled, …) at (0,2,0). */
+  :where([data-pagination]) > button:is(:hover, :active):not(:disabled) { background:var(--color-surface-raised); }
+  :where([data-page-ellipsis]) { color:var(--color-text-muted); }
   :where([data-pagination]) > [aria-current=page] { background:var(--color-surface-raised); font-weight:650; color:var(--color-text); }
-  :where([data-pagination]) > :is([aria-disabled=true], :disabled) { color:var(--color-text-muted); cursor:default; }
+  :where([data-pagination]) > :is([aria-disabled=true], :disabled) { color:var(--color-text-muted); cursor:default; opacity:1; }
   :where([data-page-status]) { display:none; color:var(--color-text-muted); font-size:var(--pagination-font-size); }
   @container mica-table (max-width:44rem) {
     :where([data-table-heading]) { padding:var(--space-md); }

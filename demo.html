@@ -852,8 +852,9 @@
 <div data-table-toolbar><form data-table-filters action="#data-table-demo"><label data-table-search>Search projects <input type="search" name="q"></label><button>Search</button></form><div data-table-selection hidden>Selection actions</div></div>
 <m-table-scroll style="--table-min-width:30rem"><div data-table-region role="region" aria-label="Example projects" tabindex="0"><table data-table>
 <caption data-visually-hidden>Project collection example</caption><thead><tr><th scope="col">Project</th><th scope="col">Owner</th></tr></thead><tbody><tr data-selected><td><a href="#data-table-demo">Website refresh</a><span data-table-description>Customer experience</span></td><td>Alex Morgan</td></tr><tr><td>Mobile app</td><td>Sam Rivera</td></tr></tbody></table></div></m-table-scroll>
-<footer data-table-footer><span data-page-meta>1–2 of 4</span><nav data-pagination aria-label="Example project pages"><span aria-disabled="true">← Previous</span><span data-page-status>Page 1 of 2</span><a data-page-number href="#data-table-demo" aria-current="page" aria-label="Page 1">1</a><a data-page-number href="#data-table-demo" aria-label="Page 2">2</a><a href="#data-table-demo" aria-label="Next page">Next →</a></nav></footer>
-</section></m-vstack></section>
+<footer data-table-footer><div data-page-meta><span>1–2 of 4</span><label data-page-size>Rows per page <select name="size"><option selected>2</option><option>10</option></select></label></div><nav data-pagination aria-label="Example project pages"><span aria-disabled="true">← Previous</span><span data-page-status>Page 1 of 2</span><a data-page-number href="#data-table-demo" aria-current="page" aria-label="Page 1">1</a><a data-page-number href="#data-table-demo" aria-label="Page 2">2</a><a href="#data-table-demo" aria-label="Next page">Next →</a></nav></footer>
+</section>
+<nav data-pagination id="pagination-buttons" aria-label="Client pagination example"><button type="button" disabled>← Previous</button><button type="button" aria-current="page">1</button><button type="button">2</button><span data-page-ellipsis aria-hidden="true">…</span><button type="button">9</button><button type="button">Next →</button></nav></m-vstack></section>
 
 <section id="bottom-navigation-demo"><m-vstack gap="md"><h2>Bottom navigation</h2>
 <nav data-bottom-nav aria-label="Bottom navigation example">
