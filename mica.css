@@ -3021,7 +3021,9 @@
     --command-group-pad: var(--space-xs);
   }
   :where(m-command-group) { display: block; }
-  :where(m-command-group + m-command-group) {
+  /* Separate from the previous VISIBLE group: filtering hides groups, and a
+     plain + would leave a stray rule/gap above the first one shown. */
+  :where(m-command-group:not([hidden]) ~ m-command-group) {
     margin-block-start: var(--command-group-gap, var(--space-md));
     padding-block-start: var(--command-group-pad, 0);
     border-block-start: var(--command-group-border, 0) solid var(--color-border);

@@ -12,6 +12,11 @@ for (const [name, engine] of Object.entries({chromium, webkit})) {
     await input.press('Enter');
     assert(await page.locator('#create').evaluate((e: HTMLDialogElement) => e.open), 'native action activation');
     await page.locator('#create button[value=cancel]').click();
+    // The first group left visible by filtering gets no separator.
+    await input.fill('pro');
+    assert(await page.locator('#inline-command m-command-group:not([hidden])').first().evaluate(e => {
+      const cs = getComputedStyle(e); return cs.borderTopWidth === '0px' && cs.marginTop === '0px' && cs.paddingTop === '0px';
+    }), 'first visible group has no separator');
     await input.fill('no such command');
     assert(await page.locator('#inline-command [data-command-empty]').isVisible(), 'empty state');
     await input.fill('');
