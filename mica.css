@@ -2059,7 +2059,8 @@
     /* --m-toast-offset comes from toast.js when stacking; 0 without it */
     inset: auto var(--space-lg) calc(var(--space-lg) + var(--m-toast-offset, 0px)) auto;
     margin: 0;
-    inline-size: min(22rem, calc(100vw - 2rem));
+    /* the corner inset on both sides, so phones get even gutters */
+    inline-size: min(22rem, calc(100vw - 2 * var(--space-lg)));
     max-inline-size: none;
     padding: var(--space-md);
     padding-inline-end: var(--space-2xl); /* room for the corner X */

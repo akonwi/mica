@@ -1050,10 +1050,16 @@ try {
         document.documentElement.style.setProperty("--toast-position", "top-center"));
       await page.waitForTimeout(50);
       states["toast.position.top-center"] = await probe("m-toast:popover-open", toastPos);
-      await page.evaluate(() => {
-        document.documentElement.style.removeProperty("--toast-position");
-        (document.querySelector("m-toast:popover-open") as any)?.hidePopover();
-      });
+      await page.evaluate(() =>
+        document.documentElement.style.removeProperty("--toast-position"));
+      // phone width: the toast keeps the corner inset as its far-side gutter
+      await page.setViewportSize({ width: 375, height: 800 });
+      await page.waitForTimeout(50);
+      states["toast.narrow"] = await probe("m-toast:popover-open",
+        ["inline-size", "left", "right"]);
+      await page.setViewportSize({ width: 1280, height: 800 });
+      await page.evaluate(() =>
+        (document.querySelector("m-toast:popover-open") as any)?.hidePopover());
 
       (data as any).states = states;
 

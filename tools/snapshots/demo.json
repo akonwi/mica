@@ -1060,6 +1060,11 @@
     "right": "12px",
     "top": "12px"
    },
+   "toast.narrow": {
+    "inline-size": "327px",
+    "left": "24px",
+    "right": "24px"
+   },
    "toast.position.default": {
     "bottom": "24px",
     "left": "904px",
@@ -2247,6 +2252,11 @@
     "inline-size": "18.6719px",
     "right": "12px",
     "top": "12px"
+   },
+   "toast.narrow": {
+    "inline-size": "327px",
+    "left": "24px",
+    "right": "24px"
    },
    "toast.position.default": {
     "bottom": "24px",
