@@ -998,6 +998,20 @@ try {
       await page.evaluate(() =>
         (document.querySelector("[popover]:popover-open") as any)?.hidePopover());
 
+      // anchored popover opened by its invoker: block-axis gap only, so the
+      // panel's start edge lines up with the trigger (dx 0, dy = --space-2xs)
+      await page.locator('[popovertarget="demo-menu"]').first().click();
+      await page.waitForTimeout(150);
+      states["popover.anchored"] = await page.evaluate(() => {
+        const a = document.querySelector('[popovertarget="demo-menu"]')!.getBoundingClientRect();
+        const m = document.getElementById("demo-menu")!;
+        const r = m.getBoundingClientRect();
+        const cs = getComputedStyle(m);
+        return { dx: Math.round(r.left - a.left), dy: Math.round(r.top - a.bottom),
+          "margin-top": cs.marginTop, "margin-left": cs.marginLeft };
+      });
+      await page.evaluate(() => (document.getElementById("demo-menu") as any)?.hidePopover());
+
       // toast position token — default corner + one style-query branch.
       // Probes used inset/margin values on an OPEN toast (closed popovers
       // are display:none and report unresolved calc strings).

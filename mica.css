@@ -1756,7 +1756,9 @@
     :where([popover]) {
       position-area: block-end span-inline-end;
       position-try-fallbacks: flip-block, flip-inline;
-      margin: var(--space-2xs);
+      /* block axis only: the gap sits between invoker and panel, and the
+         panel's start (or, flipped, end) edge lines up with the invoker */
+      margin: var(--space-2xs) 0;
     }
   }
 

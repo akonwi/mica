@@ -876,6 +876,12 @@
    "pagination.button.hover": {
     "background-color": "oklch(0.17 0 263)"
    },
+   "popover.anchored": {
+    "dx": 0,
+    "dy": 0,
+    "margin-left": "0px",
+    "margin-top": "0px"
+   },
    "popover.open": {
     "background-color": "oklch(0.17 0 263)",
     "border-top-color": "oklch(0.96 0 263 / 0.12)"
@@ -2028,6 +2034,12 @@
    },
    "pagination.button.hover": {
     "background-color": "oklch(0.973 0 263)"
+   },
+   "popover.anchored": {
+    "dx": 0,
+    "dy": 0,
+    "margin-left": "0px",
+    "margin-top": "0px"
    },
    "popover.open": {
     "background-color": "oklch(1 0 263)",
