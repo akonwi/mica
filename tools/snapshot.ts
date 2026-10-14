@@ -151,7 +151,7 @@ const PROBES: [string, string, string[]][] = [
   ["stepper", "m-stepper",
     ["display", "overflow-x", "border-top-color", "border-radius", "background-color"]],
   ["stepper.value", "m-stepper > :nth-child(2)",
-    ["display", "overflow-x", "text-overflow", "background-color", "font-weight"]],
+    ["display", "overflow-x", "text-overflow", "background-color", "font-weight", "line-height"]],
   ["stepper.step", 'm-stepper > [data-step="previous"]',
     ["inline-size", "border-top-width", "border-radius", "background-color"]],
   ["stepper.reset", "m-stepper > [data-reset]",
@@ -308,6 +308,9 @@ const VISUAL_PROBES: [string, string][] = [
   ["switch.unchecked", 'input[type="checkbox"][role="switch"]:not(:checked):not([disabled])'],
   ["avatar.blobatar", "m-avatar[blobatar]:not([contained])"],
   ["avatar.contained", "m-avatar[blobatar][contained]"],
+  // computed text-overflow reads "ellipsis" even when none is drawn (a grid
+  // value's anonymous item ignores it), so the truncation is pixel-checked
+  ["stepper.truncate", "#stepper-truncate"],
 ];
 const VISUAL_DIR = join(import.meta.dir, "snapshots", "visual");
 

@@ -638,8 +638,9 @@
    },
    "stepper.value": {
     "background-color": "oklch(0.17 0 263)",
-    "display": "grid",
+    "display": "block",
     "font-weight": "600",
+    "line-height": "36px",
     "overflow-x": "hidden",
     "text-overflow": "ellipsis"
    },
@@ -1754,8 +1755,9 @@
    },
    "stepper.value": {
     "background-color": "oklch(0.973 0 263)",
-    "display": "grid",
+    "display": "block",
     "font-weight": "600",
+    "line-height": "36px",
     "overflow-x": "hidden",
     "text-overflow": "ellipsis"
    },

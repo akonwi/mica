@@ -1270,9 +1270,12 @@
     padding-inline: 0;
   }
 
+  /* Block, not grid: text-overflow only draws on a block container's own
+     line boxes. In a grid the text sits in an anonymous grid item that
+     doesn't inherit overflow/text-overflow, so long values hard-clipped
+     with no ellipsis. One nowrap line as tall as the box centers it. */
   :where(m-stepper) > :where(:nth-child(2)) {
-    display: grid;
-    place-items: center;
+    display: block;
     min-inline-size: 0;
     block-size: var(--control-height);
     padding-inline: var(--space-sm);
@@ -1282,6 +1285,7 @@
     color: var(--color-text);
     font-size: var(--text-md);
     font-weight: 600;
+    line-height: var(--control-height);
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
