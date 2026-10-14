@@ -2598,13 +2598,17 @@
   :where(table[data-table]) { margin:0; inline-size:100%; min-inline-size:var(--table-min-width, 54rem); border-collapse:separate; border-spacing:0; table-layout:fixed; }
   :where([data-table] th, [data-table] td) { padding:var(--table-cell-padding, var(--space-sm)); vertical-align:middle; font-size:var(--table-font-size, var(--text-sm)); }
   :where([data-table] thead th) { background:var(--color-surface-raised); color:var(--color-text-muted); font-weight:500; border-block-end:1px solid var(--color-border); }
-  :where([data-table] th button) { display:inline-flex; align-items:center; gap:var(--space-xs); padding:0; min-block-size:var(--table-sort-target, 2rem); border:0; background:none; color:inherit; font:inherit; text-align:inherit; white-space:nowrap; }
+  /* block-size undoes the button preset so --table-sort-target sets the height. */
+  :where([data-table] th button) { display:inline-flex; align-items:center; gap:var(--space-xs); padding:0; block-size:auto; min-block-size:var(--table-sort-target, 2rem); border:0; background:none; color:inherit; font:inherit; text-align:inherit; white-space:nowrap; }
   :where([data-table] th[aria-sort]) button { color:var(--color-text); }
   :where([data-table] td a) { color:var(--color-text); font-weight:600; text-decoration:none; }
   :where([data-table] td) a:hover { text-decoration:underline; }
   :where([data-table-description]) { display:block; color:var(--color-text-muted); margin-block-start:var(--space-2xs); font-size:var(--table-description-size, var(--text-xs)); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   :where([data-table] tbody tr:last-child td) { border-block-end:0; }
   :where([data-table] tbody tr[data-selected]) > td { background:var(--table-selected-background, var(--color-surface-raised)); }
+  /* State and decorative loading rows are not records; they take no row hover.
+     Matches the base tbody tr:hover rule at (0,1,0) and follows it. */
+  :where([data-table] tbody tr:is([aria-hidden="true"], :has(> [data-table-state]))):hover { background:none; }
   :where([data-table-state]) { padding:var(--table-state-padding, var(--space-2xl)) var(--table-padding, var(--space-lg)); text-align:center; white-space:normal; }
   :where([data-table-state] strong) { display:block; color:var(--color-text); font-size:var(--table-state-font-size, var(--text-lg)); }
   :where([data-table-state] p) { margin-block:var(--space-xs) var(--space-md); color:var(--color-text-muted); }
@@ -2637,11 +2641,19 @@
     :where([data-table-heading]) { padding:var(--space-md); }
     :where([data-table-filters]) { padding:0 var(--space-md) var(--space-sm); }
     :where([data-table-search]) { flex-basis:100%; }
-    :where([data-table-filters] select) { flex:1; min-inline-size:0; max-inline-size:none; }
+    /* Selects grow from their content width (a basis of 0 squeezed the value
+       text into two lines). One wrapped in a label for its name stretches
+       through the label. */
+    :where([data-table-filters] select) { flex:1 1 auto; min-inline-size:0; max-inline-size:none; }
+    :where([data-table-filters] > label:has(> select)) { display:flex; flex:1 1 auto; min-inline-size:0; }
+    :where([data-table-filters] > label > select) { inline-size:100%; }
     :where([data-table-selection]) { padding-inline:var(--space-md); }
     :where([data-table-footer]) { padding:var(--space-md); gap:var(--space-sm); }
     :where([data-table] [data-table-sticky]) { position:sticky; inset-inline-start:var(--table-sticky-offset, 0px); background:var(--color-surface); z-index:1; }
     :where([data-table] thead [data-table-sticky]) { background:var(--color-surface-raised); z-index:3; }
+    /* Pinned cells are opaque; they carry the row hover fill themselves.
+       Selected rows keep their fill: that rule outranks this one at (0,0,1). */
+    :where([data-table] tbody tr:hover > [data-table-sticky]) { background:var(--color-surface-raised); }
   }
   /* A compact status is opt-in: include data-page-status to let numbered
      links collapse. Without it, every authored page link remains visible. */

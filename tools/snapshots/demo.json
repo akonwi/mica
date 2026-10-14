@@ -696,6 +696,14 @@
     "font-size": "13px",
     "padding-top": "12px"
    },
+   "table.filter.label": {
+    "display": "flex",
+    "flex-basis": "auto",
+    "flex-grow": "1"
+   },
+   "table.filter.select": {
+    "width": "159.703px"
+   },
    "table.native": {
     "border-collapse": "separate",
     "min-width": "480px",
@@ -712,6 +720,10 @@
     "background-color": "oklch(0.14 0 263)",
     "border-top-width": "1px",
     "container-type": "inline-size"
+   },
+   "table.sort": {
+    "height": "32px",
+    "min-height": "32px"
    },
    "tabs.default.rail": {
     "background-color": "oklch(0.2 0 263)",
@@ -937,6 +949,16 @@
    },
    "stepper.step.hover": {
     "background-color": "oklch(0.2 0 263)"
+   },
+   "table.loading.hover": {
+    "background-color": "rgba(0, 0, 0, 0)"
+   },
+   "table.state.hover": {
+    "background-color": "rgba(0, 0, 0, 0)"
+   },
+   "table.sticky.hover": {
+    "background-color": "oklch(0.17 0 263)",
+    "position": "sticky"
    },
    "tabs.default.marker.after": {
     "inset-inline-end": "-4px"
@@ -1910,6 +1932,14 @@
     "font-size": "13px",
     "padding-top": "12px"
    },
+   "table.filter.label": {
+    "display": "flex",
+    "flex-basis": "auto",
+    "flex-grow": "1"
+   },
+   "table.filter.select": {
+    "width": "159.703px"
+   },
    "table.native": {
     "border-collapse": "separate",
     "min-width": "480px",
@@ -1926,6 +1956,10 @@
     "background-color": "oklch(1 0 263)",
     "border-top-width": "1px",
     "container-type": "inline-size"
+   },
+   "table.sort": {
+    "height": "32px",
+    "min-height": "32px"
    },
    "tabs.default.rail": {
     "background-color": "oklch(0.952 0 263)",
@@ -2151,6 +2185,16 @@
    },
    "stepper.step.hover": {
     "background-color": "oklch(0.952 0 263)"
+   },
+   "table.loading.hover": {
+    "background-color": "rgba(0, 0, 0, 0)"
+   },
+   "table.state.hover": {
+    "background-color": "rgba(0, 0, 0, 0)"
+   },
+   "table.sticky.hover": {
+    "background-color": "oklch(0.973 0 263)",
+    "position": "sticky"
    },
    "tabs.default.marker.after": {
     "inset-inline-end": "-4px"
