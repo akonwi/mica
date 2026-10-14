@@ -1378,6 +1378,9 @@
     position: absolute;
     inset-block-start: var(--space-sm);
     inset-inline-end: var(--space-sm);
+    /* size to the glyph: the button preset's control height would
+       stretch this into a tall narrow strip */
+    block-size: auto;
     padding: var(--space-2xs);
     border: 0;
     background: transparent;

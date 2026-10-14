@@ -941,6 +941,9 @@ try {
         ["background-color", "border-top-color", "box-shadow"]);
       states["dialog.backdrop"] = await probe("dialog[open]",
         ["background-color"], "::backdrop");
+      // corner X sizes to its glyph, not the button preset's control height
+      states["dialog.close"] = await probe("dialog[open] > button.close",
+        ["block-size", "inline-size", "top", "right"]);
       await page.evaluate(() => document.querySelector("dialog[open]")?.close());
       await page.waitForTimeout(50);
 
@@ -1041,6 +1044,8 @@ try {
         (document.getElementById("demo-toast") as any)?.showPopover());
       await page.waitForTimeout(50);
       states["toast.position.default"] = await probe("m-toast:popover-open", toastPos);
+      states["toast.close"] = await probe("m-toast:popover-open > button.close",
+        ["block-size", "inline-size", "top", "right"]);
       await page.evaluate(() =>
         document.documentElement.style.setProperty("--toast-position", "top-center"));
       await page.waitForTimeout(50);

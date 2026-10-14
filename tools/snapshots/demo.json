@@ -830,6 +830,12 @@
    "dialog.backdrop": {
     "background-color": "oklch(0 0 0 / 0.4)"
    },
+   "dialog.close": {
+    "block-size": "22px",
+    "inline-size": "18.6719px",
+    "right": "12px",
+    "top": "12px"
+   },
    "dialog.open": {
     "background-color": "oklch(0.17 0 263)",
     "border-top-color": "oklch(0.3 0 263)",
@@ -1047,6 +1053,12 @@
     "scrollMoved": true,
     "selected": true,
     "target": "Defending"
+   },
+   "toast.close": {
+    "block-size": "22px",
+    "inline-size": "18.6719px",
+    "right": "12px",
+    "top": "12px"
    },
    "toast.position.default": {
     "bottom": "24px",
@@ -2006,6 +2018,12 @@
    "dialog.backdrop": {
     "background-color": "oklch(0 0 0 / 0.4)"
    },
+   "dialog.close": {
+    "block-size": "22px",
+    "inline-size": "18.6719px",
+    "right": "12px",
+    "top": "12px"
+   },
    "dialog.open": {
     "background-color": "oklch(1 0 263)",
     "border-top-color": "oklch(0.89 0 263)",
@@ -2223,6 +2241,12 @@
     "scrollMoved": true,
     "selected": true,
     "target": "Defending"
+   },
+   "toast.close": {
+    "block-size": "22px",
+    "inline-size": "18.6719px",
+    "right": "12px",
+    "top": "12px"
    },
    "toast.position.default": {
     "bottom": "24px",
