@@ -3000,10 +3000,14 @@
     background: var(--color-surface-overlay);
     overflow: hidden;
   }
+  /* Text start edges line up: header, headings and footer sit at the
+     list inset + item padding, the same edge as item labels. */
   :where(m-command-palette > header) {
     display: flex; align-items: center; gap: var(--space-sm);
-    padding: var(--space-sm); border-block-end: 1px solid var(--color-border);
+    padding: var(--space-sm) var(--space-xs); border-block-end: 1px solid var(--color-border);
   }
+  /* command.js reveals the input; without it the header would be an empty band */
+  :where(m-command-palette:not(:defined)) > :where(header) { display: none; }
   :where(m-command-palette [data-command-input]) {
     flex: 1; min-inline-size: 0; font-size: 1rem; /* iOS field floor */ border: 0; background: transparent;
   }
@@ -3023,7 +3027,7 @@
     border-block-start: var(--command-group-border, 0) solid var(--color-border);
   }
   :where(m-command-group > :is(h2,h3,h4,h5,h6)) {
-    margin: var(--space-xs); font-size: var(--text-2xs); font-weight: 500; color: var(--color-text-muted);
+    margin: var(--space-xs) var(--space-sm); font-size: var(--text-2xs); font-weight: 500; color: var(--color-text-muted);
   }
   :where(m-command-palette [data-command-item]) {
     display: flex; align-items: center; gap: var(--space-sm); inline-size: 100%;
@@ -3042,7 +3046,7 @@
   :where(m-command-palette [data-command-item] kbd) { font: .6875rem var(--font-mono); color: var(--color-text-muted); }
   :where(m-command-palette [data-command-item]):is(:disabled, [aria-disabled="true"]) { opacity: .45; cursor: not-allowed; }
   :where(m-command-palette > footer) {
-    padding: var(--space-xs) var(--space-md); border-block-start: 1px solid var(--color-border);
+    padding: var(--space-xs) calc(var(--space-xs) + var(--space-sm)); border-block-start: 1px solid var(--color-border);
     font-size: var(--text-2xs); color: var(--color-text-muted);
   }
   :where(m-command-palette [data-command-empty]) { margin: 0; padding: var(--space-lg); color: var(--color-text-muted); font-size: var(--text-md); }

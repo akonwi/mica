@@ -281,6 +281,18 @@
    "command.divider": {
     "border-top-width": "1px"
    },
+   "command.footer": {
+    "padding-left": "20px"
+   },
+   "command.header": {
+    "display": "flex",
+    "padding-left": "8px",
+    "padding-right": "8px"
+   },
+   "command.heading": {
+    "margin-left": "12px",
+    "margin-top": "8px"
+   },
    "command.item": {
     "background-color": "oklch(0.2332 0 263)",
     "display": "flex",
@@ -1482,6 +1494,18 @@
    },
    "command.divider": {
     "border-top-width": "1px"
+   },
+   "command.footer": {
+    "padding-left": "20px"
+   },
+   "command.header": {
+    "display": "flex",
+    "padding-left": "8px",
+    "padding-right": "8px"
+   },
+   "command.heading": {
+    "margin-left": "12px",
+    "margin-top": "8px"
    },
    "command.item": {
     "background-color": "oklch(0.9344 0 263)",

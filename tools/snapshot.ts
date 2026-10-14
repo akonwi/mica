@@ -164,6 +164,10 @@ const PROBES: [string, string, string[]][] = [
   ["command.list", "#command-demo m-command-list", ["display", "overflow-y"]],
   ["command.item", "#command-demo [data-command-item]", ["display", "font-size", "background-color"]],
   ["command.divider", "#command-demo m-command-group + m-command-group", ["border-top-width"]],
+  // text start edges: header + heading + footer line up with item labels
+  ["command.header", "#command-demo m-command-palette > header", ["display", "padding-left", "padding-right"]],
+  ["command.heading", "#command-demo m-command-group > h3", ["margin-left", "margin-top"]],
+  ["command.footer", "#command-demo m-command-palette > footer", ["padding-left"]], // demo.html footer{} owns padding-block
   ["card.shell", "#card-list-demo m-card", ["display", "background-color", "border-top-width"]],
   ["card.header", "#card-list-demo m-card-header", ["display", "padding-left", "gap"]],
   ["card.body", "#card-list-demo m-card-body:not([flush])", ["display", "padding-left"]],

@@ -52,6 +52,26 @@ for (const [name, engine] of Object.entries({chromium, webkit})) {
     await page.waitForTimeout(100);
     assert(await page.locator('#palette m-command-palette').evaluate(e=>getComputedStyle(e).padding==='0px'),'dialog composition');
     await page.screenshot({path:`/tmp/command-integrated-${name}-mobile.png`});
-    console.log(`${name}: filtering, actions, disabled skipping, empty, manual results, reconnect, dialog, both themes and axe pass`);
+    // Start edges: input text, group headings and footer line up with item labels.
+    await page.setViewportSize({width:1100,height:900});
+    await page.locator('#palette input').press('Escape');
+    const edges = await page.evaluate(() => {
+      const root = document.getElementById('inline-command')!;
+      const x = (e: Element) => e.getBoundingClientRect().left;
+      const input = root.querySelector('input')!;
+      const label = root.querySelector('[data-command-item] > span')!;
+      return [x(input) + parseFloat(getComputedStyle(input).paddingLeft), x(label), x(root.querySelector('h3')!),
+        x(root.querySelector('footer')!) + parseFloat(getComputedStyle(root.querySelector('footer')!).paddingLeft)];
+    });
+    assert(edges.every(v => Math.abs(v - edges[1]) < 0.5), `start edges ${edges}`);
+    // Without command.js the hidden input leaves no empty header band.
+    const nojs = await browser.newContext({viewport:{width:1100,height:900}, javaScriptEnabled:false});
+    try {
+      const plain = await nojs.newPage();
+      await plain.goto('http://localhost:8471/examples/command.html');
+      assert(await plain.locator('#inline-command > header').evaluate(e => getComputedStyle(e).display === 'none'), 'no-JS header hidden');
+      assert(await plain.locator('#inline-command [data-command-item]').first().isVisible(), 'no-JS items usable');
+    } finally { await nojs.close(); }
+    console.log(`${name}: start edges, no-JS header, filtering, actions, disabled skipping, empty, manual results, reconnect, dialog, both themes and axe pass`);
   } finally { await browser.close(); }
 }
