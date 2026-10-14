@@ -1807,7 +1807,10 @@
         }
       }
 
-      &:disabled {
+      /* aria-disabled links/buttons dim like :disabled (links have no
+         :disabled; a button's aria-disabled would otherwise take the base
+         button's 0.55). :is() keeps the (0,1,0) that beats danger color. */
+      &:is(:disabled, [aria-disabled="true"]) {
         opacity: 0.5;
         background: transparent;
         color: var(--color-text);

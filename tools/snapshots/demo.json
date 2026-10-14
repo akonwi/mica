@@ -468,6 +468,16 @@
     "background-color": "oklch(0.17 0 263)",
     "border-top-color": "oklch(0.96 0 263 / 0.12)"
    },
+   "popover.menu.aria-disabled": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "oklch(0.96 0 263)",
+    "opacity": "0.5"
+   },
+   "popover.menu.aria-disabled.link": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "oklch(0.96 0 263)",
+    "opacity": "0.5"
+   },
    "progress": {
     "block-size": "8px",
     "inline-size": "480px"
@@ -1610,6 +1620,16 @@
    "popover": {
     "background-color": "oklch(1 0 263)",
     "border-top-color": "oklch(0.18 0 263 / 0.12)"
+   },
+   "popover.menu.aria-disabled": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "oklch(0.18 0 263)",
+    "opacity": "0.5"
+   },
+   "popover.menu.aria-disabled.link": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "color": "oklch(0.18 0 263)",
+    "opacity": "0.5"
    },
    "progress": {
     "block-size": "8px",

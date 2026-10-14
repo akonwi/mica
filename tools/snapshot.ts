@@ -249,6 +249,9 @@ const PROBES: [string, string, string[]][] = [
   ["progress", "progress", ["block-size", "inline-size"]],
   ["dialog", "dialog", ["background-color", "border-top-color", "border-radius"]],
   ["popover", "[popover]", ["background-color", "border-top-color"]],
+  // aria-disabled menu items dim like :disabled (links have no :disabled)
+  ["popover.menu.aria-disabled", '#demo-menu > button[aria-disabled="true"]', ["opacity", "background-color", "color"]],
+  ["popover.menu.aria-disabled.link", '#demo-menu > a[aria-disabled="true"]', ["opacity", "background-color", "color"]],
   ["toast", "m-toast:not([variant])",
     ["inline-size", "max-inline-size", "padding-top", "padding-right"]],
   ["toast.success", 'm-toast[variant="success"]',
