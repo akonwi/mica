@@ -759,8 +759,9 @@
     "padding-top": "16px"
    },
    "toast.success": {
-    "border-inline-start-color": "oklch(0.7 0.18 150)",
-    "border-inline-start-width": "2px"
+    "border-inline-start-color": "oklch(0.96 0 263 / 0.12)",
+    "border-inline-start-width": "1px",
+    "padding-inline-start": "38px"
    },
    "visually-hidden": {
     "block-size": "1px",
@@ -1080,6 +1081,14 @@
     "margin-right": "464px",
     "right": "0px",
     "top": "24px"
+   },
+   "toast.success.glyph": {
+    "background-color": "oklch(0.7 0.18 150)",
+    "block-size": "14px",
+    "inline-size": "14px",
+    "left": "16px",
+    "position": "absolute",
+    "top": "18.5938px"
    },
    "visually-hidden.focused": {
     "clip-path": "none",
@@ -1952,8 +1961,9 @@
     "padding-top": "16px"
    },
    "toast.success": {
-    "border-inline-start-color": "oklch(0.52 0.18 150)",
-    "border-inline-start-width": "2px"
+    "border-inline-start-color": "oklch(0.18 0 263 / 0.12)",
+    "border-inline-start-width": "1px",
+    "padding-inline-start": "38px"
    },
    "visually-hidden": {
     "block-size": "1px",
@@ -2273,6 +2283,14 @@
     "margin-right": "464px",
     "right": "0px",
     "top": "24px"
+   },
+   "toast.success.glyph": {
+    "background-color": "oklch(0.52 0.18 150)",
+    "block-size": "14px",
+    "inline-size": "14px",
+    "left": "16px",
+    "position": "absolute",
+    "top": "18.5938px"
    },
    "visually-hidden.focused": {
     "clip-path": "none",

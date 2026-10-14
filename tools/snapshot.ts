@@ -256,8 +256,9 @@ const PROBES: [string, string, string[]][] = [
   ["popover.menu.aria-disabled.link", '#demo-menu > a[aria-disabled="true"]', ["opacity", "background-color", "color"]],
   ["toast", "m-toast:not([variant])",
     ["inline-size", "max-inline-size", "padding-top", "padding-right"]],
+  // variants carry a status glyph and indent for it; the edge stays neutral
   ["toast.success", 'm-toast[variant="success"]',
-    ["border-inline-start-color", "border-inline-start-width"]],
+    ["padding-inline-start", "border-inline-start-color", "border-inline-start-width"]],
   ["details", "details", ["border-top-color"]],
   ["details.stacked", 'details[name="demo-faq"]', ["margin-bottom", "border-bottom-width"]],
   ["link", "a[href]", ["color", "text-decoration-line"]],
@@ -318,6 +319,28 @@ const VISUAL_PROBES: [string, string][] = [
   ["stepper.truncate", "#stepper-truncate"],
 ];
 const VISUAL_DIR = join(import.meta.dir, "snapshots", "visual");
+
+// The variant glyph is a masked ::before — drawn, so pixels. Opens the
+// success toast (closed popovers don't render), crops it, closes it.
+// captureVisual needs normal flow; the toast is fixed to the corner,
+// which lands on whole pixels at the fixed viewport, so crop it directly
+// once two consecutive frames agree.
+async function captureToastGlyph(page: Page, key: string) {
+  const toast = page.locator("#demo-toast-ok");
+  await page.evaluate(() => (document.getElementById("demo-toast-ok") as any)?.showPopover());
+  await page.waitForTimeout(100);
+  try {
+    let previous = await toast.screenshot({ animations: "disabled" });
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const current = await toast.screenshot({ animations: "disabled" });
+      if (previous.equals(current)) return void visuals.set(key, current);
+      previous = current;
+    }
+    throw new Error(`Visual capture did not settle: ${key}`);
+  } finally {
+    await page.evaluate(() => (document.getElementById("demo-toast-ok") as any)?.hidePopover());
+  }
+}
 
 // Theme coverage catches inner glyphs that ignore the radius token.
 async function captureRoundedControls(page: Page, scheme: string, suffix = "") {
@@ -1060,6 +1083,14 @@ try {
       await page.setViewportSize({ width: 1280, height: 800 });
       await page.evaluate(() =>
         (document.querySelector("m-toast:popover-open") as any)?.hidePopover());
+      // variant glyph: sized and centered on the title's first line
+      await page.evaluate(() =>
+        (document.getElementById("demo-toast-ok") as any)?.showPopover());
+      await page.waitForTimeout(50);
+      states["toast.success.glyph"] = await probe("#demo-toast-ok",
+        ["position", "top", "left", "inline-size", "block-size", "background-color"], "::before");
+      await page.evaluate(() =>
+        (document.getElementById("demo-toast-ok") as any)?.hidePopover());
 
       (data as any).states = states;
 
@@ -1070,6 +1101,7 @@ try {
       }
 
       await captureRoundedControls(page, scheme);
+      await captureToastGlyph(page, `toast.success.${scheme}`);
 
       // ---- axe pass (hard assert, not a snapshot) ----
       await page.addScriptTag({ path: join(ROOT, "node_modules/axe-core/axe.min.js") });
@@ -1130,6 +1162,7 @@ try {
         visuals.set(`${name}.${scheme}.webkit`, shot);
       }
       await captureRoundedControls(page, scheme, ".webkit");
+      await captureToastGlyph(page, `toast.success.${scheme}.webkit`);
     } finally {
       await ctx.close();
     }

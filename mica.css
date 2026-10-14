@@ -2074,14 +2074,33 @@
       color: var(--color-text-muted);
     }
 
-    &:where([variant="success"]) {
-      border-inline-start: 2px solid var(--color-success);
+    /* variant = a status glyph before the title, masked so it takes
+       the status color; the content indents to clear it */
+    &:where([variant]) {
+      padding-inline-start: calc(var(--space-md) + 0.875rem + var(--space-xs));
     }
-    &:where([variant="danger"]) {
-      border-inline-start: 2px solid var(--color-danger);
+    &:where([variant])::before {
+      content: "";
+      position: absolute;
+      /* centered on the title's first line */
+      inset-block-start: calc(var(--space-md) + (1lh - 0.875rem) / 2);
+      inset-inline-start: var(--space-md);
+      inline-size: 0.875rem;
+      block-size: 0.875rem;
+      background: var(--m-toast-tone);
+      mask: var(--m-toast-glyph) center / contain no-repeat;
+    }
+    &:where([variant="success"]) {
+      --m-toast-tone: var(--color-success);
+      --m-toast-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='square'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m8 12 3 3 5-6'/%3E%3C/svg%3E");
     }
     &:where([variant="warning"]) {
-      border-inline-start: 2px solid var(--color-warn);
+      --m-toast-tone: var(--color-warn);
+      --m-toast-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='square'%3E%3Cpath d='M12 3 2 21h20z'/%3E%3Cpath d='M12 10v4M12 17.5v.5'/%3E%3C/svg%3E");
+    }
+    &:where([variant="danger"]) {
+      --m-toast-tone: var(--color-danger);
+      --m-toast-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='square'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 7v6M12 16.5v.5'/%3E%3C/svg%3E");
     }
   }
   /* --toast-position overrides (base = bottom-right). Style queries read
