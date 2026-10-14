@@ -408,6 +408,10 @@
     "border-top-color": "rgba(0, 0, 0, 0)",
     "padding-top": "16px"
    },
+   "menu.heading": {
+    "font-size": "11px",
+    "text-align": "start"
+   },
    "menu.item": {
     "font-size": "14px",
     "min-height": "36px",
@@ -1566,6 +1570,10 @@
    "list.undivided": {
     "border-top-color": "rgba(0, 0, 0, 0)",
     "padding-top": "16px"
+   },
+   "menu.heading": {
+    "font-size": "11px",
+    "text-align": "start"
    },
    "menu.item": {
     "font-size": "14px",

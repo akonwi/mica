@@ -3045,6 +3045,9 @@
     background: var(--color-surface-overlay); color: var(--color-text);
     border: 1px solid var(--color-border); border-radius: var(--radius-md);
     padding: var(--space-2xs); inline-size: var(--menu-width, 14rem); font-size: var(--text-md);
+    /* align is an HTML presentational hint (text-align) on any element;
+       here it only places the menu (menu.js), so captions stay start. */
+    text-align: start;
   }
   :where(m-menu:not([popover])) { display: block; }
   :where(m-menu[data-m-menu-enhanced]) {

@@ -77,6 +77,7 @@ const PROBES: [string, string, string[]][] = [
   ["combobox.option", "m-combobox [role=option]", ["font-size", "padding-top", "border-radius"]],
   ["menu.shell", "#demo-action-menu", ["background-color", "border-top-width", "padding-top"]],
   ["menu.item", "#demo-action-menu > button", ["font-size", "min-height", "padding-left"]],
+  ["menu.heading", "#demo-action-menu > [data-menu-heading]", ["font-size", "text-align"]],
   ["scrollbar", "#scrollbar-demo [role=region]", ["scrollbar-color", "scrollbar-width"]],
   ["header", "#header-demo m-header", ["display", "background-color", "border-bottom-color", "padding-top"]],
   ["header.end", "#demo-header-wide", ["display", "justify-content", "text-align"]],
