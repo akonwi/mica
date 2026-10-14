@@ -2384,8 +2384,12 @@
     font-size: var(--header-font-size, var(--text-md));
     overflow-wrap: anywhere;
   }
+  /* Panels (and the collapsed Menu) are surface-overlay, which equals
+     surface-raised in dark: rows use the shared overlay-row fill. */
   :where(m-header > nav[data-navigation-menu] [data-nav-panel] a):hover:not([aria-disabled="true"]),
-  :where(m-header > nav[data-navigation-menu] [data-nav-panel] a)[aria-current="page"] { background: var(--color-surface-raised); }
+  :where(m-header > nav[data-navigation-menu] [data-nav-panel] a)[aria-current="page"] {
+    background: color-mix(in oklch, var(--color-text) 8%, var(--color-surface-overlay));
+  }
   :where(m-header > nav[data-navigation-menu] [data-nav-panel] a)[aria-disabled="true"] { opacity: .5; }
   :where(m-header > nav[data-navigation-menu] [data-nav-panel] strong) { display: block; font-weight: var(--header-strong-weight, 650); }
   :where(m-header > nav[data-navigation-menu] [data-nav-panel] small) {
@@ -2398,6 +2402,12 @@
   }
   :where(m-header[data-m-header-collapsed] > nav[data-navigation-menu] > details) { flex-shrink: 0; }
   :where(m-header[data-m-header-collapsed] > nav[data-navigation-menu] > details > summary) { min-block-size: var(--header-target-height, 2.75rem); }
+  /* Inside the surface-overlay Menu, summaries take the overlay-row fill
+     too; specificity matches the bar's :hover / [open] rules. */
+  :where(m-header[data-m-header-collapsed] > nav[data-navigation-menu] > details > summary):hover,
+  :where(m-header[data-m-header-collapsed] > nav[data-navigation-menu] > details)[open] > :where(summary) {
+    background: color-mix(in oklch, var(--color-text) 8%, var(--color-surface-overlay));
+  }
   :where(m-header[data-m-header-collapsed] > nav[data-navigation-menu] > details > [data-nav-panel]) {
     position: static; inline-size: auto; max-block-size: none;
     margin: var(--space-xs) var(--space-sm); padding: 0 0 0 var(--space-xs);

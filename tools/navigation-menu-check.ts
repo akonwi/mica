@@ -69,9 +69,9 @@ for (const engine of [chromium, webkit]) {
     }
     const standalone = await browser.newPage();
     await standalone.goto('http://localhost:8471/demo.html');
-    await standalone.locator('#navigation-menu-demo summary').click();
+    await standalone.locator('#navigation-menu-demo summary').first().click();
     await standalone.waitForTimeout(100);
-    assert(await standalone.locator('#navigation-menu-demo details').getAttribute('open') !== null, 'No-toggle enhancement closed group');
+    assert(await standalone.locator('#navigation-menu-demo details').first().getAttribute('open') !== null, 'No-toggle enhancement closed group');
     await standalone.close();
     const page = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     await page.goto('http://localhost:8471/examples/navigation-menu.html');

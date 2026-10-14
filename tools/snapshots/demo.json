@@ -846,6 +846,22 @@
     "color": "oklch(0.96 0 263)",
     "text-decoration-color": "oklch(0.96 0 263)"
    },
+   "navigation.collapsed.panel.current": {
+    "background-color": "oklch(0.2332 0 263)"
+   },
+   "navigation.collapsed.summary.hover": {
+    "background-color": "oklch(0.2332 0 263)"
+   },
+   "navigation.collapsed.summary.open": {
+    "background-color": "oklch(0.2332 0 263)",
+    "min-block-size": "44px"
+   },
+   "navigation.panel.current": {
+    "background-color": "oklch(0.2332 0 263)"
+   },
+   "navigation.panel.link.hover": {
+    "background-color": "oklch(0.2332 0 263)"
+   },
    "pagination.button.hover": {
     "background-color": "oklch(0.17 0 263)"
    },
@@ -1971,6 +1987,22 @@
    "link.hover": {
     "color": "oklch(0.18 0 263)",
     "text-decoration-color": "oklch(0.18 0 263)"
+   },
+   "navigation.collapsed.panel.current": {
+    "background-color": "oklch(0.9344 0 263)"
+   },
+   "navigation.collapsed.summary.hover": {
+    "background-color": "oklch(0.9344 0 263)"
+   },
+   "navigation.collapsed.summary.open": {
+    "background-color": "oklch(0.9344 0 263)",
+    "min-block-size": "44px"
+   },
+   "navigation.panel.current": {
+    "background-color": "oklch(0.9344 0 263)"
+   },
+   "navigation.panel.link.hover": {
+    "background-color": "oklch(0.9344 0 263)"
    },
    "pagination.button.hover": {
     "background-color": "oklch(0.973 0 263)"

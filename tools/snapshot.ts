@@ -679,6 +679,43 @@ try {
       await page.mouse.move(0, 0);
       await toggleHeaderMenu();
 
+      // Navigation-menu panel rows (surface-overlay), desktop and collapsed.
+      // Disclosures and the Menu popover are opened by script (modality).
+      // The desktop panel is fixed-positioned from the summary's viewport
+      // rect, so scroll first: a later hover-scroll would strand it.
+      const openNavGroup = async (sel: string, open: boolean) => {
+        await page.evaluate(([s, o]) => {
+          const d = document.querySelector(s as string) as HTMLDetailsElement;
+          if (o) d.scrollIntoView({ block: "center" });
+          d.open = o as boolean;
+        }, [sel, open] as const);
+        await page.waitForTimeout(100);
+      };
+      await openNavGroup("#navigation-menu-demo m-header:not([data-m-header-collapsed]) details", true);
+      states["navigation.panel.current"] = await probe(
+        "#navigation-menu-demo m-header:not([data-m-header-collapsed]) [data-nav-panel] a[aria-current]", ["background-color"]);
+      await page.hover("#navigation-menu-demo m-header:not([data-m-header-collapsed]) [data-nav-panel] a:not([aria-current])");
+      await page.waitForTimeout(50);
+      states["navigation.panel.link.hover"] = await probe(
+        "#navigation-menu-demo m-header:not([data-m-header-collapsed]) [data-nav-panel] a:not([aria-current])", ["background-color"]);
+      await page.mouse.move(0, 0);
+      await openNavGroup("#navigation-menu-demo m-header:not([data-m-header-collapsed]) details", false);
+      const toggleNavMenu = () => page.evaluate(() =>
+        (document.querySelector("#demo-navmenu-compact") as HTMLElement).togglePopover());
+      await toggleNavMenu();
+      await page.hover("#demo-navmenu-compact details > summary");
+      await page.waitForTimeout(50);
+      states["navigation.collapsed.summary.hover"] = await probe(
+        "#demo-navmenu-compact details > summary", ["background-color"]);
+      await page.mouse.move(0, 0);
+      await openNavGroup("#demo-navmenu-compact details", true);
+      states["navigation.collapsed.summary.open"] = await probe(
+        "#demo-navmenu-compact details > summary", ["background-color", "min-block-size"]);
+      states["navigation.collapsed.panel.current"] = await probe(
+        "#demo-navmenu-compact [data-nav-panel] a[aria-current]", ["background-color"]);
+      await openNavGroup("#demo-navmenu-compact details", false);
+      await toggleNavMenu();
+
       const tabsOverflow = await page.evaluate(() => {
         const rail = document.querySelector('m-tabs[variant="underline"] > nav') as HTMLElement;
         const tabs = [...rail.querySelectorAll("button")];
