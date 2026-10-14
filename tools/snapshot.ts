@@ -665,6 +665,20 @@ try {
       await toggleCrumbs();
       await page.mouse.move(0, 0);
 
+      // Collapsed header Menu panel (surface-overlay): current + hovered link
+      // fills. Opened by script for the same focus-modality reason.
+      const toggleHeaderMenu = () => page.evaluate(() =>
+        (document.querySelector("#demo-header-nav") as HTMLElement).togglePopover());
+      await toggleHeaderMenu();
+      states["header.menu.current"] = await probe(
+        "#demo-header-nav > [aria-current]", ["background-color", "color", "font-weight"]);
+      await page.hover("#demo-header-nav > a:first-child");
+      await page.waitForTimeout(50);
+      states["header.menu.link.hover"] = await probe(
+        "#demo-header-nav > a:first-child", ["background-color", "color"]);
+      await page.mouse.move(0, 0);
+      await toggleHeaderMenu();
+
       const tabsOverflow = await page.evaluate(() => {
         const rail = document.querySelector('m-tabs[variant="underline"] > nav') as HTMLElement;
         const tabs = [...rail.querySelectorAll("button")];

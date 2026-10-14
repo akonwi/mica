@@ -827,6 +827,15 @@
    "drawer.reopened-after-dismiss": {
     "translate": "0px"
    },
+   "header.menu.current": {
+    "background-color": "oklch(0.2332 0 263)",
+    "color": "oklch(0.96 0 263)",
+    "font-weight": "650"
+   },
+   "header.menu.link.hover": {
+    "background-color": "oklch(0.2332 0 263)",
+    "color": "oklch(0.96 0 263)"
+   },
    "input.focus-ring": {
     "outline-color": "oklch(0.7 0.21 263)",
     "outline-offset": "2px",
@@ -1943,6 +1952,15 @@
    },
    "drawer.reopened-after-dismiss": {
     "translate": "0px"
+   },
+   "header.menu.current": {
+    "background-color": "oklch(0.9344 0 263)",
+    "color": "oklch(0.18 0 263)",
+    "font-weight": "650"
+   },
+   "header.menu.link.hover": {
+    "background-color": "oklch(0.9344 0 263)",
+    "color": "oklch(0.18 0 263)"
    },
    "input.focus-ring": {
     "outline-color": "oklch(0.55 0.21 263)",

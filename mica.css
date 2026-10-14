@@ -2310,6 +2310,13 @@
     animation: none;
   }
   :where(m-header > nav[popover] > a) { min-block-size: var(--header-target-height, 2.75rem); flex-shrink: 0; }
+  /* Shared overlay-row fill (select, menu, command, breadcrumbs): the panel
+     is surface-overlay, which equals surface-raised in dark, so the inline
+     hover/current fill would vanish. Specificity matches the inline rules. */
+  :where(m-header > nav[popover] > a):hover:not([aria-disabled="true"]),
+  :where(m-header > nav[popover] > a)[aria-current="page"] {
+    background: color-mix(in oklch, var(--color-text) 8%, var(--color-surface-overlay));
+  }
   :where(m-header > nav[popover] > [data-compact]) { display: inline-flex; }
   :where(m-header > nav[popover] > :not([data-compact]) + [data-compact]) { border-block-start: 1px solid var(--color-border); }
   :where(m-header > [data-menu] svg) { inline-size: 1rem; block-size: 1rem; }
