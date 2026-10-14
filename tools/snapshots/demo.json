@@ -350,7 +350,8 @@
    },
    "header.end": {
     "display": "flex",
-    "justify-content": "end"
+    "justify-content": "end",
+    "text-align": "start"
    },
    "header.trigger": {
     "display": "flex"
@@ -1492,7 +1493,8 @@
    },
    "header.end": {
     "display": "flex",
-    "justify-content": "end"
+    "justify-content": "end",
+    "text-align": "start"
    },
    "header.trigger": {
     "display": "flex"

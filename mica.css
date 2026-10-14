@@ -2234,6 +2234,9 @@
     border-block-end: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text);
+    /* align="end" is also an HTML presentational hint (text-align: end on
+       any element); reset so it only places links, not panel text. */
+    text-align: start;
   }
   :where(m-header > [data-brand]) {
     display: inline-flex;

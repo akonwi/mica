@@ -79,7 +79,7 @@ const PROBES: [string, string, string[]][] = [
   ["menu.item", "#demo-action-menu > button", ["font-size", "min-height", "padding-left"]],
   ["scrollbar", "#scrollbar-demo [role=region]", ["scrollbar-color", "scrollbar-width"]],
   ["header", "#header-demo m-header", ["display", "background-color", "border-bottom-color", "padding-top"]],
-  ["header.end", "#demo-header-wide", ["display", "justify-content"]],
+  ["header.end", "#demo-header-wide", ["display", "justify-content", "text-align"]],
   ["header.current", "#demo-header-wide > [aria-current]", ["color", "background-color", "font-weight"]],
   ["header.compact", "#demo-header-nav", ["display"]],
   ["header.trigger", '#header-demo button[data-menu]', ["display"]],
