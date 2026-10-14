@@ -3139,8 +3139,10 @@
     align-items: var(--align, stretch);
     gap: var(--gap, var(--space-md));
 
-    /* the stack owns spacing; preset rhythm yields to gap */
-    & > * { margin-block: 0; }
+    /* the stack owns spacing; preset rhythm yields to gap. Popovers are
+       skipped: they render in the top layer, and their block margin is
+       the anchored gap to the invoker. :where() keeps (0,0,1). */
+    & > :where(:not([popover])) { margin-block: 0; }
   }
 
   /* --- m-hstack: one horizontal row; `wrap` to allow wrapping ------ */
@@ -3152,7 +3154,7 @@
 
     &[wrap] { flex-wrap: wrap; }
 
-    & > * { margin-block: 0; }
+    & > :where(:not([popover])) { margin-block: 0; } /* popovers keep their anchored gap (see m-vstack) */
 
     &[justify="start"]   { --justify: flex-start; }
     &[justify="center"]  { --justify: center; }
@@ -3335,7 +3337,7 @@
     &[pad="lg"]   { --pad: var(--space-lg); }
     &[pad="xl"]   { --pad: var(--space-xl); }
 
-    & > * { margin-block: 0; }
+    & > :where(:not([popover])) { margin-block: 0; } /* popovers keep their anchored gap (see m-vstack) */
 
     & > :is(h1, [data-principal]) { margin-block: auto; }
 

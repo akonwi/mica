@@ -878,9 +878,9 @@
    },
    "popover.anchored": {
     "dx": 0,
-    "dy": 0,
+    "dy": 4,
     "margin-left": "0px",
-    "margin-top": "0px"
+    "margin-top": "4px"
    },
    "popover.open": {
     "background-color": "oklch(0.17 0 263)",
@@ -2037,9 +2037,9 @@
    },
    "popover.anchored": {
     "dx": 0,
-    "dy": 0,
+    "dy": 4,
     "margin-left": "0px",
-    "margin-top": "0px"
+    "margin-top": "4px"
    },
    "popover.open": {
     "background-color": "oklch(1 0 263)",
