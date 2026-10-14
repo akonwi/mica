@@ -75,6 +75,7 @@ const TOKENS: Record<string, string> = Object.fromEntries(
 const PROBES: [string, string, string[]][] = [
   ["combobox.shell", "m-combobox [data-combobox-popup]", ["background-color", "border-top-width", "padding-top", "inset-block-start"]],
   ["combobox.option", "m-combobox [role=option]", ["font-size", "padding-top", "border-radius"]],
+  ["combobox.status", "#combobox-status [data-combobox-popup] > [role=status]", ["padding-top", "padding-left", "padding-right", "color"]],
   ["menu.shell", "#demo-action-menu", ["background-color", "border-top-width", "padding-top"]],
   ["menu.item", "#demo-action-menu > button", ["font-size", "min-height", "padding-left"]],
   ["menu.heading", "#demo-action-menu > [data-menu-heading]", ["font-size", "text-align"]],
@@ -651,6 +652,25 @@ try {
         states[name] = await probe(sel, props);
       }
       await page.mouse.move(0, 0);
+
+      // Combobox rows: unhide the popup by script (focusing the input would
+      // open it but flip the focus modality the focus-ring probes rely on).
+      const showCombobox = (show: boolean) => page.evaluate((s) => {
+        const pop = document.querySelector("#combobox-status [data-combobox-popup]") as HTMLElement;
+        pop.hidden = !s;
+        if (s) pop.scrollIntoView({ block: "center" });
+      }, show);
+      await showCombobox(true);
+      await page.hover("#combobox-status [role=option]:not([aria-disabled])");
+      await page.waitForTimeout(50);
+      states["combobox.option.hover"] = await probe(
+        "#combobox-status [role=option]:not([aria-disabled])", ["background-color"]);
+      await page.hover('#combobox-status [role=option][aria-disabled="true"]');
+      await page.waitForTimeout(50);
+      states["combobox.option.disabled.hover"] = await probe(
+        '#combobox-status [role=option][aria-disabled="true"]', ["background-color", "opacity"]);
+      await page.mouse.move(0, 0);
+      await showCombobox(false);
 
       // Breadcrumb ancestor menu: open the native disclosure, hover a row.
       // Opened by script, not click: a mouse click would flip the

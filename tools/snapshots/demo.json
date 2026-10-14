@@ -272,6 +272,12 @@
     "inset-block-start": "calc(100% + 8px)",
     "padding-top": "4px"
    },
+   "combobox.status": {
+    "color": "oklch(0.71 0 263)",
+    "padding-left": "8px",
+    "padding-right": "8px",
+    "padding-top": "12px"
+   },
    "command.divider": {
     "border-top-width": "1px"
    },
@@ -813,6 +819,13 @@
    },
    "card.header.button.hover": {
     "background-color": "oklch(0.2 0 263)"
+   },
+   "combobox.option.disabled.hover": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "opacity": "0.45"
+   },
+   "combobox.option.hover": {
+    "background-color": "oklch(0.2332 0 263)"
    },
    "dialog.backdrop": {
     "background-color": "oklch(0 0 0 / 0.4)"
@@ -1435,6 +1448,12 @@
     "inset-block-start": "calc(100% + 8px)",
     "padding-top": "4px"
    },
+   "combobox.status": {
+    "color": "oklch(0.44 0 263)",
+    "padding-left": "8px",
+    "padding-right": "8px",
+    "padding-top": "12px"
+   },
    "command.divider": {
     "border-top-width": "1px"
    },
@@ -1976,6 +1995,13 @@
    },
    "card.header.button.hover": {
     "background-color": "oklch(0.952 0 263)"
+   },
+   "combobox.option.disabled.hover": {
+    "background-color": "rgba(0, 0, 0, 0)",
+    "opacity": "0.45"
+   },
+   "combobox.option.hover": {
+    "background-color": "oklch(0.9344 0 263)"
    },
    "dialog.backdrop": {
     "background-color": "oklch(0 0 0 / 0.4)"

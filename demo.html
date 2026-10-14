@@ -779,6 +779,15 @@
             <option>Zig</option>
           </datalist>
         </m-combobox>
+        <m-combobox id="combobox-status" filter="manual" style="max-inline-size: var(--size-md)">
+          <input list="demo-places" value="Paris" aria-label="Location" />
+          <datalist id="demo-places">
+            <option value="Paris" label="Île-de-France, France"></option>
+            <option value="Paris" label="Texas, United States" data-key="paris-tx"></option>
+            <option value="Paris" label="Ontario, Canada" data-key="paris-on" disabled></option>
+          </datalist>
+          <p role="status">Showing 3 of 14 results.</p>
+        </m-combobox>
         <p>Type to filter; arrows + Enter to pick. Without the module this is a
         native <code>datalist</code> — functional autocomplete, just unstylable.</p>
       </m-vstack>

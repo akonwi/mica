@@ -1856,7 +1856,8 @@
     font-size: var(--text-md);
     cursor: default;
 
-    &:hover,
+    /* disabled rows can't be chosen (combobox.js skips them): no fill */
+    &:hover:not([aria-disabled="true"]),
     &[aria-selected="true"] {
       background: color-mix(in oklch, var(--color-text) 8%, var(--color-surface-overlay));
       color: var(--color-text);
@@ -1866,7 +1867,8 @@
   :where(m-combobox > input) { display: block; inline-size: 100%; }
   :where(m-combobox [role="option"] > small) { display: block; color: var(--color-text-muted); font-size: var(--text-xs); }
   :where(m-combobox [role="option"][aria-disabled="true"]) { opacity: .45; }
-  :where(m-combobox [data-combobox-popup] > [role="status"]) { margin: 0; padding: var(--space-sm); font-size: var(--text-md); color: var(--color-text-muted); }
+  /* inline padding matches options so status text lines up with labels */
+  :where(m-combobox [data-combobox-popup] > [role="status"]) { margin: 0; padding: var(--space-sm) var(--space-xs); font-size: var(--text-md); color: var(--color-text-muted); }
   :where(m-combobox) [hidden] { display: none; }
 
   /* --- tabs: m-tabs + tabs.js (JS-enhanced) ------------------------------ *
