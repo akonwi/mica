@@ -179,6 +179,12 @@
     --color-danger:         light-dark(oklch(52% var(--status-chroma) var(--danger-hue)), oklch(70% var(--status-chroma) var(--danger-hue)));
     --color-on-danger:      light-dark(oklch(99% 0.01 var(--danger-hue)), oklch(18% 0.02 var(--danger-hue)));
     --color-danger-text:    light-dark(oklch(44% calc(var(--status-chroma) * 0.9) var(--danger-hue)), oklch(80% calc(var(--status-chroma) * 0.9) var(--danger-hue)));
+    /* Danger states are derived, so any --color-danger gets them. They
+       press toward the text color (darker in light, lighter in dark),
+       mixed in oklab: the neutrals carry --hue at zero chroma, and an
+       oklch mix would rotate the red toward that hue (pink). */
+    --color-danger-hover:   color-mix(in oklab, var(--color-danger) 88%, var(--color-text));
+    --color-danger-active:  color-mix(in oklab, var(--color-danger) 76%, var(--color-text));
 
     --color-success-surface: light-dark(oklch(95% calc(var(--status-chroma) * 0.25) var(--success-hue)), oklch(27% calc(var(--status-chroma) * 0.35) var(--success-hue)));
     --color-success-border:  light-dark(oklch(79% calc(var(--status-chroma) * 0.65) var(--success-hue)), oklch(46% calc(var(--status-chroma) * 0.8) var(--success-hue)));
@@ -388,13 +394,13 @@
       color: var(--color-on-danger);
 
       &:hover:not(:disabled, [aria-disabled="true"]) {
-        background: color-mix(in oklch, var(--color-danger) 88%, var(--color-text));
+        background: var(--color-danger-hover);
       }
       &:active:not(:disabled, [aria-disabled="true"]) {
-        background: color-mix(in oklch, var(--color-danger) 76%, var(--color-text));
+        background: var(--color-danger-active);
       }
       &:where(:disabled, [aria-disabled="true"]) {
-        background: color-mix(in oklch, var(--color-danger) 40%, var(--color-border));
+        background: color-mix(in oklab, var(--color-danger) 40%, var(--color-border));
       }
     }
 

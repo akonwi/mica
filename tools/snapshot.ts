@@ -134,6 +134,7 @@ const PROBES: [string, string, string[]][] = [
   ["button.primary", 'button[data-variant="primary"]', ["background-color", "color", "border-top-color"]],
   ["button.ghost", 'button[data-variant="ghost"]', ["background-color", "border-top-color"]],
   ["button.danger", 'button[data-variant="danger"]', ["background-color", "color"]],
+  ["button.danger.disabled", 'button[data-variant="danger"][disabled]', ["background-color"]],
   ["button.small", 'button[data-size="small"]', ["font-size", "padding-left"]],
   ["input.text", 'input[type="text"]',
     ["background-color", "border-top-color", "font-size", "border-radius"]],
@@ -684,6 +685,12 @@ try {
         await page.waitForTimeout(50); // let the 0.01ms reduced-motion transition finish
         states[name] = await probe(sel, props);
       }
+      // Pressed danger button: --color-danger-active.
+      await page.hover('button[data-variant="danger"]:not([disabled])');
+      await page.mouse.down();
+      await page.waitForTimeout(50);
+      states["button.danger.active"] = await probe('button[data-variant="danger"]:not([disabled])', ["background-color"]);
+      await page.mouse.up();
       await page.mouse.move(0, 0);
 
       // Combobox rows: unhide the popup by script (focusing the input would

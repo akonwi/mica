@@ -151,6 +151,9 @@
     "background-color": "oklch(0.7 0.18 25)",
     "color": "oklch(0.18 0.02 25)"
    },
+   "button.danger.disabled": {
+    "background-color": "oklab(0.46 0.0652542 0.0304285)"
+   },
    "button.ghost": {
     "background-color": "rgba(0, 0, 0, 0)",
     "border-top-color": "rgba(0, 0, 0, 0)"
@@ -833,8 +836,11 @@
     "background-color": "oklch(0.17 0 263)",
     "color": "oklch(0.96 0 263)"
    },
+   "button.danger.active": {
+    "background-color": "oklab(0.7624 0.123983 0.0578142)"
+   },
    "button.danger.hover": {
-    "background-color": "oklch(0.7312 0.1584 10.36)"
+    "background-color": "oklab(0.7312 0.143559 0.0669427)"
    },
    "button.hover": {
     "background-color": "oklch(0.2 0 263)"
@@ -968,10 +974,10 @@
    },
    "tabs.underline.focus-ring": {
     "box-shadow": "oklch(0.7 0.21 263) 0px -1px 0px 0px inset",
-    "outline-color": "oklch(0.7 0.21 263)",
-    "outline-offset": "-2px",
-    "outline-style": "solid",
-    "outline-width": "2px"
+    "outline-color": "oklch(0.96 0 263)",
+    "outline-offset": "0px",
+    "outline-style": "none",
+    "outline-width": "3px"
    },
    "tabs.underline.hover": {
     "background-color": "rgba(0, 0, 0, 0)",
@@ -1152,7 +1158,9 @@
    "--color-border": "oklch(0.3 0 263)",
    "--color-border-strong": "oklch(0.46 0 263)",
    "--color-danger": "oklch(0.7 0.18 25)",
+   "--color-danger-active": "oklab(0.7624 0.123983 0.0578142)",
    "--color-danger-border": "oklch(0.46 0.144 25)",
+   "--color-danger-hover": "oklab(0.7312 0.143559 0.0669427)",
    "--color-danger-surface": "oklch(0.27 0.063 25)",
    "--color-danger-text": "oklch(0.8 0.162 25)",
    "--color-fill": "oklch(0.17 0 263)",
@@ -1386,6 +1394,9 @@
    "button.danger": {
     "background-color": "oklch(0.52 0.18 25)",
     "color": "oklch(0.99 0.01 25)"
+   },
+   "button.danger.disabled": {
+    "background-color": "oklab(0.742 0.0652542 0.0304285)"
    },
    "button.ghost": {
     "background-color": "rgba(0, 0, 0, 0)",
@@ -2069,8 +2080,11 @@
     "background-color": "oklch(0.973 0 263)",
     "color": "oklch(0.18 0 263)"
    },
+   "button.danger.active": {
+    "background-color": "oklab(0.4384 0.123983 0.0578142)"
+   },
    "button.danger.hover": {
-    "background-color": "oklch(0.4792 0.1584 10.36)"
+    "background-color": "oklab(0.4792 0.143559 0.0669427)"
    },
    "button.hover": {
     "background-color": "oklch(0.952 0 263)"
@@ -2204,10 +2218,10 @@
    },
    "tabs.underline.focus-ring": {
     "box-shadow": "oklch(0.55 0.21 263) 0px -1px 0px 0px inset",
-    "outline-color": "oklch(0.55 0.21 263)",
-    "outline-offset": "-2px",
-    "outline-style": "solid",
-    "outline-width": "2px"
+    "outline-color": "oklch(0.18 0 263)",
+    "outline-offset": "0px",
+    "outline-style": "none",
+    "outline-width": "3px"
    },
    "tabs.underline.hover": {
     "background-color": "rgba(0, 0, 0, 0)",
@@ -2388,7 +2402,9 @@
    "--color-border": "oklch(0.89 0 263)",
    "--color-border-strong": "oklch(0.74 0 263)",
    "--color-danger": "oklch(0.52 0.18 25)",
+   "--color-danger-active": "oklab(0.4384 0.123983 0.0578142)",
    "--color-danger-border": "oklch(0.79 0.117 25)",
+   "--color-danger-hover": "oklab(0.4792 0.143559 0.0669427)",
    "--color-danger-surface": "oklch(0.95 0.045 25)",
    "--color-danger-text": "oklch(0.44 0.162 25)",
    "--color-fill": "oklch(0.973 0 263)",

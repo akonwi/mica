@@ -13,7 +13,10 @@ status hues, and the radius tokens. Everything below derives from them.</p>
 <code>--color-accent</code> (the one blue: focus, selection), the quiet
 interactive fills (<code>--color-fill</code>, <code>-hover</code>,
 <code>-active</code>, <code>-strong</code>: secondary buttons, menu hover,
-rails and tracks), and the status roles (<code>--color-danger…</code>).</p><h2>Type scale</h2><p>UI-centered: <code>--text-md</code> (14px) is the interface default.
+rails and tracks), and the status roles (<code>--color-danger…</code>).
+Primary and danger derive their hover and pressed states (<code>--color-primary-hover</code>,
+<code>-active</code>; <code>--color-danger-hover</code>, <code>-active</code>), so a
+new value for either gets matching states.</p><h2>Type scale</h2><p>UI-centered: <code>--text-md</code> (14px) is the interface default.
 <code>--text-2xs</code> 11 · <code>--text-xs</code> 12 · <code>--text-sm</code> 13 ·
 <code>--text-md</code> 14 · <code>--text-lg</code> 16 · <code>--text-xl</code> 24.
 Field text keeps a literal 16px floor regardless of the scale (iOS zoom).</p>
