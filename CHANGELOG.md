@@ -2,15 +2,83 @@
 
 ## Unreleased
 
+## v0.15.0 — 2026-10-14
+
+Additive release; existing markup and module imports continue to work. No migration is required, but several defaults repaint: plain links now take the surrounding text color with a quiet underline, card header buttons without a variant render as ghost buttons, toast variants show a status glyph instead of a colored start edge, underline tabs draw a 1px accent line, and anchored popovers line up with their trigger's start edge. Sidebar collapse now persists by default; set `persist="false"` on `m-sidebar-layout` to opt out.
+
+### Added
+
+- Fill roles `--color-fill`, `--color-fill-hover`, `--color-fill-active`, and `--color-fill-strong`, and a UI type scale `--text-2xs` through `--text-xl` (11–24px, `--text-md` = 14px). Components now read roles and the scale instead of raw scale steps and literal sizes, so themes reach every control. Field text keeps its literal 16px floor.
+
+- `--color-danger-hover` and `--color-danger-active`, derived from `--color-danger` like primary's states, so a theme that changes the danger color gets matching button states.
+
 ### Changed
 
 - Sidebar desktop collapse state now persists by default in a cookie keyed by the panel ID. Set `persist="false"` on `m-sidebar-layout` to retain the previous nonpersistent behavior. Mobile drawer state is not saved.
+
+- The preset styles plain links: they take the surrounding text color (muted copy keeps muted links) with a 1px `--color-border-strong` underline that firms to the text color on hover. Component links keep their own styling. Accent-colored links are a one-line theme snippet: `:where(a:any-link) { color: var(--color-accent); }`. Card header and footer links match the card's header and footer text sizes.
+
+- A card header button without `data-variant` renders as a ghost button, so header actions read as quiet. Set `data-variant="primary"` or `"danger"` to emphasize one; the bordered look is a theme snippet in the CSS.
+
+- Toast variants (success, warning, danger) mark themselves with a 14px status glyph before the title instead of a 2px colored start edge. The panel border stays neutral. RTL places the glyph at the right.
+
+- Underline tabs draw the rail as a 1px line, and the selected tab's accent line is 1px and replaces the rail under it instead of stacking above it. The rail is 1px shorter.
+
+- Anchored popovers and `.menu` popovers line up with their trigger's start edge; they were inset 4px. The 4px gap below the trigger is unchanged.
+
+- Grouped accordions stack flush: adjacent `details` drop the flow margin between them. A lone disclosure keeps it.
+
+- Pagination button pages match link pages (34px, regular weight, same hover), the ellipsis is muted and sized with the page numbers, and the rows-per-page select is 32px and matches the footer text size on mouse and trackpad. Touch keeps 16px.
+
+- Toasts keep even 24px gutters on phones.
 
 ### Fixed
 
 - Native `[data-list]` rows reset preset prose margins, removing unintended spacing and gaps around full-row hover backgrounds. Ordinary lists retain their prose spacing.
 
 - Sidebar icon collapse accepts avatars without an icon marker and preserves `--avatar-size`. Invalid anatomy keeps an unavailable desktop toggle visible with an explanation and actionable console diagnostic; fixing the markup restores collapse automatically. Mobile navigation stays usable.
+
+- Danger button hover, pressed, and disabled fills stay red. They mixed toward the neutrals in oklch, which pulled them toward the accent hue (pink when pressed, mauve when disabled).
+
+- A disabled radio in a group with no selection no longer paints as selected.
+
+- Select picker options use `--color-text` instead of the browser's pure black or white.
+
+- Disabled segmented selections keep readable text on the primary fill; segments with a set width center their labels.
+
+- A disabled `m-field` dims its label and helper text along with the control.
+
+- Callout titles written as `p` get the same spacing as heading titles, and the dismiss button's SVG is sized to 1rem.
+
+- List avatars used as `data-list-leading` size their initials to the leading box and use the text color.
+
+- Links dressed as buttons (`a.btn`) in card headers and footers keep button size. A ghost card-header button's label lines up with the card's content edge.
+
+- The stat-grid frame stays a full 1px on rounded corners.
+
+- Blockquotes drop the browser's inline margins so the rule meets the text edge.
+
+- Breadcrumbs no longer inherit accordion and prose spacing, and the ancestor menu's row hover is visible in dark mode.
+
+- Tabs reveal an initially selected tab that starts past the rail edge, overflow markers sit at the rail edge, edge tabs scroll fully into view, and WebKit no longer cuts the last tab off short rails.
+
+- Long stepper values end in an ellipsis instead of a hard clip.
+
+- Header Menu panel rows and navigation-menu panel rows have visible hover and current fills in dark mode.
+
+- `align="end"` on `m-header` and `m-menu` positions them without right-aligning their text or menu headings.
+
+- `aria-disabled` items in `.menu` popovers dim like disabled ones.
+
+- Popovers inside `m-vstack`, `m-hstack`, and `m-cover` keep their 4px gap from the trigger.
+
+- Disabled combobox options no longer highlight on hover, and status text lines up with option labels.
+
+- The dialog, drawer, and toast close button is a compact 19×22 box, not a 36px-tall strip.
+
+- Command palette text edges line up at 20px, the input header stays hidden until `command.js` runs, and filtering no longer leaves a divider above the first visible group.
+
+- Data tables: pinned narrow-screen cells take the row hover fill, sort headers honor `--table-sort-target` (57px header, was 61), label-wrapped filter selects fill their row below 44rem, and state and loading rows take no hover.
 
 ## v0.14.0 — 2026-09-07
 
