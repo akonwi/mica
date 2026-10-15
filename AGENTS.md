@@ -34,8 +34,12 @@ to come from: CSS-only / native behavior / JS-enhanced),
   `tools/snapshots/`
   (JSON + PNGs, macOS-blessed). `bun run snapshot:check` diffs;
   `bun run snapshot` re-blesses.
-- `mockups/` — *live* design explorations only; emptied once a decision
-  is folded in (git history is the record). See the `mockups` skill.
+- Paper file "Mica" — the design source of truth: one artboard per
+  component (Light, Dark, Anatomy), bound to tokens. New designs are
+  explored and specified there before code; see the `mica-design` skill.
+- `mockups/` — live prototype pages, only for concepts that need real
+  interaction to judge; emptied once a decision is folded in (git
+  history is the record).
 
 ## Non-negotiable working rules
 
@@ -59,9 +63,11 @@ to come from: CSS-only / native behavior / JS-enhanced),
 4. **Enhancement discipline** (PROGRESSIVE.md): never fake interactive
    behavior in CSS. If accessibility requires JS, it's an opt-in
    enhancement module that *enhances working markup, never renders it*.
-5. **Design explorations go through the `mockups` skill**: real pages in
-   `mockups/` against the real `mica.css`, presented via glimpse, decision
-   before implementation.
+5. **Design happens in Paper first** (`mica-design` skill): explore on a
+   proposal artboard, decide with the user, spec the component artboard,
+   then write code to match and verify it against the canvas. Live
+   prototype pages in `mockups/` only when a concept needs interaction
+   to judge.
 
 ## CSS conventions
 
