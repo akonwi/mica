@@ -151,8 +151,6 @@ pointers; the footer's rows-per-page select is the one fine-pointer exception
   `prefers-color-scheme` media query in the tokens layer instead — which
   also means the `colorScheme`-style forcing trick does NOT flip them;
   use `emulateMedia`/OS scheme when probing them.
-- glimpse URL windows wrap pages in an iframe; the bridge lives in the
-  wrapper (see the global `glimpse-visuals` skill).
 - **Both test engines (Playwright Chromium AND WebKit) run ahead of
   shipped Safari.** Invoker commands worked in every local test while
   iOS 26.0 had no support (landed 26.2) — the rig cannot catch
